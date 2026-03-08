@@ -28,7 +28,7 @@
     "express": "^5.1.0",
     "express-rate-limit": "^8.2.1",
     "helmet": "^8.1.0",
-    "jsonwebtoken": "^9.0.2",
+    "jsonwebtoken": "^9.0.3",
     "minisearch": "^7.1.0",
     "openai": "^4.73.0",
     "postman-cli": "^1.24.2",
