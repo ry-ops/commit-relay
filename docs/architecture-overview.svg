@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <style>
+      @keyframes coordinatorPulse {
+        0%, 100% { filter: drop-shadow(0 0 6px #58a6ff); }
+        50% { filter: drop-shadow(0 0 18px #58a6ff) drop-shadow(0 0 30px rgba(88,166,255,0.4)); }
+      }
+      @keyframes flowDown1 {
+        0% { stroke-dashoffset: 20; }
+        100% { stroke-dashoffset: 0; }
+      }
+      @keyframes flowDown2 {
+        0% { stroke-dashoffset: 16; }
+        100% { stroke-dashoffset: 0; }
+      }
+      @keyframes fadeInNode {
+        0% { opacity: 0; transform: translateY(-8px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes subtleGlow {
+        0%, 100% { opacity: 0.7; }
+        50% { opacity: 1; }
+      }
+      .bg { fill: #0d1117; }
+      .coordinator-group { animation: coordinatorPulse 3s ease-in-out infinite; }
+      .coord-box { fill: #161b22; stroke: #58a6ff; stroke-width: 2; rx: 10; }
+      .coord-label { fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 600; text-anchor: middle; }
+      .coord-sub { fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 10px; text-anchor: middle; }
+      .master-box { fill: #161b22; stroke-width: 1.5; rx: 8; }
+      .master-label { fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 600; text-anchor: middle; }
+      .worker-box { fill: #0d1117; stroke-width: 1; rx: 6; }
+      .worker-label { fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 9.5px; text-anchor: middle; }
+      .flow-line-master { stroke-dasharray: 6 4; animation: flowDown1 0.8s linear infinite; }
+      .flow-line-worker { stroke-dasharray: 4 4; animation: flowDown2 0.6s linear infinite; }
+      .layer-label { fill: #484f58; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
+      .layer-line { stroke: #21262d; stroke-width: 1; stroke-dasharray: 4 4; }
+      .section-bg { rx: 12; opacity: 0.08; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect class="bg" width="800" height="500"/>
+
+  <!-- Layer labels -->
+  <text class="layer-label" x="20" y="68">Orchestration</text>
+  <line class="layer-line" x1="20" y1="78" x2="780" y2="78"/>
+
+  <text class="layer-label" x="20" y="188">Masters</text>
+  <line class="layer-line" x1="20" y1="198" x2="780" y2="198"/>
+
+  <text class="layer-label" x="20" y="318">Workers</text>
+  <line class="layer-line" x1="20" y1="328" x2="780" y2="328"/>
+
+  <!-- Section background groupings -->
+  <!-- Dev section -->
+  <rect class="section-bg" fill="#1f6feb" x="30" y="205" width="180" height="270"/>
+  <!-- Security section -->
+  <rect class="section-bg" fill="#f85149" x="225" y="205" width="140" height="270"/>
+  <!-- Inventory section -->
+  <rect class="section-bg" fill="#bc8cff" x="380" y="205" width="120" height="270"/>
+  <!-- CI/CD section -->
+  <rect class="section-bg" fill="#3fb950" x="515" y="205" width="130" height="270"/>
+  <!-- Dashboard section -->
+  <rect class="section-bg" fill="#58a6ff" x="660" y="205" width="120" height="270"/>
+
+  <!-- === COORDINATOR === -->
+  <g class="coordinator-group">
+    <rect class="coord-box" x="300" y="28" width="200" height="44"/>
+    <text class="coord-label" x="400" y="48">Coordinator</text>
+    <text class="coord-sub" x="400" y="62">MoE Router v4.0</text>
+  </g>
+
+  <!-- === FLOW LINES: Coordinator to Masters === -->
+  <line class="flow-line-master" x1="340" y1="72" x2="120" y2="210" stroke="#1f6feb" stroke-width="1.2"/>
+  <line class="flow-line-master" x1="370" y1="72" x2="295" y2="210" stroke="#f85149" stroke-width="1.2"/>
+  <line class="flow-line-master" x1="400" y1="72" x2="440" y2="210" stroke="#bc8cff" stroke-width="1.2"/>
+  <line class="flow-line-master" x1="430" y1="72" x2="580" y2="210" stroke="#3fb950" stroke-width="1.2"/>
+  <line class="flow-line-master" x1="460" y1="72" x2="720" y2="210" stroke="#58a6ff" stroke-width="1.2"/>
+
+  <!-- === MASTER AGENTS === -->
+  <!-- Development Master -->
+  <g style="animation: fadeInNode 0.6s ease-out 0.2s both;">
+    <rect class="master-box" x="45" y="210" width="150" height="40" stroke="#1f6feb"/>
+    <text class="master-label" x="120" y="235">Development</text>
+  </g>
+
+  <!-- Security Master -->
+  <g style="animation: fadeInNode 0.6s ease-out 0.4s both;">
+    <rect class="master-box" x="230" y="210" width="130" height="40" stroke="#f85149"/>
+    <text class="master-label" x="295" y="235">Security</text>
+  </g>
+
+  <!-- Inventory Master -->
+  <g style="animation: fadeInNode 0.6s ease-out 0.6s both;">
+    <rect class="master-box" x="390" y="210" width="100" height="40" stroke="#bc8cff"/>
+    <text class="master-label" x="440" y="235">Inventory</text>
+  </g>
+
+  <!-- CI/CD Master -->
+  <g style="animation: fadeInNode 0.6s ease-out 0.8s both;">
+    <rect class="master-box" x="520" y="210" width="120" height="40" stroke="#3fb950"/>
+    <text class="master-label" x="580" y="235">CI/CD</text>
+  </g>
+
+  <!-- Dashboard Master -->
+  <g style="animation: fadeInNode 0.6s ease-out 1.0s both;">
+    <rect class="master-box" x="670" y="210" width="100" height="40" stroke="#58a6ff"/>
+    <text class="master-label" x="720" y="235">Dashboard</text>
+  </g>
+
+  <!-- === FLOW LINES: Masters to Workers === -->
+  <!-- Dev master to workers -->
+  <line class="flow-line-worker" x1="90" y1="250" x2="75" y2="340" stroke="#1f6feb" stroke-width="1"/>
+  <line class="flow-line-worker" x1="120" y1="250" x2="120" y2="340" stroke="#1f6feb" stroke-width="1"/>
+  <line class="flow-line-worker" x1="150" y1="250" x2="175" y2="340" stroke="#1f6feb" stroke-width="1"/>
+
+  <!-- Security master to workers -->
+  <line class="flow-line-worker" x1="270" y1="250" x2="255" y2="340" stroke="#f85149" stroke-width="1"/>
+  <line class="flow-line-worker" x1="320" y1="250" x2="335" y2="340" stroke="#f85149" stroke-width="1"/>
+
+  <!-- Inventory master to worker -->
+  <line class="flow-line-worker" x1="440" y1="250" x2="440" y2="340" stroke="#bc8cff" stroke-width="1"/>
+
+  <!-- CI/CD master to worker -->
+  <line class="flow-line-worker" x1="580" y1="250" x2="580" y2="340" stroke="#3fb950" stroke-width="1"/>
+
+  <!-- === WORKER AGENTS === -->
+  <!-- Implementation Worker -->
+  <g style="animation: fadeInNode 0.6s ease-out 1.2s both;">
+    <rect class="worker-box" x="35" y="340" width="80" height="34" stroke="#1f6feb"/>
+    <text class="worker-label" x="75" y="361">Implement</text>
+  </g>
+
+  <!-- Fix Worker -->
+  <g style="animation: fadeInNode 0.6s ease-out 1.3s both;">
+    <rect class="worker-box" x="82" y="390" width="80" height="34" stroke="#1f6feb"/>
+    <text class="worker-label" x="122" y="411">Fix</text>
+  </g>
+
+  <!-- Test Worker -->
+  <g style="animation: fadeInNode 0.6s ease-out 1.4s both;">
+    <rect class="worker-box" x="135" y="340" width="80" height="34" stroke="#1f6feb"/>
+    <text class="worker-label" x="175" y="361">Test</text>
+  </g>
+
+  <!-- Scan Worker -->
+  <g style="animation: fadeInNode 0.6s ease-out 1.5s both;">
+    <rect class="worker-box" x="215" y="340" width="80" height="34" stroke="#f85149"/>
+    <text class="worker-label" x="255" y="361">Scan</text>
+  </g>
+
+  <!-- Security Fix Worker -->
+  <g style="animation: fadeInNode 0.6s ease-out 1.6s both;">
+    <rect class="worker-box" x="295" y="340" width="80" height="34" stroke="#f85149"/>
+    <text class="worker-label" x="335" y="361">Sec Fix</text>
+  </g>
+
+  <!-- Documentation Worker -->
+  <g style="animation: fadeInNode 0.6s ease-out 1.7s both;">
+    <rect class="worker-box" x="400" y="340" width="80" height="34" stroke="#bc8cff"/>
+    <text class="worker-label" x="440" y="361">Docs</text>
+  </g>
+
+  <!-- Analysis Worker -->
+  <g style="animation: fadeInNode 0.6s ease-out 1.8s both;">
+    <rect class="worker-box" x="540" y="340" width="80" height="34" stroke="#3fb950"/>
+    <text class="worker-label" x="580" y="361">Analysis</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(560, 430)">
+    <text class="worker-label" x="0" y="0" style="fill:#484f58; font-size:9px; text-anchor:start;">Color Key:</text>
+    <rect x="0" y="8" width="10" height="10" rx="2" fill="#1f6feb" opacity="0.8"/>
+    <text class="worker-label" x="14" y="17" style="text-anchor:start;">Development</text>
+    <rect x="80" y="8" width="10" height="10" rx="2" fill="#f85149" opacity="0.8"/>
+    <text class="worker-label" x="94" y="17" style="text-anchor:start;">Security</text>
+    <rect x="0" y="24" width="10" height="10" rx="2" fill="#bc8cff" opacity="0.8"/>
+    <text class="worker-label" x="14" y="33" style="text-anchor:start;">Inventory</text>
+    <rect x="80" y="24" width="10" height="10" rx="2" fill="#3fb950" opacity="0.8"/>
+    <text class="worker-label" x="94" y="33" style="text-anchor:start;">CI/CD</text>
+    <rect x="148" y="8" width="10" height="10" rx="2" fill="#58a6ff" opacity="0.8"/>
+    <text class="worker-label" x="162" y="17" style="text-anchor:start;">Dashboard</text>
+  </g>
+
+  <!-- Title -->
+  <text x="400" y="490" style="fill:#484f58; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; font-size:9px; text-anchor:middle;">commit-relay Architecture Overview</text>
+</svg>

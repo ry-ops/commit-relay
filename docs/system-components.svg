@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <style>
+      @keyframes centerPulse {
+        0%, 100% { filter: drop-shadow(0 0 8px #58a6ff); }
+        50% { filter: drop-shadow(0 0 22px #58a6ff) drop-shadow(0 0 40px rgba(88,166,255,0.3)); }
+      }
+      @keyframes orbit {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      @keyframes orbitReverse {
+        0% { transform: rotate(360deg); }
+        100% { transform: rotate(0deg); }
+      }
+      @keyframes linePulse1 {
+        0%, 100% { opacity: 0.3; stroke-width: 1; }
+        50% { opacity: 0.8; stroke-width: 1.5; }
+      }
+      @keyframes linePulse2 {
+        0%, 100% { opacity: 0.25; stroke-width: 1; }
+        60% { opacity: 0.75; stroke-width: 1.5; }
+      }
+      @keyframes linePulse3 {
+        0%, 100% { opacity: 0.35; stroke-width: 1; }
+        40% { opacity: 0.85; stroke-width: 1.5; }
+      }
+      @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+      @keyframes dotFlow {
+        0% { stroke-dashoffset: 20; }
+        100% { stroke-dashoffset: 0; }
+      }
+      .bg { fill: #0d1117; }
+      .center-group { animation: centerPulse 3.5s ease-in-out infinite; }
+      .center-hex { fill: #161b22; stroke: #58a6ff; stroke-width: 2.5; }
+      .center-label { fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; text-anchor: middle; }
+      .center-sub { fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 9px; text-anchor: middle; }
+      .node-box { fill: #161b22; stroke-width: 1.5; rx: 10; }
+      .node-label { fill: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 600; text-anchor: middle; }
+      .node-sub { fill: #8b949e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 8.5px; text-anchor: middle; }
+      .conn-line { stroke-dasharray: 6 4; }
+      .conn-p1 { animation: linePulse1 3s ease-in-out infinite, dotFlow 1s linear infinite; }
+      .conn-p2 { animation: linePulse2 3.5s ease-in-out infinite, dotFlow 1.2s linear infinite; }
+      .conn-p3 { animation: linePulse3 4s ease-in-out infinite, dotFlow 0.9s linear infinite; }
+      .orbit-ring { fill: none; stroke: #21262d; stroke-width: 0.5; stroke-dasharray: 3 6; }
+      .orbit-dot { animation: orbit 60s linear infinite; transform-origin: 400px 240px; }
+      .orbit-dot-rev { animation: orbitReverse 80s linear infinite; transform-origin: 400px 240px; }
+      .fade-group { animation: fadeIn 1.2s ease-out both; }
+      .title-text { fill: #484f58; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 9px; text-anchor: middle; }
+      .cross-link { stroke-dasharray: 3 5; opacity: 0.15; stroke-width: 0.8; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect class="bg" width="800" height="500"/>
+
+  <!-- Orbit rings -->
+  <ellipse class="orbit-ring" cx="400" cy="240" rx="180" ry="160"/>
+  <ellipse class="orbit-ring" cx="400" cy="240" rx="260" ry="200" style="stroke-dasharray: 4 8;"/>
+
+  <!-- Orbiting accent dots -->
+  <circle class="orbit-dot" cx="580" cy="240" r="2" fill="#58a6ff" opacity="0.4"/>
+  <circle class="orbit-dot" cx="220" cy="240" r="1.5" fill="#bc8cff" opacity="0.3"/>
+  <circle class="orbit-dot-rev" cx="400" cy="80" r="2" fill="#3fb950" opacity="0.35"/>
+  <circle class="orbit-dot-rev" cx="400" cy="400" r="1.5" fill="#f85149" opacity="0.3"/>
+
+  <!-- === CONNECTION LINES (behind nodes) === -->
+  <!-- MoE Router to all nodes -->
+  <!-- To LLM Mesh Gateway (top-left) -->
+  <line class="conn-line conn-p1" x1="400" y1="240" x2="170" y2="110" stroke="#58a6ff"/>
+  <!-- To RAG System (top) -->
+  <line class="conn-line conn-p2" x1="400" y1="240" x2="400" y2="80" stroke="#bc8cff"/>
+  <!-- To Self-Healing (top-right) -->
+  <line class="conn-line conn-p3" x1="400" y1="240" x2="640" y2="100" stroke="#3fb950"/>
+  <!-- To Governance (right) -->
+  <line class="conn-line conn-p1" x1="400" y1="240" x2="680" y2="240" stroke="#f85149"/>
+  <!-- To Observability (bottom-right) -->
+  <line class="conn-line conn-p2" x1="400" y1="240" x2="650" y2="380" stroke="#58a6ff"/>
+  <!-- To API Server (bottom) -->
+  <line class="conn-line conn-p3" x1="400" y1="240" x2="400" y2="410" stroke="#1f6feb"/>
+  <!-- To MCP Server (bottom-left) -->
+  <line class="conn-line conn-p1" x1="400" y1="240" x2="155" y2="370" stroke="#bc8cff"/>
+  <!-- To additional cross-links between outer nodes -->
+  <line class="cross-link" x1="170" y1="110" x2="400" y2="80" stroke="#8b949e"/>
+  <line class="cross-link" x1="400" y1="80" x2="640" y2="100" stroke="#8b949e"/>
+  <line class="cross-link" x1="640" y1="100" x2="680" y2="240" stroke="#8b949e"/>
+  <line class="cross-link" x1="680" y1="240" x2="650" y2="380" stroke="#8b949e"/>
+  <line class="cross-link" x1="650" y1="380" x2="400" y2="410" stroke="#8b949e"/>
+  <line class="cross-link" x1="400" y1="410" x2="155" y2="370" stroke="#8b949e"/>
+  <line class="cross-link" x1="155" y1="370" x2="170" y2="110" stroke="#8b949e"/>
+  <!-- Governance to Observability -->
+  <line class="cross-link" x1="680" y1="240" x2="650" y2="380" stroke="#f85149" style="opacity:0.2;"/>
+  <!-- LLM Mesh to RAG -->
+  <line class="cross-link" x1="170" y1="110" x2="400" y2="80" stroke="#bc8cff" style="opacity:0.2;"/>
+  <!-- API to MCP -->
+  <line class="cross-link" x1="400" y1="410" x2="155" y2="370" stroke="#1f6feb" style="opacity:0.2;"/>
+
+  <!-- === CENTER NODE: MoE Router === -->
+  <g class="center-group">
+    <!-- Hexagon-ish shape -->
+    <polygon class="center-hex" points="400,200 445,218 445,262 400,280 355,262 355,218"/>
+    <text class="center-label" x="400" y="244">MoE Router</text>
+    <text class="center-sub" x="400" y="258">Core Orchestrator</text>
+  </g>
+
+  <!-- === OUTER NODES === -->
+
+  <!-- LLM Mesh Gateway (top-left) -->
+  <g class="fade-group" style="animation-delay: 0.2s;">
+    <rect class="node-box" x="95" y="85" width="150" height="48" stroke="#58a6ff"/>
+    <text class="node-label" x="170" y="107">LLM Mesh Gateway</text>
+    <text class="node-sub" x="170" y="122">Multi-provider routing</text>
+  </g>
+
+  <!-- RAG System (top) -->
+  <g class="fade-group" style="animation-delay: 0.4s;">
+    <rect class="node-box" x="325" y="48" width="150" height="48" stroke="#bc8cff"/>
+    <text class="node-label" x="400" y="70">RAG System</text>
+    <text class="node-sub" x="400" y="85">FAISS vector store</text>
+  </g>
+
+  <!-- Self-Healing Engine (top-right) -->
+  <g class="fade-group" style="animation-delay: 0.6s;">
+    <rect class="node-box" x="565" y="75" width="150" height="48" stroke="#3fb950"/>
+    <text class="node-label" x="640" y="97">Self-Healing</text>
+    <text class="node-sub" x="640" y="112">Auto-recovery engine</text>
+  </g>
+
+  <!-- Governance Framework (right) -->
+  <g class="fade-group" style="animation-delay: 0.8s;">
+    <rect class="node-box" x="615" y="218" width="140" height="48" stroke="#f85149"/>
+    <text class="node-label" x="685" y="240">Governance</text>
+    <text class="node-sub" x="685" y="255">Policy framework</text>
+  </g>
+
+  <!-- Observability Stack (bottom-right) -->
+  <g class="fade-group" style="animation-delay: 1.0s;">
+    <rect class="node-box" x="575" y="358" width="150" height="48" stroke="#58a6ff"/>
+    <text class="node-label" x="650" y="380">Observability</text>
+    <text class="node-sub" x="650" y="395">Metrics + tracing</text>
+  </g>
+
+  <!-- API Server (bottom) -->
+  <g class="fade-group" style="animation-delay: 1.2s;">
+    <rect class="node-box" x="320" y="390" width="160" height="48" stroke="#1f6feb"/>
+    <text class="node-label" x="400" y="412">API Server</text>
+    <text class="node-sub" x="400" y="427">128 endpoints</text>
+  </g>
+
+  <!-- MCP Server (bottom-left) -->
+  <g class="fade-group" style="animation-delay: 1.4s;">
+    <rect class="node-box" x="80" y="348" width="150" height="48" stroke="#bc8cff"/>
+    <text class="node-label" x="155" y="370">MCP Server</text>
+    <text class="node-sub" x="155" y="385">Tool integration</text>
+  </g>
+
+  <!-- Connection dots at node endpoints (decorative) -->
+  <circle cx="170" cy="133" r="3" fill="#58a6ff" opacity="0.6" style="animation: linePulse1 2s ease-in-out infinite;"/>
+  <circle cx="400" cy="96" r="3" fill="#bc8cff" opacity="0.6" style="animation: linePulse2 2.5s ease-in-out infinite;"/>
+  <circle cx="640" cy="123" r="3" fill="#3fb950" opacity="0.6" style="animation: linePulse3 2s ease-in-out infinite;"/>
+  <circle cx="685" cy="218" r="3" fill="#f85149" opacity="0.6" style="animation: linePulse1 2.5s ease-in-out infinite;"/>
+  <circle cx="650" cy="358" r="3" fill="#58a6ff" opacity="0.6" style="animation: linePulse2 2s ease-in-out infinite;"/>
+  <circle cx="400" cy="390" r="3" fill="#1f6feb" opacity="0.6" style="animation: linePulse3 2.5s ease-in-out infinite;"/>
+  <circle cx="155" cy="348" r="3" fill="#bc8cff" opacity="0.6" style="animation: linePulse1 2s ease-in-out infinite;"/>
+
+  <!-- Title -->
+  <text class="title-text" x="400" y="490">commit-relay System Components</text>
+</svg>

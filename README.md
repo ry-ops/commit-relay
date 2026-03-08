@@ -22,23 +22,9 @@ Agents communicated through structured coordination files rather than direct API
 
 ## Architecture
 
-```
-                    ┌─────────────────────┐
-                    │   Coordinator        │
-                    │   (MoE Router v4.0)  │
-                    └────────┬────────────┘
-                             │
-            ┌────────┬───────┼───────┬──────────┐
-            ▼        ▼       ▼       ▼          ▼
-       Development Security Inventory  CI/CD   ...
-        Master     Master   Master   Master
-            │        │       │       │
-            ▼        ▼       ▼       ▼
-        Workers   Workers  Workers  Workers
-        (impl,    (scan,   (analysis,(build,
-         fix,     sec-fix,  docs)    test,
-         test)    audit)             deploy)
-```
+<p align="center">
+  <img src="./docs/architecture-overview.svg" alt="Commit-Relay Architecture Overview" width="100%">
+</p>
 
 ### Core Components
 
@@ -54,6 +40,10 @@ Agents communicated through structured coordination files rather than direct API
 | **MCP Server** | Model Context Protocol interface exposing system capabilities as tools |
 | **Python SDK** | Full client library with task orchestration, analytics, health monitoring, and reporting |
 | **Observability** | Elastic APM, LangSmith tracing, 27 event types, distributed tracing, anomaly detection |
+
+<p align="center">
+  <img src="./docs/system-components.svg" alt="Commit-Relay System Components" width="100%">
+</p>
 
 ---
 
