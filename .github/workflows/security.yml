@@ -16,7 +16,7 @@ jobs:
 
       - name: Setup Node.js
         if: hashFiles('package.json') != ''
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '18'
 
