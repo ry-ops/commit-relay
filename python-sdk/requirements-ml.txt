@@ -5,7 +5,7 @@ torchvision==0.16.2
 torchaudio==2.1.2
 transformers==4.36.2
 sentence-transformers==2.3.1
-accelerate==0.25.0
+accelerate==1.13.0
 
 # LangChain and LLM Orchestration
 langchain==0.1.0
