@@ -1,0 +1,38 @@
+#!/bin/bash
+# DDQD - "God Mode" Stress Test Launcher
+# Quick command to run comprehensive stress test
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Parse version flag
+VERSION="v4"
+for arg in "$@"; do
+    if [ "$arg" = "--v5" ]; then
+        VERSION="v5"
+        # Remove --v5 from arguments
+        set -- "${@/--v5/}"
+        break
+    fi
+done
+
+# Select script based on version
+if [ "$VERSION" = "v5" ]; then
+    SCRIPT="$SCRIPT_DIR/stress-test-ddqd-v5.sh"
+    TEST_NAME="DDQD v5.0 (MoE Intelligence Validation)"
+else
+    SCRIPT="$SCRIPT_DIR/stress-test-ddqd.sh"
+    TEST_NAME="DDQD v4.0"
+fi
+
+# Check if stress test is already running
+if pgrep -f "stress-test-ddqd" >/dev/null; then
+    echo "⚠️  DDQD stress test is already running!"
+    echo "Kill it with: pkill -f stress-test-ddqd"
+    exit 1
+fi
+
+echo "🚀 Launching $TEST_NAME..."
+echo ""
+
+# Run the stress test
+exec "$SCRIPT" "$@"

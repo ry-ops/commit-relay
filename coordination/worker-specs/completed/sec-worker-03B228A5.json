@@ -1,0 +1,51 @@
+{
+  "worker_id": "sec-worker-03B228A5",
+  "worker_type": "scan-worker",
+  "prompt_template": "agents/prompts/workers/scan-worker.md",
+  "parent_master": "security",
+  "task_id": "task-1762342913",
+  "task_data": {
+    "id": "task-1762342913",
+    "title": "CRITICAL: Clean up 19 zombie workers stuck in 'running' status. Workers from Nov 3-5 show running but no actual processes exist. Implement worker health check system: 1) Create cleanup script to detect stale workers (running >2hrs with no process), 2) Mark them as 'timeout' or 'unknown_failure', 3) Move to failed/ directory, 4) Add daemon watchdog to periodically check worker health, 5) Update worker prompt to ensure status updates on exit/error. List: worker-scan-002 through 007, dev-worker-A819947D, C42C00C2, 92D7943C, A2BE7A42, DE5535B6, 89DE27B5, DF971C09, 37A01F3D, 693450EA, 2D6C668D, 5F3CFA26, sec-worker-FD673A67, inv-worker-A6A5C517",
+    "type": "development",
+    "priority": "critical",
+    "status": "assigned",
+    "assigned_to": "security",
+    "created_at": "2025-11-05T16:44:12Z",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "CRITICAL: Clean up 19 zombie workers stuck in 'running' status. Workers from Nov 3-5 show running but no actual processes exist. Implement worker health check system: 1) Create cleanup script to detect stale workers (running >2hrs with no process), 2) Mark them as 'timeout' or 'unknown_failure', 3) Move to failed/ directory, 4) Add daemon watchdog to periodically check worker health, 5) Update worker prompt to ensure status updates on exit/error. List: worker-scan-002 through 007, dev-worker-A819947D, C42C00C2, 92D7943C, A2BE7A42, DE5535B6, 89DE27B5, DF971C09, 37A01F3D, 693450EA, 2D6C668D, 5F3CFA26, sec-worker-FD673A67, inv-worker-A6A5C517",
+      "requirements": []
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-05T16:44:20Z",
+    "updated_at": "2025-11-05T10:44:20-06:00"
+  },
+  "context": {
+    "master_session": "D3E7AA88-CB9B-44A8-A1DC-8BEE4B0FA048",
+    "expertise_area": "vulnerability_detection",
+    "skills_required": [
+      "dependency_scanning",
+      "static_analysis",
+      "secrets_detection"
+    ],
+    "knowledge_base_refs": {
+      "vulnerability_database": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/security/knowledge-base/vulnerability-history.jsonl",
+      "remediation_strategies": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/security/knowledge-base/remediation-patterns.json",
+      "false_positives": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/security/knowledge-base/false-positives.json"
+    },
+    "relevant_past_findings": {}
+  },
+  "resources": {
+    "token_allocation": 12000,
+    "time_limit_minutes": 60
+  },
+  "status": "completed",
+  "created_at": "2025-11-05T16:44:26Z",
+  "created_by": "security",
+  "execution": {
+    "started_at": "2025-11-05T16:44:48Z"
+  }
+}

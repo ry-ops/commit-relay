@@ -1,0 +1,20 @@
+{
+  "handoff_id": "handoff-task-1762553466-retry-2",
+  "from": "system",
+  "to": "coordinator-master",
+  "task_id": "task-1762553466",
+  "handoff_type": "task_routing",
+  "priority": "high",
+  "routing_hints": {
+    "suggested_expert": "development_or_security",
+    "task_type": "governance_implementation",
+    "retry_attempt": 2,
+    "previous_failure": "launcher_bug_task_context_injection_failure"
+  },
+  "context": {
+    "summary": "Governance upgrade phase - retry after launcher bug fix",
+    "launcher_fixed": true,
+    "urgency": "high - governance phases critical"
+  },
+  "created_at": "2025-11-12T16:17:47Z"
+}

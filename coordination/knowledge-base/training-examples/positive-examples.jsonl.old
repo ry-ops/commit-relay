@@ -1,0 +1,157 @@
+{"timestamp":"2025-11-19T10:30:00Z","worker_id":"test-worker-001","task_id":"test-task-001-simple-doc","task_type":"documentation","strategy":"direct","complexity":"low","outcome":"success","quality_score":87,"efficiency_score":92,"success_score":100,"duration_seconds":115,"tokens_used":4800,"context":{"approach":"simple_direct_execution","tools_used":["write","read"],"iterations":1},"feedback":"Excellent execution - task completed quickly with high quality. Direct strategy appropriate for low complexity documentation task."}
+{"timestamp":"2025-11-19T10:35:00Z","worker_id":"test-worker-002","task_id":"test-task-002-complex-feature","task_type":"feature-development","strategy":"plan_then_execute","complexity":"medium","outcome":"success","quality_score":82,"efficiency_score":78,"success_score":100,"duration_seconds":580,"tokens_used":15200,"context":{"approach":"planning_phase_then_implementation","tools_used":["read","write","bash"],"iterations":3,"planning_time_seconds":180},"feedback":"Good execution with proper planning phase. Plan-then-execute strategy well-suited for medium complexity feature development. Could optimize planning efficiency."}
+{"timestamp":"2025-11-19T10:45:00Z","worker_id":"test-worker-004","task_id":"test-task-004-security-scan","task_type":"security-scan","strategy":"thorough_analysis","complexity":"low","outcome":"success","quality_score":96,"efficiency_score":65,"success_score":100,"duration_seconds":920,"tokens_used":22000,"context":{"approach":"comprehensive_systematic_scan","tools_used":["grep","bash","read"],"security_checks":["shell_injection","path_traversal","unsafe_eval"],"iterations":5},"feedback":"Outstanding quality - comprehensive security analysis with detailed findings. Thorough strategy appropriate when quality is prioritized over speed."}
+{"timestamp":"2025-11-19T10:50:00Z","worker_id":"test-worker-005","task_id":"test-task-005-quick-analysis","task_type":"analysis","strategy":"direct","complexity":"very_low","outcome":"success","quality_score":72,"efficiency_score":95,"success_score":100,"duration_seconds":58,"tokens_used":3200,"context":{"approach":"quick_direct_scan","tools_used":["bash","glob"],"iterations":1},"feedback":"Fast and efficient execution. Direct strategy excellent for very low complexity analysis tasks. Quality adequate for quick analysis needs."}
+{"timestamp":"2025-11-19T11:00:00Z","worker_id":"test-worker-007","task_id":"test-task-007-refactoring","task_type":"refactoring","strategy":"plan_then_execute","complexity":"medium","outcome":"success","quality_score":84,"efficiency_score":75,"success_score":100,"duration_seconds":710,"tokens_used":18500,"context":{"approach":"careful_planning_with_validation","tools_used":["read","edit","bash"],"iterations":4,"validation_steps":3},"feedback":"Solid refactoring with good planning. Multiple validation steps ensured quality. Plan-then-execute appropriate for refactoring tasks requiring care."}
+{
+  "example_id": "example-1763569260-2C1816F2",
+  "worker_id": "test-worker-001",
+  "task_id": "test-task-001-simple-doc",
+  "example_type": "positive",
+  "overall_score": 92,
+  "context": {
+    "task_type": null,
+    "worker_type": "documentation-worker",
+    "strategy": "direct",
+    "complexity": null,
+    "priority": null,
+    "context": null
+  },
+  "action": {
+    "strategy_used": "direct",
+    "worker_type": "documentation-worker",
+    "approach": null,
+    "tools_used": null
+  },
+  "outcome": {
+    "status": "completed",
+    "classification": "success_high_quality",
+    "scores": {
+      "quality": 80,
+      "efficiency": 90,
+      "success": 100,
+      "overall": 92
+    },
+    "metrics": {
+      "duration_seconds": 0,
+      "token_budget": 10000,
+      "tokens_used": 4800,
+      "token_efficiency": ".4800"
+    }
+  },
+  "created_at": "2025-11-19T16:21:00Z"
+}
+{
+  "example_id": "example-1763569358-AD6706DC",
+  "worker_id": "test-worker-002",
+  "task_id": "test-task-002-complex-feature",
+  "example_type": "positive",
+  "overall_score": 98,
+  "context": {
+    "task_type": null,
+    "worker_type": "feature-implementer",
+    "strategy": "plan_then_execute",
+    "complexity": null,
+    "priority": null,
+    "context": null
+  },
+  "action": {
+    "strategy_used": "plan_then_execute",
+    "worker_type": "feature-implementer",
+    "approach": null,
+    "tools_used": null
+  },
+  "outcome": {
+    "status": "completed",
+    "classification": "success_high_quality",
+    "scores": {
+      "quality": 100,
+      "efficiency": 90,
+      "success": 100,
+      "overall": 98
+    },
+    "metrics": {
+      "duration_seconds": 0,
+      "token_budget": 20000,
+      "tokens_used": 15200,
+      "token_efficiency": ".7600"
+    }
+  },
+  "created_at": "2025-11-19T16:22:38Z"
+}
+{
+  "example_id": "example-1763569373-C4DA83CD",
+  "worker_id": "test-worker-004",
+  "task_id": "test-task-004-security-scan",
+  "example_type": "positive",
+  "overall_score": 92,
+  "context": {
+    "task_type": null,
+    "worker_type": "security-specialist",
+    "strategy": "thorough_analysis",
+    "complexity": null,
+    "priority": null,
+    "context": null
+  },
+  "action": {
+    "strategy_used": "thorough_analysis",
+    "worker_type": "security-specialist",
+    "approach": null,
+    "tools_used": null
+  },
+  "outcome": {
+    "status": "completed",
+    "classification": "success_high_quality",
+    "scores": {
+      "quality": 80,
+      "efficiency": 90,
+      "success": 100,
+      "overall": 92
+    },
+    "metrics": {
+      "duration_seconds": 0,
+      "token_budget": 30000,
+      "tokens_used": 22000,
+      "token_efficiency": ".7333"
+    }
+  },
+  "created_at": "2025-11-19T16:22:53Z"
+}
+{
+  "example_id": "example-1763569373-6361C44A",
+  "worker_id": "test-worker-005",
+  "task_id": "test-task-005-quick-analysis",
+  "example_type": "positive",
+  "overall_score": 89,
+  "context": {
+    "task_type": null,
+    "worker_type": "analysis-worker",
+    "strategy": "direct",
+    "complexity": null,
+    "priority": null,
+    "context": null
+  },
+  "action": {
+    "strategy_used": "direct",
+    "worker_type": "analysis-worker",
+    "approach": null,
+    "tools_used": null
+  },
+  "outcome": {
+    "status": "completed",
+    "classification": "success_high_quality",
+    "scores": {
+      "quality": 70,
+      "efficiency": 90,
+      "success": 100,
+      "overall": 89
+    },
+    "metrics": {
+      "duration_seconds": 0,
+      "token_budget": 5000,
+      "tokens_used": 3200,
+      "token_efficiency": ".6400"
+    }
+  },
+  "created_at": "2025-11-19T16:22:53Z"
+}

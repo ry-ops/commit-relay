@@ -1,0 +1,8 @@
+{
+  "daemon": "pm-daemon",
+  "pid": null,
+  "timestamp": null,
+  "status": "stopped",
+  "loop_count": 0,
+  "monitored_workers": 0
+}

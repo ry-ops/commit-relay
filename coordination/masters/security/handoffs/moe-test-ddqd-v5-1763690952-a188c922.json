@@ -1,0 +1,23 @@
+{
+  "handoff_id": "moe-test-ddqd-v5-1763690952-a188c922",
+  "task_id": "moe-test-ddqd-v5-1763690952-a188c922",
+  "assigned_to": "security",
+  "created_at": "2025-11-20T20:09:55-0600",
+  "status": "processed",
+  "task": {
+    "id": "moe-test-ddqd-v5-1763690952-a188c922",
+    "title": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+    "type": "security",
+    "description": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+    "priority": "medium",
+    "status": "pending",
+    "assigned_to": null,
+    "created_at": "2025-11-20T20:09:53-0600",
+    "created_by": "ddqd-v5-test",
+    "moe_test": true,
+    "test_id": "ddqd-v5-1763690952",
+    "context": {}
+  },
+  "processed_at": "2025-11-20T20:09:59-0600",
+  "worker_id": "worker-worker-1763690998-7453"
+}

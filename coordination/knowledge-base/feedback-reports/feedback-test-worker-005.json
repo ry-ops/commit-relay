@@ -1,0 +1,18 @@
+{
+  "worker_id": "test-worker-005",
+  "overall_score": 89,
+  "outcome_classification": "success_high_quality",
+  "feedback": {
+    "strengths": [
+      "High quality output with good test coverage",
+      "Efficient execution with good time and token usage",
+      "Successfully achieved task objectives"
+    ],
+    "improvements": [],
+    "recommendations": [
+      "Excellent performance - use as reference example",
+      "Share patterns from this execution with other workers"
+    ]
+  },
+  "created_at": "2025-11-19T16:22:53Z"
+}

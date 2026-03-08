@@ -1,0 +1,133 @@
+{
+  "template_id": "analysis-worker",
+  "name": "Analysis Worker Agent",
+  "version": "1.0.0",
+  "agent_type": "worker",
+  "agent_class": "analysis-worker",
+  "description": "A worker agent specialized in code analysis tasks. Performs static analysis, code review, and quality assessments.",
+  "author": "commit-relay",
+  "tags": ["worker", "analysis", "code-review", "quality"],
+  "capabilities": [
+    {
+      "capability_id": "code_analysis",
+      "name": "Code Analysis",
+      "category": "development",
+      "description": "Analyze code for quality, complexity, and potential issues"
+    },
+    {
+      "capability_id": "code_review",
+      "name": "Code Review",
+      "category": "development",
+      "description": "Review code changes and provide feedback"
+    }
+  ],
+  "configuration": {
+    "max_concurrent_tasks": 3,
+    "timeout_seconds": 300,
+    "retry_attempts": 2,
+    "priority": "medium",
+    "auto_restart": true,
+    "resource_limits": {
+      "max_memory_mb": 256,
+      "max_cpu_percent": 30,
+      "max_token_budget": 50000
+    }
+  },
+  "scaffold": {
+    "script_path": "coordination/workers/{{agent_name}}/{{agent_name}}.sh",
+    "script_template": "#!/usr/bin/env bash\n#\n# {{agent_name}} - {{description}}\n# Generated from analysis-worker template\n#\n\nset -euo pipefail\n\nreadonly SCRIPT_DIR=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)\"\nreadonly PROJECT_ROOT=\"$(cd \"$SCRIPT_DIR/../../..\" && pwd)\"\n\n# Source libraries\nsource \"$PROJECT_ROOT/scripts/lib/agentstudio/agent-register.sh\"\n\n# Agent configuration\nreadonly AGENT_NAME=\"{{agent_name}}\"\nreadonly AGENT_CLASS=\"{{agent_class}}\"\n\n#\n# Initialize worker\n#\ninit_worker() {\n    local capabilities='{{capabilities_json}}'\n    \n    AGENT_ID=$(register_agent \\\n        \"$AGENT_CLASS\" \\\n        \"$AGENT_NAME\" \\\n        \"1.0.0\" \\\n        \"$capabilities\" \\\n        \"{{description}}\")\n    \n    echo \"Worker registered: $AGENT_ID\"\n}\n\n#\n# Analyze code\n#\nanalyze_code() {\n    local file_path=\"$1\"\n    \n    echo \"Analyzing: $file_path\"\n    \n    # TODO: Implement code analysis logic\n    # - Static analysis\n    # - Complexity calculation\n    # - Security scanning\n    # - Style checking\n    \n    local analysis_result='{\n        \"file\": \"'\"$file_path\"'\",\n        \"issues\": [],\n        \"complexity\": 0,\n        \"quality_score\": 0\n    }'\n    \n    echo \"$analysis_result\"\n}\n\n#\n# Process task\n#\nprocess_task() {\n    local task_file=\"$1\"\n    \n    agent_heartbeat \"$AGENT_ID\"\n    update_agent_status \"$AGENT_ID\" \"busy\"\n    \n    local start_time=$(date +%s)\n    \n    # Execute task\n    local result=$(analyze_code \"$task_file\")\n    local exit_code=$?\n    \n    local end_time=$(date +%s)\n    local duration=$((end_time - start_time))\n    \n    # Update performance\n    if [[ $exit_code -eq 0 ]]; then\n        update_performance \"$AGENT_ID\" 1 0 $((duration * 1000)) 0\n    else\n        update_performance \"$AGENT_ID\" 0 1 $((duration * 1000)) 0\n    fi\n    \n    update_agent_status \"$AGENT_ID\" \"idle\"\n}\n\n#\n# Main worker loop\n#\nrun_worker() {\n    echo \"Starting $AGENT_NAME...\"\n    \n    init_worker\n    update_agent_status \"$AGENT_ID\" \"idle\"\n    \n    # Wait for tasks\n    while true; do\n        agent_heartbeat \"$AGENT_ID\"\n        \n        # TODO: Check task queue\n        # TODO: Process available tasks\n        \n        sleep {{poll_interval:-30}}\n    done\n}\n\n# Run if executed directly\nif [[ \"${BASH_SOURCE[0]}\" == \"${0}\" ]]; then\n    run_worker\nfi\n",
+    "config_files": [
+      {
+        "path": "coordination/workers/{{agent_name}}/config.json",
+        "content": "{\n  \"analysis_types\": {{analysis_types}},\n  \"max_file_size_mb\": {{max_file_size_mb}},\n  \"timeout_seconds\": {{timeout_seconds}}\n}\n"
+      }
+    ],
+    "dependencies": [
+      "agent-register.sh"
+    ]
+  },
+  "customization": {
+    "parameters": [
+      {
+        "name": "agent_name",
+        "type": "string",
+        "description": "Name of the analysis worker",
+        "required": true,
+        "validation": {
+          "pattern": "^[a-z][a-z0-9-]*$"
+        }
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "Description of the worker's purpose",
+        "required": true
+      },
+      {
+        "name": "analysis_types",
+        "type": "array",
+        "description": "Types of analysis to perform",
+        "default": ["static", "complexity", "security"],
+        "validation": {
+          "enum": ["static", "complexity", "security", "style", "performance"]
+        }
+      },
+      {
+        "name": "max_file_size_mb",
+        "type": "integer",
+        "description": "Maximum file size to analyze (MB)",
+        "default": 10,
+        "validation": {
+          "min": 1,
+          "max": 100
+        }
+      },
+      {
+        "name": "poll_interval",
+        "type": "integer",
+        "description": "Task queue polling interval in seconds",
+        "default": 30,
+        "validation": {
+          "min": 5,
+          "max": 120
+        }
+      }
+    ]
+  },
+  "examples": [
+    {
+      "title": "Security Analyzer",
+      "description": "Worker focused on security analysis",
+      "configuration": {
+        "agent_name": "security-analyzer",
+        "description": "Analyzes code for security vulnerabilities",
+        "analysis_types": ["security", "static"],
+        "max_file_size_mb": 5
+      }
+    },
+    {
+      "title": "Code Quality Checker",
+      "description": "Worker focused on code quality",
+      "configuration": {
+        "agent_name": "quality-checker",
+        "description": "Checks code quality and complexity",
+        "analysis_types": ["complexity", "style", "static"],
+        "max_file_size_mb": 10
+      }
+    }
+  ],
+  "best_practices": [
+    "Set appropriate file size limits to prevent resource exhaustion",
+    "Use incremental analysis for large codebases",
+    "Cache analysis results to avoid redundant work",
+    "Report progress for long-running analyses",
+    "Handle timeouts gracefully",
+    "Update performance metrics after each task"
+  ],
+  "metadata": {
+    "created_at": 1763587400000,
+    "updated_at": 1763587400000,
+    "usage_count": 0,
+    "success_rate": 0.92
+  }
+}

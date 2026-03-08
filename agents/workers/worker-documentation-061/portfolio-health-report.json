@@ -1,0 +1,210 @@
+{
+  "report_id": "portfolio-health-2025-11-20T02:11:00Z",
+  "generated_at": "2025-11-21T02:11:00Z",
+  "generated_by": "worker-documentation-061",
+  "task_id": "moe-test-ddqd-v5-1763690952-a1c2751c",
+  "report_type": "portfolio_health_status",
+  "summary": {
+    "overall_status": "needs_attention",
+    "health_score": 65,
+    "critical_issues": 3,
+    "warnings": 5,
+    "repositories_tracked": 20
+  },
+  "repository_inventory": {
+    "total_repositories": 20,
+    "active_repositories": 20,
+    "archived_repositories": 0,
+    "needs_attention": 20,
+    "last_scan": "2025-11-01T19:26:20Z",
+    "scan_freshness": "stale",
+    "days_since_scan": 19,
+    "languages": {
+      "Python": 14,
+      "TypeScript": 2,
+      "JavaScript": 1,
+      "MDX": 1,
+      "none": 2
+    },
+    "visibility": {
+      "public": 16,
+      "private": 4
+    },
+    "total_stars": 3,
+    "total_forks": 1
+  },
+  "system_health": {
+    "dashboard_api": {
+      "status": "healthy",
+      "uptime_seconds": 949,
+      "started_at": "2025-11-21T01:55:21.706Z"
+    },
+    "routing": {
+      "status": "healthy",
+      "tasks_pending": 0,
+      "tasks_assigned": 9,
+      "tasks_completed": 11,
+      "tasks_failed": 7,
+      "routing_success_rate": 100.0,
+      "checks_performed": 4862
+    },
+    "system_status": {
+      "status": "degraded",
+      "failed_services": ["coordinator", "development-master", "pm-daemon"],
+      "last_check": "2025-11-09T20:15:43Z",
+      "check_freshness": "stale"
+    }
+  },
+  "worker_pool_status": {
+    "active_workers": 61,
+    "completed_workers": 3,
+    "failed_workers": 0,
+    "success_rate": 7,
+    "total_spawned_today": 76,
+    "worker_types": {
+      "implementation": 30,
+      "scan": 18,
+      "documentation": 13
+    },
+    "pending_workers_count": 61,
+    "health_concern": "high_pending_ratio"
+  },
+  "critical_issues": [
+    {
+      "severity": "high",
+      "category": "stale_scan",
+      "issue": "Repository inventory scan is 19 days old",
+      "recommendation": "Run inventory scan to update repository metadata",
+      "impact": "Outdated health status for all 20 repositories"
+    },
+    {
+      "severity": "high",
+      "category": "stale_health_check",
+      "issue": "System health check is from 2025-11-09",
+      "recommendation": "Run system health check to get current service status",
+      "impact": "Unable to verify coordinator, development-master, pm-daemon status"
+    },
+    {
+      "severity": "medium",
+      "category": "worker_pool",
+      "issue": "61 workers pending with only 3 completed",
+      "recommendation": "Review worker lifecycle management",
+      "impact": "Potential resource waste and task queue delays"
+    }
+  ],
+  "warnings": [
+    {
+      "category": "repository_cataloging",
+      "issue": "All 20 repositories show 'pending_catalog' health status",
+      "recommendation": "Complete cataloging process for accurate health tracking"
+    },
+    {
+      "category": "missing_descriptions",
+      "issue": "11 repositories have no description",
+      "recommendation": "Add descriptions for better documentation and discoverability"
+    },
+    {
+      "category": "failed_tasks",
+      "issue": "7 tasks failed in routing metrics",
+      "recommendation": "Investigate failure patterns and address root causes"
+    },
+    {
+      "category": "service_degradation",
+      "issue": "System marked as degraded with 3 failed services",
+      "recommendation": "Restart failed services: coordinator, development-master, pm-daemon"
+    },
+    {
+      "category": "commit_activity",
+      "issue": "0 commits tracked today despite active repository count",
+      "recommendation": "Verify commit tracking is functioning"
+    }
+  ],
+  "repository_details": [
+    {
+      "name": "ry-ops/commit-relay",
+      "language": "JavaScript",
+      "visibility": "private",
+      "health_status": "pending_catalog",
+      "stars": 0,
+      "description": "Multi-agent AI system for autonomous GitHub repository management"
+    },
+    {
+      "name": "ry-ops/aiana",
+      "language": "none",
+      "visibility": "private",
+      "health_status": "pending_catalog",
+      "stars": 0,
+      "description": "AI conversation attendant for Claude Code"
+    },
+    {
+      "name": "ry-ops/unifi-mcp-server",
+      "language": "Python",
+      "visibility": "public",
+      "health_status": "pending_catalog",
+      "stars": 1,
+      "description": "unifi-mcp-server"
+    },
+    {
+      "name": "ry-ops/n8n-mcp-server",
+      "language": "Python",
+      "visibility": "public",
+      "health_status": "pending_catalog",
+      "stars": 0,
+      "description": "MCP server for n8n API integration"
+    },
+    {
+      "name": "ry-ops/cloudflare-mcp-server",
+      "language": "Python",
+      "visibility": "public",
+      "health_status": "pending_catalog",
+      "stars": 0,
+      "forks": 1,
+      "description": "Cloudflare MCP Server"
+    },
+    {
+      "name": "ry-ops/cara",
+      "language": "TypeScript",
+      "visibility": "private",
+      "health_status": "pending_catalog",
+      "stars": 1,
+      "description": ""
+    },
+    {
+      "name": "ry-ops/unifi-cloudflare-ddns",
+      "language": "TypeScript",
+      "visibility": "public",
+      "health_status": "pending_catalog",
+      "stars": 1,
+      "description": ""
+    }
+  ],
+  "recommendations": {
+    "immediate": [
+      "Run fresh repository inventory scan to update metadata",
+      "Update system health check to get current service status",
+      "Review and cleanup pending workers"
+    ],
+    "short_term": [
+      "Complete repository cataloging for accurate health tracking",
+      "Add descriptions to repositories without them",
+      "Investigate failed task patterns"
+    ],
+    "long_term": [
+      "Implement automated daily repository scanning",
+      "Set up continuous health monitoring with alerts",
+      "Improve worker lifecycle management"
+    ]
+  },
+  "metrics": {
+    "data_sources_checked": 6,
+    "files_analyzed": [
+      "repository-inventory.json",
+      "system-health.json",
+      "system-health-check.json",
+      "routing-health.json",
+      "worker-pool.json",
+      "health-alerts.json"
+    ],
+    "analysis_duration_seconds": 15
+  }
+}

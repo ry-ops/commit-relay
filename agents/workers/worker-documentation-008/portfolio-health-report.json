@@ -1,0 +1,180 @@
+{
+  "report_id": "portfolio-health-2025-11-20-update",
+  "generated_at": "2025-11-21T02:25:45Z",
+  "generated_by": "worker-documentation-008",
+  "task_id": "moe-test-ddqd-v5-1763691776-c265db1b",
+
+  "portfolio_summary": {
+    "total_repositories": 1,
+    "overall_health_score": 82,
+    "overall_status": "healthy",
+    "trend": "stable"
+  },
+
+  "repositories": [
+    {
+      "name": "commit-relay",
+      "url": "https://github.com/ry-ops/commit-relay.git",
+      "branch": "main",
+      "description": "AI-powered commit automation system with master-worker architecture",
+      "license": "MIT",
+
+      "health_metrics": {
+        "overall_score": 82,
+        "status": "healthy",
+        "score_breakdown": {
+          "security": 100,
+          "dependencies": 90,
+          "git_hygiene": 60,
+          "system_health": 85,
+          "worker_performance": 75
+        },
+
+        "security_metrics": {
+          "vulnerabilities": {
+            "critical": 0,
+            "high": 0,
+            "moderate": 0,
+            "low": 0,
+            "info": 0,
+            "total": 0
+          },
+          "status": "secure",
+          "last_audit": "2025-11-21T02:25:30Z"
+        },
+
+        "git_metrics": {
+          "pending_changes": {
+            "files_modified": 165,
+            "insertions": 9865,
+            "deletions": 11463
+          },
+          "recent_commits": 10,
+          "last_commit": "adb6c3d",
+          "last_commit_message": "chore(daemon): launched worker-documentation-009 automatically",
+          "branch_status": "active"
+        },
+
+        "dependency_metrics": {
+          "total_dependencies": 311,
+          "vulnerabilities": 0,
+          "status": "healthy"
+        }
+      },
+
+      "system_health": {
+        "dashboard_api": {
+          "status": "healthy",
+          "url": "http://localhost:3000/api",
+          "uptime_seconds": 1808,
+          "checked_at": "2025-11-21T02:25:29Z"
+        },
+
+        "routing": {
+          "status": "healthy",
+          "success_rate": 100.0,
+          "tasks_pending": 0,
+          "tasks_assigned": 9,
+          "tasks_completed": 11,
+          "tasks_failed": 7,
+          "checks_performed": 4862
+        },
+
+        "worker_pool": {
+          "active_workers": 9,
+          "completed_workers": 43,
+          "failed_workers": 4,
+          "total_spawned_today": 85,
+          "success_rate_percent": 7,
+          "note": "Success rate reflects reset after power outage"
+        },
+
+        "token_budget": {
+          "allocated": 192000,
+          "available": 308000,
+          "estimated_total": 500000,
+          "utilization_percent": 38.4
+        }
+      },
+
+      "issues": [
+        {
+          "severity": "medium",
+          "category": "git",
+          "description": "Large number of uncommitted changes (165 files, 9865+ insertions, 11463- deletions)",
+          "recommendation": "Review and commit pending changes to reduce risk of data loss",
+          "impact": "Affects git hygiene score"
+        },
+        {
+          "severity": "low",
+          "category": "worker_pool",
+          "description": "Low apparent success rate (7%) due to recent reset after power outage",
+          "recommendation": "Monitor worker success rate over next 24 hours",
+          "impact": "Affects worker performance score"
+        }
+      ],
+
+      "positive_indicators": [
+        {
+          "category": "security",
+          "description": "Zero vulnerabilities detected",
+          "impact": "100% security score"
+        },
+        {
+          "category": "routing",
+          "description": "100% routing success rate with 4862 checks performed",
+          "impact": "Reliable task distribution"
+        },
+        {
+          "category": "dashboard",
+          "description": "Dashboard API healthy with 30+ minutes uptime",
+          "impact": "Good observability"
+        }
+      ],
+
+      "recommendations": [
+        {
+          "priority": "high",
+          "action": "Commit pending changes (165 modified files)",
+          "owner": "development-master",
+          "impact": "Improve git hygiene score from 60 to 90+"
+        },
+        {
+          "priority": "medium",
+          "action": "Monitor worker success rates post-recovery",
+          "owner": "coordinator-master",
+          "impact": "Verify system stability after reset"
+        },
+        {
+          "priority": "low",
+          "action": "Archive or merge stale feature branches",
+          "owner": "inventory-master",
+          "impact": "Maintain clean branch structure"
+        }
+      ]
+    }
+  ],
+
+  "comparison_with_previous": {
+    "previous_report": "portfolio-health-2025-11-20",
+    "score_change": -3,
+    "trend": "slight_decrease",
+    "notes": "Score decreased slightly due to accumulated uncommitted changes (160 -> 165 files)"
+  },
+
+  "next_scheduled_check": "2025-11-21T03:00:00Z",
+
+  "metadata": {
+    "report_version": "1.1",
+    "data_collection_time_ms": 3500,
+    "tools_used": [
+      "git status",
+      "git diff --stat",
+      "npm audit",
+      "dashboard API health",
+      "worker-pool.json",
+      "routing-health.json",
+      "token-budget.json"
+    ]
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "version": "1.0",
+  "description": "Queue management and rate limiting policy for commit-relay orchestration",
+  "last_updated": "2025-11-23T00:00:00Z",
+
+  "queue": {
+    "max_queue_size": 1000,
+    "max_concurrent": 50,
+    "overflow_action": "reject",
+    "processing_interval_ms": 100,
+    "metrics_interval_ms": 5000,
+    "priority_weights": {
+      "critical": 100,
+      "high": 75,
+      "medium": 50,
+      "low": 25
+    },
+    "starvation_prevention": {
+      "enabled": true,
+      "age_bonus_per_10s": 1,
+      "max_age_bonus": 10
+    }
+  },
+
+  "rate_limiting": {
+    "global_rate": 100,
+    "global_burst": 200,
+    "default_master_concurrent": 10,
+    "default_master_rate": 20,
+    "refill_interval_ms": 100,
+    "cleanup_interval_ms": 60000
+  },
+
+  "per_master_limits": {
+    "security": {
+      "concurrent": 5,
+      "rate": 10,
+      "burst": 15,
+      "priority_boost": 10,
+      "description": "Security tasks have limited concurrency but high priority"
+    },
+    "development": {
+      "concurrent": 10,
+      "rate": 25,
+      "burst": 40,
+      "priority_boost": 0,
+      "description": "Development tasks have higher concurrency for parallel work"
+    },
+    "inventory": {
+      "concurrent": 8,
+      "rate": 15,
+      "burst": 25,
+      "priority_boost": -5,
+      "description": "Inventory tasks are lower priority batch operations"
+    },
+    "cicd": {
+      "concurrent": 8,
+      "rate": 20,
+      "burst": 30,
+      "priority_boost": 5,
+      "description": "CI/CD tasks need timely execution"
+    },
+    "coordinator": {
+      "concurrent": 15,
+      "rate": 30,
+      "burst": 50,
+      "priority_boost": 15,
+      "description": "Coordinator has highest limits for orchestration"
+    }
+  },
+
+  "backpressure": {
+    "thresholds": {
+      "warning": 0.7,
+      "critical": 0.9,
+      "emergency": 0.95
+    },
+    "actions": {
+      "warning": ["log", "emit_event"],
+      "critical": ["log", "emit_event", "reduce_intake"],
+      "emergency": ["log", "emit_event", "reject_new", "alert"]
+    },
+    "recovery_hysteresis": 0.1
+  },
+
+  "retry_policy": {
+    "max_retries": 3,
+    "initial_delay_ms": 1000,
+    "backoff_multiplier": 2,
+    "max_delay_ms": 30000,
+    "jitter": true
+  },
+
+  "timeouts": {
+    "default_task_timeout_ms": 300000,
+    "critical_task_timeout_ms": 600000,
+    "rate_limit_wait_timeout_ms": 30000,
+    "queue_wait_timeout_ms": 60000
+  },
+
+  "monitoring": {
+    "metrics_retention_hours": 24,
+    "alert_on_queue_full": true,
+    "alert_on_high_rejection_rate": true,
+    "rejection_rate_threshold": 0.1,
+    "dashboard_update_interval_ms": 1000
+  },
+
+  "circuit_breaker": {
+    "enabled": true,
+    "failure_threshold": 5,
+    "success_threshold": 3,
+    "timeout_ms": 60000,
+    "half_open_requests": 1
+  }
+}

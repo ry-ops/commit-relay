@@ -1,0 +1,21 @@
+{
+  "id": "governance-test-critical-1762873763-B4E25EAA",
+  "title": "Conduct emergency security audit of production systems",
+  "description": "security-audit: Perform comprehensive security vulnerability scan and audit across all production services and infrastructure",
+  "type": "security-audit",
+  "priority": "critical",
+  "status": "pending",
+  "created_at": "2025-11-11T15:09:23Z",
+  "created_by": "governance-test-suite",
+  "metadata": {
+    "test_task": true,
+    "governance_test": true,
+    "risk_level": "critical",
+    "test_suite": "governance-validation"
+  },
+  "context": {
+    "repository": "ry-ops/commit-relay",
+    "branch": "main",
+    "test_scenario": true
+  }
+}

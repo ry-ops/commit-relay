@@ -1,0 +1,1857 @@
+{
+  "events": [
+    {
+      "id": "evt-test4-1762710675",
+      "type": "buffer_test_fixed",
+      "timestamp": "2025-11-09T17:51:15Z",
+      "data": {
+        "message": "Testing persistence with fsSync"
+      },
+      "message": "buffer test fixed"
+    },
+    {
+      "id": "evt-batch-1762710703-1",
+      "type": "batch_event_1",
+      "timestamp": "2025-11-09T17:51:43Z",
+      "data": {
+        "sequence": 1,
+        "message": "Batch event number 1"
+      },
+      "message": "batch event 1"
+    },
+    {
+      "id": "evt-batch-1762710704-5",
+      "type": "batch_event_5",
+      "timestamp": "2025-11-09T17:51:44Z",
+      "data": {
+        "sequence": 5,
+        "message": "Batch event number 5"
+      },
+      "message": "batch event 5"
+    },
+    {
+      "id": "task-event-1762718921316-9ocledqi7",
+      "type": "task_created",
+      "timestamp": "2025-11-09T14:08:40-0600",
+      "data": {
+        "task_id": "task-1762553453",
+        "task_title": "Post-dashboard fix system improvements: testing, health monitoring, UI enhancements, documentation, performance optimization, and monitoring infrastructure",
+        "task_type": "development",
+        "priority": "high",
+        "created_by": "create-task-cli"
+      },
+      "message": "Task Created: 'task-1762553453: Post-dashboard fix system improvements: testing, health monitoring, UI enhancements, documentation, performance optimization, and monitoring infrastructure'"
+    },
+    {
+      "id": "task-event-1762719143334-gre9a8ydn",
+      "type": "task_assigned",
+      "timestamp": "2025-11-09T14:12:22-0600",
+      "data": {
+        "task_id": "task-1762553453",
+        "task_title": "Post-dashboard fix system improvements: testing, health monitoring, UI enhancements, documentation, performance optimization, and monitoring infrastructure",
+        "assigned_to": "development",
+        "priority": "high"
+      },
+      "message": "Task Assigned: 'task-1762553453' → development"
+    },
+    {
+      "id": "evt-1762699286-28520",
+      "type": "worker_started",
+      "timestamp": "2025-11-09T08:41:26-06:00",
+      "data": {
+        "worker_id": "dev-worker-45BE28AF",
+        "task_id": "task-1762553445",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553445"
+    },
+    {
+      "id": "evt-test-3",
+      "type": "task_updated",
+      "timestamp": "2025-11-09T20:26:42Z",
+      "data": {
+        "task_id": "task-1762553453",
+        "status": "worker_spawned"
+      },
+      "message": "task updated: task-1762553453"
+    },
+    {
+      "id": "task-event-1763235766993-464dq3hr6",
+      "type": "task_created",
+      "timestamp": "2025-11-15T19:42:45.769Z",
+      "data": {
+        "task_id": "task-moe-learning-1763235765769",
+        "task_title": "MoE Learning System: Master commit-relay Architecture and Operations",
+        "task_type": "development",
+        "priority": "high",
+        "created_by": "dashboard-learning-system"
+      },
+      "message": "Task Created: 'task-moe-learning-1763235765769: MoE Learning System: Master commit-relay Architecture and Operations'"
+    },
+    {
+      "id": "evt-test-1",
+      "type": "system_restart",
+      "timestamp": "2025-11-09T20:26:42Z",
+      "data": {
+        "message": "Dashboard restarted with fixes"
+      },
+      "message": "system restart"
+    },
+    {
+      "id": "evt-test-2",
+      "type": "services_checked",
+      "timestamp": "2025-11-09T20:26:42Z",
+      "data": {
+        "running": 4,
+        "stopped": 2
+      },
+      "message": "services checked"
+    },
+    {
+      "id": "evt-test-3",
+      "type": "task_updated",
+      "timestamp": "2025-11-09T20:26:42Z",
+      "data": {
+        "task_id": "task-1762553453",
+        "status": "worker_spawned"
+      },
+      "message": "task updated: task-1762553453"
+    },
+    {
+      "id": "evt-1763235770853-0vmi2cyo5",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.853Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770853-7zccf3drj",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.853Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770853-vi2l2un0s",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.853Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770853-tgqd3ybyz",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.853Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770853-85johpstc",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.853Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770853-8daz6wb50",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.853Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770853-6g0tzppld",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.853Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770854-eu44fhkxn",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.854Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770854-p9idunc68",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.854Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770854-v7ubk3i0e",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.854Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770854-qykoohtpc",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.854Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770854-vh6ecgp5c",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.854Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770854-0jaf2nl27",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.854Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770854-6k8sbbarx",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.854Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770854-gvlastpai",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.854Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770855-2xy7q0c2i",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.855Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770855-fm0cb3k11",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.855Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770855-2h4ik67ez",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.855Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770855-2ptv33g36",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.855Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770855-ol01ysbnz",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.855Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770855-8a74znxpr",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.855Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770855-bdq7tx0g5",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.855Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770855-6chmlk7ox",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.855Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770855-j04heesnw",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.855Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770856-te72w4cf0",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.856Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770856-gvmf0jy56",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.856Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770856-bodegr74k",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.856Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770856-xvpzo9j4p",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.856Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770856-q3gov0aa6",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.856Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770856-yhxmptvfx",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.856Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770856-24chngcf2",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.856Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770856-sdbkxoguo",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.856Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1763235770856-zqfbukur9",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.856Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1762869935-43219",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T08:05:35-06:00",
+      "data": {
+        "worker_id": "dev-worker-270EA2BA",
+        "task_id": "task-1762553453",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553453"
+    },
+    {
+      "id": "evt-1763235770857-phcvfgt1k",
+      "type": "unknown",
+      "timestamp": "2025-11-15T19:42:50.857Z",
+      "data": {},
+      "message": "unknown"
+    },
+    {
+      "id": "evt-1762877480984-96401",
+      "type": "health_alert_deleted",
+      "timestamp": "2025-11-11T16:11:20.984Z",
+      "data": {
+        "alert_id": "alert-pm-daemon-down",
+        "alert_type": "pm_daemon_failure",
+        "severity": "high",
+        "message": "Health alert deleted: PM Daemon heartbeat stale, PM Agent spawned as backup"
+      },
+      "message": "health alert deleted"
+    },
+    {
+      "id": "evt-1763235770857-x4ejankp9",
+      "type": "task_routed",
+      "timestamp": "2025-11-11T16:53:40Z",
+      "data": {
+        "task_id": "task-1762553464",
+        "task_title": "GOVERNANCE UPGRADE - Phase 1: Unified Data & AI Catalog"
+      },
+      "message": "task routed: task-1762553464 - GOVERNANCE UPGRADE - Phase 1: Unified Data & AI Catalog"
+    },
+    {
+      "id": "evt-1763235770857-saz46mkn7",
+      "type": "task_completed",
+      "timestamp": "2025-11-11T17:06:10Z",
+      "data": {
+        "task_id": "task-1762553464",
+        "task_title": "GOVERNANCE UPGRADE - Phase 1: Unified Data & AI Catalog"
+      },
+      "message": "task completed: task-1762553464 - GOVERNANCE UPGRADE - Phase 1: Unified Data & AI Catalog"
+    },
+    {
+      "id": "evt-1763235770858-78i7ehklz",
+      "type": "governance_milestone",
+      "timestamp": "2025-11-11T17:06:10Z",
+      "data": {},
+      "message": "governance milestone"
+    },
+    {
+      "id": "evt-1763235770858-ytw6gnxw7",
+      "type": "task_routed",
+      "timestamp": "2025-11-11T14:09:00Z",
+      "data": {
+        "task_id": "task-1762553465"
+      },
+      "message": "task routed: task-1762553465"
+    },
+    {
+      "id": "evt-phase2-complete-1762882356",
+      "type": "task_completed",
+      "timestamp": "2025-11-11T17:32:36Z",
+      "data": {
+        "task_id": "task-1762553465",
+        "title": "GOVERNANCE UPGRADE - Phase 2: Single-Permission Model & Access Controls",
+        "master": "development",
+        "status": "completed",
+        "duration_minutes": 30,
+        "quality_score": 1,
+        "deliverables_count": 12
+      },
+      "message": "task completed: task-1762553465"
+    },
+    {
+      "id": "evt-1762884335-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T12:05:35-06:00",
+      "data": {
+        "worker_id": "dev-worker-C3E89869",
+        "task_id": "task-1762553466",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553466"
+    },
+    {
+      "id": "evt-1762885799-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T12:29:59-06:00",
+      "data": {
+        "worker_id": "dev-worker-356E3427",
+        "task_id": "task-1762553463",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553463"
+    },
+    {
+      "id": "evt-1762885801-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T12:30:01-06:00",
+      "data": {
+        "worker_id": "dev-worker-3EFCF595",
+        "task_id": "task-1762553467",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553467"
+    },
+    {
+      "id": "evt-1762885803-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T12:30:03-06:00",
+      "data": {
+        "worker_id": "dev-worker-5BAC7DF8",
+        "task_id": "task-1762553459",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553459"
+    },
+    {
+      "id": "evt-1762885805-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T12:30:05-06:00",
+      "data": {
+        "worker_id": "dev-worker-68D99489",
+        "task_id": "task-1762553457",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553457"
+    },
+    {
+      "id": "evt-1762885807-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T12:30:07-06:00",
+      "data": {
+        "worker_id": "dev-worker-6A60CB30",
+        "task_id": "task-1762553468",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553468"
+    },
+    {
+      "id": "evt-1762885808-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T12:30:08-06:00",
+      "data": {
+        "worker_id": "dev-worker-77A828C9",
+        "task_id": "task-1762553454",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553454"
+    },
+    {
+      "id": "evt-1762885810-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T12:30:10-06:00",
+      "data": {
+        "worker_id": "dev-worker-80098C12",
+        "task_id": "task-1762553460",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553460"
+    },
+    {
+      "id": "evt-1762885811-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T12:30:11-06:00",
+      "data": {
+        "worker_id": "dev-worker-A532418A",
+        "task_id": "task-1762553469",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553469"
+    },
+    {
+      "id": "evt-1762893580-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T14:39:40-06:00",
+      "data": {
+        "worker_id": "dev-worker-2840BA84",
+        "task_id": "task-1762893199",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762893199"
+    },
+    {
+      "id": "evt-1762893981-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T14:46:21-06:00",
+      "data": {
+        "worker_id": "dev-worker-9ACF7DE0",
+        "task_id": "task-1762893929",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762893929"
+    },
+    {
+      "id": "evt-1762894445-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T14:54:05-06:00",
+      "data": {
+        "worker_id": "dev-worker-E35E4762",
+        "task_id": "task-1762894381",
+        "worker_type": "fix-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762894381"
+    },
+    {
+      "id": "evt-1762894662-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T14:57:42-06:00",
+      "data": {
+        "worker_id": "dev-worker-C07346DD",
+        "task_id": "task-1762894589",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762894589"
+    },
+    {
+      "id": "evt-1762896391-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T15:26:31-06:00",
+      "data": {
+        "worker_id": "dev-worker-0AAEBC29",
+        "task_id": "task-1762896271",
+        "worker_type": "fix-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762896271"
+    },
+    {
+      "id": "evt-1762899663-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T16:21:03-06:00",
+      "data": {
+        "worker_id": "dev-worker-693A8576",
+        "task_id": "task-1762894381",
+        "worker_type": "fix-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762894381"
+    },
+    {
+      "id": "evt-1762899664-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T16:21:04-06:00",
+      "data": {
+        "worker_id": "dev-worker-6A8739DC",
+        "task_id": "task-1762894589",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762894589"
+    },
+    {
+      "id": "evt-1762899665-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T16:21:05-06:00",
+      "data": {
+        "worker_id": "dev-worker-785586E5",
+        "task_id": "task-1762893929",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762893929"
+    },
+    {
+      "id": "evt-1762899666-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T16:21:06-06:00",
+      "data": {
+        "worker_id": "dev-worker-7BFC15C8",
+        "task_id": "task-1762896847",
+        "worker_type": "fix-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762896847"
+    },
+    {
+      "id": "evt-1762899667-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T16:21:07-06:00",
+      "data": {
+        "worker_id": "dev-worker-991812ED",
+        "task_id": "task-1762896271",
+        "worker_type": "fix-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762896271"
+    },
+    {
+      "id": "evt-1762899669-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T16:21:09-06:00",
+      "data": {
+        "worker_id": "dev-worker-9ECB5C27",
+        "task_id": "task-1762896271",
+        "worker_type": "fix-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762896271"
+    },
+    {
+      "id": "evt-1762899670-97033",
+      "type": "worker_started",
+      "timestamp": "2025-11-11T16:21:10-06:00",
+      "data": {
+        "worker_id": "dev-worker-A21524A6",
+        "task_id": "task-1762893199",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762893199"
+    },
+    {
+      "id": "evt-1762955058-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:18-06:00",
+      "data": {
+        "worker_id": "dev-worker-B58F2690",
+        "task_id": "task-1762553469",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553469"
+    },
+    {
+      "id": "evt-1762955059-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:19-06:00",
+      "data": {
+        "worker_id": "dev-worker-C3A2B8E5",
+        "task_id": "task-1762553468",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553468"
+    },
+    {
+      "id": "evt-1762955060-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:20-06:00",
+      "data": {
+        "worker_id": "sec-worker-060ED770",
+        "task_id": "moe-test-ddqd-v5-1762626495-28b1a031",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: moe-test-ddqd-v5-1762626495-28b1a031"
+    },
+    {
+      "id": "evt-1762955061-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:21-06:00",
+      "data": {
+        "worker_id": "sec-worker-0E7D5F4F",
+        "task_id": "moe-test-ddqd-v5-1762626673-ede2eb9a",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: moe-test-ddqd-v5-1762626673-ede2eb9a"
+    },
+    {
+      "id": "evt-1762955063-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:23-06:00",
+      "data": {
+        "worker_id": "sec-worker-168CF8AF",
+        "task_id": "moe-test-ddqd-v5-1762626428-0922fb5a",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: moe-test-ddqd-v5-1762626428-0922fb5a"
+    },
+    {
+      "id": "evt-1762955064-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:24-06:00",
+      "data": {
+        "worker_id": "sec-worker-16E1DF67",
+        "task_id": "task-1762553466",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553466"
+    },
+    {
+      "id": "evt-1762955066-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:26-06:00",
+      "data": {
+        "worker_id": "sec-worker-2D607E2D",
+        "task_id": "moe-test-ddqd-v5-1762626887-8e44f42f",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: moe-test-ddqd-v5-1762626887-8e44f42f"
+    },
+    {
+      "id": "evt-1762955067-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:27-06:00",
+      "data": {
+        "worker_id": "sec-worker-2E10F604",
+        "task_id": "task-1762553462",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553462"
+    },
+    {
+      "id": "evt-1762955069-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:29-06:00",
+      "data": {
+        "worker_id": "sec-worker-39C6E144",
+        "task_id": "moe-test-ddqd-v5-1762626013-4130b075",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: moe-test-ddqd-v5-1762626013-4130b075"
+    },
+    {
+      "id": "evt-1762955070-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:30-06:00",
+      "data": {
+        "worker_id": "sec-worker-3A4ECD64",
+        "task_id": "",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started"
+    },
+    {
+      "id": "evt-1762955072-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:32-06:00",
+      "data": {
+        "worker_id": "sec-worker-579F2CFA",
+        "task_id": "moe-test-ddqd-v5-1762626428-f4171764",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: moe-test-ddqd-v5-1762626428-f4171764"
+    },
+    {
+      "id": "evt-1762955073-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:33-06:00",
+      "data": {
+        "worker_id": "sec-worker-64C0DA8A",
+        "task_id": "moe-test-ddqd-v5-1762626673-00728032",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: moe-test-ddqd-v5-1762626673-00728032"
+    },
+    {
+      "id": "evt-1762955075-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:35-06:00",
+      "data": {
+        "worker_id": "sec-worker-76D0AF62",
+        "task_id": "moe-test-ddqd-v5-1762626013-c0a4d2d1",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: moe-test-ddqd-v5-1762626013-c0a4d2d1"
+    },
+    {
+      "id": "evt-1762955076-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:36-06:00",
+      "data": {
+        "worker_id": "sec-worker-82577B3E",
+        "task_id": "test-task-002",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: test-task-002"
+    },
+    {
+      "id": "evt-1762955078-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:38-06:00",
+      "data": {
+        "worker_id": "sec-worker-8FD950D8",
+        "task_id": "moe-test-ddqd-v5-1762626228-43c88d46",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: moe-test-ddqd-v5-1762626228-43c88d46"
+    },
+    {
+      "id": "evt-1762955080-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:40-06:00",
+      "data": {
+        "worker_id": "sec-worker-AAC692A5",
+        "task_id": "task-1762553467",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553467"
+    },
+    {
+      "id": "evt-1762955082-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:42-06:00",
+      "data": {
+        "worker_id": "sec-worker-B9B8E6B0",
+        "task_id": "task-1762553461",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553461"
+    },
+    {
+      "id": "evt-1762955084-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:44-06:00",
+      "data": {
+        "worker_id": "sec-worker-C622A67A",
+        "task_id": "moe-test-ddqd-v5-1762626887-50a7ec23",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: moe-test-ddqd-v5-1762626887-50a7ec23"
+    },
+    {
+      "id": "evt-1762955086-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:46-06:00",
+      "data": {
+        "worker_id": "sec-worker-CAF80759",
+        "task_id": "moe-test-ddqd-v5-1762626495-aa30ca25",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: moe-test-ddqd-v5-1762626495-aa30ca25"
+    },
+    {
+      "id": "evt-1762955087-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:47-06:00",
+      "data": {
+        "worker_id": "sec-worker-CCF9834D",
+        "task_id": "moe-test-ddqd-v5-1762626228-ae2a8949",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: moe-test-ddqd-v5-1762626228-ae2a8949"
+    },
+    {
+      "id": "evt-1762955089-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:44:50-06:00",
+      "data": {
+        "worker_id": "sec-worker-D20C3813",
+        "task_id": "task-003",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-003"
+    },
+    {
+      "id": "evt-1762955652-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:54:12-06:00",
+      "data": {
+        "worker_id": "dev-worker-04B8F99C",
+        "task_id": "task-1762553466",
+        "worker_type": "feature-implementer",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553466"
+    },
+    {
+      "id": "evt-1762955684-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:54:44-06:00",
+      "data": {
+        "worker_id": "dev-worker-72AB3732",
+        "task_id": "task-1762553467",
+        "worker_type": "feature-implementer",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553467"
+    },
+    {
+      "id": "evt-1762955716-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:55:16-06:00",
+      "data": {
+        "worker_id": "dev-worker-899AB82C",
+        "task_id": "task-1762553468",
+        "worker_type": "feature-implementer",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553468"
+    },
+    {
+      "id": "evt-1762955748-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:55:48-06:00",
+      "data": {
+        "worker_id": "dev-worker-21C2A367",
+        "task_id": "task-1762553469",
+        "worker_type": "feature-implementer",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553469"
+    },
+    {
+      "id": "evt-1762955812-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:56:52-06:00",
+      "data": {
+        "worker_id": "sec-worker-48C1327F",
+        "task_id": "task-1762553467",
+        "worker_type": "audit-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553467"
+    },
+    {
+      "id": "evt-1762955813-42150",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T07:56:53-06:00",
+      "data": {
+        "worker_id": "sec-worker-DC77FC1A",
+        "task_id": "task-1762553466",
+        "worker_type": "compliance-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553466"
+    },
+    {
+      "id": "evt-1763235770864-xzilovfke",
+      "type": "task_routed",
+      "timestamp": "2025-11-12T15:47:37Z",
+      "data": {
+        "task_id": "task-1762961220"
+      },
+      "message": "task routed: task-1762961220"
+    },
+    {
+      "id": "evt-1763235770864-uah657kwk",
+      "type": "coordinator_routing",
+      "timestamp": "2025-11-12T16:20:00Z",
+      "data": {
+        "task_id": "task-1762553466"
+      },
+      "message": "coordinator routing: task-1762553466"
+    },
+    {
+      "id": "evt-1763235770865-4m6uqa15b",
+      "type": "coordinator_routing",
+      "timestamp": "2025-11-12T16:20:00Z",
+      "data": {
+        "task_id": "task-1762553467"
+      },
+      "message": "coordinator routing: task-1762553467"
+    },
+    {
+      "id": "evt-1763235770865-0uk01whff",
+      "type": "coordinator_routing",
+      "timestamp": "2025-11-12T16:20:00Z",
+      "data": {
+        "task_id": "task-1762553468"
+      },
+      "message": "coordinator routing: task-1762553468"
+    },
+    {
+      "id": "evt-1763235770865-j7zmfqdd9",
+      "type": "coordinator_routing",
+      "timestamp": "2025-11-12T16:20:00Z",
+      "data": {
+        "task_id": "task-1762553469"
+      },
+      "message": "coordinator routing: task-1762553469"
+    },
+    {
+      "id": "evt-1763235770865-89ouhe7a5",
+      "type": "handoff_created",
+      "timestamp": "2025-11-12T16:20:00Z",
+      "data": {
+        "task_id": "task-1762553466"
+      },
+      "message": "handoff created: task-1762553466"
+    },
+    {
+      "id": "evt-1763235770865-3bras7oso",
+      "type": "handoff_created",
+      "timestamp": "2025-11-12T16:20:00Z",
+      "data": {
+        "task_id": "task-1762553467"
+      },
+      "message": "handoff created: task-1762553467"
+    },
+    {
+      "id": "evt-1763235770865-p75dbuxg9",
+      "type": "handoff_created",
+      "timestamp": "2025-11-12T16:20:00Z",
+      "data": {
+        "task_id": "task-1762553468"
+      },
+      "message": "handoff created: task-1762553468"
+    },
+    {
+      "id": "evt-1763235770865-a15xavzku",
+      "type": "handoff_created",
+      "timestamp": "2025-11-12T16:20:00Z",
+      "data": {
+        "task_id": "task-1762553469"
+      },
+      "message": "handoff created: task-1762553469"
+    },
+    {
+      "id": "evt-1762971134934-98864",
+      "type": "health_alert_deleted",
+      "timestamp": "2025-11-12T18:12:14.934Z",
+      "data": {
+        "alert_id": "alert-pm-daemon-down",
+        "alert_type": "pm_daemon_failure",
+        "severity": "high",
+        "message": "Health alert deleted: PM Daemon heartbeat stale, PM Agent spawned as backup"
+      },
+      "message": "health alert deleted"
+    },
+    {
+      "id": "evt-1762977981-84915",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:06:21-06:00",
+      "data": {
+        "worker_id": "dev-worker-1FA96AC2",
+        "task_id": "task-1762553469",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553469"
+    },
+    {
+      "id": "evt-1762977984-84915",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:06:24-06:00",
+      "data": {
+        "worker_id": "dev-worker-EC1BA777",
+        "task_id": "task-1762553467",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553467"
+    },
+    {
+      "id": "evt-1762977986-84915",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:06:26-06:00",
+      "data": {
+        "worker_id": "dev-worker-EC993E16",
+        "task_id": "task-1762553468",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553468"
+    },
+    {
+      "id": "evt-1762977987-84915",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:06:27-06:00",
+      "data": {
+        "worker_id": "sec-worker-7A7CFD6E",
+        "task_id": "task-1762553466",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553466"
+    },
+    {
+      "id": "evt-1762978270-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:11:10-06:00",
+      "data": {
+        "worker_id": "dev-worker-1FA96AC2",
+        "task_id": "task-1762553469",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553469"
+    },
+    {
+      "id": "evt-1762978271-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:11:11-06:00",
+      "data": {
+        "worker_id": "dev-worker-EC1BA777",
+        "task_id": "task-1762553467",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553467"
+    },
+    {
+      "id": "evt-1762978272-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:11:12-06:00",
+      "data": {
+        "worker_id": "dev-worker-EC993E16",
+        "task_id": "task-1762553468",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553468"
+    },
+    {
+      "id": "evt-1762978273-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:11:13-06:00",
+      "data": {
+        "worker_id": "sec-worker-7A7CFD6E",
+        "task_id": "task-1762553466",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553466"
+    },
+    {
+      "id": "evt-1762978616-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:16:56-06:00",
+      "data": {
+        "worker_id": "dev-worker-1FA96AC2",
+        "task_id": "task-1762553469",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553469"
+    },
+    {
+      "id": "evt-1762978617-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:16:57-06:00",
+      "data": {
+        "worker_id": "dev-worker-EC1BA777",
+        "task_id": "task-1762553467",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553467"
+    },
+    {
+      "id": "evt-1762978618-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:16:58-06:00",
+      "data": {
+        "worker_id": "dev-worker-EC993E16",
+        "task_id": "task-1762553468",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553468"
+    },
+    {
+      "id": "evt-1762978619-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:16:59-06:00",
+      "data": {
+        "worker_id": "sec-worker-7A7CFD6E",
+        "task_id": "task-1762553466",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553466"
+    },
+    {
+      "id": "evt-1762978745-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:19:05-06:00",
+      "data": {
+        "worker_id": "dev-worker-1FA96AC2",
+        "task_id": "task-1762553469",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553469"
+    },
+    {
+      "id": "evt-1762978746-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:19:06-06:00",
+      "data": {
+        "worker_id": "dev-worker-EC1BA777",
+        "task_id": "task-1762553467",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553467"
+    },
+    {
+      "id": "evt-1762978747-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:19:07-06:00",
+      "data": {
+        "worker_id": "dev-worker-EC993E16",
+        "task_id": "task-1762553468",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553468"
+    },
+    {
+      "id": "evt-1762978748-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:19:08-06:00",
+      "data": {
+        "worker_id": "sec-worker-7A7CFD6E",
+        "task_id": "task-1762553466",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553466"
+    },
+    {
+      "id": "evt-1762979186-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:26:26-06:00",
+      "data": {
+        "worker_id": "dev-worker-1FA96AC2",
+        "task_id": "task-1762553469",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553469"
+    },
+    {
+      "id": "evt-1762979187-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:26:27-06:00",
+      "data": {
+        "worker_id": "dev-worker-EC1BA777",
+        "task_id": "task-1762553467",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553467"
+    },
+    {
+      "id": "evt-1762979188-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:26:28-06:00",
+      "data": {
+        "worker_id": "dev-worker-EC993E16",
+        "task_id": "task-1762553468",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553468"
+    },
+    {
+      "id": "evt-1762979190-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:26:30-06:00",
+      "data": {
+        "worker_id": "sec-worker-7A7CFD6E",
+        "task_id": "task-1762553466",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553466"
+    },
+    {
+      "id": "evt-1762979658-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:34:18-06:00",
+      "data": {
+        "worker_id": "dev-worker-1FA96AC2",
+        "task_id": "task-1762553469",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553469"
+    },
+    {
+      "id": "evt-1762979659-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:34:19-06:00",
+      "data": {
+        "worker_id": "dev-worker-EC1BA777",
+        "task_id": "task-1762553467",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553467"
+    },
+    {
+      "id": "evt-1762979660-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:34:20-06:00",
+      "data": {
+        "worker_id": "dev-worker-EC993E16",
+        "task_id": "task-1762553468",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553468"
+    },
+    {
+      "id": "evt-1762979662-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:34:22-06:00",
+      "data": {
+        "worker_id": "sec-worker-7A7CFD6E",
+        "task_id": "task-1762553466",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553466"
+    },
+    {
+      "id": "evt-1762980162-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:42:42-06:00",
+      "data": {
+        "worker_id": "dev-worker-1FA96AC2",
+        "task_id": "task-1762553469",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553469"
+    },
+    {
+      "id": "evt-1762980163-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:42:43-06:00",
+      "data": {
+        "worker_id": "dev-worker-EC1BA777",
+        "task_id": "task-1762553467",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553467"
+    },
+    {
+      "id": "evt-1762980164-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:42:44-06:00",
+      "data": {
+        "worker_id": "dev-worker-EC993E16",
+        "task_id": "task-1762553468",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553468"
+    },
+    {
+      "id": "evt-1762980165-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:42:45-06:00",
+      "data": {
+        "worker_id": "sec-worker-7A7CFD6E",
+        "task_id": "task-1762553466",
+        "worker_type": "scan-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553466"
+    },
+    {
+      "id": "evt-1762980223018-98864",
+      "type": "health_alert_deleted",
+      "timestamp": "2025-11-12T20:43:43.018Z",
+      "data": {
+        "alert_id": "alert-zombie-threshold-1762976023",
+        "alert_type": "zombie_threshold",
+        "severity": "high",
+        "message": "Health alert deleted: Zombie threshold exceeded: 28 zombies detected (threshold: 10)"
+      },
+      "message": "health alert deleted"
+    },
+    {
+      "id": "evt-1762980290-89929",
+      "type": "worker_started",
+      "timestamp": "2025-11-12T14:44:50-06:00",
+      "data": {
+        "worker_id": "dev-worker-EC1BA777",
+        "task_id": "task-1762553467",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-1762553467"
+    },
+    {
+      "id": "evt-1762984970993-98864",
+      "type": "health_alert_resolved",
+      "timestamp": "2025-11-12T22:02:50.993Z",
+      "data": {
+        "alert_id": "alert-zombie-threshold-1762980261",
+        "alert_type": "zombie_threshold",
+        "severity": "high",
+        "message": "Health alert resolved: Zombie threshold exceeded: 28 zombies detected (threshold: 10)"
+      },
+      "message": "health alert resolved"
+    },
+    {
+      "id": "evt-1762985747987-98864",
+      "type": "health_alert_deleted",
+      "timestamp": "2025-11-12T22:15:47.987Z",
+      "data": {
+        "alert_id": "alert-zombie-threshold-1762980261",
+        "alert_type": "zombie_threshold",
+        "severity": "high",
+        "message": "Health alert deleted: Zombie threshold exceeded: 28 zombies detected (threshold: 10)"
+      },
+      "message": "health alert deleted"
+    },
+    {
+      "id": "evt-1762985754871-98864",
+      "type": "health_alert_deleted",
+      "timestamp": "2025-11-12T22:15:54.871Z",
+      "data": {
+        "alert_id": "alert-zombie-threshold-1762985054",
+        "alert_type": "zombie_threshold",
+        "severity": "high",
+        "message": "Health alert deleted: Zombie threshold exceeded: 32 zombies detected (threshold: 10)"
+      },
+      "message": "health alert deleted"
+    },
+    {
+      "id": "evt-1763157758828-20101",
+      "type": "health_alert_deleted",
+      "timestamp": "2025-11-14T22:02:38.828Z",
+      "data": {
+        "alert_id": "alert-zombie-threshold-1762985792",
+        "alert_type": "zombie_threshold",
+        "severity": "high",
+        "message": "Health alert deleted: Zombie threshold exceeded: 32 zombies detected (threshold: 10)"
+      },
+      "message": "health alert deleted"
+    },
+    {
+      "id": "evt-1763157764884-20101",
+      "type": "health_alert_deleted",
+      "timestamp": "2025-11-14T22:02:44.884Z",
+      "data": {
+        "alert_id": "alert-pm-daemon-down",
+        "alert_type": "pm_daemon_failure",
+        "severity": "high",
+        "message": "Health alert deleted: PM Daemon heartbeat stale, PM Agent spawned as backup"
+      },
+      "message": "health alert deleted"
+    },
+    {
+      "id": "evt-1763158370841-27691",
+      "type": "health_alert_resolved",
+      "timestamp": "2025-11-14T22:12:50.841Z",
+      "data": {
+        "alert_id": "alert-dashboard-down",
+        "alert_type": "dashboard_failure",
+        "severity": "medium",
+        "message": "Health alert resolved: Dashboard server not responding on port 3000"
+      },
+      "message": "health alert resolved"
+    },
+    {
+      "id": "evt-1763158375783-27691",
+      "type": "health_alert_deleted",
+      "timestamp": "2025-11-14T22:12:55.783Z",
+      "data": {
+        "alert_id": "alert-dashboard-down",
+        "alert_type": "dashboard_failure",
+        "severity": "medium",
+        "message": "Health alert deleted: Dashboard server not responding on port 3000"
+      },
+      "message": "health alert deleted"
+    },
+    {
+      "id": "evt-1763235770871-uxr88o5n2",
+      "type": "coordinator_started",
+      "timestamp": "2025-11-15T08:20:04-0600",
+      "data": {
+        "pid": 48203
+      },
+      "message": "coordinator started"
+    },
+    {
+      "id": "evt-1763235770871-ewjpocnng",
+      "type": "coordinator_stopped",
+      "timestamp": "2025-11-15T08:20:51-0600",
+      "data": {
+        "pid": 48203
+      },
+      "message": "coordinator stopped"
+    },
+    {
+      "id": "evt-1763235770871-sya60zuo7",
+      "type": "coordinator_stopped",
+      "timestamp": "2025-11-15T08:20:51-0600",
+      "data": {
+        "pid": 48203
+      },
+      "message": "coordinator stopped"
+    },
+    {
+      "id": "evt-1763235770871-qsgst4m38",
+      "type": "coordinator_started",
+      "timestamp": "2025-11-15T08:23:17-0600",
+      "data": {
+        "pid": 52295
+      },
+      "message": "coordinator started"
+    },
+    {
+      "id": "evt-1763235770871-577y4u5cx",
+      "type": "integration_validator_started",
+      "timestamp": "2025-11-15T08:23:20-0600",
+      "data": {
+        "pid": 52358
+      },
+      "message": "integration validator started"
+    },
+    {
+      "id": "evt-1763235770872-2vqc4zbex",
+      "type": "coordinator_stopped",
+      "timestamp": "2025-11-15T08:46:32-0600",
+      "data": {
+        "pid": 52295
+      },
+      "message": "coordinator stopped"
+    },
+    {
+      "id": "evt-1763235770872-4f64wg9f2",
+      "type": "routing_alert_created",
+      "timestamp": "2025-11-15T08:47:24-0600",
+      "data": {
+        "alert_id": "routing-1763218044-coordinator_not_running",
+        "type": "coordinator_not_running",
+        "severity": "critical"
+      },
+      "message": "routing alert created"
+    },
+    {
+      "id": "evt-1763235770873-442hurez7",
+      "type": "integration_validator_stopped",
+      "timestamp": "2025-11-15T08:47:24-0600",
+      "data": {
+        "pid": 52358
+      },
+      "message": "integration validator stopped"
+    },
+    {
+      "id": "evt-1763235770873-is22inztn",
+      "type": "coordinator_started",
+      "timestamp": "2025-11-15T08:50:56-0600",
+      "data": {
+        "pid": 79814
+      },
+      "message": "coordinator started"
+    },
+    {
+      "id": "evt-1763235770873-ly4bce6n4",
+      "type": "coordinator_stopped",
+      "timestamp": "2025-11-15T08:50:57-0600",
+      "data": {
+        "pid": 79814
+      },
+      "message": "coordinator stopped"
+    },
+    {
+      "id": "evt-1763235770873-l4peggqqu",
+      "type": "coordinator_started",
+      "timestamp": "2025-11-15T08:52:42-0600",
+      "data": {
+        "pid": 81684
+      },
+      "message": "coordinator started"
+    },
+    {
+      "id": "evt-1763235770874-7i6qzn16j",
+      "type": "coordinator_stopped",
+      "timestamp": "2025-11-15T08:52:43-0600",
+      "data": {
+        "pid": 81684
+      },
+      "message": "coordinator stopped"
+    },
+    {
+      "id": "evt-1763235770874-v50sq8f5y",
+      "type": "coordinator_started",
+      "timestamp": "2025-11-15T08:53:44-0600",
+      "data": {
+        "pid": 83911
+      },
+      "message": "coordinator started"
+    },
+    {
+      "id": "evt-1763235770874-wtujjiwoj",
+      "type": "task_assigned",
+      "timestamp": "2025-11-15T08:53:45-0600",
+      "data": {
+        "task_id": "test-routing-pipeline-001",
+        "assigned_to": "development",
+        "task_title": "Test Task: Verify End-to-End Routing Pipeline"
+      },
+      "message": "task assigned: test-routing-pipeline-001 - Test Task: Verify End-to-End Routing Pipeline"
+    },
+    {
+      "id": "evt-1763235770874-sxognbgqq",
+      "type": "integration_validator_started",
+      "timestamp": "2025-11-15T08:56:27-0600",
+      "data": {
+        "pid": 87782
+      },
+      "message": "integration validator started"
+    },
+    {
+      "id": "evt-1763235770874-ty91aq01i",
+      "type": "task_assigned",
+      "timestamp": "2025-11-15T08:56:53-0600",
+      "data": {
+        "task_id": "task-moe-learning-1763218612887",
+        "assigned_to": "development",
+        "task_title": "MoE Learning System: Master commit-relay Architecture and Operations"
+      },
+      "message": "task assigned: task-moe-learning-1763218612887 - MoE Learning System: Master commit-relay Architecture and Operations"
+    },
+    {
+      "id": "evt-1763235770875-xn56k06ez",
+      "type": "coordinator_stopped",
+      "timestamp": "2025-11-15T09:38:06-0600",
+      "data": {
+        "pid": 83911
+      },
+      "message": "coordinator stopped"
+    },
+    {
+      "id": "evt-1763235770875-ob4tbqcry",
+      "type": "coordinator_stopped",
+      "timestamp": "2025-11-15T09:38:06-0600",
+      "data": {
+        "pid": 83911
+      },
+      "message": "coordinator stopped"
+    },
+    {
+      "id": "evt-1763235770875-vsbgt4y7k",
+      "type": "coordinator_started",
+      "timestamp": "2025-11-15T12:16:22-0600",
+      "data": {
+        "pid": 16874
+      },
+      "message": "coordinator started"
+    },
+    {
+      "id": "evt-1763235770875-zpkkanhtd",
+      "type": "integration_validator_started",
+      "timestamp": "2025-11-15T12:16:25-0600",
+      "data": {
+        "pid": 17147
+      },
+      "message": "integration validator started"
+    },
+    {
+      "id": "evt-1763235770875-2i2pod5lx",
+      "type": "routing_alert_created",
+      "timestamp": "2025-11-15T12:16:26-0600",
+      "data": {
+        "alert_id": "routing-1763230585-worker_daemon_not_running",
+        "type": "worker_daemon_not_running",
+        "severity": "high"
+      },
+      "message": "routing alert created"
+    },
+    {
+      "id": "evt-1763235770875-5bpj6n7pi",
+      "type": "task_assigned",
+      "timestamp": "2025-11-15T13:42:50-0600",
+      "data": {
+        "task_id": "task-moe-learning-1763235765769",
+        "assigned_to": "development",
+        "task_title": "MoE Learning System: Master commit-relay Architecture and Operations"
+      },
+      "message": "task assigned: task-moe-learning-1763235765769 - MoE Learning System: Master commit-relay Architecture and Operations"
+    },
+    {
+      "id": "task-event-1763235771844-quznsayz2",
+      "type": "task_assigned",
+      "timestamp": "2025-11-15T13:42:50-0600",
+      "data": {
+        "task_id": "task-moe-learning-1763235765769",
+        "task_title": "MoE Learning System: Master commit-relay Architecture and Operations",
+        "assigned_to": "development",
+        "priority": "high"
+      },
+      "message": "Task Assigned: 'task-moe-learning-1763235765769' → development"
+    },
+    {
+      "id": "evt-1763236049-10727",
+      "type": "system_ERROR",
+      "timestamp": "2025-11-15T13:47:29-06:00",
+      "data": {
+        "message": "Permission denied: development-master cannot spawn workers"
+      },
+      "message": "system ERROR"
+    },
+    {
+      "id": "evt-1763236215-13075",
+      "type": "system_ERROR",
+      "timestamp": "2025-11-15T13:50:15-06:00",
+      "data": {
+        "message": "Permission denied: development-master cannot spawn workers"
+      },
+      "message": "system ERROR"
+    },
+    {
+      "id": "evt-1763236303-18041",
+      "type": "worker_started",
+      "timestamp": "2025-11-15T13:51:43-06:00",
+      "data": {
+        "worker_id": "worker-analysis-001",
+        "task_id": "task-moe-learning-1763235765769",
+        "worker_type": "analysis-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-moe-learning-1763235765769"
+    },
+    {
+      "id": "evt-1763236303603-pjz0jb2h8",
+      "type": "orchestrator_started",
+      "timestamp": "2025-11-15T13:51:43-0600",
+      "data": {
+        "pid": 14941
+      },
+      "message": "orchestrator started"
+    },
+    {
+      "id": "evt-1763236519-18041",
+      "type": "worker_started",
+      "timestamp": "2025-11-15T13:55:19-06:00",
+      "data": {
+        "worker_id": "worker-implementation-002",
+        "task_id": "task-moe-learning-1763235765769",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-moe-learning-1763235765769"
+    },
+    {
+      "id": "evt-1763236520-18041",
+      "type": "worker_started",
+      "timestamp": "2025-11-15T13:55:20-06:00",
+      "data": {
+        "worker_id": "worker-implementation-003",
+        "task_id": "task-moe-learning-1763235765769",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-moe-learning-1763235765769"
+    },
+    {
+      "id": "evt-1763236521-18041",
+      "type": "worker_started",
+      "timestamp": "2025-11-15T13:55:21-06:00",
+      "data": {
+        "worker_id": "worker-implementation-004",
+        "task_id": "task-moe-learning-1763235765769",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-moe-learning-1763235765769"
+    },
+    {
+      "id": "evt-1763238615-18041",
+      "type": "worker_started",
+      "timestamp": "2025-11-15T14:30:15-06:00",
+      "data": {
+        "worker_id": "worker-implementation-005",
+        "task_id": "task-routing-intelligence-1763238578",
+        "worker_type": "implementation-worker",
+        "launched_by": "daemon"
+      },
+      "message": "worker started: task-routing-intelligence-1763238578"
+    }
+  ],
+  "savedAt": "2025-11-15T20:30:17.009Z",
+  "bufferSize": 500
+}

@@ -1,0 +1,20 @@
+Execution Manager Spawn Information
+Generated: 2025-11-05T21:16:56Z
+
+Execution Manager ID: exec-mgr-dev-903e3486
+Master Type: development
+Subtask ID: dev-subtask-test-001
+Description: Test execution manager spawning
+
+Token Budget: 30000
+Estimated Duration: 45 minutes
+
+Files:
+/Users/ryandahlberg/commit-relay/coordination/masters/development/execution-plans/dev-subtask-test-001.json
+/Users/ryandahlberg/commit-relay/coordination/execution-managers/active/exec-mgr-dev-903e3486.json
+
+To start the Execution Manager manually:
+  export EXEC_MGR_ID="exec-mgr-dev-903e3486"
+  echo "exec-mgr-dev-903e3486" > /tmp/exec-mgr-id.txt
+  cd /Users/ryandahlberg/commit-relay
+  claude --prompt "$(cat agents/prompts/execution-manager.md)"

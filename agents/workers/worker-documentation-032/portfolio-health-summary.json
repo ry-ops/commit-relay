@@ -1,0 +1,295 @@
+{
+  "report_metadata": {
+    "generated_at": "2025-11-16T16:34:00Z",
+    "worker_id": "worker-documentation-032",
+    "task_id": "moe-test-ddqd-v5-1763246973-4324258d",
+    "report_type": "portfolio_health_status",
+    "version": "1.0"
+  },
+  "overall_status": {
+    "health": "degraded",
+    "score": 65,
+    "severity": "medium",
+    "requires_attention": true
+  },
+  "repositories": {
+    "total": 20,
+    "active": 20,
+    "archived": 0,
+    "last_scan": "2025-11-01T19:26:20Z",
+    "cataloged": 0,
+    "pending_catalog": 20,
+    "health_coverage_percent": 0,
+    "languages": {
+      "Python": 14,
+      "TypeScript": 2,
+      "JavaScript": 1,
+      "MDX": 1,
+      "none": 2
+    },
+    "visibility": {
+      "public": 18,
+      "private": 2
+    },
+    "stats": {
+      "total_stars": 3,
+      "total_forks": 1,
+      "total_open_issues": 0
+    },
+    "top_repositories": [
+      {
+        "name": "ry-ops/commit-relay",
+        "language": "JavaScript",
+        "description": "Multi-agent AI system for autonomous GitHub repository management",
+        "visibility": "private",
+        "status": "active",
+        "health_status": "pending_catalog"
+      },
+      {
+        "name": "ry-ops/aiana",
+        "language": "none",
+        "description": "AI conversation attendant for Claude Code",
+        "visibility": "private",
+        "status": "active",
+        "health_status": "pending_catalog"
+      }
+    ]
+  },
+  "services": {
+    "dashboard_api": {
+      "status": "healthy",
+      "uptime_seconds": 1596.74,
+      "endpoint": "http://localhost:3000/api/",
+      "last_check": "2025-11-16T16:33:56.482Z"
+    },
+    "system_health": {
+      "status": "degraded",
+      "last_check": "2025-11-09T20:15:43Z",
+      "data_age_days": 7,
+      "failed_services": [
+        "coordinator",
+        "development-master",
+        "pm-daemon"
+      ]
+    },
+    "routing": {
+      "status": "healthy",
+      "daemon_uptime_hours": 26.2,
+      "checks_performed": 2199,
+      "success_rate_percent": 100.0,
+      "tasks_pending": 0,
+      "tasks_assigned": 0,
+      "tasks_completed": 1,
+      "tasks_failed": 0
+    }
+  },
+  "workers": {
+    "active_count": 37,
+    "types": {
+      "implementation": 17,
+      "scan": 12,
+      "documentation": 8
+    },
+    "status_distribution": {
+      "pending": 37,
+      "running": 0,
+      "completed_today": 0,
+      "failed_today": 0
+    },
+    "performance": {
+      "total_spawned_today": 37,
+      "success_rate_today_percent": 0,
+      "historical_total": 70,
+      "historical_completed": 14,
+      "historical_failed": 55,
+      "historical_success_rate_percent": 20.0,
+      "zombies_killed": 3
+    },
+    "token_budgets": {
+      "implementation_worker": 10000,
+      "scan_worker": 8000,
+      "documentation_worker": 6000
+    }
+  },
+  "pm_daemon": {
+    "status": "running",
+    "pid": 8174,
+    "uptime_seconds": 1443,
+    "started_at": "2025-11-16T10:07:52-0600",
+    "loops_completed": 9,
+    "monitored_workers": 2,
+    "metrics": {
+      "active_workers": 1,
+      "completed_workers": 14,
+      "failed_workers": 55,
+      "total_workers": 70,
+      "success_rate_percent": 20,
+      "completed_today": 0,
+      "failed_today": 3,
+      "success_rate_today_percent": 0
+    }
+  },
+  "token_budget": {
+    "total": 500000,
+    "used": 65000,
+    "available": 435000,
+    "usage_percent": 13,
+    "efficiency_percent": 96.2,
+    "emergency_reserve": 25000,
+    "emergency_used": 0,
+    "masters": {
+      "total_allocated": 180000,
+      "total_used": 13500,
+      "breakdown": {
+        "coordinator": {
+          "allocated": 50000,
+          "used": 5000,
+          "worker_pool": 30000
+        },
+        "security": {
+          "allocated": 30000,
+          "used": 2500,
+          "worker_pool": 15000
+        },
+        "development": {
+          "allocated": 30000,
+          "used": 6000,
+          "worker_pool": 20000
+        },
+        "inventory": {
+          "allocated": 35000,
+          "used": 0,
+          "worker_pool": 15000
+        },
+        "cicd": {
+          "allocated": 35000,
+          "used": 0,
+          "worker_pool": 25000
+        },
+        "dashboard": {
+          "allocated": 20000,
+          "used": 0
+        }
+      }
+    },
+    "workers": {
+      "total_allocated": 486500,
+      "total_used": 51500,
+      "pool_total": 200000
+    }
+  },
+  "tasks": {
+    "pending": 0,
+    "in_progress": 1,
+    "completed": 0,
+    "failed": 0,
+    "cancelled": 0,
+    "total": 1,
+    "active_task": {
+      "id": "test-autonomous-001",
+      "title": "Autonomous Test: Create greeting script",
+      "type": "development",
+      "priority": "high",
+      "status": "pending"
+    }
+  },
+  "orchestrator": {
+    "active": 0,
+    "total": 1,
+    "completed": 0,
+    "failed": 0
+  },
+  "execution_managers": {
+    "active": 2,
+    "total": 2,
+    "completed": 0,
+    "failed": 0,
+    "success_rate_percent": 0,
+    "active_ids": [
+      "exec-mgr-dev-78d332c2",
+      "exec-mgr-dev-903e3486"
+    ]
+  },
+  "critical_issues": [
+    {
+      "id": "service_degradation",
+      "severity": "critical",
+      "title": "Service Degradation",
+      "description": "coordinator, development-master, pm-daemon services failed",
+      "impact": "May affect task routing and worker coordination",
+      "action": "Run service health check and restart failed services"
+    },
+    {
+      "id": "high_worker_failure_rate",
+      "severity": "high",
+      "title": "High Worker Failure Rate",
+      "description": "78.6% historical failure rate (55 failed / 70 total)",
+      "impact": "Poor system reliability",
+      "action": "Investigate failure patterns, review worker logs"
+    },
+    {
+      "id": "stale_health_data",
+      "severity": "medium",
+      "title": "Stale System Health Data",
+      "description": "Last check: 7 days ago",
+      "impact": "Unable to accurately assess service status",
+      "action": "Run system health check immediately"
+    },
+    {
+      "id": "pending_repository_cataloging",
+      "severity": "medium",
+      "title": "Pending Repository Cataloging",
+      "description": "All 20 repositories lack detailed health metrics",
+      "impact": "No baseline health data available",
+      "action": "Execute inventory cataloging tasks for all repositories"
+    },
+    {
+      "id": "unassigned_workers",
+      "severity": "low",
+      "title": "Unassigned Workers",
+      "description": "2 implementation workers with null task_id",
+      "impact": "Wasted resources",
+      "action": "Review worker spawning logic"
+    }
+  ],
+  "recommendations": {
+    "immediate": [
+      "Run service health check: /scripts/ensure-services.sh",
+      "Restart failed services: coordinator, development-master, pm-daemon",
+      "Investigate recent worker failures (3 failed today)",
+      "Update system-health.json with current status"
+    ],
+    "short_term": [
+      "Execute repository cataloging for all 20 repositories",
+      "Establish health monitoring baselines for each repository",
+      "Review and optimize worker spawning logic",
+      "Implement automated health checks (hourly)",
+      "Set up alerting for service failures"
+    ],
+    "long_term": [
+      "Improve worker success rate from 20% to >90%",
+      "Implement worker failure pattern analysis",
+      "Add repository health scoring system",
+      "Create dashboard for real-time portfolio monitoring",
+      "Establish SLAs for service uptime"
+    ]
+  },
+  "strengths": [
+    "Dashboard API operational",
+    "Routing system healthy (100% success rate)",
+    "Token budget well-managed (87% available)",
+    "Active worker pool deployed (37 workers)"
+  ],
+  "weaknesses": [
+    "High historical worker failure rate (78.6%)",
+    "Degraded services affecting coordination",
+    "Stale health data (7 days old)",
+    "No repository health baselines established"
+  ],
+  "next_steps": [
+    "Restore service health (coordinator, development-master, pm-daemon)",
+    "Catalog all 20 repositories to establish health baselines",
+    "Investigate and resolve worker failure patterns",
+    "Update system health monitoring to current state"
+  ]
+}

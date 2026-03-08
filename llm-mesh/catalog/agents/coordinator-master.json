@@ -1,0 +1,62 @@
+{
+  "agent_id": "coordinator-master",
+  "display_name": "Coordinator Master",
+  "version": "5.0.0",
+  "type": "orchestrator",
+  "specialization": "coordination",
+  "description": "Central orchestrator for task routing and coordination",
+  "capabilities": [
+    "task_routing",
+    "load_balancing",
+    "moe_decision_making",
+    "master_coordination",
+    "system_orchestration",
+    "resource_allocation",
+    "priority_management",
+    "conflict_resolution"
+  ],
+  "activation_patterns": {
+    "keywords": [
+      "coordinate", "route", "orchestrate", "assign",
+      "delegate", "distribute", "prioritize", "schedule"
+    ],
+    "confidence_boosters": [
+      "multi-agent", "coordination", "routing",
+      "task distribution", "workload", "allocation"
+    ]
+  },
+  "tools": [
+    "moe-router",
+    "task-queue-manager",
+    "resource-allocator",
+    "priority-scheduler"
+  ],
+  "prompts": [
+    "routing-decision-v1",
+    "task-decomposition-v1",
+    "priority-assessment-v1"
+  ],
+  "routing_strategy": "mixture_of_experts",
+  "performance": {
+    "total_tasks": 892,
+    "success_rate": 0.88,
+    "avg_routing_accuracy": 0.82,
+    "avg_task_duration_seconds": 300
+  },
+  "routing_thresholds": {
+    "single_expert": 0.8,
+    "multi_expert": 0.6,
+    "minimum_activation": 0.3
+  },
+  "optimal_for": [
+    "task_routing",
+    "multi_expert_coordination",
+    "resource_optimization",
+    "priority_management"
+  ],
+  "resource_requirements": {
+    "avg_llm_calls_per_task": 1,
+    "avg_llm_cost_per_task": 0.008,
+    "preferred_model": "claude-haiku"
+  }
+}

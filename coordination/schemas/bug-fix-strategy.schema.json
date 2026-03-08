@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "bug-fix-strategy.schema.json",
+  "title": "Bug Fix Strategy",
+  "description": "Schema for learned bug fix strategies",
+  "type": "object",
+  "required": ["strategy_id", "bug_type", "diagnosis_approach", "fix_approach", "success_rate"],
+  "additionalProperties": false,
+  "properties": {
+    "strategy_id": {
+      "type": "string",
+      "pattern": "^bugfix-[0-9]+$",
+      "description": "Unique strategy identifier"
+    },
+    "bug_type": {
+      "type": "string",
+      "enum": [
+        "logic_error",
+        "race_condition",
+        "memory_leak",
+        "null_pointer",
+        "type_mismatch",
+        "api_error",
+        "data_corruption",
+        "performance_issue",
+        "ui_bug",
+        "integration_failure"
+      ],
+      "description": "Bug classification"
+    },
+    "symptoms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Common symptoms of this bug type"
+    },
+    "diagnosis_approach": {
+      "type": "string",
+      "minLength": 10,
+      "description": "How to diagnose this bug type"
+    },
+    "fix_approach": {
+      "type": "string",
+      "minLength": 10,
+      "description": "How to fix this bug type"
+    },
+    "tools_used": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Debugging/fixing tools used"
+    },
+    "success_rate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Strategy success rate"
+    },
+    "avg_fix_time_minutes": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Average time to fix"
+    },
+    "preventive_measures": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "How to prevent this bug in future"
+    },
+    "test_strategy": {
+      "type": "string",
+      "description": "Testing approach to verify fix"
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "pattern": "^(task-[0-9]+|test-task-[0-9]+)$"
+          },
+          "description": {
+            "type": "string"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": ["success", "partial", "failed"]
+          }
+        }
+      }
+    }
+  }
+}

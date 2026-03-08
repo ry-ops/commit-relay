@@ -1,0 +1,57 @@
+{
+  "worker_id": "worker-implementation-001",
+  "worker_type": "implementation-worker",
+  "created_by": "development-master",
+  "execution_manager": null,
+  "created_at": "2025-11-20T20:20:01-0600",
+  "task_id": "moe-test-ddqd-v5-1763691538-695fc9c3",
+  "status": "completed",
+  "scope": {},
+  "context": {
+    "parent_task": "moe-test-ddqd-v5-1763691538-695fc9c3",
+    "priority": "medium",
+    "deadline": null
+  },
+  "goal_based_planning": {
+    "enabled": true,
+    "strategy": "direct",
+    "goal_type": "general",
+    "complexity": "medium",
+    "strategy_plan_location": "coordination/knowledge-base/strategy-plans/worker-implementation-001-plan.json"
+  },
+  "resources": {
+    "token_budget": 10000,
+    "timeout_minutes": 45,
+    "max_retries": 1
+  },
+  "deliverables": [],
+  "prompt_template": "agents/prompts/workers/implementation-worker.md",
+  "execution": {
+    "started_at": "2025-11-20T20:20:22-0600",
+    "completed_at": "2025-11-21T02:25:30Z",
+    "tokens_used": 0,
+    "duration_minutes": 0,
+    "session_id": null
+  },
+  "results": {
+    "status": null,
+    "output_location": null,
+    "summary": null,
+    "artifacts": []
+  },
+  "heartbeat": {
+    "last_heartbeat": "2025-11-20T20:20:22-0600",
+    "heartbeat_sequence": 0,
+    "health": {
+      "status": "healthy",
+      "cpu_usage_percent": 0,
+      "memory_usage_mb": 0,
+      "tokens_used": 0,
+      "tokens_remaining": 0,
+      "active_for_seconds": 0,
+      "last_activity": "initialized"
+    },
+    "warnings": [],
+    "missed_count": 0
+  }
+}

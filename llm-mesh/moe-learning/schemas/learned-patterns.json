@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MoE Learned Patterns",
+  "description": "Patterns learned from routing decisions and outcomes - used to improve future routing",
+  "type": "object",
+  "required": ["version", "last_updated", "learning_stats", "expert_patterns"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Learning model version"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "learning_stats": {
+      "type": "object",
+      "description": "Statistics about the learning process",
+      "properties": {
+        "total_decisions_analyzed": {"type": "integer"},
+        "successful_routings": {"type": "integer"},
+        "failed_routings": {"type": "integer"},
+        "reassignments": {"type": "integer"},
+        "average_routing_accuracy": {"type": "number"},
+        "average_confidence_calibration": {"type": "number"},
+        "learning_iterations": {"type": "integer"}
+      }
+    },
+    "expert_patterns": {
+      "type": "object",
+      "description": "Learned patterns for each expert",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "expert_name": {"type": "string"},
+          "specialization_refined": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Refined understanding of what this expert handles best"
+          },
+          "success_indicators": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "pattern": {"type": "string"},
+                "confidence_boost": {"type": "number"},
+                "frequency": {"type": "integer"},
+                "success_rate": {"type": "number"}
+              }
+            },
+            "description": "Patterns that predict this expert will succeed"
+          },
+          "failure_indicators": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "pattern": {"type": "string"},
+                "confidence_penalty": {"type": "number"},
+                "frequency": {"type": "integer"}
+              }
+            },
+            "description": "Patterns that predict this expert will struggle"
+          },
+          "task_complexity_range": {
+            "type": "object",
+            "properties": {
+              "optimal": {"type": "array", "items": {"type": "string"}},
+              "acceptable": {"type": "array", "items": {"type": "string"}},
+              "challenging": {"type": "array", "items": {"type": "string"}}
+            }
+          },
+          "collaboration_patterns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "partner_expert": {"type": "string"},
+                "task_patterns": {"type": "array", "items": {"type": "string"}},
+                "success_rate": {"type": "number"},
+                "description": {"type": "string"}
+              }
+            },
+            "description": "When this expert works well with other experts"
+          },
+          "performance_metrics": {
+            "type": "object",
+            "properties": {
+              "total_tasks": {"type": "integer"},
+              "success_rate": {"type": "number"},
+              "average_quality_score": {"type": "number"},
+              "average_duration_seconds": {"type": "number"},
+              "tasks_by_complexity": {
+                "type": "object",
+                "properties": {
+                  "simple": {"type": "integer"},
+                  "moderate": {"type": "integer"},
+                  "complex": {"type": "integer"},
+                  "very_complex": {"type": "integer"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "routing_improvements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "improvement_id": {"type": "string"},
+          "created_at": {"type": "string", "format": "date-time"},
+          "improvement_type": {
+            "type": "string",
+            "enum": ["new_keyword", "confidence_adjustment", "new_collaboration", "threshold_tuning"]
+          },
+          "expert": {"type": "string"},
+          "description": {"type": "string"},
+          "expected_impact": {"type": "string"},
+          "status": {
+            "type": "string",
+            "enum": ["proposed", "applied", "validated", "rejected"]
+          },
+          "validation_results": {
+            "type": "object",
+            "properties": {
+              "accuracy_before": {"type": "number"},
+              "accuracy_after": {"type": "number"},
+              "improvement_percentage": {"type": "number"}
+            }
+          }
+        }
+      }
+    },
+    "global_insights": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "System-wide insights learned from all routing decisions"
+    }
+  }
+}

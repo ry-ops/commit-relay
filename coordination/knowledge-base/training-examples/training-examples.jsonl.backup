@@ -1,0 +1,190 @@
+{
+  "example_id": "example-1763569260-2C1816F2",
+  "worker_id": "test-worker-001",
+  "task_id": "test-task-001-simple-doc",
+  "example_type": "positive",
+  "overall_score": 92,
+  "context": {
+    "task_type": null,
+    "worker_type": "documentation-worker",
+    "strategy": "direct",
+    "complexity": null,
+    "priority": null,
+    "context": null
+  },
+  "action": {
+    "strategy_used": "direct",
+    "worker_type": "documentation-worker",
+    "approach": null,
+    "tools_used": null
+  },
+  "outcome": {
+    "status": "completed",
+    "classification": "success_high_quality",
+    "scores": {
+      "quality": 80,
+      "efficiency": 90,
+      "success": 100,
+      "overall": 92
+    },
+    "metrics": {
+      "duration_seconds": 0,
+      "token_budget": 10000,
+      "tokens_used": 4800,
+      "token_efficiency": ".4800"
+    }
+  },
+  "created_at": "2025-11-19T16:21:00Z"
+}
+{
+  "example_id": "example-1763569358-AD6706DC",
+  "worker_id": "test-worker-002",
+  "task_id": "test-task-002-complex-feature",
+  "example_type": "positive",
+  "overall_score": 98,
+  "context": {
+    "task_type": null,
+    "worker_type": "feature-implementer",
+    "strategy": "plan_then_execute",
+    "complexity": null,
+    "priority": null,
+    "context": null
+  },
+  "action": {
+    "strategy_used": "plan_then_execute",
+    "worker_type": "feature-implementer",
+    "approach": null,
+    "tools_used": null
+  },
+  "outcome": {
+    "status": "completed",
+    "classification": "success_high_quality",
+    "scores": {
+      "quality": 100,
+      "efficiency": 90,
+      "success": 100,
+      "overall": 98
+    },
+    "metrics": {
+      "duration_seconds": 0,
+      "token_budget": 20000,
+      "tokens_used": 15200,
+      "token_efficiency": ".7600"
+    }
+  },
+  "created_at": "2025-11-19T16:22:38Z"
+}
+{
+  "example_id": "example-1763569372-2245049C",
+  "worker_id": "test-worker-003",
+  "task_id": "test-task-006-failure-case",
+  "example_type": "negative",
+  "overall_score": 17,
+  "context": {
+    "task_type": null,
+    "worker_type": "feature-implementer",
+    "strategy": "direct",
+    "complexity": null,
+    "priority": null,
+    "context": null
+  },
+  "action": {
+    "strategy_used": "direct",
+    "worker_type": "feature-implementer",
+    "approach": null,
+    "tools_used": null
+  },
+  "outcome": {
+    "status": "failed",
+    "classification": "failure",
+    "scores": {
+      "quality": 10,
+      "efficiency": 70,
+      "success": 0,
+      "overall": 17
+    },
+    "metrics": {
+      "duration_seconds": 0,
+      "token_budget": 50000,
+      "tokens_used": 45000,
+      "token_efficiency": ".9000"
+    }
+  },
+  "created_at": "2025-11-19T16:22:52Z"
+}
+{
+  "example_id": "example-1763569373-C4DA83CD",
+  "worker_id": "test-worker-004",
+  "task_id": "test-task-004-security-scan",
+  "example_type": "positive",
+  "overall_score": 92,
+  "context": {
+    "task_type": null,
+    "worker_type": "security-specialist",
+    "strategy": "thorough_analysis",
+    "complexity": null,
+    "priority": null,
+    "context": null
+  },
+  "action": {
+    "strategy_used": "thorough_analysis",
+    "worker_type": "security-specialist",
+    "approach": null,
+    "tools_used": null
+  },
+  "outcome": {
+    "status": "completed",
+    "classification": "success_high_quality",
+    "scores": {
+      "quality": 80,
+      "efficiency": 90,
+      "success": 100,
+      "overall": 92
+    },
+    "metrics": {
+      "duration_seconds": 0,
+      "token_budget": 30000,
+      "tokens_used": 22000,
+      "token_efficiency": ".7333"
+    }
+  },
+  "created_at": "2025-11-19T16:22:53Z"
+}
+{
+  "example_id": "example-1763569373-6361C44A",
+  "worker_id": "test-worker-005",
+  "task_id": "test-task-005-quick-analysis",
+  "example_type": "positive",
+  "overall_score": 89,
+  "context": {
+    "task_type": null,
+    "worker_type": "analysis-worker",
+    "strategy": "direct",
+    "complexity": null,
+    "priority": null,
+    "context": null
+  },
+  "action": {
+    "strategy_used": "direct",
+    "worker_type": "analysis-worker",
+    "approach": null,
+    "tools_used": null
+  },
+  "outcome": {
+    "status": "completed",
+    "classification": "success_high_quality",
+    "scores": {
+      "quality": 70,
+      "efficiency": 90,
+      "success": 100,
+      "overall": 89
+    },
+    "metrics": {
+      "duration_seconds": 0,
+      "token_budget": 5000,
+      "tokens_used": 3200,
+      "token_efficiency": ".6400"
+    }
+  },
+  "created_at": "2025-11-19T16:22:53Z"
+}

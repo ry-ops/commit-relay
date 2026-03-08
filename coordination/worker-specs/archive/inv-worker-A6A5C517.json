@@ -1,0 +1,51 @@
+{
+  "worker_id": "inv-worker-A6A5C517",
+  "worker_type": "cataloger",
+  "prompt_template": "agents/prompts/workers/analysis-worker.md",
+  "parent_master": "inventory",
+  "task_id": "task-022",
+  "task_data": {
+    "id": "task-022",
+    "title": "System Test - Inventory Master: Generate a simple project inventory listing all master agents and their current status, save to tests/system-test-inventory.txt with 'Inventory Master Test Completed' message",
+    "type": "catalog",
+    "priority": "medium",
+    "status": "assigned",
+    "assigned_to": "inventory",
+    "created_at": "2025-11-05T11:34:05Z",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "description": "System Test - Inventory Master: Generate a simple project inventory listing all master agents and their current status, save to tests/system-test-inventory.txt with 'Inventory Master Test Completed' message",
+      "catalog_depth": "deep"
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-05T11:42:29Z",
+    "updated_at": "2025-11-05T05:42:29-06:00"
+  },
+  "context": {
+    "master_session": "5BFC47C4-EC60-4D0D-8894-9306D4561EDB",
+    "expertise_area": "repository_cataloging",
+    "skills_required": [
+      "metadata_extraction",
+      "organization",
+      "tagging"
+    ],
+    "knowledge_base_refs": {
+      "repository_catalog": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/inventory/knowledge-base/repository-catalog.json",
+      "documentation_templates": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/inventory/knowledge-base/doc-templates/"
+    }
+  },
+  "resources": {
+    "token_allocation": 8000,
+    "time_limit_minutes": 45
+  },
+  "status": "zombie",
+  "created_at": "2025-11-05T11:51:56Z",
+  "created_by": "inventory",
+  "execution": {
+    "started_at": "2025-11-05T11:57:31Z",
+    "ended_at": "2025-11-06T21:34:15Z",
+    "outcome": "zombie_cleanup",
+    "notes": "Moved to zombie/ by PM daemon - no process found"
+  }
+}

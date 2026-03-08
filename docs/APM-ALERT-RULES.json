@@ -1,0 +1,261 @@
+{
+  "alert_rules": [
+    {
+      "name": "Critical CVE Detected",
+      "type": "apm.transaction_error_rate",
+      "description": "Triggers when critical security vulnerabilities are detected",
+      "conditions": {
+        "metric": "labels.security.critical_findings",
+        "threshold": "> 0",
+        "duration": "1m"
+      },
+      "severity": "critical",
+      "actions": [
+        {
+          "type": "email",
+          "recipients": ["security-team@example.com"],
+          "subject": "CRITICAL: CVE Detected in commit-relay",
+          "body": "Critical security vulnerabilities detected. Check Kibana dashboard immediately."
+        },
+        {
+          "type": "slack",
+          "channel": "#security-alerts",
+          "message": ":rotating_light: *CRITICAL CVE DETECTED* in commit-relay\nCheck security dashboard: {{kibana.url}}"
+        },
+        {
+          "type": "pagerduty",
+          "severity": "critical",
+          "description": "Critical CVE detected in commit-relay"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "name": "High Worker Failure Rate",
+      "type": "apm.transaction_error_rate",
+      "description": "Triggers when worker failure rate exceeds 10%",
+      "conditions": {
+        "formula": "(average(labels.worker.failed_count) / (average(labels.worker.failed_count) + average(labels.worker.completed_count))) * 100",
+        "threshold": "> 10",
+        "duration": "5m"
+      },
+      "severity": "high",
+      "actions": [
+        {
+          "type": "slack",
+          "channel": "#commit-relay-alerts",
+          "message": ":warning: High worker failure rate detected: {{context.value}}%"
+        },
+        {
+          "type": "email",
+          "recipients": ["ops-team@example.com"]
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "name": "Low MoE Routing Confidence",
+      "type": "apm.custom_threshold",
+      "description": "Triggers when MoE routing confidence drops below 50%",
+      "conditions": {
+        "metric": "average(labels.moe.avg_confidence)",
+        "threshold": "< 0.5",
+        "duration": "15m"
+      },
+      "severity": "medium",
+      "actions": [
+        {
+          "type": "slack",
+          "channel": "#commit-relay-alerts",
+          "message": ":chart_with_downwards_trend: MoE routing confidence low: {{context.value}}"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "name": "High Task Queue Backlog",
+      "type": "apm.custom_threshold",
+      "description": "Triggers when task queue has >50 pending tasks",
+      "conditions": {
+        "metric": "labels.task.pending_count",
+        "threshold": "> 50",
+        "duration": "10m"
+      },
+      "severity": "medium",
+      "actions": [
+        {
+          "type": "slack",
+          "channel": "#commit-relay-alerts",
+          "message": ":hourglass: Task queue backlog high: {{context.value}} pending tasks"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "name": "API Response Time Degradation",
+      "type": "apm.transaction_duration_anomaly",
+      "description": "Detects anomalous increases in API response time",
+      "conditions": {
+        "service": "commit-relay",
+        "transaction_type": "request",
+        "anomaly_severity": "major",
+        "ml_job": "high_mean_response_time"
+      },
+      "severity": "high",
+      "actions": [
+        {
+          "type": "slack",
+          "channel": "#commit-relay-alerts",
+          "message": ":turtle: API response time degradation detected on {{context.transaction_name}}"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "name": "Security Health Score Low",
+      "type": "apm.custom_threshold",
+      "description": "Triggers when security health score drops below 60",
+      "conditions": {
+        "metric": "labels.security.health_score",
+        "threshold": "< 60",
+        "duration": "5m"
+      },
+      "severity": "high",
+      "actions": [
+        {
+          "type": "email",
+          "recipients": ["security-team@example.com"],
+          "subject": "Security Health Score Low for commit-relay",
+          "body": "Security health score: {{context.value}}/100. Review vulnerabilities immediately."
+        },
+        {
+          "type": "slack",
+          "channel": "#security-alerts",
+          "message": ":warning: Security health score low: {{context.value}}/100"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "name": "High Security Findings",
+      "type": "apm.custom_threshold",
+      "description": "Triggers when high-severity vulnerabilities are detected",
+      "conditions": {
+        "metric": "labels.security.high_findings",
+        "threshold": "> 5",
+        "duration": "1m"
+      },
+      "severity": "high",
+      "actions": [
+        {
+          "type": "slack",
+          "channel": "#security-alerts",
+          "message": ":warning: Multiple high-severity vulnerabilities detected: {{context.value}}"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "name": "Worker Pool Exhaustion",
+      "type": "apm.custom_threshold",
+      "description": "Triggers when active workers exceed capacity",
+      "conditions": {
+        "metric": "labels.worker.active_count",
+        "threshold": "> 8",
+        "duration": "5m"
+      },
+      "severity": "medium",
+      "actions": [
+        {
+          "type": "slack",
+          "channel": "#commit-relay-alerts",
+          "message": ":construction: Worker pool near capacity: {{context.value}} active workers"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "name": "MoE Strategy Diversity Low",
+      "type": "apm.custom_threshold",
+      "description": "Triggers when MoE uses very few routing strategies",
+      "conditions": {
+        "metric": "labels.moe.unique_strategies",
+        "threshold": "< 2",
+        "duration": "30m"
+      },
+      "severity": "low",
+      "actions": [
+        {
+          "type": "slack",
+          "channel": "#commit-relay-alerts",
+          "message": ":thinking_face: Low MoE strategy diversity. Only {{context.value}} strategies in use."
+        }
+      ],
+      "enabled": false
+    },
+    {
+      "name": "No Security Scans Recently",
+      "type": "apm.custom_threshold",
+      "description": "Triggers when no security scans have run in 7 days",
+      "conditions": {
+        "metric": "count(transaction.name: 'GET /api/security/scans')",
+        "threshold": "< 1",
+        "duration": "7d"
+      },
+      "severity": "medium",
+      "actions": [
+        {
+          "type": "slack",
+          "channel": "#security-alerts",
+          "message": ":calendar: No security scans in last 7 days. Schedule scan immediately."
+        },
+        {
+          "type": "email",
+          "recipients": ["security-team@example.com"]
+        }
+      ],
+      "enabled": true
+    }
+  ],
+  "notification_channels": {
+    "slack": {
+      "webhook_url": "https://hooks.slack.com/services/YOUR/WEBHOOK/URL",
+      "channels": {
+        "#commit-relay-alerts": "General operational alerts",
+        "#security-alerts": "Security and CVE alerts"
+      }
+    },
+    "email": {
+      "smtp_host": "smtp.example.com",
+      "smtp_port": 587,
+      "from": "alerts@commit-relay.local",
+      "recipients": {
+        "ops-team@example.com": "Operations team",
+        "security-team@example.com": "Security team"
+      }
+    },
+    "pagerduty": {
+      "integration_key": "YOUR_PAGERDUTY_INTEGRATION_KEY",
+      "service_name": "commit-relay"
+    }
+  },
+  "alert_routing": {
+    "critical": ["slack", "email", "pagerduty"],
+    "high": ["slack", "email"],
+    "medium": ["slack"],
+    "low": ["slack"]
+  },
+  "setup_instructions": {
+    "step_1": "Go to Kibana → Observability → Alerts and rules",
+    "step_2": "Click 'Create rule' for each alert in the alert_rules array",
+    "step_3": "Configure notification channels in Stack Management → Alerts and Insights → Connectors",
+    "step_4": "Test each alert by triggering the condition manually",
+    "step_5": "Review alert history regularly and adjust thresholds as needed"
+  },
+  "metadata": {
+    "version": "1.0",
+    "created": "2025-11-25",
+    "last_updated": "2025-11-25",
+    "compatible_with": "Elastic Stack 8.x"
+  }
+}

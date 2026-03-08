@@ -1,0 +1,56 @@
+{
+  "handoff_id": "coord-to-security-F3679755-C587-4378-BD95-DE9F9893E642",
+  "from_master": "coordinator",
+  "to_master": "security",
+  "task_id": "task-1762342905",
+  "task_data": {
+  "id": "task-1762342905",
+  "title": "Security scan after dashboard improvements - verify no new vulnerabilities introduced",
+  "type": "security-scan",
+  "priority": "high",
+  "status": "assigned",
+  "assigned_to": "security",
+  "created_at": "2025-11-04T22:15:13Z",
+  "created_by": "create-task-cli",
+  "context": {
+    "repository": "ry-ops/commit-relay",
+    "branch": "main",
+    "description": "Security scan after dashboard improvements - verify no new vulnerabilities introduced",
+    "scan_types": [
+      "dependencies",
+      "static-analysis",
+      "secrets"
+    ]
+  },
+  "assigned_by": "coordinator",
+  "assigned_at": "2025-11-05T11:42:29Z",
+  "updated_at": "2025-11-05T05:42:29-06:00"
+}
+{
+  "id": "task-1762342905",
+  "title": "Add About page to dashboard with: 1) Brief summary/overview of commit-relay project, 2) Mermaid.js flowchart visualizing all mechanisms (coordinator, masters, workers, git automation, dashboard polling), 3) Add 'About' navigation link in left sidebar below Activity",
+  "type": "development",
+  "priority": "high",
+  "status": "assigned",
+  "assigned_to": "security",
+  "created_at": "2025-11-05T03:33:47Z",
+  "created_by": "create-task-cli",
+  "context": {
+    "repository": "ry-ops/commit-relay",
+    "branch": "main",
+    "description": "Add About page to dashboard with: 1) Brief summary/overview of commit-relay project, 2) Mermaid.js flowchart visualizing all mechanisms (coordinator, masters, workers, git automation, dashboard polling), 3) Add 'About' navigation link in left sidebar below Activity",
+    "requirements": []
+  },
+  "assigned_by": "coordinator",
+  "assigned_at": "2025-11-05T11:42:29Z",
+  "updated_at": "2025-11-05T05:42:29-06:00"
+},
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "high
+high",
+    "expected_outcome": "Task completion with results handoff"
+  },
+  "created_at": "2025-11-05T11:42:29Z",
+  "status": "pending_pickup"
+}

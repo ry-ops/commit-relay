@@ -1,0 +1,7 @@
+{
+  "archived_at": "2025-11-07T19:57:49Z",
+  "worker_count": 33,
+  "archive_location": "/Users/ryandahlberg/commit-relay/coordination/worker-specs/archived/failed-20251107-135749",
+  "reason": "cleanup_failed_workers",
+  "archived_by": "archive-failed-workers.sh"
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "pm-state.schema.json",
+  "title": "Project Manager State",
+  "description": "Schema for PM agent state",
+  "type": "object",
+  "required": ["agent_id", "session_id", "status"],
+  "additionalProperties": true,
+  "properties": {
+    "agent_id": {
+      "type": "string",
+      "const": "pm-agent",
+      "description": "PM agent identifier"
+    },
+    "session_id": {
+      "type": "string",
+      "pattern": "^[A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{12}$",
+      "description": "UUID session identifier"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "idle", "stopping", "stopped"],
+      "description": "Current PM agent status"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Agent start timestamp"
+    },
+    "last_heartbeat": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last heartbeat timestamp"
+    },
+    "current_activity": {
+      "type": "string",
+      "description": "Current activity description"
+    },
+    "tasks_monitored": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of tasks being monitored"
+    },
+    "alerts_active": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of active alerts"
+    },
+    "last_check": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last system check timestamp"
+    }
+  }
+}

@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+#
+# Predictor CLI
+# Part of Q3 Weeks 33-36: Predictive Capabilities
+#
+
+set -euo pipefail
+
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/lib/autonomy/predictor.sh"
+
+main() {
+    local command="${1:-help}"
+
+    case "$command" in
+        workload)
+            local target="${2:?Target required}"
+            local horizon="${3:-60}"
+            predict_workload "$target" "$horizon" | jq .
+            ;;
+
+        resources)
+            local target="${2:?Target required}"
+            local horizon="${3:-60}"
+            predict_resources "$target" "$horizon" | jq .
+            ;;
+
+        anomalies)
+            local target="${2:?Target required}"
+            local horizon="${3:-120}"
+            forecast_anomalies "$target" "$horizon" | jq .
+            ;;
+
+        failures)
+            local target="${2:?Target required}"
+            local horizon="${3:-240}"
+            predict_failures "$target" "$horizon" | jq .
+            ;;
+
+        get)
+            local prediction_id="${2:?Prediction ID required}"
+            get_prediction "$prediction_id" | jq .
+            ;;
+
+        list)
+            local target="${2:-}"
+            local type="${3:-}"
+            local limit="${4:-20}"
+            list_predictions "$target" "$type" "$limit" | jq .
+            ;;
+
+        track)
+            local prediction_id="${2:?Prediction ID required}"
+            local actual="${3:?Actual value required}"
+            track_accuracy "$prediction_id" "$actual" | jq .
+            ;;
+
+        stats)
+            local target="${2:-}"
+            get_prediction_stats "$target" | jq .
+            ;;
+
+        help|--help|-h)
+            cat <<EOF
+Predictor CLI - Workload prediction and anomaly forecasting
+
+Usage: $0 <command> [options]
+
+Commands:
+  workload <target> [horizon]
+                          Predict workload (horizon in minutes)
+  resources <target> [horizon]
+                          Predict resource needs
+  anomalies <target> [horizon]
+                          Forecast potential anomalies
+  failures <target> [horizon]
+                          Predict failures
+  get <prediction-id>     Get prediction details
+  list [target] [type] [limit]
+                          List predictions
+  track <prediction-id> <actual>
+                          Track prediction accuracy
+  stats [target]          Get prediction statistics
+
+Examples:
+  $0 workload my-agent 60
+  $0 resources my-agent 120
+  $0 anomalies my-agent
+  $0 failures my-agent 240
+  $0 stats my-agent
+
+EOF
+            ;;
+
+        *)
+            echo "Unknown command: $command"
+            exit 1
+            ;;
+    esac
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

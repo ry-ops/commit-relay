@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Predictive Capabilities Schema",
+  "description": "Schema for workload prediction, preemptive scaling, and anomaly forecasting",
+  "type": "object",
+  "required": ["prediction_id", "type", "target", "created_at"],
+  "properties": {
+    "prediction_id": {
+      "type": "string",
+      "pattern": "^pred-[a-z0-9-]+-[a-f0-9]{8}$"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["workload", "resource", "anomaly", "performance", "failure"]
+    },
+    "target": {
+      "type": "string",
+      "description": "Agent or system being predicted"
+    },
+    "horizon": {
+      "type": "object",
+      "properties": {
+        "start": { "type": "integer" },
+        "end": { "type": "integer" },
+        "duration_minutes": { "type": "integer" }
+      }
+    },
+    "model": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "version": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["time_series", "regression", "classification", "ensemble", "neural"]
+        },
+        "features": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "accuracy": { "type": "number" }
+      }
+    },
+    "prediction": {
+      "type": "object",
+      "properties": {
+        "value": { "type": "number" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "lower_bound": { "type": "number" },
+        "upper_bound": { "type": "number" },
+        "trend": {
+          "type": "string",
+          "enum": ["increasing", "decreasing", "stable", "volatile"]
+        },
+        "seasonality": {
+          "type": "object",
+          "properties": {
+            "detected": { "type": "boolean" },
+            "period": { "type": "string" },
+            "strength": { "type": "number" }
+          }
+        }
+      }
+    },
+    "time_series": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "timestamp": { "type": "integer" },
+          "predicted": { "type": "number" },
+          "confidence": { "type": "number" }
+        }
+      }
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "action": { "type": "string" },
+          "trigger_time": { "type": "integer" },
+          "priority": { "type": "string" },
+          "expected_impact": { "type": "number" }
+        }
+      }
+    },
+    "accuracy_tracking": {
+      "type": "object",
+      "properties": {
+        "actual_value": { "type": "number" },
+        "error": { "type": "number" },
+        "error_percent": { "type": "number" },
+        "within_bounds": { "type": "boolean" }
+      }
+    },
+    "created_at": { "type": "integer" },
+    "expires_at": { "type": "integer" }
+  }
+}

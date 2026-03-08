@@ -1,0 +1,100 @@
+{
+  "timestamp": "2025-11-15T16:47:12-0600",
+  "elapsed_seconds": 10,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 6,
+    "completed": 0,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 119,
+    "completed": 0
+  },
+  "moe_metrics": {
+    "routing_accuracy": 0,
+    "avg_confidence": 0,
+    "low_confidence_pct": 0,
+    "pool_efficiency": 0
+  }
+}
+{
+  "timestamp": "2025-11-15T16:47:23-0600",
+  "elapsed_seconds": 21,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 6,
+    "completed": 0,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 120,
+    "completed": 0
+  },
+  "moe_metrics": {
+    "routing_accuracy": 0,
+    "avg_confidence": 0,
+    "low_confidence_pct": 0,
+    "pool_efficiency": 0
+  }
+}
+{
+  "timestamp": "2025-11-15T16:47:33-0600",
+  "elapsed_seconds": 31,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 6,
+    "completed": 0,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 121,
+    "completed": 0
+  },
+  "moe_metrics": {
+    "routing_accuracy": 0,
+    "avg_confidence": 0,
+    "low_confidence_pct": 0,
+    "pool_efficiency": 0
+  }
+}
+{
+  "timestamp": "2025-11-15T16:47:43-0600",
+  "elapsed_seconds": 41,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 6,
+    "completed": 0,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 123,
+    "completed": 0
+  },
+  "moe_metrics": {
+    "routing_accuracy": 0,
+    "avg_confidence": 0,
+    "low_confidence_pct": 0,
+    "pool_efficiency": 0
+  }
+}
+{
+  "timestamp": "2025-11-15T16:48:19-0600",
+  "elapsed_seconds": 77,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 6,
+    "completed": 0,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 123,
+    "completed": 0
+  },
+  "moe_metrics": {
+    "routing_accuracy": 50.00,
+    "avg_confidence": 0,
+    "low_confidence_pct": 100.00,
+    "pool_efficiency": 0.00
+  }
+}

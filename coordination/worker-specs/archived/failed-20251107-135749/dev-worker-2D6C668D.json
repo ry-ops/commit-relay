@@ -1,0 +1,52 @@
+{
+  "worker_id": "dev-worker-2D6C668D",
+  "worker_type": "feature-implementer",
+  "prompt_template": "agents/prompts/workers/implementation-worker.md",
+  "parent_master": "development",
+  "task_id": "task-1762342910",
+  "task_data": {
+    "id": "task-1762342910",
+    "title": "Add last updated timestamp to all dashboard cards and charts. Display human-readable date/time (e.g., '2 minutes ago', 'Last updated: 12:15 PM') on each card and chart. Update dashboard/public/dashboard-v2.js and dashboard/server/index.js to include timestamps in API responses and render them in the UI.",
+    "type": "development",
+    "priority": "high",
+    "status": "assigned",
+    "assigned_to": "development",
+    "created_at": "2025-11-05T16:13:41Z",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "Add last updated timestamp to all dashboard cards and charts. Display human-readable date/time (e.g., '2 minutes ago', 'Last updated: 12:15 PM') on each card and chart. Update dashboard/public/dashboard-v2.js and dashboard/server/index.js to include timestamps in API responses and render them in the UI.",
+      "requirements": []
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-05T16:13:47Z",
+    "updated_at": "2025-11-05T10:13:47-06:00"
+  },
+  "context": {
+    "master_session": "3A24DCEC-39A6-495F-AC3E-262F0EEEDB03",
+    "expertise_area": "feature_development",
+    "skills_required": [
+      "design",
+      "implementation",
+      "testing"
+    ],
+    "knowledge_base_refs": {
+      "implementation_patterns": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/development/knowledge-base/implementation-patterns.jsonl",
+      "architecture_docs": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/development/knowledge-base/codebase-architecture.json"
+    }
+  },
+  "resources": {
+    "token_allocation": 15000,
+    "time_limit_minutes": 60
+  },
+  "status": "failed",
+  "created_at": "2025-11-05T16:13:51Z",
+  "created_by": "development",
+  "execution": {
+    "started_at": "2025-11-05T16:14:05Z",
+    "completed_at": "2025-11-06T21:32:03Z",
+    "error": "Zombie worker detected - running for 83877s with no completion",
+    "killed_by": "zombie-killer-daemon"
+  }
+}

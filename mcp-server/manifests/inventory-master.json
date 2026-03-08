@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "manifestVersion": "1.0.0",
+  "master": {
+    "id": "inventory-master",
+    "name": "Inventory Master",
+    "description": "Repository cataloging specialist for discovery, documentation, dependency tracking, and health monitoring",
+    "version": "4.0.0",
+    "role": "specialist"
+  },
+  "capabilities": [
+    {
+      "name": "repository_discovery",
+      "description": "Discover and catalog repositories in the portfolio",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "root_path": { "type": "string" },
+          "include_patterns": { "type": "array", "items": { "type": "string" } },
+          "exclude_patterns": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["root_path"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "repositories": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "path": { "type": "string" },
+                "language": { "type": "string" },
+                "last_commit": { "type": "string" }
+              }
+            }
+          },
+          "total_count": { "type": "number" }
+        }
+      }
+    },
+    {
+      "name": "metadata_cataloging",
+      "description": "Catalog repository metadata including tech stack, dependencies, and structure",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": { "type": "string" },
+          "depth": {
+            "type": "string",
+            "enum": ["shallow", "standard", "deep"]
+          }
+        },
+        "required": ["repository"]
+      }
+    },
+    {
+      "name": "documentation_generation",
+      "description": "Generate or update repository documentation (README, API docs, etc.)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": { "type": "string" },
+          "doc_types": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["readme", "api", "architecture", "changelog"]
+            }
+          },
+          "format": {
+            "type": "string",
+            "enum": ["markdown", "html", "asciidoc"]
+          }
+        },
+        "required": ["repository"]
+      }
+    },
+    {
+      "name": "dependency_tracking",
+      "description": "Track and analyze dependencies across all repositories",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "scope": {
+            "type": "string",
+            "enum": ["single", "portfolio", "team"]
+          },
+          "include_transitive": { "type": "boolean", "default": true }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "dependencies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "version": { "type": "string" },
+                "used_by": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "health_monitoring",
+      "description": "Monitor repository health metrics (activity, dependencies, issues)"
+    }
+  ],
+  "workerTypes": ["documentation-worker", "analysis-worker"],
+  "dependencies": {
+    "masters": ["coordinator-master"],
+    "services": ["governance", "token-budget", "git"]
+  },
+  "constraints": {
+    "maxConcurrentScans": 5,
+    "tokenBudget": 25000,
+    "catalogTimeout": 120000
+  },
+  "metrics": {
+    "tracked": ["repositories_cataloged", "docs_generated", "deps_tracked", "health_score"],
+    "successCriteria": {
+      "min_catalog_coverage": 0.95,
+      "max_stale_docs_age_days": 30
+    }
+  },
+  "mcp": {
+    "tools": ["spawn_worker", "get_worker_pool"],
+    "resources": ["commit-relay://coordination/worker-pool"]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "exec_mgr_id": "exec-mgr-dev-78d332c2",
+  "subtask_id": "dev-v40-test-001",
+  "master_type": "development",
+  "status": "completed",
+  "execution_summary": {
+    "workers_spawned": 1,
+    "workers_completed": 1,
+    "workers_failed": 0,
+    "duration_minutes": 8,
+    "tokens_used": 0,
+    "files_modified": [],
+    "commits": []
+  },
+  "acceptance_criteria_met": {},
+  "completion_report": "Execution Manager exec-mgr-dev-78d332c2 completed with 1 workers. 1 succeeded, 0 failed. Modified 0 files across 0 commits. Total resource usage: 0 tokens, 8 minutes.",
+  "started_at": "2025-11-05T21:38:48Z",
+  "completed_at": "2025-11-05T21:47:04Z"
+}

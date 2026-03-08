@@ -1,0 +1,37 @@
+{
+  "handoff_id": "coord-to-security-D47C01F1-0787-4B95-9420-C6A786FB627C",
+  "from_master": "coordinator",
+  "to_master": "security",
+  "task_id": "moe-test-ddqd-v5-1763307968-c38fab2c",
+  "task_data": {
+    "id": "moe-test-ddqd-v5-1763307968-c38fab2c",
+    "title": "Security audit and compliance scanning for production systems",
+    "type": "security",
+    "description": "Security audit and compliance scanning for production systems",
+    "priority": "medium",
+    "status": "assigned",
+    "assigned_to": "security",
+    "created_at": "2025-11-16T09:46:51-0600",
+    "created_by": "ddqd-v5-test",
+    "moe_test": true,
+    "test_id": "ddqd-v5-1763307968",
+    "context": {},
+    "assigned_at": "2025-11-16T09:47:01-0600",
+    "assigned_by": "coordinator",
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-16T09:47:01-06:00"
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "medium",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "N/A",
+      "strategy": "pattern-based",
+      "routed_at": "2025-11-16T09:47:01-0600"
+    }
+  },
+  "created_at": "2025-11-16T09:47:01-0600",
+  "status": "pending_pickup"
+}

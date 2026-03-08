@@ -1,0 +1,216 @@
+{
+  "clusters": {
+    "file_operations": {
+      "description": "Reading, writing, and editing files",
+      "tools": ["Read", "Write", "Edit", "Glob"],
+      "use_cases": ["code modification", "documentation", "configuration"],
+      "essential": true
+    },
+
+    "code_search": {
+      "description": "Searching and discovering code",
+      "tools": ["Grep", "Glob"],
+      "use_cases": ["finding code", "pattern matching", "codebase exploration"],
+      "essential": true
+    },
+
+    "version_control": {
+      "description": "Git operations and repository management",
+      "tools": ["Bash(git:*)"],
+      "use_cases": ["commits", "branches", "history", "diffs"],
+      "essential": true
+    },
+
+    "code_execution": {
+      "description": "Running code and tests",
+      "tools": ["Bash"],
+      "use_cases": ["testing", "building", "linting", "running scripts"],
+      "essential": true
+    },
+
+    "web_access": {
+      "description": "Fetching web content and searching",
+      "tools": ["WebFetch", "WebSearch"],
+      "use_cases": ["documentation lookup", "API research", "best practices"],
+      "essential": false
+    },
+
+    "github_operations": {
+      "description": "GitHub API and pull request operations",
+      "tools": ["Bash(gh:*)"],
+      "use_cases": ["PRs", "issues", "releases", "repository management"],
+      "essential": false
+    },
+
+    "task_management": {
+      "description": "Task tracking and progress management",
+      "tools": ["TodoWrite"],
+      "use_cases": ["tracking work", "showing progress"],
+      "essential": false
+    },
+
+    "user_interaction": {
+      "description": "Asking questions and getting clarification",
+      "tools": ["AskUserQuestion"],
+      "use_cases": ["clarification", "decision making", "options presentation"],
+      "essential": false
+    }
+  },
+
+  "worker_tool_assignments": {
+    "implementation-worker": {
+      "essential_clusters": [
+        "file_operations",
+        "code_search",
+        "version_control",
+        "code_execution"
+      ],
+      "optional_clusters": [
+        "web_access",
+        "task_management"
+      ],
+      "rationale": "Needs file operations, search, git, and execution. Web access helpful for API docs."
+    },
+
+    "fix-worker": {
+      "essential_clusters": [
+        "file_operations",
+        "code_search",
+        "version_control",
+        "code_execution"
+      ],
+      "optional_clusters": [
+        "task_management"
+      ],
+      "rationale": "Similar to implementation but more focused. Rarely needs web access."
+    },
+
+    "test-worker": {
+      "essential_clusters": [
+        "file_operations",
+        "code_search",
+        "code_execution"
+      ],
+      "optional_clusters": [
+        "version_control",
+        "web_access"
+      ],
+      "rationale": "Primarily file operations and code execution for testing. Git less critical."
+    },
+
+    "scan-worker": {
+      "essential_clusters": [
+        "code_search",
+        "code_execution",
+        "version_control"
+      ],
+      "optional_clusters": [
+        "file_operations",
+        "web_access"
+      ],
+      "rationale": "Needs to search code and run scanners. Minimal file modification."
+    },
+
+    "analysis-worker": {
+      "essential_clusters": [
+        "code_search",
+        "file_operations",
+        "web_access"
+      ],
+      "optional_clusters": [
+        "code_execution",
+        "version_control"
+      ],
+      "rationale": "Research-focused. Needs search and web access more than execution."
+    },
+
+    "review-worker": {
+      "essential_clusters": [
+        "code_search",
+        "file_operations",
+        "version_control",
+        "code_execution"
+      ],
+      "optional_clusters": [
+        "github_operations"
+      ],
+      "rationale": "Needs to review code, check diffs, run tests. GitHub helpful for PR comments."
+    },
+
+    "pr-worker": {
+      "essential_clusters": [
+        "version_control",
+        "github_operations"
+      ],
+      "optional_clusters": [
+        "file_operations",
+        "code_search"
+      ],
+      "rationale": "Primarily git and GitHub operations. Minimal code access needed."
+    },
+
+    "documentation-worker": {
+      "essential_clusters": [
+        "file_operations",
+        "code_search",
+        "version_control"
+      ],
+      "optional_clusters": [
+        "web_access",
+        "code_execution"
+      ],
+      "rationale": "Writes docs based on code. Web access for example research."
+    },
+
+    "catalog-worker": {
+      "essential_clusters": [
+        "code_search",
+        "version_control",
+        "code_execution"
+      ],
+      "optional_clusters": [
+        "file_operations",
+        "github_operations"
+      ],
+      "rationale": "Analyzes repositories. Needs git, search, and execution for dependency checks."
+    }
+  },
+
+  "optimization_metrics": {
+    "tool_reduction": {
+      "before": 19,
+      "after_clustering": 8,
+      "reduction_percent": 58
+    },
+    "expected_latency_improvement": "400ms per GitHub research",
+    "token_usage_reduction": "15-20% by simplifying tool descriptions",
+    "worker_focus_improvement": "Higher with fewer, more relevant tools"
+  },
+
+  "cluster_access_rules": {
+    "essential": {
+      "description": "Always available to workers in this category",
+      "preload": true,
+      "include_in_system_prompt": true
+    },
+    "optional": {
+      "description": "Available but not emphasized",
+      "preload": false,
+      "include_in_system_prompt": false,
+      "lazy_load": true
+    },
+    "restricted": {
+      "description": "Require explicit permission or master approval",
+      "preload": false,
+      "require_approval": true
+    }
+  },
+
+  "implementation_notes": {
+    "pre_expansion_selection": "Tools are filtered BEFORE worker starts, not during execution",
+    "semantic_clustering": "Clusters group semantically related tools",
+    "worker_specialization": "Each worker type gets optimized tool set",
+    "performance_impact": "Reduces prompt size and improves response time",
+    "maintenance": "Update assignments when adding new tools or worker types"
+  }
+}

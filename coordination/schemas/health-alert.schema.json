@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "health-alert.schema.json",
+  "title": "Health Alert",
+  "description": "Schema for system health alerts",
+  "type": "object",
+  "required": ["alert_id", "alert_type", "severity", "message", "created_at", "status"],
+  "additionalProperties": false,
+  "properties": {
+    "alert_id": {
+      "type": "string",
+      "pattern": "^alert-[a-z0-9-]+$",
+      "description": "Unique alert identifier"
+    },
+    "alert_type": {
+      "type": "string",
+      "enum": [
+        "master_offline",
+        "worker_stuck",
+        "worker_failed",
+        "task_timeout",
+        "token_budget_exceeded",
+        "pm_daemon_failure",
+        "service_down",
+        "high_error_rate",
+        "memory_pressure",
+        "disk_space_low"
+      ],
+      "description": "Alert type classification"
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low", "info"],
+      "description": "Alert severity level"
+    },
+    "message": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Human-readable alert message"
+    },
+    "details": {
+      "type": "object",
+      "description": "Additional alert details"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Alert creation timestamp"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "acknowledged", "resolved", "suppressed"],
+      "description": "Alert status"
+    },
+    "acknowledged_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Acknowledgment timestamp"
+    },
+    "resolved_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Resolution timestamp"
+    },
+    "related_component": {
+      "type": "string",
+      "description": "Affected component"
+    },
+    "related_tasks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(task-[0-9]+|test-task-[0-9]+)$"
+      }
+    },
+    "related_workers": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(dev|sec|inv|cicd)-worker-[A-F0-9]{8}$"
+      }
+    },
+    "auto_resolved": {
+      "type": "boolean",
+      "description": "Whether alert was auto-resolved"
+    },
+    "resolution_action": {
+      "type": "string",
+      "description": "Action taken to resolve"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "worker_id": "sec-worker-48C1327F",
+  "worker_type": "audit-worker",
+  "parent_master": "security",
+  "task_id": "task-1762553467",
+  "created_at": "2025-11-12T13:56:14Z",
+  "status": "running",
+  "context": {
+    "repository": "ry-ops/commit-relay",
+    "branch": "main",
+    "task_title": "GOVERNANCE UPGRADE - Phase 4: AI-Powered Monitoring & Quality Assurance",
+    "task_description": "Implement AI-powered data quality monitoring, automatic PII detection and tagging, model drift detection for agents, proactive monitoring dashboard. Build QualityMonitor class with automated data quality checks, PII scanner with automatic tagging, agent performance monitoring with drift detection, real-time monitoring dashboard with alerts.",
+    "priority": "high",
+    "skills_required": [],
+    "success_criteria": [
+      "100% data quality monitoring coverage",
+      "PII detection accuracy >99%",
+      "drift detection latency <1s",
+      "zero false positives in monitoring"
+    ],
+    "deliverables": [
+      "QualityMonitor class implementation",
+      "Automated data quality checks",
+      "PII scanner with automatic tagging",
+      "Agent performance monitoring with drift detection",
+      "Real-time monitoring dashboard with alerts"
+    ],
+    "security_focus": [
+      "PII detection and tagging",
+      "Data quality monitoring",
+      "Agent drift detection"
+    ]
+  },
+  "resources": {
+    "token_allocation": 50000,
+    "timeout_minutes": 120,
+    "max_retries": 2
+  },
+  "execution": {
+    "started_at": "2025-11-12T07:56:52-0600"
+  }
+}

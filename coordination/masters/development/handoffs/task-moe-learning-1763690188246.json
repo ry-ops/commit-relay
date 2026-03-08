@@ -1,0 +1,362 @@
+{
+  "handoff_id": "task-moe-learning-1763690188246",
+  "task_id": "task-moe-learning-1763690188246",
+  "assigned_to": "development",
+  "created_at": "2025-11-20T19:56:35-0600",
+  "status": "killed",
+  "task": {
+    "id": "task-moe-learning-1763690188246",
+    "title": "MoE Learning System: Master commit-relay Architecture and Operations",
+    "type": "development",
+    "priority": "high",
+    "status": "pending",
+    "created_at": "2025-11-21T01:56:28.246Z",
+    "created_by": "dashboard-learning-system",
+    "context": {
+      "description": "Comprehensive learning task for MoE system to deeply understand commit-relay architecture, workflows, agents, security patterns, development standards, and operational intelligence",
+      "learning_objectives": {
+        "architecture_mastery": {
+          "description": "Deep understanding of commit-relay system architecture",
+          "areas": [
+            "MoE (Mixture of Experts) routing and coordination patterns",
+            "Master agent specializations (development, security, inventory, cicd, coordinator)",
+            "Worker pool management and lifecycle (spawn, activate, heartbeat, cleanup)",
+            "Task queue architecture and multi-lane routing strategies",
+            "Process manager (PM) architecture and daemon orchestration",
+            "Dashboard real-time monitoring and SSE streaming architecture",
+            "Health monitoring, alerts, and governance systems",
+            "Vector database and semantic search capabilities",
+            "Configuration management and state persistence"
+          ],
+          "learning_methods": [
+            "Analyze architecture documentation in coordination/pm-architecture.md",
+            "Study master agent implementations in coordination/masters/",
+            "Examine worker specifications in coordination/worker-specs/",
+            "Review task patterns in coordination/memory/long-term/task-patterns.json",
+            "Analyze dashboard architecture in dashboard/README.md"
+          ]
+        },
+        "workflow_intelligence": {
+          "description": "Understanding of operational workflows and decision-making patterns",
+          "areas": [
+            "Task routing decision trees and confidence scoring",
+            "Worker activation strategies (single, sparse pool, full pool)",
+            "Task lifecycle management (pending → assigned → in_progress → completed)",
+            "Failure detection and recovery workflows",
+            "Health monitoring and alerting workflows",
+            "Governance and compliance workflows",
+            "CI/CD pipeline integration patterns",
+            "Security scanning and remediation workflows"
+          ],
+          "learning_methods": [
+            "Study MoE router logic in coordination/masters/coordinator/lib/moe-router.sh",
+            "Analyze worker daemon in scripts/worker-daemon.sh",
+            "Review task queue patterns in coordination/task-queue.json",
+            "Examine health monitoring in coordination/system-health.json",
+            "Study governance patterns in coordination/governance-*.json"
+          ]
+        },
+        "agent_specialization": {
+          "description": "Deep knowledge of each master agent's capabilities and patterns",
+          "agents": {
+            "development_master": {
+              "expertise": [
+                "Feature implementation and code generation",
+                "Bug fixing and debugging workflows",
+                "Code refactoring and optimization",
+                "Technical documentation creation",
+                "Integration testing and validation",
+                "Dashboard UI/UX improvements"
+              ],
+              "common_patterns": [
+                "Alpine.js + Tailwind CSS for frontend",
+                "Express.js + WebSocket + SSE for backend",
+                "JSONL file formats for state persistence",
+                "Chokidar for file watching",
+                "Shell scripting for automation"
+              ]
+            },
+            "security_master": {
+              "expertise": [
+                "Vulnerability scanning and CVE remediation",
+                "Security audit execution",
+                "Dependency security analysis",
+                "Secrets detection and protection",
+                "Compliance monitoring and reporting",
+                "Security policy enforcement"
+              ],
+              "common_patterns": [
+                "Risk assessment templates",
+                "Severity classification (critical, high, medium, low)",
+                "Security scan types (dependencies, SAST, secrets)",
+                "Remediation strategies and timelines"
+              ]
+            },
+            "inventory_master": {
+              "expertise": [
+                "Repository cataloging and metadata extraction",
+                "Dependency tracking across portfolio",
+                "Health status monitoring",
+                "Documentation generation",
+                "Portfolio analytics and insights"
+              ],
+              "common_patterns": [
+                "Repository discovery workflows",
+                "Metadata extraction and normalization",
+                "Cross-repository dependency mapping"
+              ]
+            },
+            "cicd_master": {
+              "expertise": [
+                "Build automation and orchestration",
+                "Test execution and reporting",
+                "Deployment strategy implementation",
+                "Release workflow management",
+                "Pipeline optimization"
+              ],
+              "common_patterns": [
+                "Multi-stage pipeline definitions",
+                "Test suite execution strategies",
+                "Deployment verification workflows"
+              ]
+            },
+            "coordinator_master": {
+              "expertise": [
+                "Task routing and load balancing",
+                "MoE decision-making and confidence scoring",
+                "Master coordination and delegation",
+                "System-wide orchestration",
+                "Resource allocation optimization"
+              ],
+              "common_patterns": [
+                "Routing confidence thresholds",
+                "Multi-expert activation strategies",
+                "Task complexity assessment",
+                "Priority-based routing"
+              ]
+            }
+          },
+          "learning_methods": [
+            "Analyze historical task patterns by expert in task-patterns.json",
+            "Study successful task completions and routing decisions",
+            "Review expert-specific keyword associations",
+            "Examine master agent specifications and capabilities"
+          ]
+        },
+        "security_intelligence": {
+          "description": "Understanding of security patterns, risks, and mitigation strategies",
+          "areas": [
+            "Common vulnerability patterns and CVE classifications",
+            "Risk assessment methodologies",
+            "Security scanning tool integration",
+            "Dependency security monitoring",
+            "Secrets detection and prevention",
+            "Compliance frameworks and requirements",
+            "Security incident response workflows"
+          ],
+          "learning_methods": [
+            "Study governance audit logs in coordination/governance-audit.jsonl",
+            "Review risk assessment templates in coordination/risk-assessment-template.json",
+            "Analyze security scan results and remediation patterns",
+            "Examine security-related task completions"
+          ]
+        },
+        "development_standards": {
+          "description": "Understanding of coding standards, patterns, and best practices",
+          "areas": [
+            "Shell scripting conventions and patterns",
+            "Node.js/Express API design patterns",
+            "Frontend architecture (Alpine.js + Tailwind)",
+            "JSONL data format conventions",
+            "Error handling and logging standards",
+            "Testing strategies and coverage",
+            "Documentation standards",
+            "Git workflow and commit conventions"
+          ],
+          "learning_methods": [
+            "Analyze codebase structure and patterns",
+            "Study existing implementations in scripts/, dashboard/, coordination/",
+            "Review recent commits and development patterns",
+            "Examine testing frameworks in tests/"
+          ]
+        },
+        "operational_intelligence": {
+          "description": "Real-time system behavior and performance patterns",
+          "areas": [
+            "Worker pool utilization patterns",
+            "Task completion time distributions",
+            "Failure patterns and root causes",
+            "Resource consumption patterns",
+            "Peak load behaviors",
+            "System health indicators",
+            "Performance bottleneck identification"
+          ],
+          "learning_methods": [
+            "Monitor dashboard events in coordination/dashboard-events.jsonl",
+            "Analyze metrics snapshots in coordination/metrics-snapshots.jsonl",
+            "Study PM activity logs in coordination/pm-activity.jsonl",
+            "Review workforce streams in coordination/workforce-streams.json",
+            "Examine health reports in coordination/health-reports.jsonl"
+          ]
+        },
+        "latest_developments": {
+          "description": "Stay current with recent builds, features, and improvements",
+          "areas": [
+            "Recent architectural changes and improvements",
+            "New features and capabilities added",
+            "Bug fixes and stability improvements",
+            "Performance optimizations implemented",
+            "Dashboard enhancements and UI updates",
+            "Testing and validation improvements",
+            "Documentation updates"
+          ],
+          "learning_methods": [
+            "Analyze recent git commits and commit messages",
+            "Review implementation reports and summaries",
+            "Study changelog and version history",
+            "Examine recent task completions",
+            "Monitor governance learnings in coordination/governance-learnings.json"
+          ]
+        }
+      },
+      "learning_deliverables": [
+        {
+          "name": "enhanced_task_patterns",
+          "file": "coordination/memory/long-term/task-patterns.json",
+          "description": "Enhanced patterns with architectural understanding, workflow knowledge, and agent specialization insights"
+        },
+        {
+          "name": "routing_intelligence_model",
+          "file": "coordination/memory/long-term/routing-intelligence.json",
+          "description": "Advanced routing decision model based on architecture, context, complexity, and historical patterns"
+        },
+        {
+          "name": "agent_capability_matrix",
+          "file": "coordination/memory/long-term/agent-capabilities.json",
+          "description": "Detailed matrix of each agent's strengths, patterns, and optimal use cases"
+        },
+        {
+          "name": "security_pattern_library",
+          "file": "coordination/memory/long-term/security-patterns.json",
+          "description": "Library of security patterns, vulnerabilities, and remediation strategies"
+        },
+        {
+          "name": "development_standards_guide",
+          "file": "coordination/memory/long-term/development-standards.json",
+          "description": "Codified development standards, patterns, and best practices"
+        },
+        {
+          "name": "operational_insights",
+          "file": "coordination/memory/long-term/operational-insights.json",
+          "description": "Real-time behavioral patterns, performance baselines, and optimization opportunities"
+        },
+        {
+          "name": "learning_summary_report",
+          "file": "coordination/moe-learning-mastery-report.md",
+          "description": "Comprehensive report documenting learned knowledge, insights, and recommendations"
+        }
+      ],
+      "implementation_strategy": {
+        "phase_1_architecture_discovery": {
+          "duration": "30-45 minutes",
+          "activities": [
+            "Read and analyze all architecture documentation",
+            "Map system components and relationships",
+            "Document data flow patterns",
+            "Identify key integration points",
+            "Create architectural knowledge graph"
+          ]
+        },
+        "phase_2_agent_analysis": {
+          "duration": "30-45 minutes",
+          "activities": [
+            "Study each master agent's implementation",
+            "Analyze historical task routing decisions",
+            "Map agent capabilities to task types",
+            "Identify success patterns per agent",
+            "Build agent specialization model"
+          ]
+        },
+        "phase_3_workflow_learning": {
+          "duration": "30-45 minutes",
+          "activities": [
+            "Trace task lifecycle workflows",
+            "Analyze worker management patterns",
+            "Study health monitoring and alerting flows",
+            "Map governance and compliance workflows",
+            "Document decision trees and branching logic"
+          ]
+        },
+        "phase_4_security_intelligence": {
+          "duration": "20-30 minutes",
+          "activities": [
+            "Analyze security scan patterns",
+            "Study vulnerability remediation workflows",
+            "Review risk assessment methodologies",
+            "Build security pattern library",
+            "Document compliance requirements"
+          ]
+        },
+        "phase_5_operational_analysis": {
+          "duration": "20-30 minutes",
+          "activities": [
+            "Analyze real-time metrics and events",
+            "Identify performance patterns",
+            "Study failure modes and recovery",
+            "Document resource utilization patterns",
+            "Build operational baseline model"
+          ]
+        },
+        "phase_6_synthesis_and_reporting": {
+          "duration": "20-30 minutes",
+          "activities": [
+            "Synthesize learnings across all phases",
+            "Generate enhanced pattern models",
+            "Create comprehensive learning report",
+            "Update routing intelligence",
+            "Document recommendations for improvement"
+          ]
+        }
+      },
+      "success_criteria": [
+        "All 7 learning deliverables created with comprehensive data",
+        "Routing intelligence model shows improved confidence scoring",
+        "Agent capability matrix covers all 5 master agents",
+        "Security pattern library contains at least 20 patterns",
+        "Development standards guide documents key conventions",
+        "Operational insights identify performance baselines",
+        "Learning report demonstrates deep system understanding",
+        "Enhanced task patterns show architectural awareness",
+        "MoE routing accuracy improvement measurable in next 10 tasks"
+      ],
+      "integration_points": {
+        "moe_router": "Enhanced routing with architectural understanding",
+        "task_patterns": "Enriched patterns beyond keywords",
+        "dashboard": "Learning progress and insights visualization",
+        "governance": "Security and compliance pattern integration"
+      }
+    },
+    "deliverables": [
+      "coordination/memory/long-term/task-patterns.json (enhanced)",
+      "coordination/memory/long-term/routing-intelligence.json (new)",
+      "coordination/memory/long-term/agent-capabilities.json (new)",
+      "coordination/memory/long-term/security-patterns.json (new)",
+      "coordination/memory/long-term/development-standards.json (new)",
+      "coordination/memory/long-term/operational-insights.json (new)",
+      "coordination/moe-learning-mastery-report.md (new)"
+    ],
+    "metadata": {
+      "estimated_effort": "2.5-3.5 hours",
+      "complexity": "very high",
+      "learning_intensive": true,
+      "architectural_impact": "high",
+      "requires_system_analysis": true,
+      "on_demand_activation": true,
+      "dashboard_trigger": "moe_learning_page"
+    }
+  },
+  "processed_at": "2025-11-20T19:56:43-0600",
+  "worker_id": "worker-worker-1763690202-21966",
+  "killed_at": "2025-11-21T02:11:40Z",
+  "kill_reason": "No activity for 15 minutes (threshold: 15m)"
+}

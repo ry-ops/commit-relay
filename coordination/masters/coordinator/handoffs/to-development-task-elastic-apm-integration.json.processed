@@ -1,0 +1,43 @@
+{
+  "handoff_id": "coord-to-development-FADB7562-9A1E-4A84-9D04-D5DB52133A9A",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-elastic-apm-integration",
+  "task_data": {
+    "id": "task-elastic-apm-integration",
+    "title": "Integrate Elastic APM for full observability",
+    "type": "development:feature",
+    "description": "Implement comprehensive Elastic APM integration into the commit-relay FastAPI application for traces, logs, metrics, and custom events",
+    "priority": "high",
+    "status": "assigned",
+    "created_at": "2025-11-25T12:00:00-0600",
+    "created_by": "user",
+    "metadata": {
+      "complexity": "high",
+      "scope": "multiple_files",
+      "testing_required": true,
+      "documentation_required": true,
+      "estimated_workers": 4,
+      "estimated_tokens": 35000,
+      "estimated_duration_minutes": 180
+    },
+    "assigned_to": "development",
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-25T12:12:38-0600",
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-25T12:12:38-06:00"
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "high",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "N/A",
+      "strategy": "pattern-based",
+      "routed_at": "2025-11-25T12:12:38-0600"
+    }
+  },
+  "created_at": "2025-11-25T12:12:38-0600",
+  "status": "pending_pickup"
+}

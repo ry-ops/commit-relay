@@ -1,0 +1,9 @@
+{
+  "task_id": "task-moe-001",
+  "description": "Catalog all repositories and document security vulnerabilities with dependency tracking",
+  "timestamp": "2025-11-07T21:23:22Z",
+  "priority": "normal",
+  "context": {
+    "requirements": "Catalog all repositories and document security vulnerabilities with dependency tracking"
+  }
+}

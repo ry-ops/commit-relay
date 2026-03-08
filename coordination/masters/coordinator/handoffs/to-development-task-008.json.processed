@@ -1,0 +1,54 @@
+{
+  "handoff_id": "coord-to-development-0D3859A8-4B48-4E75-BB20-8EE4AA1A914D",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-008",
+  "task_data": {
+  "id": "task-008",
+  "title": "Design aiana integration architecture",
+  "type": "development",
+  "priority": "medium",
+  "status": "assigned",
+  "assigned_to": "development",
+  "created_at": "2025-10-31T19:20:00Z",
+  "created_by": "coordinator-agent",
+  "repository": "ry-ops/aiana",
+  "context": {
+    "description": "Design the architecture for how aiana integrates with Claude Code and stores conversations",
+    "project": "aiana - AI conversation attendant for Claude Code",
+    "requirements": [
+      "Integration mechanism (MCP server, CLI wrapper, hook, etc.)",
+      "Real-time conversation streaming approach",
+      "Conversation storage format and location",
+      "Privacy and security considerations",
+      "User opt-in/opt-out mechanism",
+      "Data retention and management"
+    ],
+    "dependencies": [
+      "task-006"
+    ],
+    "deliverables": [
+      "Architecture document (markdown)",
+      "System diagrams",
+      "Component specifications",
+      "API integration design"
+    ],
+    "related_issues": [],
+    "previous_handoffs": []
+  },
+  "handoff_plan": {
+    "after_completion": "coordinator-agent",
+    "reason": "Review architecture and approve for implementation"
+  },
+  "assigned_by": "coordinator",
+  "assigned_at": "2025-11-03T19:05:41Z",
+  "updated_at": "2025-11-03T13:05:41-06:00"
+},
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": medium,
+    "expected_outcome": "Task completion with results handoff"
+  },
+  "created_at": "2025-11-03T19:05:41Z",
+  "status": "pending_pickup"
+}

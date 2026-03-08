@@ -1,0 +1,21 @@
+{
+  "id": "governance-test-medium-1762873763-355857B4",
+  "title": "Refactor authentication middleware for better modularity",
+  "description": "refactor: Restructure authentication middleware to improve code organization and testability",
+  "type": "refactor",
+  "priority": "medium",
+  "status": "pending",
+  "created_at": "2025-11-11T15:09:23Z",
+  "created_by": "governance-test-suite",
+  "metadata": {
+    "test_task": true,
+    "governance_test": true,
+    "risk_level": "medium",
+    "test_suite": "governance-validation"
+  },
+  "context": {
+    "repository": "ry-ops/commit-relay",
+    "branch": "main",
+    "test_scenario": true
+  }
+}

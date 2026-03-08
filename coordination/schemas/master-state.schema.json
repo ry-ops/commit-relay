@@ -1,0 +1,165 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "master-state.schema.json",
+  "title": "Master Agent State",
+  "description": "Schema for master agent state files",
+  "type": "object",
+  "required": ["master_id", "master_name", "initialized_at", "session_id", "status"],
+  "additionalProperties": true,
+  "properties": {
+    "master_id": {
+      "type": "string",
+      "enum": ["coordinator", "development", "security", "inventory", "cicd"],
+      "description": "Master agent identifier"
+    },
+    "master_name": {
+      "type": "string",
+      "enum": ["Coordinator Master", "Development Master", "Security Master", "Inventory Master", "CI/CD Master"],
+      "description": "Human-readable master name"
+    },
+    "initialized_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of initialization"
+    },
+    "session_id": {
+      "type": "string",
+      "pattern": "^[A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{12}$",
+      "description": "UUID session identifier"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "idle", "busy", "error", "offline"],
+      "description": "Current master status"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of master capabilities"
+    },
+    "specialist_masters": {
+      "type": "object",
+      "description": "Coordinator's view of specialist masters",
+      "patternProperties": {
+        "^(development|security|inventory|cicd)$": {
+          "type": "object",
+          "required": ["status", "workload"],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["available", "busy", "offline"]
+            },
+            "workload": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "last_contact": {
+              "type": ["string", "null"],
+              "format": "date-time"
+            },
+            "current_tasks": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^(task-[0-9]+|test-task-[0-9]+)$"
+              }
+            }
+          }
+        }
+      }
+    },
+    "active_workers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "worker_id": {
+            "type": "string",
+            "pattern": "^(dev|sec|inv|cicd)-worker-[A-F0-9]{8}$"
+          },
+          "worker_type": {
+            "type": "string"
+          },
+          "task_id": {
+            "type": "string",
+            "pattern": "^(task-[0-9]+|test-task-[0-9]+)$"
+          },
+          "started_at": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["spawning", "active", "completing", "completed", "failed"]
+          }
+        }
+      },
+      "description": "Currently active workers"
+    },
+    "completed_tasks": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total completed tasks"
+    },
+    "tasks_routed": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total tasks routed (coordinator only)"
+    },
+    "last_started": {
+      "type": "string",
+      "description": "Last execution start timestamp"
+    },
+    "last_run": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last execution timestamp"
+    },
+    "performance_metrics": {
+      "type": "object",
+      "properties": {
+        "avg_implementation_time": {
+          "type": "number",
+          "minimum": 0
+        },
+        "success_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "code_quality_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "avg_routing_time_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "routing_accuracy": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "token_usage": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "daily_limit": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "remaining": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

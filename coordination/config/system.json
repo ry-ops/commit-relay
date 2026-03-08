@@ -1,0 +1,156 @@
+{
+  "version": "1.0",
+  "last_updated": "2025-11-17T11:00:00Z",
+  "description": "Centralized configuration for commit-relay core services",
+
+  "logging": {
+    "level": "info",
+    "directory": "agents/logs/system",
+    "retention_days": 30,
+    "broadcast_errors_to_dashboard": true,
+    "structured_format": "jsonl",
+    "console_colors": true,
+    "levels": {
+      "debug": 0,
+      "info": 1,
+      "warn": 2,
+      "error": 3,
+      "critical": 4
+    }
+  },
+
+  "observability": {
+    "enabled": true,
+    "trace_all_operations": true,
+    "event_buffer_size": 10000,
+    "query_api_enabled": true,
+    "dashboard_streaming": true,
+    "event_drop_directory": "coordination/observability/events",
+    "stream_directory": "coordination/observability/stream",
+    "indices_directory": "coordination/observability/indices",
+    "retention_days": 30,
+    "compression_enabled": true
+  },
+
+  "governance": {
+    "enabled": true,
+    "bypass_allowed": false,
+    "audit_all_operations": true,
+    "pii_detection_enabled": true,
+    "data_quality_monitoring": true,
+    "enforce_on": [
+      "worker-spawn",
+      "asset-write",
+      "sensitive-read",
+      "coordination-update",
+      "task-create",
+      "task-modify"
+    ],
+    "roles_file": "coordination/governance/roles.json",
+    "access_log": "coordination/governance/access-log.jsonl",
+    "audit_trail": "coordination/governance/audit-trail.jsonl"
+  },
+
+  "services": {
+    "heartbeat_interval_seconds": 30,
+    "health_check_interval_seconds": 180,
+    "stale_heartbeat_threshold_seconds": 300,
+    "max_workers_per_master": 20,
+    "max_zombies_before_alert": 10,
+    "token_budget_enforcement": true,
+    "auto_restart_failed_daemons": true,
+    "daemon_restart_delay_seconds": 30
+  },
+
+  "workers": {
+    "default_timeout_minutes": 45,
+    "default_token_budget": 10000,
+    "heartbeat_required": true,
+    "heartbeat_interval_seconds": 30,
+    "auto_retry_on_failure": true,
+    "max_retries": 3,
+    "retry_backoff_multiplier": 2,
+    "validation_required": true,
+    "pre_flight_checks": true,
+    "context_injection_validation": true
+  },
+
+  "masters": {
+    "coordinator": {
+      "token_budget": 50000,
+      "priority": "critical",
+      "auto_restart": true,
+      "heartbeat_critical_threshold_minutes": 5
+    },
+    "development": {
+      "token_budget": 100000,
+      "priority": "high",
+      "auto_restart": true,
+      "heartbeat_critical_threshold_minutes": 10
+    },
+    "security": {
+      "token_budget": 75000,
+      "priority": "critical",
+      "auto_restart": true,
+      "heartbeat_critical_threshold_minutes": 5
+    },
+    "inventory": {
+      "token_budget": 50000,
+      "priority": "medium",
+      "auto_restart": true,
+      "heartbeat_critical_threshold_minutes": 15
+    },
+    "cicd": {
+      "token_budget": 75000,
+      "priority": "high",
+      "auto_restart": true,
+      "heartbeat_critical_threshold_minutes": 10
+    }
+  },
+
+  "validation": {
+    "enabled": true,
+    "json_syntax_check": true,
+    "json_schema_validation": true,
+    "template_variable_check": true,
+    "required_fields_check": true,
+    "value_constraint_check": true,
+    "schemas_directory": "coordination/schemas",
+    "fail_on_validation_error": true,
+    "log_validation_failures": true
+  },
+
+  "paths": {
+    "project_root": "/Users/ryandahlberg/commit-relay",
+    "scripts_lib": "scripts/lib",
+    "coordination": "coordination",
+    "agents": "agents",
+    "logs": "agents/logs",
+    "worker_specs_active": "coordination/worker-specs/active",
+    "worker_specs_completed": "coordination/worker-specs/completed",
+    "worker_specs_failed": "coordination/worker-specs/failed"
+  },
+
+  "health": {
+    "sla_thresholds": {
+      "critical": 15,
+      "high": 30,
+      "medium": 60,
+      "low": 120
+    },
+    "alerts_file": "coordination/health-alerts.json",
+    "incidents_directory": "coordination/health-incidents",
+    "auto_recovery_enabled": true,
+    "backup_spawn_on_critical": true
+  },
+
+  "learning": {
+    "moe_enabled": true,
+    "pattern_detection": true,
+    "failure_categorization": true,
+    "auto_runbook_generation": true,
+    "routing_decisions_log": "coordination/masters/coordinator/knowledge-base/routing-decisions.jsonl",
+    "performance_tracking": true,
+    "anomaly_detection": true
+  }
+}

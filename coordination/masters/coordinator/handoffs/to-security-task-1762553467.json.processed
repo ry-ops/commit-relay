@@ -1,0 +1,44 @@
+{
+  "handoff_id": "coord-to-security-593636D1-45FC-4928-A6FB-EF6D42D424F7",
+  "from_master": "coordinator",
+  "to_master": "security",
+  "task_id": "task-1762553467",
+  "task_data": {
+    "id": "task-1762553467",
+    "title": "GOVERNANCE UPGRADE - Phase 4: AI-Powered Monitoring & Quality Assurance. Implement AI-powered data quality monitoring, automatic PII detection and tagging, model drift detection for agents, proactive monitoring dashboard. Build QualityMonitor class with automated data quality checks, PII scanner with automatic tagging, agent performance monitoring with drift detection, real-time monitoring dashboard with alerts. Success criteria: 100% data quality monitoring coverage, PII detection accuracy >99%, drift detection latency <1s, zero false positives in monitoring.",
+    "type": "development",
+    "priority": "high",
+    "status": "assigned",
+    "created_at": "2025-11-11T12:10:12-0600",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "GOVERNANCE UPGRADE - Phase 4: AI-Powered Monitoring & Quality Assurance. Implement AI-powered data quality monitoring, automatic PII detection and tagging, model drift detection for agents, proactive monitoring dashboard. Build QualityMonitor class with automated data quality checks, PII scanner with automatic tagging, agent performance monitoring with drift detection, real-time monitoring dashboard with alerts. Success criteria: 100% data quality monitoring coverage, PII detection accuracy >99%, drift detection latency <1s, zero false positives in monitoring.",
+      "requirements": []
+    },
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-11T16:35:27-06:00",
+    "worker_id": null,
+    "worker_type": "implementation-worker",
+    "zombie_cleanup_at": "2025-11-11T22:35:16Z",
+    "previous_worker": "dev-worker-3EFCF595",
+    "retry_count": 1,
+    "assigned_to": "security",
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-11T16:35:27-0600"
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "high",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "N/A",
+      "strategy": "pattern-based",
+      "routed_at": "2025-11-11T16:35:27-0600"
+    }
+  },
+  "created_at": "2025-11-11T16:35:27-0600",
+  "status": "pending_pickup"
+}

@@ -1,0 +1,45 @@
+{
+  "enabled": true,
+  "max_retries_by_type": {
+    "scan-worker": 3,
+    "fix-worker": 2,
+    "analysis-worker": 3,
+    "implementation-worker": 2,
+    "test-worker": 3,
+    "review-worker": 2,
+    "pr-worker": 1,
+    "documentation-worker": 3,
+    "default": 2
+  },
+  "backoff": {
+    "base_delay_seconds": 30,
+    "max_delay_seconds": 300,
+    "strategy": "exponential"
+  },
+  "circuit_breaker": {
+    "enabled": true,
+    "failure_threshold": 5,
+    "failure_window_seconds": 900,
+    "reset_timeout_seconds": 1800,
+    "consecutive_failure_threshold": 3
+  },
+  "rate_limits": {
+    "global_max_per_minute": 10,
+    "per_type_max_per_minute": 3,
+    "per_task_min_interval_seconds": 120
+  },
+  "token_budget": {
+    "check_before_restart": true,
+    "max_cumulative_multiplier": 3.0
+  },
+  "deadline_enforcement": {
+    "enabled": true,
+    "minimum_time_buffer_seconds": 600
+  },
+  "observability": {
+    "emit_events": true,
+    "collect_metrics": true,
+    "events_log": "coordination/events/worker-restart-events.jsonl",
+    "metrics_file": "coordination/metrics/worker-restart-metrics.json"
+  }
+}

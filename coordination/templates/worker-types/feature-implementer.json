@@ -1,0 +1,27 @@
+{
+  "worker_type": "feature-implementer",
+  "master": "development",
+  "description": "Implements new features based on task specifications",
+  "default_config": {
+    "token_budget": 50000,
+    "timeout_minutes": 60,
+    "priority": "medium",
+    "retry_limit": 2
+  },
+  "required_fields": [
+    "task_id",
+    "feature_description",
+    "acceptance_criteria"
+  ],
+  "optional_fields": [
+    "related_files",
+    "dependencies",
+    "test_requirements"
+  ],
+  "success_criteria": {
+    "code_generated": true,
+    "tests_pass": true,
+    "no_regressions": true
+  },
+  "prompt_template": "Implement the following feature:\n\n## Feature Description\n{{feature_description}}\n\n## Acceptance Criteria\n{{acceptance_criteria}}\n\n## Guidelines\n- Follow existing code patterns\n- Add appropriate tests\n- Update documentation as needed"
+}

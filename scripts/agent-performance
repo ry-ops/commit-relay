@@ -1,0 +1,234 @@
+#!/usr/bin/env bash
+#
+# Agent Performance CLI
+# Part of Q2 Week 26: Performance Tracking & Optimization
+#
+# Command-line interface for performance tracking and optimization
+#
+
+set -euo pipefail
+
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+# Source performance tracker
+source "$SCRIPT_DIR/lib/agentstudio/performance-tracker.sh"
+
+#
+# Format metrics for display
+#
+format_metrics() {
+    local metrics="$1"
+
+    echo "=== Performance Metrics ==="
+    echo ""
+    echo "Throughput:"
+    echo "  Tasks/hour: $(echo "$metrics" | jq -r '.metrics.throughput.tasks_per_hour')"
+    echo "  Tasks/day:  $(echo "$metrics" | jq -r '.metrics.throughput.tasks_per_day')"
+    echo ""
+    echo "Latency:"
+    echo "  Average:    $(echo "$metrics" | jq -r '.metrics.latency.avg_ms') ms"
+    echo "  P95:        $(echo "$metrics" | jq -r '.metrics.latency.p95_ms') ms"
+    echo "  P99:        $(echo "$metrics" | jq -r '.metrics.latency.p99_ms') ms"
+    echo ""
+    echo "Reliability:"
+    echo "  Success:    $(echo "$metrics" | jq -r '.metrics.reliability.success_rate * 100')%"
+    echo "  Error:      $(echo "$metrics" | jq -r '.metrics.reliability.error_rate * 100')%"
+    echo ""
+    echo "Resources:"
+    echo "  Tokens/task: $(echo "$metrics" | jq -r '.metrics.resource_usage.tokens_per_task')"
+    echo "  Uptime:      $(echo "$metrics" | jq -r '.metrics.availability.uptime_percent')%"
+}
+
+#
+# Format recommendations for display
+#
+format_recommendations() {
+    local recs="$1"
+
+    echo "=== Optimization Recommendations ==="
+    echo ""
+
+    echo "$recs" | jq -c '.[]' | while read -r rec; do
+        local title=$(echo "$rec" | jq -r '.title')
+        local priority=$(echo "$rec" | jq -r '.priority')
+        local category=$(echo "$rec" | jq -r '.category')
+        local improvement=$(echo "$rec" | jq -r '.expected_improvement')
+        local effort=$(echo "$rec" | jq -r '.effort')
+        local action=$(echo "$rec" | jq -r '.action')
+
+        echo "[$priority] $title"
+        echo "  Category: $category"
+        echo "  Expected: $improvement"
+        echo "  Effort: $effort"
+        echo "  Action: $action"
+        echo ""
+    done
+}
+
+#
+# Main CLI
+#
+main() {
+    local command="${1:-help}"
+
+    case "$command" in
+        report)
+            local agent_id="${2:?Agent ID required}"
+            local hours="${3:-24}"
+
+            local report=$(generate_performance_report "$agent_id" "$hours")
+
+            echo ""
+            format_metrics "$report"
+            echo ""
+
+            local recs=$(echo "$report" | jq '.recommendations')
+            format_recommendations "$recs"
+
+            local bottlenecks=$(echo "$report" | jq '.bottlenecks | length')
+            if [[ $bottlenecks -gt 0 ]]; then
+                echo "=== Bottlenecks Detected: $bottlenecks ==="
+                echo "$report" | jq -r '.bottlenecks[] | "[\(.severity)] \(.category): \(.description)"'
+            fi
+            ;;
+
+        metrics)
+            local agent_id="${2:?Agent ID required}"
+            local hours="${3:-24}"
+
+            local metrics=$(collect_metrics "$agent_id" "$hours")
+            format_metrics "$metrics"
+            ;;
+
+        benchmark)
+            local agent_id="${2:?Agent ID required}"
+            local type="${3:-all}"
+
+            local results=$(run_benchmark "$agent_id" "$type")
+
+            echo "=== Benchmark Results ==="
+            echo ""
+
+            echo "$results" | jq -c '.[]' | while read -r bench; do
+                local name=$(echo "$bench" | jq -r '.name')
+                local score=$(echo "$bench" | jq -r '.score')
+                local baseline=$(echo "$bench" | jq -r '.baseline_score')
+                local improvement=$(echo "$bench" | jq -r '.improvement_percent')
+
+                echo "$name:"
+                echo "  Score: $score / 100"
+                echo "  Baseline: $baseline"
+                echo "  Change: ${improvement}%"
+                echo ""
+            done
+            ;;
+
+        recommendations)
+            local agent_id="${2:?Agent ID required}"
+
+            local metrics=$(collect_metrics "$agent_id" 24)
+            local bottlenecks=$(detect_bottlenecks "$agent_id" "$metrics")
+            local recs=$(generate_recommendations "$agent_id" "$metrics" "$bottlenecks")
+
+            format_recommendations "$recs"
+            ;;
+
+        compare)
+            local agent_id_1="${2:?First agent ID required}"
+            local agent_id_2="${3:?Second agent ID required}"
+
+            local comparison=$(compare_agents "$agent_id_1" "$agent_id_2")
+
+            echo "=== Agent Comparison ==="
+            echo ""
+            echo "$comparison" | jq .
+            ;;
+
+        history)
+            local agent_id="${2:?Agent ID required}"
+            local limit="${3:-5}"
+
+            local history=$(get_performance_history "$agent_id" "$limit")
+            local count=$(echo "$history" | jq 'length')
+
+            echo "=== Performance History ($count reports) ==="
+            echo ""
+
+            echo "$history" | jq -c '.[]' | while read -r report; do
+                local timestamp=$(echo "$report" | jq -r '.created_at')
+                local date=$(date -r $((timestamp / 1000)) '+%Y-%m-%d %H:%M' 2>/dev/null || date -d "@$((timestamp / 1000))" '+%Y-%m-%d %H:%M' 2>/dev/null || echo "unknown")
+                local success=$(echo "$report" | jq -r '.metrics.reliability.success_rate * 100')
+                local latency=$(echo "$report" | jq -r '.metrics.latency.avg_ms')
+                local throughput=$(echo "$report" | jq -r '.metrics.throughput.tasks_per_hour')
+
+                echo "$date - Success: ${success}%, Latency: ${latency}ms, Throughput: ${throughput}/hr"
+            done
+            ;;
+
+        baseline)
+            local agent_id="${2:?Agent ID required}"
+
+            save_baseline "$agent_id"
+            ;;
+
+        json)
+            local agent_id="${2:?Agent ID required}"
+
+            local report=$(generate_performance_report "$agent_id" 24)
+            echo "$report" | jq .
+            ;;
+
+        help|--help|-h)
+            cat <<EOF
+Agent Performance CLI - Track and optimize agent performance
+
+Usage: $0 <command> [options]
+
+Commands:
+  report <agent-id> [hours]
+                          Generate full performance report
+  metrics <agent-id> [hours]
+                          Show performance metrics only
+  benchmark <agent-id> [type]
+                          Run benchmarks (all, speed, accuracy, efficiency, reliability)
+  recommendations <agent-id>
+                          Get optimization recommendations
+  compare <agent-1> <agent-2>
+                          Compare two agents
+  history <agent-id> [limit]
+                          Show performance history
+  baseline <agent-id>     Save performance baseline
+  json <agent-id>         Output full report as JSON
+
+Examples:
+  # Generate performance report
+  $0 report my-agent 24
+
+  # Run benchmarks
+  $0 benchmark my-agent speed
+
+  # Get recommendations
+  $0 recommendations my-agent
+
+  # Compare agents
+  $0 compare agent-1 agent-2
+
+  # View history
+  $0 history my-agent 10
+
+EOF
+            ;;
+
+        *)
+            echo "Unknown command: $command"
+            echo "Use '$0 help' for usage information"
+            exit 1
+            ;;
+    esac
+}
+
+# Run CLI
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

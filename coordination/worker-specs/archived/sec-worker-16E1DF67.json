@@ -1,0 +1,58 @@
+{
+  "worker_id": "sec-worker-16E1DF67",
+  "worker_type": "scan-worker",
+  "prompt_template": "agents/prompts/workers/scan-worker.md",
+  "parent_master": "security",
+  "task_id": "task-1762553466",
+  "task_data": {
+    "id": "task-1762553466",
+    "title": "GOVERNANCE UPGRADE - Phase 3: Automated Data Lineage & Audit Trails. Implement comprehensive lineage tracking and audit trail system integrated with Phase 1 catalog and Phase 2 access control. Build LineageTracker class for recording all operations, implement comprehensive audit trail logging, create lineage visualization (source → transformation → target), add audit query interface and compliance reports. Success criteria: 100% operation lineage tracked, audit trail completeness 99.9%, lineage query response <500ms, compliance report generation <2 seconds.",
+    "type": "development",
+    "priority": "high",
+    "status": "assigned",
+    "created_at": "2025-11-11T11:36:34-0600",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "GOVERNANCE UPGRADE - Phase 3: Automated Data Lineage & Audit Trails. Implement comprehensive lineage tracking and audit trail system integrated with Phase 1 catalog and Phase 2 access control. Build LineageTracker class for recording all operations, implement comprehensive audit trail logging, create lineage visualization (source → transformation → target), add audit query interface and compliance reports. Success criteria: 100% operation lineage tracked, audit trail completeness 99.9%, lineage query response <500ms, compliance report generation <2 seconds.",
+      "requirements": []
+    },
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-11T16:35:27-06:00",
+    "worker_id": null,
+    "worker_type": "implementation-worker",
+    "zombie_cleanup_at": "2025-11-11T22:35:16Z",
+    "previous_worker": "dev-worker-C3E89869",
+    "retry_count": 1,
+    "assigned_to": "security",
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-11T16:35:27-0600"
+  },
+  "context": {
+    "master_session": "D3E7AA88-CB9B-44A8-A1DC-8BEE4B0FA048",
+    "expertise_area": "vulnerability_detection",
+    "skills_required": [
+      "dependency_scanning",
+      "static_analysis",
+      "secrets_detection"
+    ],
+    "knowledge_base_refs": {
+      "vulnerability_database": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/security/knowledge-base/vulnerability-history.jsonl",
+      "remediation_strategies": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/security/knowledge-base/remediation-patterns.json",
+      "false_positives": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/security/knowledge-base/false-positives.json"
+    },
+    "relevant_past_findings": {}
+  },
+  "resources": {
+    "token_allocation": 12000,
+    "time_limit_minutes": 60
+  },
+  "status": "running",
+  "created_at": "2025-11-11T16:36:58-0600",
+  "created_by": "security",
+  "execution": {
+    "started_at": "2025-11-12T07:44:24-0600"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "dashboard": {
+    "title": "GitHub Achievements - Real-time Tracking",
+    "description": "Live achievement progress monitoring with MoE routing",
+    "version": "1.0.0",
+    "visualizations": [
+      {
+        "id": "achievement-progress-gauge",
+        "type": "gauge",
+        "title": "Achievement Completion",
+        "query": "labels.achievement.unlocked > 0",
+        "goal": 8
+      },
+      {
+        "id": "opportunity-scores",
+        "type": "bar",
+        "title": "Top Opportunities",
+        "query": "labels.achievement.top_score",
+        "sort": "desc"
+      },
+      {
+        "id": "workflow-timeline",
+        "type": "timeline",
+        "title": "Automation Executions",
+        "query": "transaction.name: /api/achievements/execute/*"
+      }
+    ],
+    "refresh_interval": "5m",
+    "time_range": "last_24h"
+  }
+}

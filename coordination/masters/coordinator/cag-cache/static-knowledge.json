@@ -1,0 +1,187 @@
+{
+  "cache_id": "coordinator-master-static-v1",
+  "cache_type": "static_system_knowledge",
+  "cache_version": "1.0.0",
+  "created_at": "2025-11-07T19:30:00Z",
+  "cache_strategy": "kv_cache",
+  "description": "Pre-loaded static knowledge for Coordinator Master - MoE routing and system orchestration",
+  "moe_routing_rules": [
+    {
+      "rule_id": "security-scan",
+      "pattern": "security|vulnerability|audit|cve|scan",
+      "target_master": "security",
+      "priority": "high",
+      "confidence": 0.95,
+      "keywords": [
+        "security",
+        "vulnerability",
+        "audit",
+        "cve",
+        "scan",
+        "exploit",
+        "patch"
+      ]
+    },
+    {
+      "rule_id": "code-development",
+      "pattern": "implement|develop|code|feature|bug.*fix|refactor",
+      "target_master": "development",
+      "priority": "medium",
+      "confidence": 0.90,
+      "keywords": [
+        "implement",
+        "develop",
+        "code",
+        "feature",
+        "bug",
+        "fix",
+        "refactor",
+        "optimize"
+      ]
+    },
+    {
+      "rule_id": "inventory-management",
+      "pattern": "inventory|catalog|document|repository.*health|dependency.*update",
+      "target_master": "inventory",
+      "priority": "low",
+      "confidence": 0.85,
+      "keywords": [
+        "inventory",
+        "catalog",
+        "document",
+        "health",
+        "dependency",
+        "discovery"
+      ]
+    },
+    {
+      "rule_id": "cicd-operations",
+      "pattern": "build|deploy|test|ci.*cd|pipeline|release",
+      "target_master": "cicd",
+      "priority": "medium",
+      "confidence": 0.88,
+      "keywords": [
+        "build",
+        "deploy",
+        "test",
+        "pipeline",
+        "release",
+        "ci",
+        "cd",
+        "workflow"
+      ]
+    },
+    {
+      "rule_id": "multi-master",
+      "pattern": "comprehensive|full.*audit|major.*update",
+      "target_master": "multiple",
+      "involved_masters": [
+        "security",
+        "development",
+        "inventory"
+      ],
+      "priority": "high",
+      "confidence": 0.80,
+      "orchestration_required": true
+    }
+  ],
+  "master_registry": {
+    "security": {
+      "token_budget": 30000,
+      "worker_pool": 15000,
+      "specialization": "security_vulnerability_management",
+      "capabilities": [
+        "scanning",
+        "remediation",
+        "audit",
+        "verification"
+      ],
+      "sla_driven": true
+    },
+    "development": {
+      "token_budget": 30000,
+      "worker_pool": 20000,
+      "specialization": "feature_development_bug_fixing",
+      "capabilities": [
+        "implementation",
+        "refactoring",
+        "optimization",
+        "debugging"
+      ],
+      "sla_driven": false
+    },
+    "inventory": {
+      "token_budget": 35000,
+      "worker_pool": 15000,
+      "specialization": "repository_cataloging_health",
+      "capabilities": [
+        "discovery",
+        "cataloging",
+        "documentation",
+        "health_monitoring"
+      ],
+      "sla_driven": false
+    },
+    "cicd": {
+      "token_budget": 25000,
+      "worker_pool": 12000,
+      "specialization": "build_deploy_test_automation",
+      "capabilities": [
+        "building",
+        "testing",
+        "deployment",
+        "release_management"
+      ],
+      "sla_driven": false
+    }
+  },
+  "token_budgets": {
+    "daily_total": 270000,
+    "coordinator_budget": 50000,
+    "coordinator_worker_pool": 30000,
+    "emergency_reserve": 25000,
+    "allocation": {
+      "masters": 145000,
+      "observers": 20000,
+      "shared_worker_pool": 80000
+    }
+  },
+  "coordination_protocol": {
+    "task_routing": {
+      "step_1": "Parse task description",
+      "step_2": "Apply MoE routing rules (cached)",
+      "step_3": "Calculate confidence scores",
+      "step_4": "Select target master(s)",
+      "step_5": "Check target master token availability",
+      "step_6": "Create handoff or spawn coordinator worker",
+      "step_7": "Log routing decision for ASI learning"
+    },
+    "multi_master_orchestration": {
+      "step_1": "Identify all involved masters",
+      "step_2": "Create task orchestration plan",
+      "step_3": "Determine execution order (sequential or parallel)",
+      "step_4": "Create subtasks for each master",
+      "step_5": "Monitor progress across masters",
+      "step_6": "Aggregate results",
+      "step_7": "Generate final report"
+    }
+  },
+  "fallback_strategy": {
+    "default_master": "development",
+    "confidence_threshold": 0.70,
+    "low_confidence_action": "route_to_default",
+    "ambiguous_task_action": "request_clarification"
+  },
+  "metadata": {
+    "estimated_tokens": 3200,
+    "load_time_target_ms": 50,
+    "update_frequency": "rarely",
+    "last_updated": "2025-11-07T19:30:00Z",
+    "cache_invalidation_triggers": [
+      "routing_rule_change",
+      "master_registry_update",
+      "token_budget_policy_change"
+    ]
+  },
+  "last_updated": "2025-11-07T20:06:45-0600"
+}

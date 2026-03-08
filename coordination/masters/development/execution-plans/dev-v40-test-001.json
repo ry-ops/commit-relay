@@ -1,0 +1,21 @@
+{
+  "subtask_id": "dev-v40-test-001",
+  "execution_manager_id": "exec-mgr-dev-78d332c2",
+  "master": "development",
+  "description": "v4.0 End-to-End Test: Multi-worker coordination validation",
+  "files_affected": [
+  "dashboard/server/index.js",
+  "dashboard/public/index.html",
+  "dashboard/public/dashboard.js",
+  "scripts/metrics-snapshot-daemon.sh",
+  "scripts/zombie-killer-daemon.sh"
+],
+  "repos": [],
+  "estimated_duration_minutes": 60,
+  "token_budget": 25000,
+  "acceptance_criteria": [],
+  "dependencies": [],
+  "status": "pending",
+  "created_at": "2025-11-05T21:38:48Z",
+  "updated_at": "2025-11-05T21:38:48Z"
+}

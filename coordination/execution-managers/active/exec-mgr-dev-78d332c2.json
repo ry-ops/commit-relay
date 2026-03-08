@@ -1,0 +1,13 @@
+{
+  "exec_mgr_id": "exec-mgr-dev-78d332c2",
+  "master_type": "development",
+  "subtask_id": "dev-v40-test-001",
+  "status": "ready",
+  "started_at": "2025-11-05T21:38:48Z",
+  "last_heartbeat": "2025-11-05T21:38:48Z",
+  "workers_spawned": 0,
+  "workers_completed": 0,
+  "workers_failed": 0,
+  "tokens_used": 0,
+  "current_phase": "awaiting_start"
+}

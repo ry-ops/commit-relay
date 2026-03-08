@@ -1,0 +1,140 @@
+{
+  "timestamp": "2025-11-08T12:28:25-0600",
+  "elapsed_seconds": 10,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 6,
+    "completed": 7,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 84,
+    "completed": 2
+  },
+  "moe_metrics": {
+    "routing_accuracy": 0,
+    "avg_confidence": 0,
+    "low_confidence_pct": 0,
+    "pool_efficiency": 0
+  }
+}
+{
+  "timestamp": "2025-11-08T12:28:35-0600",
+  "elapsed_seconds": 20,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 6,
+    "completed": 7,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 85,
+    "completed": 2
+  },
+  "moe_metrics": {
+    "routing_accuracy": 0,
+    "avg_confidence": 0,
+    "low_confidence_pct": 0,
+    "pool_efficiency": 0
+  }
+}
+{
+  "timestamp": "2025-11-08T12:28:45-0600",
+  "elapsed_seconds": 30,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 6,
+    "completed": 7,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 86,
+    "completed": 2
+  },
+  "moe_metrics": {
+    "routing_accuracy": 0,
+    "avg_confidence": 0,
+    "low_confidence_pct": 0,
+    "pool_efficiency": 0
+  }
+}
+{
+  "timestamp": "2025-11-08T12:28:55-0600",
+  "elapsed_seconds": 40,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 6,
+    "completed": 7,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 88,
+    "completed": 2
+  },
+  "moe_metrics": {
+    "routing_accuracy": 0,
+    "avg_confidence": 0,
+    "low_confidence_pct": 0,
+    "pool_efficiency": 0
+  }
+}
+{
+  "timestamp": "2025-11-08T12:29:37-0600",
+  "elapsed_seconds": 82,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 6,
+    "completed": 7,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 88,
+    "completed": 2
+  },
+  "moe_metrics": {
+    "routing_accuracy": 0.00,
+    "avg_confidence": 0,
+    "low_confidence_pct": 100.00,
+    "pool_efficiency": 0.00
+  }
+}
+{
+  "timestamp": "2025-11-08T12:30:07-0600",
+  "elapsed_seconds": 112,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 6,
+    "completed": 7,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 93,
+    "completed": 2
+  },
+  "moe_metrics": {
+    "routing_accuracy": 0.00,
+    "avg_confidence": 0,
+    "low_confidence_pct": 100.00,
+    "pool_efficiency": 0.00
+  }
+}
+{
+  "timestamp": "2025-11-08T12:30:37-0600",
+  "elapsed_seconds": 142,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 6,
+    "completed": 7,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 93,
+    "completed": 2
+  },
+  "moe_metrics": {
+    "routing_accuracy": 0.00,
+    "avg_confidence": 0,
+    "low_confidence_pct": 100.00,
+    "pool_efficiency": 0.00
+  }
+}

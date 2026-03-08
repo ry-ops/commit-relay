@@ -1,0 +1,119 @@
+{
+  "version": "1.0.0",
+  "created_at": "2025-11-19T14:02:21.386Z",
+  "principal_roles": {
+    "system": {
+      "description": "System-level autonomous operations",
+      "inherits": [],
+      "permissions": [
+        "system:read",
+        "system:write",
+        "system:execute",
+        "coordinator:manage",
+        "masters:coordinate",
+        "workers:spawn",
+        "workers:manage",
+        "worker-specs:read",
+        "worker-specs:write",
+        "tasks:create",
+        "tasks:route",
+        "tasks:monitor",
+        "tasks:read",
+        "tasks:write",
+        "task-queue:read",
+        "task-queue:write",
+        "coordination:read",
+        "coordination:write",
+        "daemons:start",
+        "daemons:stop",
+        "daemons:restart",
+        "self-healing:detect",
+        "self-healing:auto-fix",
+        "governance:audit",
+        "governance:read",
+        "governance:write",
+        "catalog:discover",
+        "catalog:register",
+        "catalog:read",
+        "catalog:write",
+        "routing-patterns:read",
+        "routing-patterns:write",
+        "knowledge-base:read",
+        "knowledge-base:write"
+      ],
+      "namespaces": [
+        "*"
+      ]
+    },
+    "user": {
+      "description": "Human user with read/monitor permissions",
+      "inherits": [],
+      "permissions": [
+        "dashboard:read",
+        "tasks:read",
+        "workers:read",
+        "catalog:read",
+        "reports:read"
+      ],
+      "namespaces": [
+        "dashboard",
+        "coordinator",
+        "development",
+        "security",
+        "inventory",
+        "cicd"
+      ]
+    }
+  },
+  "namespace_access": {
+    "coordinator": {
+      "min_role": "system",
+      "sensitivity": "internal"
+    },
+    "development": {
+      "min_role": "system",
+      "sensitivity": "internal"
+    },
+    "security": {
+      "min_role": "system",
+      "sensitivity": "confidential"
+    },
+    "inventory": {
+      "min_role": "system",
+      "sensitivity": "internal"
+    },
+    "cicd": {
+      "min_role": "system",
+      "sensitivity": "internal"
+    },
+    "dashboard": {
+      "min_role": "user",
+      "sensitivity": "internal"
+    },
+    "governance": {
+      "min_role": "system",
+      "sensitivity": "confidential"
+    },
+    "self-healing": {
+      "min_role": "system",
+      "sensitivity": "internal"
+    }
+  },
+  "role_assignments": {
+    "commit-relay-system": "system",
+    "default-user": "user",
+    "coordinator-master": "system",
+    "coordinator": "system",
+    "development-master": "system",
+    "development": "system",
+    "security-master": "system",
+    "security": "system",
+    "inventory-master": "system",
+    "inventory": "system",
+    "cicd-master": "system",
+    "cicd": "system",
+    "worker-restart-daemon": "system",
+    "daemon-supervisor": "system"
+  },
+  "updated_at": "2025-11-19T14:02:21.389Z"
+}

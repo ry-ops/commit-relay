@@ -1,0 +1,91 @@
+{
+  "version": "1.0.0",
+  "created_at": "2025-11-20T19:20:00Z",
+  "created_by": "worker-implementation-047",
+  "description": "Codified development standards, patterns, and best practices for commit-relay",
+  "coding_standards": {
+    "shell_scripting": {
+      "conventions": [
+        "Always use set -euo pipefail at script start",
+        "Quote all variables: \"$VARIABLE\"",
+        "Use $(command) instead of backticks",
+        "Prefer absolute paths or explicit relative paths",
+        "Include clear comments and function documentation"
+      ],
+      "file_naming": {
+        "pattern": "kebab-case.sh",
+        "examples": ["worker-daemon.sh", "moe-router.sh", "sparse-pool-manager.sh"]
+      },
+      "logging": {
+        "function": "log_daemon() or custom log functions",
+        "format": "[timestamp] LEVEL: message",
+        "levels": ["DEBUG", "INFO", "WARN", "ERROR", "SUCCESS"]
+      }
+    },
+    "nodejs_express": {
+      "conventions": [
+        "Use async/await over callbacks",
+        "Implement proper error handling middleware",
+        "Use structured JSON responses",
+        "Implement health check endpoints"
+      ],
+      "api_patterns": {
+        "health_check": "GET /api/health",
+        "metrics": "GET /api/metrics",
+        "resources": "REST conventions",
+        "streaming": "SSE for real-time updates"
+      }
+    },
+    "frontend_alpine_tailwind": {
+      "alpine_js": [
+        "Use x-data for component state",
+        "Use x-init for initialization",
+        "Use x-on for event handlers"
+      ],
+      "tailwind_css": [
+        "Use utility classes over custom CSS",
+        "Follow dark theme conventions",
+        "Ensure responsive design"
+      ]
+    }
+  },
+  "data_format_standards": {
+    "json": {
+      "usage": "Configuration files, state persistence, API responses",
+      "naming": "snake_case for keys",
+      "structure": ["Include version field", "Include timestamp fields", "Use consistent nesting"]
+    },
+    "jsonl": {
+      "usage": "Append-only logs, event streams, audit trails",
+      "format": "One JSON object per line",
+      "fields": ["timestamp", "type", "data", "source"]
+    }
+  },
+  "architecture_patterns": {
+    "daemon_pattern": {
+      "description": "Long-running background processes for monitoring",
+      "components": ["PID file", "Main loop", "Trap for shutdown", "State persistence"]
+    },
+    "event_driven": {
+      "description": "File-based event communication",
+      "mechanisms": ["Chokidar file watching", "JSONL append", "WebSocket broadcast"]
+    },
+    "moe_routing": {
+      "description": "Mixture of Experts pattern for task routing",
+      "key_concepts": ["Confidence scoring", "Sparse activation", "Type-based routing", "Parallel activation"]
+    }
+  },
+  "git_workflow": {
+    "commit_format": "type(scope): description",
+    "types": ["feat", "fix", "docs", "refactor", "chore"],
+    "scopes": ["daemon", "dashboard", "router", "worker", "security"]
+  },
+  "security_practices": {
+    "secrets": ["Never commit API keys", "Use environment variables", "Add .env to .gitignore"],
+    "input_validation": ["Validate JSON before parsing", "Sanitize file paths", "Check worker IDs"]
+  },
+  "metadata": {
+    "confidence": "high",
+    "next_review": "2025-12-01T00:00:00Z"
+  }
+}

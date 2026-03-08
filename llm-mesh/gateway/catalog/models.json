@@ -1,0 +1,79 @@
+{
+  "models": {
+    "claude-opus-4": {
+      "provider": "anthropic",
+      "display_name": "Claude Opus 4",
+      "capabilities": ["complex-reasoning", "long-context", "multi-modal"],
+      "context_window": 200000,
+      "optimal_for": ["strategic-analysis", "complex-reasoning", "high-stakes-decisions"],
+      "tier": "premium"
+    },
+    "claude-sonnet-4": {
+      "provider": "anthropic",
+      "display_name": "Claude Sonnet 4",
+      "capabilities": ["balanced", "fast", "cost-effective"],
+      "context_window": 200000,
+      "optimal_for": ["routing-analysis", "pattern-extraction", "improvement-generation"],
+      "tier": "balanced"
+    },
+    "claude-haiku": {
+      "provider": "anthropic",
+      "display_name": "Claude Haiku",
+      "capabilities": ["fast", "low-cost", "simple-tasks"],
+      "context_window": 200000,
+      "optimal_for": ["task-feature-extraction", "simple-classification", "quick-analysis"],
+      "tier": "economical"
+    },
+    "gpt-4-turbo": {
+      "provider": "openai",
+      "display_name": "GPT-4 Turbo",
+      "capabilities": ["complex-reasoning", "code-generation"],
+      "context_window": 128000,
+      "optimal_for": ["code-analysis", "technical-writing"],
+      "tier": "balanced"
+    },
+    "gpt-3.5-turbo": {
+      "provider": "openai",
+      "display_name": "GPT-3.5 Turbo",
+      "capabilities": ["fast", "cost-effective"],
+      "context_window": 16000,
+      "optimal_for": ["simple-extraction", "quick-responses"],
+      "tier": "economical"
+    },
+    "llama2-70b": {
+      "provider": "local",
+      "display_name": "Llama 2 70B",
+      "capabilities": ["local", "no-cost", "privacy"],
+      "context_window": 4096,
+      "optimal_for": ["offline-analysis", "budget-constrained"],
+      "tier": "free"
+    }
+  },
+  "task_type_preferences": {
+    "routing-analysis": {
+      "recommended": ["claude-sonnet-4", "gpt-4-turbo"],
+      "budget": ["claude-haiku", "gpt-3.5-turbo"],
+      "premium": ["claude-opus-4"]
+    },
+    "pattern-extraction": {
+      "recommended": ["claude-sonnet-4"],
+      "budget": ["claude-haiku"],
+      "premium": ["claude-opus-4"]
+    },
+    "improvement-generation": {
+      "recommended": ["claude-sonnet-4", "claude-opus-4"],
+      "budget": ["claude-haiku"],
+      "premium": ["claude-opus-4"]
+    },
+    "task-feature-extraction": {
+      "recommended": ["claude-haiku", "gpt-3.5-turbo"],
+      "budget": ["llama2-70b"],
+      "premium": ["claude-sonnet-4"]
+    },
+    "quality-evaluation": {
+      "recommended": ["claude-sonnet-4"],
+      "budget": ["claude-haiku"],
+      "premium": ["claude-opus-4"]
+    }
+  }
+}

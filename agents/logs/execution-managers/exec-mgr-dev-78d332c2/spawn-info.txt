@@ -1,0 +1,20 @@
+Execution Manager Spawn Information
+Generated: 2025-11-05T21:38:48Z
+
+Execution Manager ID: exec-mgr-dev-78d332c2
+Master Type: development
+Subtask ID: dev-v40-test-001
+Description: v4.0 End-to-End Test: Multi-worker coordination validation
+
+Token Budget: 25000
+Estimated Duration: 60 minutes
+
+Files:
+/Users/ryandahlberg/commit-relay/coordination/masters/development/execution-plans/dev-v40-test-001.json
+/Users/ryandahlberg/commit-relay/coordination/execution-managers/active/exec-mgr-dev-78d332c2.json
+
+To start the Execution Manager manually:
+  export EXEC_MGR_ID="exec-mgr-dev-78d332c2"
+  echo "exec-mgr-dev-78d332c2" > /tmp/exec-mgr-id.txt
+  cd /Users/ryandahlberg/commit-relay
+  claude --prompt "$(cat agents/prompts/execution-manager.md)"

@@ -1,0 +1,26 @@
+{
+  "worker_type": "security-scanner",
+  "master": "security",
+  "description": "Scans codebase for security vulnerabilities",
+  "default_config": {
+    "token_budget": 40000,
+    "timeout_minutes": 30,
+    "priority": "high",
+    "retry_limit": 2
+  },
+  "required_fields": [
+    "task_id",
+    "scan_scope"
+  ],
+  "optional_fields": [
+    "specific_vulnerabilities",
+    "compliance_frameworks",
+    "exclude_patterns"
+  ],
+  "success_criteria": {
+    "scan_complete": true,
+    "findings_documented": true,
+    "severity_classified": true
+  },
+  "prompt_template": "Perform security scan:\n\n## Scan Scope\n{{scan_scope}}\n\n## Guidelines\n- Check for OWASP Top 10 vulnerabilities\n- Scan for hardcoded secrets\n- Review authentication and authorization\n- Document all findings with severity"
+}

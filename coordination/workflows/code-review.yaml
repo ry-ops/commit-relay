@@ -1,0 +1,309 @@
+# Code Review Workflow
+# Automated code review pipeline: Checkout -> Lint -> Test -> Review -> Report
+
+name: code-review
+version: "1.0.0"
+description: |
+  Automated code review workflow that checks out code, runs linting and tests,
+  performs AI-assisted code review, and generates a comprehensive report.
+
+triggers:
+  - type: manual
+  - type: event
+    event: pr_opened
+  - type: event
+    event: pr_updated
+  - type: webhook
+    webhook_path: /webhooks/code-review
+
+inputs:
+  repository_url:
+    type: string
+    description: Git repository URL
+    required: true
+  branch:
+    type: string
+    description: Branch to review
+    required: true
+  base_branch:
+    type: string
+    description: Base branch to compare against
+    default: main
+  pr_number:
+    type: number
+    description: Pull request number (if applicable)
+  review_depth:
+    type: string
+    description: Review depth (quick, standard, comprehensive)
+    default: standard
+    enum: [quick, standard, comprehensive]
+  auto_approve:
+    type: boolean
+    description: Auto-approve if all checks pass
+    default: false
+
+outputs:
+  review_result: "{{ steps.code_review.outputs.result }}"
+  report_url: "{{ steps.generate_report.outputs.url }}"
+  all_checks_passed: "{{ steps.aggregate_checks.outputs.all_passed }}"
+
+steps:
+  # Step 1: Checkout code
+  - id: checkout
+    name: Checkout Code
+    description: Clone repository and checkout the target branch
+    action: bash
+    inputs:
+      command: |
+        WORK_DIR="/tmp/code-review-$(date +%s)-$RANDOM"
+        mkdir -p "$WORK_DIR"
+        git clone --depth 50 {{ inputs.repository_url }} "$WORK_DIR/repo"
+        cd "$WORK_DIR/repo"
+        git fetch origin {{ inputs.branch }}
+        git checkout {{ inputs.branch }}
+        echo "$WORK_DIR/repo"
+    outputs:
+      repo_path: "$result.stdout"
+
+  # Step 2: Get diff for review context
+  - id: get_diff
+    name: Get Code Diff
+    description: Extract diff between feature branch and base
+    action: bash
+    depends_on:
+      - checkout
+    inputs:
+      command: |
+        cd "{{ steps.checkout.outputs.repo_path }}"
+        git fetch origin {{ inputs.base_branch }}
+        git diff origin/{{ inputs.base_branch }}...HEAD > /tmp/pr-diff.patch
+        echo "/tmp/pr-diff.patch"
+    outputs:
+      diff_path: "$result.stdout"
+
+  # Step 3: Run linting (sequential dependency on checkout)
+  - id: lint
+    name: Run Linting
+    description: Execute code linting and style checks
+    master: development
+    action: delegate
+    depends_on:
+      - checkout
+    inputs:
+      task: lint
+      repo_path: "{{ steps.checkout.outputs.repo_path }}"
+      fix: false
+      checks:
+        - eslint
+        - prettier
+        - pylint
+        - rubocop
+    outputs:
+      passed: "$result.passed"
+      errors: "$result.errors"
+      warnings: "$result.warnings"
+      report: "$result.report"
+
+  # Step 4: Run tests (sequential dependency on checkout)
+  - id: test
+    name: Run Tests
+    description: Execute test suite
+    master: development
+    action: delegate
+    depends_on:
+      - checkout
+    inputs:
+      task: test
+      repo_path: "{{ steps.checkout.outputs.repo_path }}"
+      coverage: true
+      parallel: true
+    outputs:
+      passed: "$result.passed"
+      total_tests: "$result.total"
+      passed_tests: "$result.passed_count"
+      failed_tests: "$result.failed_count"
+      coverage_percent: "$result.coverage"
+
+  # Step 5: AI Code Review (depends on lint and test completion)
+  - id: code_review
+    name: AI Code Review
+    description: Perform AI-assisted code review
+    master: development
+    action: delegate
+    depends_on:
+      - lint
+      - test
+      - get_diff
+    inputs:
+      task: code_review
+      repo_path: "{{ steps.checkout.outputs.repo_path }}"
+      diff_path: "{{ steps.get_diff.outputs.diff_path }}"
+      review_depth: "{{ inputs.review_depth }}"
+      focus_areas:
+        - security
+        - performance
+        - maintainability
+        - best_practices
+        - documentation
+      context:
+        lint_results: "{{ steps.lint.outputs.report }}"
+        test_results:
+          passed: "{{ steps.test.outputs.passed }}"
+          coverage: "{{ steps.test.outputs.coverage_percent }}"
+    outputs:
+      result: "$result.review_result"
+      suggestions: "$result.suggestions"
+      issues: "$result.issues"
+      score: "$result.score"
+
+  # Step 6: Aggregate all check results
+  - id: aggregate_checks
+    name: Aggregate Check Results
+    description: Combine results from all checks
+    action: bash
+    depends_on:
+      - lint
+      - test
+      - code_review
+    inputs:
+      command: |
+        LINT_PASSED="{{ steps.lint.outputs.passed }}"
+        TEST_PASSED="{{ steps.test.outputs.passed }}"
+        REVIEW_SCORE="{{ steps.code_review.outputs.score }}"
+
+        if [ "$LINT_PASSED" = "true" ] && [ "$TEST_PASSED" = "true" ] && [ "$REVIEW_SCORE" -ge 70 ]; then
+          echo "true"
+        else
+          echo "false"
+        fi
+    outputs:
+      all_passed: "$result.stdout"
+
+  # Step 7: Generate comprehensive report
+  - id: generate_report
+    name: Generate Review Report
+    description: Create detailed code review report
+    master: inventory
+    action: delegate
+    depends_on:
+      - aggregate_checks
+    inputs:
+      report_type: code_review
+      template: code-review-report
+      data:
+        repository: "{{ inputs.repository_url }}"
+        branch: "{{ inputs.branch }}"
+        base_branch: "{{ inputs.base_branch }}"
+        pr_number: "{{ inputs.pr_number }}"
+        lint:
+          passed: "{{ steps.lint.outputs.passed }}"
+          errors: "{{ steps.lint.outputs.errors }}"
+          warnings: "{{ steps.lint.outputs.warnings }}"
+        test:
+          passed: "{{ steps.test.outputs.passed }}"
+          total: "{{ steps.test.outputs.total_tests }}"
+          coverage: "{{ steps.test.outputs.coverage_percent }}"
+        review:
+          score: "{{ steps.code_review.outputs.score }}"
+          suggestions: "{{ steps.code_review.outputs.suggestions }}"
+          issues: "{{ steps.code_review.outputs.issues }}"
+        all_passed: "{{ steps.aggregate_checks.outputs.all_passed }}"
+    outputs:
+      path: "$result.report_path"
+      url: "$result.report_url"
+
+  # Step 8: Post review comment (if PR)
+  - id: post_comment
+    name: Post PR Comment
+    description: Post review results as PR comment
+    action: http_request
+    depends_on:
+      - generate_report
+    condition: "{{ inputs.pr_number }} != null"
+    inputs:
+      url: "https://api.github.com/repos/{{ inputs.repository_url | extract_repo }}/issues/{{ inputs.pr_number }}/comments"
+      method: POST
+      headers:
+        Authorization: "Bearer {{ env.GITHUB_TOKEN }}"
+        Content-Type: application/json
+      body:
+        body: |
+          ## Automated Code Review Results
+
+          | Check | Status |
+          |-------|--------|
+          | Lint | {{ steps.lint.outputs.passed ? 'Pass' : 'Fail' }} |
+          | Tests | {{ steps.test.outputs.passed_tests }}/{{ steps.test.outputs.total_tests }} |
+          | Coverage | {{ steps.test.outputs.coverage_percent }}% |
+          | Review Score | {{ steps.code_review.outputs.score }}/100 |
+
+          **Overall**: {{ steps.aggregate_checks.outputs.all_passed ? 'Approved' : 'Changes Requested' }}
+
+          [Full Report]({{ steps.generate_report.outputs.url }})
+
+  # Step 9: Auto-approve if enabled and all checks pass
+  - id: auto_approve
+    name: Auto-Approve PR
+    description: Automatically approve PR if all checks pass
+    action: http_request
+    depends_on:
+      - post_comment
+    condition: "{{ inputs.auto_approve }} == true && {{ steps.aggregate_checks.outputs.all_passed }} == 'true'"
+    inputs:
+      url: "https://api.github.com/repos/{{ inputs.repository_url | extract_repo }}/pulls/{{ inputs.pr_number }}/reviews"
+      method: POST
+      headers:
+        Authorization: "Bearer {{ env.GITHUB_TOKEN }}"
+        Content-Type: application/json
+      body:
+        event: APPROVE
+        body: "Automatically approved by commit-relay code review workflow. All checks passed."
+
+  # Step 10: Cleanup
+  - id: cleanup
+    name: Cleanup
+    description: Remove temporary files and directories
+    action: bash
+    depends_on:
+      - post_comment
+    continue_on_failure: true
+    inputs:
+      command: |
+        rm -rf "{{ steps.checkout.outputs.repo_path }}"
+        rm -f "{{ steps.get_diff.outputs.diff_path }}"
+        echo "Cleanup complete"
+
+on_failure:
+  notify:
+    channels:
+      - dev-alerts
+    template: workflow-failure
+  steps:
+    - id: failure_comment
+      name: Post Failure Comment
+      action: http_request
+      condition: "{{ inputs.pr_number }} != null"
+      inputs:
+        url: "https://api.github.com/repos/{{ inputs.repository_url | extract_repo }}/issues/{{ inputs.pr_number }}/comments"
+        method: POST
+        headers:
+          Authorization: "Bearer {{ env.GITHUB_TOKEN }}"
+          Content-Type: application/json
+        body:
+          body: |
+            ## Code Review Failed
+
+            The automated code review workflow encountered an error.
+            Please check the workflow logs for details.
+
+timeout_minutes: 30
+
+metadata:
+  author: development-team
+  team: engineering
+  tags:
+    - code-review
+    - ci
+    - automation
+    - quality
+  created_at: "2024-11-23T00:00:00Z"

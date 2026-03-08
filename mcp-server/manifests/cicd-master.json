@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "manifestVersion": "1.0.0",
+  "master": {
+    "id": "cicd-master",
+    "name": "CI/CD Master",
+    "description": "Specialist for build automation, test orchestration, deployment strategies, and release workflows",
+    "version": "4.0.0",
+    "role": "specialist"
+  },
+  "capabilities": [
+    {
+      "name": "build_automation",
+      "description": "Configure and manage build processes",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": { "type": "string" },
+          "build_system": {
+            "type": "string",
+            "enum": ["npm", "make", "cargo", "gradle", "maven", "docker"]
+          },
+          "environment": {
+            "type": "string",
+            "enum": ["development", "staging", "production"]
+          }
+        },
+        "required": ["repository"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "build_id": { "type": "string" },
+          "status": { "type": "string" },
+          "artifacts": { "type": "array", "items": { "type": "string" } },
+          "duration_ms": { "type": "number" }
+        }
+      }
+    },
+    {
+      "name": "test_orchestration",
+      "description": "Orchestrate test execution across different test suites",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": { "type": "string" },
+          "test_types": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["unit", "integration", "e2e", "performance", "security"]
+            }
+          },
+          "parallel": { "type": "boolean", "default": true }
+        },
+        "required": ["repository"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "passed": { "type": "number" },
+          "failed": { "type": "number" },
+          "skipped": { "type": "number" },
+          "coverage": { "type": "number" },
+          "duration_ms": { "type": "number" }
+        }
+      }
+    },
+    {
+      "name": "deployment_strategy",
+      "description": "Implement deployment strategies (blue-green, canary, rolling)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": { "type": "string" },
+          "strategy": {
+            "type": "string",
+            "enum": ["blue-green", "canary", "rolling", "recreate"]
+          },
+          "environment": { "type": "string" },
+          "rollback_on_failure": { "type": "boolean", "default": true }
+        },
+        "required": ["repository", "strategy", "environment"]
+      }
+    },
+    {
+      "name": "release_workflow",
+      "description": "Manage release workflows including versioning and changelog",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repository": { "type": "string" },
+          "version_bump": {
+            "type": "string",
+            "enum": ["major", "minor", "patch", "prerelease"]
+          },
+          "generate_changelog": { "type": "boolean", "default": true },
+          "create_tag": { "type": "boolean", "default": true }
+        },
+        "required": ["repository", "version_bump"]
+      }
+    },
+    {
+      "name": "pipeline_optimization",
+      "description": "Optimize CI/CD pipelines for speed and reliability"
+    }
+  ],
+  "workerTypes": ["test-worker", "implementation-worker"],
+  "supportedPlatforms": ["github-actions", "gitlab-ci", "jenkins", "circleci", "travisci"],
+  "dependencies": {
+    "masters": ["coordinator-master"],
+    "services": ["governance", "token-budget", "git", "docker"]
+  },
+  "constraints": {
+    "maxConcurrentBuilds": 5,
+    "tokenBudget": 25000,
+    "buildTimeout": 600000,
+    "deploymentTimeout": 900000
+  },
+  "metrics": {
+    "tracked": ["builds_completed", "test_pass_rate", "deployment_success_rate", "avg_build_time"],
+    "successCriteria": {
+      "min_test_pass_rate": 0.95,
+      "min_deployment_success_rate": 0.99,
+      "max_build_time_ms": 600000
+    }
+  },
+  "mcp": {
+    "tools": ["spawn_worker", "get_worker_pool"],
+    "resources": ["commit-relay://coordination/worker-pool", "commit-relay://coordination/task-queue"]
+  }
+}

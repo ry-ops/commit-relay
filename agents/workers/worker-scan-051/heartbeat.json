@@ -1,0 +1,1 @@
+{"timestamp": "2025-11-21T01:24:47Z", "status": "completed", "progress": "Task completed - Security audit report generated", "worker_id": "worker-scan-051", "task_id": "moe-test-ddqd-v5-1763688045-05b3e784", "result": "success", "findings": {"critical": 0, "high": 0, "medium": 2, "low": 2, "total": 4}, "compliance_score": 92}

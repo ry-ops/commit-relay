@@ -1,0 +1,39 @@
+{
+  "handoff_id": "coord-to-development-CEA85BA4-544E-4FB8-8341-4990066DE652",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762553425",
+  "task_data": {
+    "id": "task-1762553425",
+    "title": "Implement adaptive caching system that promotes frequently-accessed RAG knowledge to CAG cache. Track access patterns, identify hot data, and automatically update CAG caches when access frequency exceeds threshold (>10 accesses/day).",
+    "type": "development",
+    "priority": "medium",
+    "status": "assigned",
+    "assigned_to": "development",
+    "created_at": "2025-11-08T04:43:47-0600",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "Implement adaptive caching system that promotes frequently-accessed RAG knowledge to CAG cache. Track access patterns, identify hot data, and automatically update CAG caches when access frequency exceeds threshold (>10 accesses/day).",
+      "requirements": []
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-08T04:44:50-0600",
+    "routing_confidence": "0.95",
+    "routing_strategy": "single_expert",
+    "updated_at": "2025-11-08T04:44:50-06:00"
+  },
+  "context": {
+    "routing_reason": "MoE confidence-based routing (confidence: 0.95, strategy: single_expert)",
+    "priority": "medium",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "0.95",
+      "strategy": "single_expert",
+      "routed_at": "2025-11-08T04:44:50-0600"
+    }
+  },
+  "created_at": "2025-11-08T04:44:50-0600",
+  "status": "pending_pickup"
+}

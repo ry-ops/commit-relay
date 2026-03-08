@@ -1,0 +1,43 @@
+{
+  "worker_id": "dev-worker-5BAC7DF8",
+  "worker_type": "implementation-worker",
+  "prompt_template": "agents/prompts/workers/implementation-worker.md",
+  "parent_master": "development",
+  "task_id": "task-1762553459",
+  "task_data": {
+    "title": "PROMPT ENGINEERING UPGRADE - Phase 1: Contract Definition",
+    "description": "Define comprehensive prompt contract schema for all commit-relay agents. This phase establishes the foundation for production-grade LLM system architecture by creating standardized, versioned contracts that govern agent behavior, responsibilities, and coordination patterns.",
+    "type": "development",
+    "priority": "high",
+    "architectural_significance": "critical",
+    "phase": "1-contract-definition",
+    "expected_deliverables": [
+      "Contract schema definition with version control",
+      "Template contracts for all master and worker types",
+      "Validation framework for contract enforcement",
+      "Migration path for existing agents",
+      "Documentation and governance model"
+    ]
+  },
+  "context": {
+    "master_session": "3A24DCEC-39A6-495F-AC3E-262F0EEEDB03",
+    "expertise_area": "",
+    "skills_required": [],
+    "knowledge_base_refs": {
+      "implementation_patterns": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/development/knowledge-base/implementation-patterns.jsonl",
+      "architecture_docs": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/development/knowledge-base/codebase-architecture.json"
+    }
+  },
+  "resources": {
+    "token_allocation": 50000,
+    "time_limit_minutes": 60
+  },
+  "status": "failed",
+  "created_at": "2025-11-11T12:01:56-0600",
+  "created_by": "development",
+  "execution": {
+    "started_at": "2025-11-11T12:30:03-0600"
+  },
+  "failure_reason": "Terminal launch failed - worker never executed",
+  "failed_at": "2025-11-11T20:14:12Z"
+}

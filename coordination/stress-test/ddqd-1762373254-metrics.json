@@ -1,0 +1,162 @@
+{
+  "timestamp": "2025-11-05T20:08:04Z",
+  "elapsed_seconds": 30,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 12,
+    "completed": 7,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 1,
+    "completed": 16
+  },
+  "zombies": {
+    "created": 0,
+    "killed": 0
+  }
+}
+{
+  "timestamp": "2025-11-05T20:08:34Z",
+  "elapsed_seconds": 60,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 12,
+    "completed": 7,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 2,
+    "completed": 16
+  },
+  "zombies": {
+    "created": 0,
+    "killed": 0
+  }
+}
+{
+  "timestamp": "2025-11-05T20:09:04Z",
+  "elapsed_seconds": 90,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 12,
+    "completed": 7,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 3,
+    "completed": 16
+  },
+  "zombies": {
+    "created": 0,
+    "killed": 0
+  }
+}
+{
+  "timestamp": "2025-11-05T20:09:34Z",
+  "elapsed_seconds": 120,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 12,
+    "completed": 7,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 4,
+    "completed": 16
+  },
+  "zombies": {
+    "created": 0,
+    "killed": 0
+  }
+}
+{
+  "timestamp": "2025-11-05T20:10:04Z",
+  "elapsed_seconds": 150,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 12,
+    "completed": 7,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 5,
+    "completed": 16
+  },
+  "zombies": {
+    "created": 0,
+    "killed": 0
+  }
+}
+{
+  "timestamp": "2025-11-05T20:11:04Z",
+  "elapsed_seconds": 211,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 12,
+    "completed": 7,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 20,
+    "completed": 16
+  },
+  "zombies": {
+    "created": 0,
+    "killed": 0
+  }
+}
+{
+  "timestamp": "2025-11-05T20:14:05Z",
+  "elapsed_seconds": 391,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 18,
+    "completed": 7,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 20,
+    "completed": 16
+  },
+  "zombies": {
+    "created": 6,
+    "killed": 0
+  }
+}
+{
+  "timestamp": "2025-11-05T20:16:35Z",
+  "elapsed_seconds": 541,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 18,
+    "completed": 7,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 23,
+    "completed": 16
+  },
+  "zombies": {
+    "created": 6,
+    "killed": 0
+  }
+}
+{
+  "timestamp": "2025-11-05T20:19:05Z",
+  "elapsed_seconds": [2025-11-05 14:19:05] [DURATION] Test duration of 10 minutes exceeded. Ending test.,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 18,
+    "completed": 7,
+    "failed": 0
+  },
+  "tasks": {
+    "pending": 26,
+    "completed": 16
+  },
+  "zombies": {
+    "created": 6,
+    "killed": 0
+  }
+}

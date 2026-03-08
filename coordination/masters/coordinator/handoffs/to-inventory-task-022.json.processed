@@ -1,0 +1,31 @@
+{
+  "handoff_id": "coord-to-inventory-BAE937A5-D12F-4089-B5EF-D457CF49D42E",
+  "from_master": "coordinator",
+  "to_master": "inventory",
+  "task_id": "task-022",
+  "task_data": {
+  "id": "task-022",
+  "title": "System Test - Inventory Master: Generate a simple project inventory listing all master agents and their current status, save to tests/system-test-inventory.txt with 'Inventory Master Test Completed' message",
+  "type": "catalog",
+  "priority": "medium",
+  "status": "assigned",
+  "assigned_to": "inventory",
+  "created_at": "2025-11-05T11:34:05Z",
+  "created_by": "create-task-cli",
+  "context": {
+    "repository": "ry-ops/commit-relay",
+    "description": "System Test - Inventory Master: Generate a simple project inventory listing all master agents and their current status, save to tests/system-test-inventory.txt with 'Inventory Master Test Completed' message",
+    "catalog_depth": "deep"
+  },
+  "assigned_by": "coordinator",
+  "assigned_at": "2025-11-05T11:42:29Z",
+  "updated_at": "2025-11-05T05:42:29-06:00"
+},
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "medium",
+    "expected_outcome": "Task completion with results handoff"
+  },
+  "created_at": "2025-11-05T11:42:29Z",
+  "status": "pending_pickup"
+}

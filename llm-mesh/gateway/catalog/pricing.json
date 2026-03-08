@@ -1,0 +1,74 @@
+{
+  "updated": "2025-11-15",
+  "currency": "USD",
+  "providers": {
+    "anthropic": {
+      "models": {
+        "claude-opus-4": {
+          "input_cost_per_million": 15.00,
+          "output_cost_per_million": 75.00
+        },
+        "claude-sonnet-4": {
+          "input_cost_per_million": 3.00,
+          "output_cost_per_million": 15.00
+        },
+        "claude-haiku": {
+          "input_cost_per_million": 0.25,
+          "output_cost_per_million": 1.25
+        }
+      }
+    },
+    "openai": {
+      "models": {
+        "gpt-4-turbo": {
+          "input_cost_per_million": 10.00,
+          "output_cost_per_million": 30.00
+        },
+        "gpt-3.5-turbo": {
+          "input_cost_per_million": 0.50,
+          "output_cost_per_million": 1.50
+        }
+      }
+    },
+    "local": {
+      "models": {
+        "llama2-70b": {
+          "input_cost_per_million": 0.00,
+          "output_cost_per_million": 0.00,
+          "note": "Free but requires local compute resources"
+        }
+      }
+    }
+  },
+  "cost_comparisons": {
+    "routing-analysis": {
+      "typical_tokens": {"input": 1500, "output": 800},
+      "estimated_costs": {
+        "claude-opus-4": 0.083,
+        "claude-sonnet-4": 0.016,
+        "claude-haiku": 0.001,
+        "gpt-4-turbo": 0.039,
+        "gpt-3.5-turbo": 0.002,
+        "llama2-70b": 0.000
+      }
+    },
+    "pattern-extraction": {
+      "typical_tokens": {"input": 2000, "output": 1200},
+      "estimated_costs": {
+        "claude-opus-4": 0.120,
+        "claude-sonnet-4": 0.024,
+        "claude-haiku": 0.002,
+        "gpt-4-turbo": 0.056,
+        "llama2-70b": 0.000
+      }
+    },
+    "task-feature-extraction": {
+      "typical_tokens": {"input": 500, "output": 300},
+      "estimated_costs": {
+        "claude-haiku": 0.0005,
+        "gpt-3.5-turbo": 0.0007,
+        "llama2-70b": 0.000
+      }
+    }
+  }
+}

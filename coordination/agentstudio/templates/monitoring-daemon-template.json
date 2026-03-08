@@ -1,0 +1,134 @@
+{
+  "template_id": "monitoring-daemon",
+  "name": "Monitoring Daemon Agent",
+  "version": "1.0.0",
+  "agent_type": "daemon",
+  "agent_class": "custom-monitor",
+  "description": "A daemon agent for continuous monitoring and health checks. Tracks system metrics, detects anomalies, and triggers alerts.",
+  "author": "commit-relay",
+  "tags": ["daemon", "monitoring", "health", "metrics"],
+  "capabilities": [
+    {
+      "capability_id": "health_monitoring",
+      "name": "Health Monitoring",
+      "category": "monitoring",
+      "description": "Monitor system and agent health status"
+    },
+    {
+      "capability_id": "metric_collection",
+      "name": "Metric Collection",
+      "category": "monitoring",
+      "description": "Collect and aggregate system metrics"
+    }
+  ],
+  "configuration": {
+    "max_concurrent_tasks": 1,
+    "timeout_seconds": 60,
+    "retry_attempts": 5,
+    "priority": "high",
+    "auto_restart": true,
+    "resource_limits": {
+      "max_memory_mb": 128,
+      "max_cpu_percent": 10,
+      "max_token_budget": 10000
+    }
+  },
+  "scaffold": {
+    "script_path": "scripts/daemons/{{agent_name}}-daemon.sh",
+    "script_template": "#!/usr/bin/env bash\n#\n# {{agent_name}}-daemon - {{description}}\n# Generated from monitoring-daemon template\n#\n\nset -euo pipefail\n\nreadonly SCRIPT_DIR=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)\"\nreadonly PROJECT_ROOT=\"$(cd \"$SCRIPT_DIR/../..\" && pwd)\"\n\n# Source libraries\nsource \"$PROJECT_ROOT/scripts/lib/agentstudio/agent-register.sh\"\n\n# Daemon configuration\nreadonly DAEMON_NAME=\"{{agent_name}}\"\nreadonly CHECK_INTERVAL=\"${CHECK_INTERVAL:-{{check_interval}}}\"\nreadonly METRICS_DIR=\"coordination/metrics/{{agent_name}}\"\n\nmkdir -p \"$METRICS_DIR\"\n\n#\n# Initialize daemon\n#\ninit_daemon() {\n    local capabilities='{{capabilities_json}}'\n    \n    AGENT_ID=$(register_agent \\\n        \"{{agent_class}}\" \\\n        \"$DAEMON_NAME\" \\\n        \"1.0.0\" \\\n        \"$capabilities\" \\\n        \"{{description}}\")\n    \n    echo \"Daemon registered: $AGENT_ID\"\n}\n\n#\n# Collect metrics\n#\ncollect_metrics() {\n    local timestamp=$(date +%s)\n    \n    # TODO: Implement metric collection logic\n    # - CPU usage\n    # - Memory usage\n    # - Disk usage\n    # - Agent health\n    \n    local metrics='{\n        \"timestamp\": '\"$timestamp\"',\n        \"metrics\": []\n    }'\n    \n    echo \"$metrics\" > \"$METRICS_DIR/current.json\"\n}\n\n#\n# Check health\n#\ncheck_health() {\n    # TODO: Implement health check logic\n    # - Check agent responsiveness\n    # - Check resource usage\n    # - Check error rates\n    \n    local health_status=\"healthy\"\n    update_health \"$AGENT_ID\" \"$health_status\" \"All checks passed\" 0\n}\n\n#\n# Main daemon loop\n#\nrun_daemon() {\n    echo \"Starting $DAEMON_NAME daemon...\"\n    echo \"Check interval: ${CHECK_INTERVAL}s\"\n    \n    init_daemon\n    \n    local iteration=0\n    \n    while true; do\n        iteration=$((iteration + 1))\n        \n        echo \"[$(date '+%Y-%m-%d %H:%M:%S')] Check #$iteration\"\n        \n        agent_heartbeat \"$AGENT_ID\"\n        collect_metrics\n        check_health\n        \n        sleep \"$CHECK_INTERVAL\"\n    done\n}\n\n# Handle signals\ntrap 'echo \"Daemon stopped\"; exit 0' INT TERM\n\n# Run if executed directly\nif [[ \"${BASH_SOURCE[0]}\" == \"${0}\" ]]; then\n    run_daemon\nfi\n",
+    "config_files": [
+      {
+        "path": "coordination/config/{{agent_name}}-config.json",
+        "content": "{\n  \"check_interval\": {{check_interval}},\n  \"metrics_retention_days\": {{metrics_retention_days}},\n  \"alert_threshold\": {{alert_threshold}}\n}\n"
+      }
+    ],
+    "dependencies": [
+      "agent-register.sh"
+    ]
+  },
+  "customization": {
+    "parameters": [
+      {
+        "name": "agent_name",
+        "type": "string",
+        "description": "Name of the monitoring daemon",
+        "required": true,
+        "validation": {
+          "pattern": "^[a-z][a-z0-9-]*$"
+        }
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "Description of what this daemon monitors",
+        "required": true
+      },
+      {
+        "name": "check_interval",
+        "type": "integer",
+        "description": "Monitoring check interval in seconds",
+        "default": 60,
+        "validation": {
+          "min": 5,
+          "max": 300
+        }
+      },
+      {
+        "name": "metrics_retention_days",
+        "type": "integer",
+        "description": "Number of days to retain metrics",
+        "default": 30,
+        "validation": {
+          "min": 1,
+          "max": 365
+        }
+      },
+      {
+        "name": "alert_threshold",
+        "type": "number",
+        "description": "Threshold for triggering alerts",
+        "default": 0.8,
+        "validation": {
+          "min": 0,
+          "max": 1
+        }
+      }
+    ]
+  },
+  "examples": [
+    {
+      "title": "Agent Health Monitor",
+      "description": "Monitors agent health and responsiveness",
+      "configuration": {
+        "agent_name": "agent-health-monitor",
+        "description": "Monitors all registered agents for health issues",
+        "check_interval": 60,
+        "alert_threshold": 0.9
+      }
+    },
+    {
+      "title": "System Resource Monitor",
+      "description": "Monitors system resource usage",
+      "configuration": {
+        "agent_name": "system-monitor",
+        "description": "Monitors CPU, memory, and disk usage",
+        "check_interval": 30,
+        "metrics_retention_days": 7
+      }
+    }
+  ],
+  "best_practices": [
+    "Choose appropriate check intervals to balance accuracy and overhead",
+    "Implement exponential backoff for transient failures",
+    "Archive old metrics to prevent disk space issues",
+    "Use structured logging for easier debugging",
+    "Implement graceful shutdown to save state",
+    "Monitor the monitor - ensure daemon health is tracked"
+  ],
+  "metadata": {
+    "created_at": 1763587400000,
+    "updated_at": 1763587400000,
+    "usage_count": 0,
+    "success_rate": 0.98
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-11-23T00:00:00-0600",
+  "enabled": true,
+  "description": "SLA timeout management and escalation policy for task execution",
+
+  "global_settings": {
+    "default_timeout_ms": 300000,
+    "warning_threshold": 0.8,
+    "critical_threshold": 0.95,
+    "check_interval_ms": 5000
+  },
+
+  "task_type_timeouts": {
+    "security_audit": {
+      "timeout_ms": 600000,
+      "warning_threshold": 0.75,
+      "critical_threshold": 0.90,
+      "description": "Security audits require extended time for thorough analysis"
+    },
+    "scan-worker": {
+      "timeout_ms": 480000,
+      "warning_threshold": 0.80,
+      "critical_threshold": 0.95,
+      "description": "Security scans can be time-intensive"
+    },
+    "implementation-worker": {
+      "timeout_ms": 3600000,
+      "warning_threshold": 0.80,
+      "critical_threshold": 0.95,
+      "description": "Feature implementation has extended timeout"
+    },
+    "documentation-worker": {
+      "timeout_ms": 1800000,
+      "warning_threshold": 0.80,
+      "critical_threshold": 0.95,
+      "description": "Documentation generation timeout"
+    },
+    "test-worker": {
+      "timeout_ms": 1200000,
+      "warning_threshold": 0.80,
+      "critical_threshold": 0.95,
+      "description": "Test execution timeout"
+    },
+    "pr-worker": {
+      "timeout_ms": 900000,
+      "warning_threshold": 0.80,
+      "critical_threshold": 0.95,
+      "description": "PR creation timeout"
+    },
+    "fix-worker": {
+      "timeout_ms": 1800000,
+      "warning_threshold": 0.80,
+      "critical_threshold": 0.95,
+      "description": "Bug fix implementation timeout"
+    },
+    "critical_fix": {
+      "timeout_ms": 2400000,
+      "warning_threshold": 0.70,
+      "critical_threshold": 0.85,
+      "description": "Critical fixes have stricter monitoring"
+    },
+    "review": {
+      "timeout_ms": 600000,
+      "warning_threshold": 0.80,
+      "critical_threshold": 0.95,
+      "description": "Code review timeout"
+    }
+  },
+
+  "priority_modifiers": {
+    "P0": {
+      "timeout_multiplier": 0.5,
+      "escalation_immediate": true,
+      "description": "Critical priority - halve timeout, immediate escalation"
+    },
+    "P1": {
+      "timeout_multiplier": 0.75,
+      "escalation_immediate": false,
+      "description": "High priority - reduced timeout"
+    },
+    "P2": {
+      "timeout_multiplier": 1.0,
+      "escalation_immediate": false,
+      "description": "Normal priority - default timeout"
+    },
+    "P3": {
+      "timeout_multiplier": 1.25,
+      "escalation_immediate": false,
+      "description": "Low priority - extended timeout"
+    }
+  },
+
+  "escalation_channels": {
+    "default": {
+      "channels": ["dashboard", "slack", "log"],
+      "on_warning": ["log"],
+      "on_critical": ["dashboard", "log"],
+      "on_timeout": ["dashboard", "slack", "log"]
+    },
+    "security_audit": {
+      "channels": ["dashboard", "slack", "email", "log"],
+      "on_warning": ["dashboard", "log"],
+      "on_critical": ["dashboard", "slack", "log"],
+      "on_timeout": ["dashboard", "slack", "email", "log"]
+    },
+    "critical_fix": {
+      "channels": ["dashboard", "slack", "email", "log"],
+      "on_warning": ["dashboard", "slack", "log"],
+      "on_critical": ["dashboard", "slack", "email", "log"],
+      "on_timeout": ["dashboard", "slack", "email", "log"]
+    }
+  },
+
+  "notification_config": {
+    "slack": {
+      "enabled": true,
+      "webhook_url_env": "SLACK_WEBHOOK_URL",
+      "channel": "#commit-relay-alerts",
+      "username": "SLA Monitor",
+      "icon_emoji": ":alarm_clock:",
+      "templates": {
+        "warning": {
+          "color": "#ffcc00",
+          "title": "SLA Warning: Task Approaching Timeout",
+          "text": "Task {task_id} ({task_type}) has reached {percentage}% of its timeout. Elapsed: {elapsed}, Remaining: {remaining}"
+        },
+        "critical": {
+          "color": "#ff6600",
+          "title": "SLA Critical: Task Near Timeout",
+          "text": "Task {task_id} ({task_type}) has reached {percentage}% of its timeout. Immediate attention required. Elapsed: {elapsed}, Remaining: {remaining}"
+        },
+        "timeout": {
+          "color": "#ff0000",
+          "title": "SLA Breach: Task Timed Out",
+          "text": "Task {task_id} ({task_type}) has exceeded its SLA timeout of {timeout_ms}ms. Task has been cancelled and escalated for manual review."
+        }
+      }
+    },
+    "email": {
+      "enabled": false,
+      "smtp_host_env": "SMTP_HOST",
+      "smtp_port_env": "SMTP_PORT",
+      "smtp_user_env": "SMTP_USER",
+      "smtp_pass_env": "SMTP_PASS",
+      "from_address": "sla-monitor@commit-relay.local",
+      "to_addresses_env": "SLA_ALERT_EMAILS",
+      "subject_prefix": "[Commit-Relay SLA]"
+    },
+    "dashboard": {
+      "enabled": true,
+      "event_types": {
+        "warning": "sla_warning",
+        "critical": "sla_critical",
+        "timeout": "sla_breach"
+      },
+      "priority_mapping": {
+        "warning": "medium",
+        "critical": "high",
+        "timeout": "critical"
+      }
+    }
+  },
+
+  "auto_actions": {
+    "on_warning": {
+      "actions": ["log_event", "update_dashboard"],
+      "description": "Actions to take when warning threshold reached"
+    },
+    "on_critical": {
+      "actions": ["log_event", "update_dashboard", "notify_slack"],
+      "description": "Actions to take when critical threshold reached"
+    },
+    "on_timeout": {
+      "actions": ["cancel_task", "log_event", "update_dashboard", "notify_slack", "create_escalation"],
+      "description": "Actions to take when timeout occurs"
+    }
+  },
+
+  "metrics": {
+    "track_sla_events": true,
+    "track_breach_patterns": true,
+    "events_file": "coordination/metrics/sla-events.jsonl",
+    "breaches_file": "coordination/metrics/sla-breaches.jsonl",
+    "retention_days": 90
+  },
+
+  "rate_limiting": {
+    "max_active_timers": 100,
+    "notification_cooldown_ms": 60000,
+    "dedup_window_ms": 30000
+  }
+}

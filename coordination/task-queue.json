@@ -1,0 +1,666 @@
+{
+  "tasks": [
+    {
+      "id": "test-autonomous-001",
+      "title": "Autonomous Test: Create greeting script",
+      "type": "development",
+      "description": "development: Create a bash script at scripts/greet.sh that accepts a name argument and prints 'Hello, [name]! Welcome to autonomous commit-relay!'",
+      "priority": "high",
+      "status": "failed",
+      "created_at": "2025-11-16T10:35:00-0600",
+      "created_by": "autonomous-test",
+      "metadata": {
+        "test_task": true,
+        "autonomous_test": true,
+        "expected_duration_minutes": 5,
+        "deliverable": "scripts/greet.sh"
+      },
+      "assigned_to": "development",
+      "assigned_at": "2025-11-16T10:34:00-0600",
+      "completed_by": "worker-implementation-017",
+      "completed_at": "2025-11-17T07:58:58-0600",
+      "error": "Worker became zombie and was killed"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763313616-c04d1098",
+      "title": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+      "type": "security",
+      "description": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "security",
+      "created_at": "2025-11-16T11:20:56-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763313616",
+      "context": {},
+      "assigned_at": "2025-11-16T11:21:04-0600"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763313616-64915431",
+      "title": "Security audit and compliance scanning for production systems",
+      "type": "security",
+      "description": "Security audit and compliance scanning for production systems",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "security",
+      "created_at": "2025-11-16T11:20:58-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763313616",
+      "context": {},
+      "assigned_at": "2025-11-16T11:21:04-0600"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763313616-a4fd140a",
+      "title": "Implement new API endpoint for user management feature",
+      "type": "feature",
+      "description": "Implement new API endpoint for user management feature",
+      "priority": "medium",
+      "status": "failed",
+      "assigned_to": "development",
+      "created_at": "2025-11-16T11:21:00-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763313616",
+      "context": {},
+      "assigned_at": "2025-11-16T11:21:05-0600",
+      "completed_by": "worker-implementation-026",
+      "completed_at": "2025-11-17T07:58:58-0600",
+      "result": {
+        "status": "success",
+        "message": "User management API endpoint already implemented and fully functional",
+        "implementation": {
+          "route_file": "dashboard/server/routes/users.js",
+          "mounted_at": "/api/users",
+          "endpoints": [
+            "GET /api/users - List all users",
+            "POST /api/users - Create new user",
+            "GET /api/users/:id - Get user by ID",
+            "PUT /api/users/:id - Update user",
+            "DELETE /api/users/:id - Delete user"
+          ]
+        },
+        "tests_performed": {
+          "create_user": "passed",
+          "read_user": "passed",
+          "update_user": "passed",
+          "delete_user": "passed",
+          "list_users": "passed"
+        }
+      },
+      "error": "Worker became zombie and was killed"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763313616-946bd71c",
+      "title": "Fix performance bug in database query optimization code",
+      "type": "bug-fix",
+      "description": "Fix performance bug in database query optimization code",
+      "priority": "medium",
+      "status": "failed",
+      "assigned_to": "development",
+      "created_at": "2025-11-16T11:21:02-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763313616",
+      "context": {},
+      "assigned_at": "2025-11-16T11:21:05-0600",
+      "completed_at": "2025-11-17T07:58:58-0600",
+      "error": "Worker became zombie and was killed"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763313616-e8d90c3b",
+      "title": "Catalog and document all repository metadata and dependencies",
+      "type": "catalog",
+      "description": "Catalog and document all repository metadata and dependencies",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "inventory",
+      "created_at": "2025-11-16T11:21:04-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763313616",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-16T11:21:09-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-16T11:21:09-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763313616-49ab3207",
+      "title": "Discover and track portfolio health status across repositories",
+      "type": "inventory",
+      "description": "Discover and track portfolio health status across repositories",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "inventory",
+      "created_at": "2025-11-16T11:21:06-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763313616",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-16T11:21:09-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-16T11:21:09-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763313927-023fc33b",
+      "title": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+      "type": "security",
+      "description": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+      "priority": "medium",
+      "status": "failed",
+      "assigned_to": "security",
+      "created_at": "2025-11-16T11:26:08-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763313927",
+      "context": {},
+      "assigned_at": "2025-11-16T11:26:18-0600",
+      "completed_at": "2025-11-17T07:58:59-0600",
+      "error": "Worker became zombie and was killed"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763313927-b070dcb0",
+      "title": "Security audit and compliance scanning for production systems",
+      "type": "security",
+      "description": "Security audit and compliance scanning for production systems",
+      "priority": "medium",
+      "status": "completed",
+      "assigned_to": "security",
+      "created_at": "2025-11-16T11:26:10-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763313927",
+      "context": {},
+      "assigned_at": "2025-11-16T11:26:19-0600",
+      "completed_by": "worker-scan-032",
+      "completed_at": "2025-11-16T17:28:00-0600",
+      "result": {
+        "status": "success",
+        "message": "Security audit and compliance scanning completed successfully",
+        "findings": {
+          "critical": 1,
+          "high": 2,
+          "moderate": 18,
+          "total": 21
+        },
+        "compliance": {
+          "owasp_top_10": "7/10 PASS, 3/10 WARNINGS",
+          "overall_rating": "GOOD"
+        },
+        "deliverables": {
+          "security_audit_report": "agents/logs/workers/2025-11-16/worker-scan-032/security-audit-report.md",
+          "completion_summary": "agents/logs/workers/2025-11-16/worker-scan-032/completion_summary.md"
+        },
+        "critical_action_required": "Revoke exposed Anthropic API key immediately"
+      }
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763313927-beb20526",
+      "title": "Implement new API endpoint for user management feature",
+      "type": "feature",
+      "description": "Implement new API endpoint for user management feature",
+      "priority": "medium",
+      "status": "failed",
+      "assigned_to": "development",
+      "created_at": "2025-11-16T11:26:12-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763313927",
+      "context": {},
+      "assigned_at": "2025-11-16T11:26:19-0600",
+      "completed_by": "worker-implementation-030",
+      "completed_at": "2025-11-17T07:58:58-0600",
+      "result": {
+        "status": "success",
+        "message": "User statistics API endpoint successfully implemented",
+        "implementation": {
+          "endpoint": "GET /api/users/stats",
+          "route_file": "dashboard/server/routes/users.js",
+          "location": "lines 112-166",
+          "features": [
+            "Total user count",
+            "Users by role breakdown (admin, user, viewer)",
+            "Users by status distribution (active, inactive, suspended)",
+            "Top 5 recently created users",
+            "Top 5 recently updated users",
+            "ISO timestamp of stats generation"
+          ]
+        },
+        "tests_performed": {
+          "empty_state": "passed",
+          "data_population": "passed",
+          "statistics_accuracy": "passed",
+          "sorting_verification": "passed"
+        },
+        "deliverables": {
+          "completion_summary": "agents/logs/workers/2025-11-16/worker-implementation-030/completion_summary.md"
+        }
+      },
+      "error": "Worker became zombie and was killed"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763313927-333125e5",
+      "title": "Fix performance bug in database query optimization code",
+      "type": "bug-fix",
+      "description": "Fix performance bug in database query optimization code",
+      "priority": "medium",
+      "status": "failed",
+      "assigned_to": "development",
+      "created_at": "2025-11-16T11:26:14-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763313927",
+      "context": {},
+      "assigned_at": "2025-11-16T11:26:19-0600",
+      "completed_at": "2025-11-17T07:58:58-0600",
+      "error": "Worker became zombie and was killed"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763313927-083ec654",
+      "title": "Catalog and document all repository metadata and dependencies",
+      "type": "catalog",
+      "description": "Catalog and document all repository metadata and dependencies",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "inventory",
+      "created_at": "2025-11-16T11:26:16-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763313927",
+      "context": {},
+      "assigned_at": "2025-11-16T11:26:20-0600"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763313927-02b96c6b",
+      "title": "Discover and track portfolio health status across repositories",
+      "type": "inventory",
+      "description": "Discover and track portfolio health status across repositories",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "inventory",
+      "created_at": "2025-11-16T11:26:18-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763313927",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-16T11:26:20-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-16T11:26:20-06:00"
+    },
+    {
+      "id": "task-64915432",
+      "title": "Build ResuMate: AI-powered resume optimization web app with resume/job description upload, Claude AI analysis, and ATS/LPS compatibility scanning",
+      "type": "development",
+      "priority": "high",
+      "status": "failed",
+      "assigned_to": "development",
+      "created_at": "2025-11-17T13:13:51-0600",
+      "created_by": "create-task-cli",
+      "context": {
+        "repository": "ry-ops/ResuMate",
+        "branch": "main",
+        "description": "Build ResuMate: AI-powered resume optimization web app with resume/job description upload, Claude AI analysis, and ATS/LPS compatibility scanning",
+        "requirements": []
+      },
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-17T13:15:57-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-19T07:45:08-06:00",
+      "worker_id": "sec-worker-8E10FBA3",
+      "worker_type": "scan-worker",
+      "completed_at": "2025-11-20T08:38:58-0600",
+      "error": "Worker became zombie and was killed"
+    },
+    {
+      "id": "eui-phase1-001",
+      "title": "EUI Dashboard: Implement Log Streaming Panel with real-time SSE viewer",
+      "type": "development",
+      "description": "development: Create LogStreamingPanel.tsx component for eui-dashboard/src/components/dashboard/panels/. Implement real-time log viewing using Server-Sent Events connecting to /api/logs/stream. Include features: log source selector (available logs from /api/logs/available), log level filtering (error, warn, info, debug), search/filter by text, auto-scroll with pause, export logs, tail mode with line limit. Use EUI components: EuiPanel, EuiSelect, EuiFieldSearch, EuiCode, EuiButtonGroup. Follow existing panel patterns from DaemonStatusPanel.tsx. Add Log Streaming tab to DashboardContainer.tsx.",
+      "priority": "high",
+      "status": "completed",
+      "created_at": "2025-11-22T06:15:00-0600",
+      "created_by": "dashboard-migration",
+      "context": {
+        "repository": "ry-ops/commit-relay",
+        "target_dir": "eui-dashboard/src/components/dashboard/panels",
+        "api_endpoints": [
+          "/api/logs/stream",
+          "/api/logs/available",
+          "/api/logs/tail"
+        ],
+        "reference_components": [
+          "DaemonStatusPanel.tsx",
+          "HealthAlertsPanel.tsx"
+        ],
+        "phase": "1",
+        "feature": "log-streaming"
+      },
+      "assigned_to": "development",
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-22T06:20:00-0600",
+      "routing_confidence": 0.95,
+      "routing_strategy": "pattern-based",
+      "completed_at": "2025-11-22T06:45:00-0600",
+      "completed_by": "development-master"
+    },
+    {
+      "id": "eui-phase1-002",
+      "title": "EUI Dashboard: Implement User Management interface with full CRUD operations",
+      "type": "development",
+      "description": "development: Create UserManagementViz.tsx component for eui-dashboard/src/components/dashboard/visualizations/. Implement complete user management UI connecting to /api/users endpoints. Features: user table with EuiBasicTable (sortable, searchable), create user modal with EuiModal and EuiForm, edit user flyout with EuiFlyout, delete confirmation, bulk operations, role assignment (admin/user/viewer), status management (active/inactive/suspended), user stats display. Add API functions to dashboardApi.ts. Include in Admin tab.",
+      "priority": "high",
+      "status": "completed",
+      "created_at": "2025-11-22T06:15:00-0600",
+      "created_by": "dashboard-migration",
+      "context": {
+        "repository": "ry-ops/commit-relay",
+        "target_dir": "eui-dashboard/src/components/dashboard/visualizations",
+        "api_endpoints": [
+          "/api/users",
+          "/api/users/:id",
+          "/api/users/bulk",
+          "/api/users/stats"
+        ],
+        "reference_components": [
+          "AdminControlsViz.tsx",
+          "TaskTablePanel.tsx"
+        ],
+        "phase": "1",
+        "feature": "user-management"
+      },
+      "assigned_to": "development",
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-22T06:20:00-0600",
+      "routing_confidence": 0.95,
+      "routing_strategy": "pattern-based",
+      "completed_at": "2025-11-22T06:45:00-0600",
+      "completed_by": "development-master"
+    },
+    {
+      "id": "eui-phase1-003",
+      "title": "EUI Dashboard: Implement Optimizer Dashboard with token forecasting and recommendations",
+      "type": "development",
+      "description": "development: Create OptimizerDashboardViz.tsx component for eui-dashboard/src/components/dashboard/visualizations/. Implement optimizer analytics connecting to /api/optimizer/* endpoints. Sections: 1) Scheduler Stats with load balancing visualization, 2) Token Analytics with EuiAreaChart for usage trends and forecasting from /api/optimizer/tokens/forecast, 3) Worker Pool stats with utilization metrics, 4) Performance Profile with bottleneck detection and recommendations cards. Use EuiStat, EuiProgress, EuiCard for recommendations. Add to Analytics tab or create new Optimizer tab.",
+      "priority": "high",
+      "status": "completed",
+      "created_at": "2025-11-22T06:15:00-0600",
+      "created_by": "dashboard-migration",
+      "context": {
+        "repository": "ry-ops/commit-relay",
+        "target_dir": "eui-dashboard/src/components/dashboard/visualizations",
+        "api_endpoints": [
+          "/api/optimizer/scheduler/stats",
+          "/api/optimizer/tokens/stats",
+          "/api/optimizer/tokens/forecast",
+          "/api/optimizer/pool/stats",
+          "/api/optimizer/profile/stats",
+          "/api/optimizer/profile/bottlenecks",
+          "/api/optimizer/profile/recommendations"
+        ],
+        "reference_components": [
+          "AnalyticsDashboardViz.tsx",
+          "MoERoutingViz.tsx"
+        ],
+        "phase": "1",
+        "feature": "optimizer-dashboard"
+      },
+      "assigned_to": "development",
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-22T06:20:00-0600",
+      "routing_confidence": 0.95,
+      "routing_strategy": "pattern-based",
+      "completed_at": "2025-11-22T06:45:00-0600",
+      "completed_by": "development-master"
+    },
+    {
+      "id": "eui-phase1-004",
+      "title": "EUI Dashboard: Create Executive Summary view with high-level KPIs and trends",
+      "type": "development",
+      "description": "development: Create ExecutiveSummaryViz.tsx component for eui-dashboard/src/components/dashboard/visualizations/. Design executive-focused dashboard with: 1) Key KPI cards (system health score, worker success rate, token efficiency, task throughput), 2) Trend sparklines using recharts for 7-day trends, 3) Top alerts summary, 4) Resource utilization gauges with EuiProgress, 5) Recent achievements/completions. Pull data from /api/metrics, /api/health, /api/dashboard/analytics/summary. Clean, minimal design suitable for executives. Add as new Executive tab in DashboardContainer.",
+      "priority": "high",
+      "status": "completed",
+      "created_at": "2025-11-22T06:15:00-0600",
+      "created_by": "dashboard-migration",
+      "context": {
+        "repository": "ry-ops/commit-relay",
+        "target_dir": "eui-dashboard/src/components/dashboard/visualizations",
+        "api_endpoints": [
+          "/api/metrics",
+          "/api/health",
+          "/api/dashboard/analytics/summary",
+          "/api/dashboard/analytics/trends"
+        ],
+        "reference_components": [
+          "AnalyticsDashboardViz.tsx"
+        ],
+        "phase": "1",
+        "feature": "executive-summary"
+      },
+      "assigned_to": "development",
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-22T06:20:00-0600",
+      "routing_confidence": 0.95,
+      "routing_strategy": "pattern-based",
+      "completed_at": "2025-11-22T06:45:00-0600",
+      "completed_by": "development-master"
+    },
+    {
+      "id": "eui-phase2-001",
+      "title": "EUI Dashboard: Implement Agentstudio Management with agent registry and templates",
+      "type": "development",
+      "description": "development: Create AgentstudioViz.tsx component for eui-dashboard/src/components/dashboard/visualizations/. Implement agent management UI connecting to /api/agentstudio/* endpoints. Features: 1) Agent registry table with EuiBasicTable showing all agents, status, performance metrics, 2) Agent detail flyout with full configuration, 3) Template browser with EuiCard grid for available templates, 4) Create agent from template wizard using EuiSteps, 5) Registry summary stats with EuiStat. Add new Agentstudio tab to DashboardContainer.",
+      "priority": "medium",
+      "status": "completed",
+      "created_at": "2025-11-22T06:15:00-0600",
+      "created_by": "dashboard-migration",
+      "context": {
+        "repository": "ry-ops/commit-relay",
+        "target_dir": "eui-dashboard/src/components/dashboard/visualizations",
+        "api_endpoints": [
+          "/api/agentstudio/agents",
+          "/api/agentstudio/agents/:id",
+          "/api/agentstudio/registry/summary",
+          "/api/agentstudio/templates"
+        ],
+        "reference_components": [
+          "TaskTablePanel.tsx",
+          "AdminControlsViz.tsx"
+        ],
+        "phase": "2",
+        "feature": "agentstudio"
+      },
+      "completed_at": "2025-11-22T06:45:00-0600",
+      "completed_by": "development-master"
+    },
+    {
+      "id": "eui-phase2-002",
+      "title": "EUI Dashboard: Implement Execution Managers Panel with active/completed tracking",
+      "type": "development",
+      "description": "development: Create ExecutionManagersPanel.tsx component for eui-dashboard/src/components/dashboard/panels/. Display execution manager status from /api/execution-managers. Features: 1) Active EMs table with progress indicators, 2) Completed EMs with results summary, 3) EM detail flyout showing worker assignments and DAG visualization, 4) Success rate metrics with EuiStat, 5) Timeline view of EM phases. Add API functions to dashboardApi.ts. Include in Workers tab alongside WorkerPoolViz.",
+      "priority": "medium",
+      "status": "completed",
+      "created_at": "2025-11-22T06:15:00-0600",
+      "created_by": "dashboard-migration",
+      "context": {
+        "repository": "ry-ops/commit-relay",
+        "target_dir": "eui-dashboard/src/components/dashboard/panels",
+        "api_endpoints": [
+          "/api/execution-managers"
+        ],
+        "reference_components": [
+          "WorkerPoolViz.tsx",
+          "TaskTablePanel.tsx"
+        ],
+        "phase": "2",
+        "feature": "execution-managers"
+      },
+      "completed_at": "2025-11-22T06:45:00-0600",
+      "completed_by": "development-master"
+    },
+    {
+      "id": "eui-phase2-003",
+      "title": "EUI Dashboard: Implement Advanced MoE Analytics with accuracy and confidence charts",
+      "type": "development",
+      "description": "development: Create MoEAdvancedAnalyticsViz.tsx component for eui-dashboard/src/components/dashboard/visualizations/. Implement advanced MoE analytics from /api/moe/* endpoints. Visualizations: 1) Accuracy over time chart using recharts LineChart from /api/moe/accuracy, 2) Confidence distribution histogram from /api/moe/confidence-distribution, 3) Pool utilization heatmap from /api/moe/pool-utilization showing expert usage patterns, 4) Routing decision breakdown pie chart. Add to MoE Routing tab as expandable advanced section.",
+      "priority": "medium",
+      "status": "completed",
+      "created_at": "2025-11-22T06:15:00-0600",
+      "created_by": "dashboard-migration",
+      "context": {
+        "repository": "ry-ops/commit-relay",
+        "target_dir": "eui-dashboard/src/components/dashboard/visualizations",
+        "api_endpoints": [
+          "/api/moe/accuracy",
+          "/api/moe/confidence-distribution",
+          "/api/moe/pool-utilization"
+        ],
+        "reference_components": [
+          "MoERoutingViz.tsx",
+          "TimeSeriesPanel.tsx"
+        ],
+        "phase": "2",
+        "feature": "moe-advanced-analytics"
+      },
+      "completed_at": "2025-11-22T06:45:00-0600",
+      "completed_by": "development-master"
+    },
+    {
+      "id": "eui-phase2-004",
+      "title": "EUI Dashboard: Implement DDQD Scheduling interface with test history",
+      "type": "development",
+      "description": "development: Create DDQDSchedulingViz.tsx component for eui-dashboard/src/components/dashboard/visualizations/. Implement DDQD test scheduling UI from /api/ddqd/* endpoints. Features: 1) Schedule new test form with EuiForm (duration, max workers, version, schedule time), 2) Upcoming scheduled tests table, 3) Test history table from /api/ddqd/history with results and metrics, 4) Active test progress from /api/ddqd/active, 5) Quick run buttons for common test configurations. Integrate with existing DDQDTestingViz or replace it.",
+      "priority": "medium",
+      "status": "completed",
+      "created_at": "2025-11-22T06:15:00-0600",
+      "created_by": "dashboard-migration",
+      "context": {
+        "repository": "ry-ops/commit-relay",
+        "target_dir": "eui-dashboard/src/components/dashboard/visualizations",
+        "api_endpoints": [
+          "/api/ddqd/schedule",
+          "/api/ddqd/history",
+          "/api/ddqd/active",
+          "/api/ddqd/run",
+          "/api/ddqd/stop/:testId"
+        ],
+        "reference_components": [
+          "DDQDTestingViz.tsx"
+        ],
+        "phase": "2",
+        "feature": "ddqd-scheduling"
+      },
+      "completed_at": "2025-11-22T06:45:00-0600",
+      "completed_by": "development-master"
+    },
+    {
+      "id": "eui-phase3-001",
+      "title": "EUI Dashboard: Implement Distributed Tracing view with waterfall visualization",
+      "type": "development",
+      "description": "development: Create DistributedTracingViz.tsx component for eui-dashboard/src/components/dashboard/visualizations/. Implement OpenTelemetry-compatible trace visualization. Features: 1) Trace list table with duration, status, span count, 2) Trace detail with waterfall visualization showing span hierarchy and timing (reference old dashboard css/trace-waterfall.css and js/trace-visualization.js), 3) Span detail flyout with attributes and events, 4) Filter by service, operation, status, duration range, 5) Timeline zoom controls. Create new Traces tab in DashboardContainer.",
+      "priority": "low",
+      "status": "completed",
+      "created_at": "2025-11-22T06:15:00-0600",
+      "created_by": "dashboard-migration",
+      "context": {
+        "repository": "ry-ops/commit-relay",
+        "target_dir": "eui-dashboard/src/components/dashboard/visualizations",
+        "reference_files": [
+          "dashboard/public/traces.html",
+          "dashboard/public/css/trace-waterfall.css",
+          "dashboard/public/js/trace-visualization.js"
+        ],
+        "reference_components": [
+          "TimeSeriesPanel.tsx"
+        ],
+        "phase": "3",
+        "feature": "distributed-tracing"
+      },
+      "completed_at": "2025-11-22T07:00:00-0600",
+      "completed_by": "development-master"
+    },
+    {
+      "id": "eui-phase3-002",
+      "title": "EUI Dashboard: Implement Streams Management panel with status and controls",
+      "type": "development",
+      "description": "development: Create StreamsManagementPanel.tsx component for eui-dashboard/src/components/dashboard/panels/. Display stream status from /api/streams. Features: 1) Stream list with EuiBasicTable showing name, status, message count, throughput, 2) Stream health indicators with EuiBadge, 3) Start/stop stream controls, 4) Stream detail flyout with configuration and metrics, 5) Real-time message count updates. Add to System tab alongside DaemonStatusPanel.",
+      "priority": "low",
+      "status": "completed",
+      "created_at": "2025-11-22T06:15:00-0600",
+      "created_by": "dashboard-migration",
+      "context": {
+        "repository": "ry-ops/commit-relay",
+        "target_dir": "eui-dashboard/src/components/dashboard/panels",
+        "api_endpoints": [
+          "/api/streams"
+        ],
+        "reference_components": [
+          "DaemonStatusPanel.tsx"
+        ],
+        "phase": "3",
+        "feature": "streams-management"
+      },
+      "completed_at": "2025-11-22T07:00:00-0600",
+      "completed_by": "development-master"
+    },
+    {
+      "id": "eui-phase3-003",
+      "title": "EUI Dashboard: Implement Raw Coordination Viewer for debugging",
+      "type": "development",
+      "description": "development: Create CoordinationViewerViz.tsx component for eui-dashboard/src/components/dashboard/visualizations/. Debug tool to view raw coordination files from /api/coordination/raw. Features: 1) File selector dropdown for coordination files (task-queue.json, worker-pool.json, token-budget.json, etc.), 2) JSON viewer with EuiCodeBlock and syntax highlighting, 3) JSON path search/filter, 4) Diff view to compare current vs previous state, 5) Copy to clipboard and download buttons. Add to Admin tab as collapsible debug section.",
+      "priority": "low",
+      "status": "completed",
+      "created_at": "2025-11-22T06:15:00-0600",
+      "created_by": "dashboard-migration",
+      "context": {
+        "repository": "ry-ops/commit-relay",
+        "target_dir": "eui-dashboard/src/components/dashboard/visualizations",
+        "api_endpoints": [
+          "/api/coordination/raw"
+        ],
+        "reference_components": [
+          "AdminControlsViz.tsx"
+        ],
+        "phase": "3",
+        "feature": "coordination-viewer"
+      },
+      "completed_at": "2025-11-22T07:00:00-0600",
+      "completed_by": "development-master"
+    },
+    {
+      "id": "task-elastic-apm-integration",
+      "title": "Integrate Elastic APM for full observability",
+      "type": "development:feature",
+      "description": "Implement comprehensive Elastic APM integration into the commit-relay FastAPI application for traces, logs, metrics, and custom events",
+      "priority": "high",
+      "status": "worker_spawned",
+      "created_at": "2025-11-25T12:00:00-0600",
+      "created_by": "user",
+      "metadata": {
+        "complexity": "high",
+        "scope": "multiple_files",
+        "testing_required": true,
+        "documentation_required": true,
+        "estimated_workers": 4,
+        "estimated_tokens": 35000,
+        "estimated_duration_minutes": 180
+      },
+      "assigned_to": "development",
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-25T12:12:38-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-25T12:14:29-06:00",
+      "worker_id": "dev-worker-807C925C",
+      "worker_type": "implementation-worker"
+    }
+  ],
+  "updated_at": "2025-11-25T12:00:00-0600"
+}

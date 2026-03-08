@@ -1,0 +1,43 @@
+{
+  "handoff_id": "coord-to-development-3117B2B9-146F-4D15-B6A8-5A17C8708599",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762553442",
+  "task_data": {
+    "id": "task-1762553442",
+    "title": "BUG: Dashboard Workforce Stream showing no events despite 5,191 events in coordination/dashboard-events.jsonl. User reports workforce event stream panel is empty/blank. Investigate: 1) WebSocket connection between dashboard frontend and server - check WS handshake, connection status, message streaming, 2) Dashboard server event streaming logic in dashboard/server/index.js - verify event reading from JSONL, WebSocket broadcast functionality, file watching with chokidar, 3) Frontend event display in dashboard/public/index.html - check Alpine.js event handling, event rendering, filtering logic, 4) Event parsing errors - check browser console for JSON parse errors (events may be malformed), 5) CORS/authentication issues blocking WebSocket after security updates, 6) File permissions on dashboard-events.jsonl preventing reads. Test with latest event timestamp 2025-11-08T16:03:45-0600. Verify events are being broadcast via WebSocket, frontend is receiving them, and Alpine.js is rendering them. Fix all blocking issues and ensure real-time event streaming works. Keywords: bug-fix critical dashboard WebSocket events real-time streaming frontend Alpine.js chokidar JSONL broadcasting.",
+    "type": "development",
+    "priority": "critical",
+    "status": "assigned",
+    "assigned_to": "development",
+    "created_at": "2025-11-08T16:04:12-0600",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "BUG: Dashboard Workforce Stream showing no events despite 5,191 events in coordination/dashboard-events.jsonl. User reports workforce event stream panel is empty/blank. Investigate: 1) WebSocket connection between dashboard frontend and server - check WS handshake, connection status, message streaming, 2) Dashboard server event streaming logic in dashboard/server/index.js - verify event reading from JSONL, WebSocket broadcast functionality, file watching with chokidar, 3) Frontend event display in dashboard/public/index.html - check Alpine.js event handling, event rendering, filtering logic, 4) Event parsing errors - check browser console for JSON parse errors (events may be malformed), 5) CORS/authentication issues blocking WebSocket after security updates, 6) File permissions on dashboard-events.jsonl preventing reads. Test with latest event timestamp 2025-11-08T16:03:45-0600. Verify events are being broadcast via WebSocket, frontend is receiving them, and Alpine.js is rendering them. Fix all blocking issues and ensure real-time event streaming works. Keywords: bug-fix critical dashboard WebSocket events real-time streaming frontend Alpine.js chokidar JSONL broadcasting.",
+      "requirements": []
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-09T06:08:51-0600",
+    "routing_confidence": "0.95",
+    "routing_strategy": "single_expert",
+    "worker_id": null,
+    "worker_type": "feature-implementer",
+    "completed_at": "2025-11-09T06:04:29-0600",
+    "error": "Worker became zombie and was killed",
+    "updated_at": "2025-11-09T06:08:51-06:00"
+  },
+  "context": {
+    "routing_reason": "MoE confidence-based routing (confidence: 0.95, strategy: single_expert)",
+    "priority": "critical",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "0.95",
+      "strategy": "single_expert",
+      "routed_at": "2025-11-09T06:08:51-0600"
+    }
+  },
+  "created_at": "2025-11-09T06:08:51-0600",
+  "status": "pending_pickup"
+}

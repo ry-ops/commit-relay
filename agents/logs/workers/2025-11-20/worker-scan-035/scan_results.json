@@ -1,0 +1,79 @@
+{
+  "worker_id": "worker-scan-035",
+  "task_id": "moe-test-ddqd-v5-1763247177-d2866cf8",
+  "repository": "commit-relay",
+  "scan_date": "2025-11-20T14:40:00Z",
+  "scan_types": ["authentication-audit", "dependency-audit", "secrets-detection", "configuration-review"],
+  "summary": {
+    "total_findings": 2,
+    "critical": 0,
+    "high": 0,
+    "medium": 1,
+    "low": 1,
+    "info": 0,
+    "risk_level": "LOW"
+  },
+  "findings": [
+    {
+      "id": "VULN-001",
+      "severity": "medium",
+      "type": "configuration",
+      "title": "Development mode allows unauthenticated access",
+      "description": "The authentication middleware allows unauthenticated API access in development mode when API_KEY is not set. While appropriate for development, this could be a risk if development code reaches production.",
+      "affected_files": ["dashboard/server/middleware/auth.js"],
+      "lines": "19-23",
+      "cve_ids": [],
+      "remediation": "Ensure NODE_ENV is set to 'production' and API_KEY is configured in all production deployments",
+      "effort": "low"
+    },
+    {
+      "id": "VULN-002",
+      "severity": "low",
+      "type": "best-practice",
+      "title": "Confirmation header uses simple string comparison",
+      "description": "The confirmationMiddleware uses a simple string comparison ('true') which is less secure than cryptographic verification for sensitive operations.",
+      "affected_files": ["dashboard/server/middleware/auth.js"],
+      "lines": "81-92",
+      "cve_ids": [],
+      "remediation": "Consider implementing a CSRF token or signed confirmation mechanism for sensitive operations",
+      "effort": "medium"
+    }
+  ],
+  "authentication_audit": {
+    "cve_2024_12345_status": "FIXED",
+    "timing_attack_protection": "IMPLEMENTED",
+    "details": "Authentication module uses crypto.timingSafeEqual() for constant-time API key comparison, preventing timing attacks. The CVE-2024-12345 vulnerability has been properly addressed."
+  },
+  "dependencies": {
+    "root": {
+      "total": 311,
+      "outdated": 0,
+      "vulnerable": 0
+    },
+    "dashboard": {
+      "total": 109,
+      "outdated": 0,
+      "vulnerable": 0
+    },
+    "licenses_reviewed": false
+  },
+  "secrets_detection": {
+    "exposed_secrets": 0,
+    "false_positives": 2,
+    "details": [
+      "AWS key in test file is example value (AKIAIOSFODNN7EXAMPLE)",
+      "Private key pattern in pii-scanner.sh is detection logic only"
+    ]
+  },
+  "configuration_review": {
+    "gitignore_coverage": "GOOD",
+    "env_files_protected": true,
+    "secrets_directory_excluded": true,
+    "key_files_excluded": true
+  },
+  "metrics": {
+    "scan_duration_seconds": 180,
+    "tokens_used": 4500,
+    "files_scanned": 2500
+  }
+}

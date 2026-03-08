@@ -1,0 +1,41 @@
+{
+  "handoff_id": "coord-to-development-744ADC29-E9EA-4DDB-BD73-7B3448F8713D",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762553457",
+  "task_data": {
+    "id": "task-1762553457",
+    "title": "PRIORITY 4: Fix PM Daemon - Investigate and resolve PM daemon stability issues",
+    "type": "development",
+    "priority": "high",
+    "description": "PRIORITY 4: Fix PM Daemon - Investigate and resolve PM daemon stability issues. Current issue: PM daemon not staying running consistently, affecting project management automation. Investigation areas: 1) Check for missing dependencies or libraries required by pm-daemon.sh, 2) Review daemon startup scripts and initialization sequence, 3) Analyze crash logs and error messages in agents/logs/system/, 4) Check for configuration issues in coordination/pm-state.json, 5) Verify process monitoring and restart mechanisms, 6) Test daemon under various load conditions. Root cause analysis: Determine if issue is environment-related, code bug, resource exhaustion, or race condition. Implement fixes: Add proper error handling, improve logging, add health checks, implement auto-restart on failure. Validate: Ensure daemon stays running for 24+ hours under normal load.",
+    "repository": "ry-ops/commit-relay",
+    "branch": "main",
+    "requirements": []
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE - Development task requiring daemon debugging and stability fixes",
+    "routing_pattern": "implement|develop|code|feature|bug.*fix|refactor",
+    "routing_confidence": "0.95",
+    "routing_strategy": "single_expert",
+    "priority": "high",
+    "expected_outcome": "Task completion with PM daemon stability fixes and 24+ hour runtime validation",
+    "investigation_focus": [
+      "Missing dependencies or libraries",
+      "Daemon startup scripts and initialization",
+      "Crash logs in agents/logs/system/",
+      "Configuration in coordination/pm-state.json",
+      "Process monitoring and restart mechanisms",
+      "Load testing"
+    ],
+    "fix_requirements": [
+      "Proper error handling",
+      "Improved logging",
+      "Health checks",
+      "Auto-restart on failure"
+    ],
+    "validation_criteria": "Daemon must stay running for 24+ hours under normal load"
+  },
+  "created_at": "2025-11-11T15:13:34Z",
+  "status": "pending_pickup"
+}

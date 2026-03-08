@@ -1,0 +1,72 @@
+{
+  "version": "1.0",
+  "description": "Governance rules for commit-relay worker validation and compliance",
+  "resource_limits": {
+    "max_tokens_per_worker": 200000,
+    "max_time_minutes": 120,
+    "max_concurrent_workers": 50,
+    "max_task_queue_depth": 100
+  },
+  "concurrent_limits": {
+    "default": 10,
+    "scan": 5,
+    "implementation": 8,
+    "documentation": 5,
+    "security": 3,
+    "deployment": 2
+  },
+  "restricted_operations": [
+    "system_shutdown",
+    "credential_export",
+    "database_drop",
+    "production_direct_access",
+    "security_bypass"
+  ],
+  "sensitive_data_access": {
+    "pii": ["security", "compliance", "audit"],
+    "credentials": ["security", "deployment"],
+    "secrets": ["security"],
+    "financial": ["audit", "compliance"]
+  },
+  "audit_required_task_types": [
+    "credential_rotation",
+    "security_scan",
+    "compliance_check",
+    "data_migration",
+    "production_deploy",
+    "privilege_escalation"
+  ],
+  "data_classification": {
+    "levels": ["public", "internal", "confidential", "restricted"],
+    "default_level": "internal",
+    "retention_days": {
+      "public": 365,
+      "internal": 180,
+      "confidential": 90,
+      "restricted": 30
+    }
+  },
+  "compliance_frameworks": [
+    "nist-csf",
+    "cis-controls"
+  ],
+  "alert_escalation": {
+    "critical": {
+      "notify": ["security-admin", "system-admin"],
+      "sla_minutes": 15
+    },
+    "high": {
+      "notify": ["security-admin"],
+      "sla_minutes": 60
+    },
+    "medium": {
+      "notify": ["team-lead"],
+      "sla_minutes": 240
+    },
+    "low": {
+      "notify": [],
+      "sla_minutes": 1440
+    }
+  },
+  "last_updated": "2025-11-21T00:00:00Z"
+}

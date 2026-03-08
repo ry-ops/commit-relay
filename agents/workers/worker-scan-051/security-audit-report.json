@@ -1,0 +1,252 @@
+{
+  "report_id": "security-audit-2025-11-20-scan-051",
+  "task_id": "moe-test-ddqd-v5-1763688045-05b3e784",
+  "worker_id": "worker-scan-051",
+  "timestamp": "2025-11-21T01:22:35Z",
+  "scan_type": "security_audit_compliance",
+  "target": "commit-relay production systems",
+  "summary": {
+    "overall_risk_level": "LOW",
+    "total_findings": 4,
+    "critical": 0,
+    "high": 0,
+    "medium": 2,
+    "low": 2,
+    "informational": 0,
+    "compliance_score": 92
+  },
+  "dependency_scan": {
+    "tool": "npm audit",
+    "status": "PASSED",
+    "vulnerabilities": {
+      "critical": 0,
+      "high": 0,
+      "moderate": 0,
+      "low": 0,
+      "total": 0
+    },
+    "total_dependencies": 311,
+    "production_dependencies": 7,
+    "development_dependencies": 305,
+    "assessment": "All npm dependencies are free of known vulnerabilities"
+  },
+  "secrets_scan": {
+    "status": "PASSED",
+    "sensitive_file_patterns_found": false,
+    "findings": [
+      {
+        "severity": "INFORMATIONAL",
+        "type": "example_credentials",
+        "description": "Example/placeholder credentials found in documentation files",
+        "locations": [
+          "docs/api-critical-fixes-quick-start.md",
+          "llm-mesh/gateway/README.md",
+          "llm-mesh/README.md",
+          "llm-mesh/moe-learning/QUICKSTART.md",
+          "python-sdk/*.md"
+        ],
+        "recommendation": "These appear to be placeholder examples. Ensure real credentials are never committed.",
+        "risk": "NONE - These are documentation placeholders"
+      },
+      {
+        "severity": "INFORMATIONAL",
+        "type": "test_credentials",
+        "description": "Test credentials in test files and example prompts",
+        "locations": [
+          "testing/governance/access-control.test.js",
+          "agents/prompts/workers/*.md"
+        ],
+        "recommendation": "Acceptable for test/example purposes",
+        "risk": "NONE"
+      }
+    ],
+    "gitignore_protection": {
+      "status": "PROPERLY_CONFIGURED",
+      "protected_patterns": [
+        ".env",
+        ".env.local",
+        "secrets/",
+        "*.key",
+        "*.pem",
+        "credentials.json"
+      ]
+    }
+  },
+  "code_security_analysis": {
+    "command_execution": {
+      "status": "REVIEW_RECOMMENDED",
+      "severity": "MEDIUM",
+      "findings": [
+        {
+          "pattern": "execSync usage",
+          "count": 15,
+          "locations": "dashboard/server/index.js",
+          "assessment": "Multiple execSync calls for process management",
+          "mitigations_in_place": [
+            "safeExec utility function available",
+            "spawn used without shell=true for safer execution",
+            "Security utilities in dashboard/server/utils/security.js"
+          ],
+          "recommendation": "Consider migrating more execSync calls to use the safeExec wrapper for consistent command sanitization"
+        }
+      ]
+    },
+    "xss_prevention": {
+      "status": "PASSED",
+      "innerHTML_usage": {
+        "found_in_coverage_files": true,
+        "description": "innerHTML usage only in auto-generated coverage/prettify.js and sorter.js",
+        "risk": "MINIMAL - these are Istanbul coverage reporter generated files"
+      },
+      "dangerouslySetInnerHTML": false
+    },
+    "cors_configuration": {
+      "status": "PASSED",
+      "assessment": "CORS is properly configured with explicit origin whitelist",
+      "details": {
+        "default_origins": ["http://localhost:3000"],
+        "configurable_via": "ALLOWED_ORIGINS environment variable",
+        "wildcard_blocked_by_default": true
+      }
+    },
+    "sql_injection": {
+      "status": "NOT_APPLICABLE",
+      "assessment": "Application uses file-based JSON storage, no SQL database detected"
+    }
+  },
+  "security_headers": {
+    "status": "PROPERLY_CONFIGURED",
+    "helmet_enabled": true,
+    "rate_limiting": {
+      "enabled": true,
+      "api_limiter": "Standard API rate limiting",
+      "control_limiter": "Control endpoint rate limiting",
+      "expensive_limiter": "Resource-intensive operation limiting"
+    },
+    "authentication": {
+      "api_key_auth": true,
+      "development_bypass": "Only in development mode when API_KEY not set"
+    }
+  },
+  "input_validation": {
+    "status": "PASSED",
+    "validators_implemented": [
+      "validatePid",
+      "validatePath",
+      "sanitizeWorkerId",
+      "sanitizeAlertId",
+      "ddqdValidationRules",
+      "daemonControlValidationRules",
+      "alertResolutionValidationRules",
+      "workerRestartValidationRules"
+    ],
+    "json_body_limit": "1mb",
+    "path_traversal_protection": true
+  },
+  "findings": [
+    {
+      "id": "FINDING-001",
+      "severity": "MEDIUM",
+      "category": "command_execution",
+      "title": "Multiple execSync calls should use security wrapper",
+      "description": "The dashboard server uses execSync in multiple locations. While security utilities exist, not all calls use the safeExec wrapper.",
+      "affected_files": ["dashboard/server/index.js"],
+      "recommendation": "Audit all execSync/spawn calls and migrate to use the safeExec wrapper from utils/security.js for consistent sanitization",
+      "cwe": "CWE-78",
+      "remediation_effort": "LOW"
+    },
+    {
+      "id": "FINDING-002",
+      "severity": "MEDIUM",
+      "category": "documentation",
+      "title": "Example credentials in documentation",
+      "description": "Documentation files contain example API keys and credentials. While these are placeholders, it sets a pattern that could lead to accidental credential exposure.",
+      "affected_files": ["docs/*.md", "llm-mesh/*.md", "python-sdk/*.md"],
+      "recommendation": "Replace example credentials with obviously fake values like 'YOUR_API_KEY_HERE' or use environment variable references",
+      "cwe": "CWE-798",
+      "remediation_effort": "LOW"
+    },
+    {
+      "id": "FINDING-003",
+      "severity": "LOW",
+      "category": "configuration",
+      "title": "Trust proxy enabled",
+      "description": "The server has 'trust proxy' enabled. This is appropriate if behind a reverse proxy but could be a concern if deployed directly.",
+      "affected_files": ["dashboard/server/index.js:95"],
+      "recommendation": "Ensure this setting matches your deployment topology. Document the expected deployment configuration.",
+      "cwe": "CWE-346",
+      "remediation_effort": "LOW"
+    },
+    {
+      "id": "FINDING-004",
+      "severity": "LOW",
+      "category": "configuration",
+      "title": "CSP disabled for dashboard",
+      "description": "Content Security Policy is disabled (contentSecurityPolicy: false) to allow inline scripts for the dashboard.",
+      "affected_files": ["dashboard/server/index.js:67"],
+      "recommendation": "Consider implementing a tailored CSP policy that allows necessary inline scripts while blocking dangerous patterns",
+      "cwe": "CWE-1021",
+      "remediation_effort": "MEDIUM"
+    }
+  ],
+  "positive_security_practices": [
+    "Helmet middleware for security headers",
+    "CORS with explicit origin whitelist",
+    "Rate limiting on multiple tiers (API, control, expensive operations)",
+    "API key authentication system",
+    "Input validation middleware with multiple validators",
+    "JSON body size limits to prevent DoS",
+    "Security utility functions for safe command execution",
+    "Path traversal protection",
+    "Proper .gitignore configuration for sensitive files",
+    "No known vulnerabilities in dependencies",
+    "Error sanitization to prevent information leakage",
+    "JSON validation and repair utilities"
+  ],
+  "compliance_status": {
+    "owasp_top_10_2021": {
+      "A01_broken_access_control": "ADDRESSED - API key auth, rate limiting",
+      "A02_cryptographic_failures": "NOT_APPLICABLE - No sensitive data storage",
+      "A03_injection": "ADDRESSED - Input validation, safe exec wrappers",
+      "A04_insecure_design": "ADDRESSED - Security utilities, middleware",
+      "A05_security_misconfiguration": "ADDRESSED - Helmet, CORS, CSP considerations",
+      "A06_vulnerable_components": "PASSED - No known vulnerabilities",
+      "A07_authentication_failures": "ADDRESSED - API key system",
+      "A08_data_integrity_failures": "ADDRESSED - JSON validation",
+      "A09_logging_failures": "ADDRESSED - Comprehensive logging",
+      "A10_ssrf": "NOT_APPLICABLE - No external URL fetching"
+    }
+  },
+  "recommendations_summary": [
+    {
+      "priority": "HIGH",
+      "action": "Audit and migrate execSync calls to safeExec wrapper",
+      "effort": "2-4 hours"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Implement tailored CSP policy for dashboard",
+      "effort": "4-8 hours"
+    },
+    {
+      "priority": "LOW",
+      "action": "Update documentation examples to use clearly fake credentials",
+      "effort": "1-2 hours"
+    },
+    {
+      "priority": "LOW",
+      "action": "Document expected deployment topology for trust proxy setting",
+      "effort": "30 minutes"
+    }
+  ],
+  "scan_metadata": {
+    "tools_used": [
+      "npm audit",
+      "grep pattern scanning",
+      "manual code review"
+    ],
+    "files_scanned": "All .js, .ts, .json, .yaml, .yml, .sh, .md files",
+    "scan_duration_seconds": 45,
+    "scan_completion": "100%"
+  }
+}

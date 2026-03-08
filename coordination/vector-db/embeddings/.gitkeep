@@ -1,0 +1,2 @@
+# Vector embeddings will be stored here
+# Format: JSONL files with semantic embeddings for similarity search

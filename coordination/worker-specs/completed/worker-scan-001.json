@@ -1,0 +1,47 @@
+{
+  "worker_id": "worker-scan-001",
+  "worker_type": "scan-worker",
+  "created_by": "security",
+  "created_at": "2025-11-03T00:55:40Z",
+  "task_id": "task-012",
+  "status": "completed",
+  "scope": {
+    "repository": "ry-ops/n8n-mcp-server",
+    "branch": "main",
+    "description": "Security scan for ry-ops/n8n-mcp-server",
+    "scan_types": [
+      "dependencies",
+      "static-analysis",
+      "secrets"
+    ]
+  },
+  "context": {
+    "parent_task": "task-012",
+    "priority": "high",
+    "deadline": null
+  },
+  "resources": {
+    "token_budget": 8000,
+    "timeout_minutes": 15,
+    "max_retries": 1
+  },
+  "deliverables": [],
+  "prompt_template": "agents/prompts/workers/scan-worker.md",
+  "execution": {
+    "started_at": "2025-11-03T01:01:19Z",
+    "completed_at": "2025-11-03T01:11:36Z",
+    "tokens_used": 6800,
+    "duration_minutes": 0,
+    "session_id": null
+  },
+  "results": {
+    "status": "SUCCESS",
+    "output_location": "agents/logs/workers/2025-11-02/worker-scan-001/scan_results.json",
+    "summary": "Security scan completed successfully: 0 vulnerabilities, 0 security issues found. Repository shows excellent security posture.",
+    "artifacts": [
+      "agents/logs/workers/2025-11-02/worker-scan-001/scan_results.json",
+      "agents/logs/workers/2025-11-02/worker-scan-001/vulnerability_list.md",
+      "agents/logs/workers/2025-11-02/worker-scan-001/dependency_report.md"
+    ]
+  }
+}

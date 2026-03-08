@@ -1,0 +1,231 @@
+{
+  "audit_id": "security-audit-worker-scan-024",
+  "task_id": "moe-test-ddqd-v5-1763253547-daee06d0",
+  "timestamp": "2025-11-16T16:35:00-0600",
+  "worker_id": "worker-scan-024",
+  "audit_type": "comprehensive_security_scan",
+  "scope": {
+    "repository": "/Users/ryandahlberg/Projects/commit-relay",
+    "files_scanned": 8216,
+    "scan_types": [
+      "secrets_detection",
+      "permission_audit",
+      "dependency_scan",
+      "code_analysis",
+      "gitignore_validation",
+      "dangerous_operations"
+    ]
+  },
+  "findings": {
+    "critical": [
+      {
+        "id": "CRIT-001",
+        "severity": "critical",
+        "category": "exposed_credentials",
+        "title": "Anthropic API Key in Claude Settings (Gitignored)",
+        "description": "ANTHROPIC_API_KEY found in .claude/settings.local.json",
+        "location": ".claude/settings.local.json:45-46",
+        "risk": "The API key is present in a local configuration file. However, this file is properly gitignored.",
+        "mitigation_status": "partially_mitigated",
+        "recommendation": "File is gitignored which prevents git exposure. Ensure this file never gets committed. Consider using environment variables instead of hardcoded values.",
+        "impact": "medium",
+        "remediation_priority": "high"
+      },
+      {
+        "id": "CRIT-002",
+        "severity": "critical",
+        "category": "file_permissions",
+        "title": "Insecure .env File Permissions",
+        "description": "dashboard/.env has world-readable permissions (644)",
+        "location": "dashboard/.env",
+        "permissions": "rw-r--r-- (644)",
+        "risk": "Other users on the system can read sensitive configuration including API keys",
+        "mitigation_status": "unmitigated",
+        "recommendation": "Change permissions to 600 (rw-------): chmod 600 dashboard/.env",
+        "impact": "high",
+        "remediation_priority": "critical"
+      }
+    ],
+    "high": [
+      {
+        "id": "HIGH-001",
+        "severity": "high",
+        "category": "dangerous_operations",
+        "title": "Dangerous rm -rf Operations Found",
+        "description": "Scripts contain potentially dangerous file deletion operations",
+        "locations": [
+          "tests/governance/run-all-governance-tests.sh",
+          "agents/code-runner/code-runner.sh"
+        ],
+        "risk": "Improper use of rm -rf could lead to unintended data loss",
+        "mitigation_status": "requires_review",
+        "recommendation": "Review these scripts to ensure rm -rf operations are properly bounded and validated",
+        "impact": "medium"
+      },
+      {
+        "id": "HIGH-002",
+        "severity": "high",
+        "category": "governance_bypass",
+        "title": "Multiple GOVERNANCE_BYPASS Permissions",
+        "description": "Settings allow multiple governance bypass operations",
+        "location": ".claude/settings.local.json",
+        "risk": "Governance controls can be bypassed, potentially allowing unauthorized actions",
+        "mitigation_status": "by_design",
+        "recommendation": "Ensure governance bypass is only used in authorized testing contexts. Document when and why bypasses are acceptable.",
+        "impact": "medium"
+      },
+      {
+        "id": "HIGH-003",
+        "severity": "high",
+        "category": "missing_tooling",
+        "title": "Shellcheck Not Installed",
+        "description": "Static analysis tool shellcheck is not available on the system",
+        "risk": "Unable to perform automated shell script security and quality checks",
+        "mitigation_status": "unmitigated",
+        "recommendation": "Install shellcheck: brew install shellcheck (macOS) or apt-get install shellcheck (Linux)",
+        "impact": "low"
+      }
+    ],
+    "medium": [
+      {
+        "id": "MED-001",
+        "severity": "medium",
+        "category": "executable_permissions",
+        "title": "Non-Executable Shell Scripts",
+        "description": "Some shell scripts lack executable permissions",
+        "locations": [
+          "scripts/lib/access-check.sh",
+          "scripts/lib/em-spawning.sh",
+          "scripts/lib/worker-heartbeat.sh"
+        ],
+        "risk": "Scripts may not execute as expected, requiring explicit bash invocation",
+        "mitigation_status": "informational",
+        "recommendation": "Add execute permissions: chmod +x <file>",
+        "impact": "low"
+      },
+      {
+        "id": "MED-002",
+        "severity": "medium",
+        "category": "service_health",
+        "title": "Degraded System Services",
+        "description": "Multiple critical services reported as failed in system-health.json",
+        "failed_services": [
+          "coordinator",
+          "development-master",
+          "pm-daemon"
+        ],
+        "last_check": "2025-11-09T20:15:43Z",
+        "risk": "System may not be operating at full capacity",
+        "mitigation_status": "requires_investigation",
+        "recommendation": "Investigate and restart failed services. Check service logs for root cause.",
+        "impact": "high"
+      }
+    ],
+    "low": [
+      {
+        "id": "LOW-001",
+        "severity": "low",
+        "category": "best_practices",
+        "title": "Correct .env File Permissions on llm-mesh",
+        "description": "llm-mesh/.env has secure permissions (600)",
+        "location": "llm-mesh/.env",
+        "permissions": "rw------- (600)",
+        "status": "compliant",
+        "note": "This is a positive finding showing proper security practices"
+      }
+    ],
+    "informational": [
+      {
+        "id": "INFO-001",
+        "category": "security_controls",
+        "title": "Proper .gitignore Coverage",
+        "description": "Gitignore properly excludes sensitive files",
+        "patterns": [
+          ".env",
+          ".env.local",
+          "secrets/",
+          "*.key",
+          "credentials.json"
+        ],
+        "status": "compliant"
+      },
+      {
+        "id": "INFO-002",
+        "category": "security_controls",
+        "title": "API Key Authentication in Dashboard",
+        "description": "Dashboard middleware implements API key authentication with development/production modes",
+        "location": "dashboard/server/middleware/auth.js",
+        "status": "implemented",
+        "notes": "Properly warns in development mode when API_KEY not set, blocks in production"
+      },
+      {
+        "id": "INFO-003",
+        "category": "configuration",
+        "title": "Example Configuration Files Present",
+        "description": "Template configuration files guide secure setup",
+        "files": [
+          "dashboard/.env.example",
+          "llm-mesh/.env.example"
+        ],
+        "status": "best_practice"
+      }
+    ]
+  },
+  "statistics": {
+    "total_findings": 10,
+    "by_severity": {
+      "critical": 2,
+      "high": 3,
+      "medium": 2,
+      "low": 1,
+      "informational": 3
+    },
+    "mitigation_status": {
+      "unmitigated": 2,
+      "partially_mitigated": 1,
+      "requires_review": 1,
+      "requires_investigation": 1,
+      "by_design": 1,
+      "informational": 1,
+      "compliant": 3
+    }
+  },
+  "compliance_status": {
+    "secrets_management": "needs_improvement",
+    "file_permissions": "needs_improvement",
+    "git_security": "compliant",
+    "authentication": "compliant",
+    "service_health": "degraded",
+    "overall_rating": "needs_improvement"
+  },
+  "recommendations": {
+    "immediate_actions": [
+      "Fix dashboard/.env file permissions: chmod 600 dashboard/.env",
+      "Investigate and restart failed services (coordinator, development-master, pm-daemon)",
+      "Verify .claude/settings.local.json is never committed to git"
+    ],
+    "short_term": [
+      "Install shellcheck for automated script security analysis",
+      "Review scripts with rm -rf operations for safety",
+      "Add executable permissions to library shell scripts",
+      "Document governance bypass use cases and approval process"
+    ],
+    "long_term": [
+      "Implement secrets scanning in CI/CD pipeline",
+      "Set up automated security scanning on commit",
+      "Create security policy documentation",
+      "Regular security audit schedule (monthly recommended)"
+    ]
+  },
+  "scan_metadata": {
+    "duration_seconds": 45,
+    "tools_used": [
+      "grep",
+      "find",
+      "git",
+      "file_permissions_check"
+    ],
+    "scan_depth": "comprehensive",
+    "false_positive_rate": "low"
+  }
+}

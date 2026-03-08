@@ -1,0 +1,16 @@
+{
+  "subtask_id": "ddqd-subtask-c14647ed",
+  "execution_manager_id": "exec-mgr-ddqd-5ea828d7",
+  "master": "development",
+  "description": "DDQD Test: Multi-worker coordination stress test",
+  "files_affected": [],
+  "repos": [],
+  "estimated_duration_minutes": 30,
+  "token_budget": 15000,
+  "acceptance_criteria": [],
+  "dependencies": [],
+  "status": "pending",
+  "created_at": "2025-11-21T07:41:47-0600",
+  "updated_at": "2025-11-21T07:41:47-0600",
+  "stress_test": true
+}

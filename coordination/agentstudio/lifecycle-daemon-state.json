@@ -1,0 +1,9 @@
+{
+  "daemon_id": "agent-lifecycle-daemon",
+  "started_at": 1763649922000,
+  "last_check_at": 0,
+  "checks_performed": 0,
+  "agents_transitioned": 0,
+  "agents_retired": 0,
+  "status": "running"
+}

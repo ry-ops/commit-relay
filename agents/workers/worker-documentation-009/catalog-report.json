@@ -1,0 +1,266 @@
+{
+  "report_id": "moe-test-ddqd-v5-1763691776-cb339187",
+  "generated_at": "2025-11-21T02:25:00Z",
+  "generated_by": "worker-documentation-009",
+  "report_type": "repository_metadata_catalog",
+
+  "repository_metadata": {
+    "name": "commit-relay",
+    "version": "1.0.0",
+    "description": "AI-powered commit automation system with master-worker architecture",
+    "license": "MIT",
+    "author": "ry-ops",
+    "keywords": ["commit-relay", "automation", "ai", "governance"],
+    "main_entry": "index.js"
+  },
+
+  "directory_structure": {
+    "root_directories": [
+      {
+        "name": "agents",
+        "purpose": "Agent configurations, prompts, and worker instances",
+        "subdirs": ["code-runner", "configs", "logs", "prompts", "workers"]
+      },
+      {
+        "name": "coordination",
+        "purpose": "System state, task queues, events, and master-worker coordination",
+        "subdirs": ["agentstudio", "auto-fix", "catalog", "config", "dashboard", "events", "governance", "masters", "metrics", "moe-learning", "orchestrator", "patterns"]
+      },
+      {
+        "name": "dashboard",
+        "purpose": "Real-time metrics dashboard web application",
+        "type": "Express.js application"
+      },
+      {
+        "name": "docs",
+        "purpose": "Project documentation and architectural guides",
+        "count": "76+ documentation files"
+      },
+      {
+        "name": "lib",
+        "purpose": "Core library modules",
+        "modules": ["cache", "circuit-breaker", "database", "events", "governance", "hardening", "rag", "safe-json", "schema-validator"]
+      },
+      {
+        "name": "llm-mesh",
+        "purpose": "LLM provider gateway and quality control"
+      },
+      {
+        "name": "python-sdk",
+        "purpose": "Python client SDK for analytics and monitoring"
+      },
+      {
+        "name": "scripts",
+        "purpose": "Shell scripts for system operations",
+        "count": "100+ operational scripts"
+      },
+      {
+        "name": "testing",
+        "purpose": "Test suites and test utilities"
+      }
+    ]
+  },
+
+  "dependencies": {
+    "root_package": {
+      "production": {
+        "ajv": "^8.17.1",
+        "ajv-formats": "^3.0.1"
+      },
+      "development": {
+        "@types/jest": "^29.5.11",
+        "jest": "^29.7.0",
+        "supertest": "^7.1.4"
+      }
+    },
+    "dashboard_package": {
+      "name": "commit-relay-dashboard",
+      "version": "1.0.0",
+      "production": {
+        "chokidar": "^3.5.3",
+        "cors": "^2.8.5",
+        "dotenv": "^17.2.3",
+        "express": "^4.18.2",
+        "express-rate-limit": "^8.2.1",
+        "express-validator": "^7.3.0",
+        "helmet": "^8.1.0",
+        "ws": "^8.14.2"
+      },
+      "development": {
+        "nodemon": "^3.0.1"
+      }
+    },
+    "python_sdk": {
+      "name": "commit-relay-client",
+      "version": "0.1.0",
+      "python_version": ">=3.8",
+      "core": {
+        "requests": ">=2.28.0",
+        "pandas": ">=1.5.0",
+        "numpy": ">=1.23.0",
+        "scipy": ">=1.9.0",
+        "matplotlib": ">=3.6.0",
+        "seaborn": ">=0.12.0"
+      },
+      "optional": {
+        "openpyxl": ">=3.0.0",
+        "jupyter": ">=1.0.0",
+        "ipykernel": ">=6.0.0",
+        "PyGithub": ">=1.59.0"
+      },
+      "development": {
+        "pytest": ">=7.0",
+        "pytest-cov": ">=4.0",
+        "black": ">=22.0",
+        "mypy": ">=0.991",
+        "flake8": ">=5.0"
+      }
+    }
+  },
+
+  "configuration_files": {
+    "environment": [
+      {
+        "path": "dashboard/.env.example",
+        "variables": ["DASHBOARD_PORT", "NODE_ENV", "API_KEY", "ALLOWED_ORIGINS", "RATE_LIMIT_WINDOW_MS", "RATE_LIMIT_MAX_REQUESTS", "COMMIT_RELAY_HOME", "WS_HEARTBEAT_INTERVAL"]
+      },
+      {
+        "path": "llm-mesh/.env.example",
+        "variables": ["ANTHROPIC_API_KEY", "OPENAI_API_KEY", "LLM_PRIMARY_PROVIDER", "LLM_FALLBACK_PROVIDER", "LLM_MAX_COST_PER_TASK", "LLM_DEFAULT_QUALITY", "SAFETY_*", "MOE_*", "PERF_*", "LOG_LEVEL", "OLLAMA_*"]
+      }
+    ],
+    "build_and_test": [
+      {
+        "path": "jest.config.js",
+        "coverage_threshold": {
+          "branches": 60,
+          "functions": 70,
+          "lines": 70,
+          "statements": 70
+        },
+        "test_directory": "testing/**/*.test.js"
+      }
+    ],
+    "git": [
+      ".gitignore",
+      ".githooks/"
+    ]
+  },
+
+  "key_documentation": {
+    "root_level": [
+      "README.md",
+      "CORE-PRINCIPLES.md",
+      "GOVERNANCE-ARCHITECTURE.md",
+      "IMPLEMENTATION-STATUS.md",
+      "DAEMON-MANAGEMENT.md",
+      "OBSERVABILITY-STRATEGY.md",
+      "LEARNING-SYSTEM-TEST-REPORT.md"
+    ],
+    "weekly_reports": [
+      "WEEK1-COMPLETION-REPORT.md",
+      "WEEK2-FIVE-AGENT-TYPES-DESIGN.md",
+      "WEEK3-COMPLETION-REPORT.md",
+      "WEEK4-COMPLETION-REPORT.md",
+      "WEEK5-COMPLETION-REPORT.md",
+      "WEEK6-COMPLETION-REPORT.md",
+      "WEEKS7-12-COMBINED-REPORT.md"
+    ],
+    "roadmap": [
+      "Q1-ROADMAP-STATUS.md",
+      "Q1-FINAL-SUMMARY.md",
+      "REMAINING-WORK.md"
+    ]
+  },
+
+  "architecture_highlights": {
+    "pattern": "Master-Worker Architecture",
+    "masters": ["coordinator", "development", "inventory", "security", "cicd"],
+    "key_concepts": [
+      "MoE (Mixture of Experts) routing",
+      "Circuit breaker patterns",
+      "Governance and compliance validation",
+      "RAG/CAG hybrid architecture",
+      "Real-time dashboard monitoring",
+      "Daemon-based background processing",
+      "Task queue and event-driven coordination"
+    ],
+    "services": [
+      {
+        "name": "Dashboard API",
+        "port": 3000,
+        "technology": "Express.js + WebSocket"
+      }
+    ]
+  },
+
+  "scripts_overview": {
+    "daemon_management": [
+      "daemon-control.sh",
+      "daemon-supervisor.sh",
+      "coordinator-daemon.sh",
+      "governance-monitor-daemon.sh"
+    ],
+    "worker_management": [
+      "claude-worker-launcher-v2.sh",
+      "cleanup-zombie-workers.sh",
+      "aggregate-worker-results.sh",
+      "archive-failed-workers.sh"
+    ],
+    "task_management": [
+      "create-task.sh",
+      "create-task-enhanced.sh"
+    ],
+    "monitoring": [
+      "check-dashboard-status.sh",
+      "dashboard-agent-monitor.sh",
+      "generate-health-report.sh"
+    ],
+    "cli_tools": [
+      "agent-catalog",
+      "agent-marketplace",
+      "agent-performance",
+      "agent-version",
+      "agent-wizard"
+    ]
+  },
+
+  "lib_modules": {
+    "governance": {
+      "path": "lib/governance/",
+      "purpose": "Compliance, quality validation, access control"
+    },
+    "circuit_breaker": {
+      "path": "lib/circuit-breaker.js",
+      "purpose": "Fault tolerance and resilience patterns"
+    },
+    "schema_validator": {
+      "path": "lib/schema-validator.js",
+      "purpose": "JSON schema validation using AJV"
+    },
+    "safe_json": {
+      "path": "lib/safe-json.js",
+      "purpose": "Safe JSON parsing with error handling"
+    },
+    "database": {
+      "path": "lib/database/",
+      "purpose": "Query optimization and data access"
+    },
+    "rag": {
+      "path": "lib/rag/",
+      "purpose": "Retrieval-Augmented Generation context management"
+    }
+  },
+
+  "catalog_summary": {
+    "total_root_items": 48,
+    "documentation_files": "76+",
+    "scripts": "100+",
+    "node_packages": 2,
+    "python_packages": 1,
+    "supported_languages": ["JavaScript/Node.js", "Python", "Bash"],
+    "test_framework": "Jest",
+    "python_version_required": ">=3.8",
+    "node_environment": "development/production"
+  }
+}

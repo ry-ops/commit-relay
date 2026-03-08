@@ -1,0 +1,32 @@
+{
+  "handoff_id": "coord-to-development-EC58C71E-5CBD-46D8-85CD-41575CB61F7E",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762366072",
+  "task_data": {
+  "id": "task-1762366072",
+  "title": "Test orchestration: Add heartbeat visualization to dashboard showing last ping time for active workers. Simple single-file update to dashboard-v2.js.",
+  "type": "development",
+  "priority": "high",
+  "status": "assigned",
+  "assigned_to": "development",
+  "created_at": "2025-11-05T19:09:30Z",
+  "created_by": "create-task-cli",
+  "context": {
+    "repository": "ry-ops/commit-relay",
+    "branch": "main",
+    "description": "Test orchestration: Add heartbeat visualization to dashboard showing last ping time for active workers. Simple single-file update to dashboard-v2.js.",
+    "requirements": []
+  },
+  "assigned_by": "coordinator",
+  "assigned_at": "2025-11-05T19:09:36Z",
+  "updated_at": "2025-11-05T13:09:36-06:00"
+},
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "high",
+    "expected_outcome": "Task completion with results handoff"
+  },
+  "created_at": "2025-11-05T19:09:36Z",
+  "status": "pending_pickup"
+}

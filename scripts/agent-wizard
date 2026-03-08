@@ -1,0 +1,430 @@
+#!/usr/bin/env bash
+#
+# Agent Wizard
+# Part of Q2 Week 23-24: Agent Designer & Templates
+#
+# Interactive wizard for creating new agents from templates
+#
+
+set -euo pipefail
+
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+# Template directories
+readonly TEMPLATES_DIR="coordination/agentstudio/templates"
+readonly SCHEMAS_DIR="coordination/agentstudio/schemas"
+
+# Source libraries
+source "$SCRIPT_DIR/lib/agentstudio/agent-register.sh"
+
+#
+# List available templates
+#
+list_templates() {
+    echo "=== Available Agent Templates ==="
+    echo ""
+
+    local template_files=$(find "$TEMPLATES_DIR" -name "*-template.json" 2>/dev/null | sort)
+
+    if [[ -z "$template_files" ]]; then
+        echo "No templates found"
+        return 1
+    fi
+
+    local index=1
+    while IFS= read -r template_file; do
+        if [[ -f "$template_file" ]]; then
+            local template_id=$(cat "$template_file" | jq -r '.template_id')
+            local name=$(cat "$template_file" | jq -r '.name')
+            local agent_type=$(cat "$template_file" | jq -r '.agent_type')
+            local description=$(cat "$template_file" | jq -r '.description')
+
+            echo "[$index] $name ($template_id)"
+            echo "    Type: $agent_type"
+            echo "    $description"
+            echo ""
+
+            index=$((index + 1))
+        fi
+    done <<< "$template_files"
+}
+
+#
+# Get template by ID
+#
+get_template() {
+    local template_id="$1"
+
+    local template_file="$TEMPLATES_DIR/${template_id}-template.json"
+
+    if [[ ! -f "$template_file" ]]; then
+        echo "Error: Template not found: $template_id" >&2
+        return 1
+    fi
+
+    cat "$template_file"
+}
+
+#
+# Get customization parameters for template
+#
+get_template_parameters() {
+    local template_id="$1"
+
+    local template=$(get_template "$template_id")
+    echo "$template" | jq -r '.customization.parameters'
+}
+
+#
+# Generate agent from template
+#
+generate_agent() {
+    local template_id="$1"
+    shift
+
+    # Store config as arrays
+    local config_keys=()
+    local config_values=()
+
+    # Parse configuration
+    while [[ $# -gt 0 ]]; do
+        local key="${1%%=*}"
+        local value="${1#*=}"
+        config_keys+=("$key")
+        config_values+=("$value")
+        shift
+    done
+
+    echo "Generating agent from template: $template_id"
+
+    # Load template
+    local template=$(get_template "$template_id")
+
+    # Get agent_class from template
+    local agent_class=$(echo "$template" | jq -r '.agent_class')
+    config_keys+=("agent_class")
+    config_values+=("$agent_class")
+
+    # Apply default values for parameters not provided
+    local params=$(echo "$template" | jq -c '.customization.parameters[]')
+    while IFS= read -r param; do
+        if [[ -n "$param" ]]; then
+            local param_name=$(echo "$param" | jq -r '.name')
+            local param_default=$(echo "$param" | jq -r '.default // empty')
+
+            # Check if parameter was provided
+            local found=false
+            for i in "${!config_keys[@]}"; do
+                if [[ "${config_keys[$i]}" == "$param_name" ]]; then
+                    found=true
+                    break
+                fi
+            done
+
+            # If not provided and has default, add it
+            if [[ "$found" == "false" && -n "$param_default" && "$param_default" != "null" ]]; then
+                config_keys+=("$param_name")
+                config_values+=("$param_default")
+            fi
+        fi
+    done <<< "$params"
+
+    # Apply configuration defaults from template
+    local config_defaults=$(echo "$template" | jq -r '.configuration')
+    if [[ -n "$config_defaults" && "$config_defaults" != "null" ]]; then
+        local max_tasks=$(echo "$config_defaults" | jq -r '.max_concurrent_tasks // 5')
+        local timeout=$(echo "$config_defaults" | jq -r '.timeout_seconds // 300')
+
+        config_keys+=("max_concurrent_tasks")
+        config_values+=("$max_tasks")
+        config_keys+=("timeout_seconds")
+        config_values+=("$timeout")
+    fi
+
+    # Get agent_name
+    local agent_name=""
+    for i in "${!config_keys[@]}"; do
+        if [[ "${config_keys[$i]}" == "agent_name" ]]; then
+            agent_name="${config_values[$i]}"
+            break
+        fi
+    done
+
+    if [[ -z "$agent_name" ]]; then
+        echo "Error: agent_name is required" >&2
+        return 1
+    fi
+
+    # Get scaffold configuration
+    local script_path_template=$(echo "$template" | jq -r '.scaffold.script_path')
+    local script_template=$(echo "$template" | jq -r '.scaffold.script_template')
+
+    # Apply variable substitution
+    local script_path="$script_path_template"
+    local script_content="$script_template"
+
+    for i in "${!config_keys[@]}"; do
+        local key="${config_keys[$i]}"
+        local value="${config_values[$i]}"
+        script_path="${script_path//\{\{${key}\}\}/$value}"
+        script_content="${script_content//\{\{${key}\}\}/$value}"
+    done
+
+    # Create capabilities JSON
+    local capabilities_json=$(echo "$template" | jq -c '.capabilities')
+    script_content="${script_content//\{\{capabilities_json\}\}/$capabilities_json}"
+
+    # Create directory
+    local script_dir=$(dirname "$script_path")
+    mkdir -p "$script_dir"
+
+    # Write script file
+    echo "$script_content" > "$script_path"
+    chmod +x "$script_path"
+
+    echo "Created: $script_path"
+
+    # Create config files
+    local config_files=$(echo "$template" | jq -c '.scaffold.config_files[]?' 2>/dev/null || echo "")
+
+    if [[ -n "$config_files" ]]; then
+        while IFS= read -r config_file; do
+            if [[ -n "$config_file" ]]; then
+                local file_path=$(echo "$config_file" | jq -r '.path')
+                local file_content=$(echo "$config_file" | jq -r '.content')
+
+                # Apply variables
+                for i in "${!config_keys[@]}"; do
+                    local key="${config_keys[$i]}"
+                    local value="${config_values[$i]}"
+                    file_path="${file_path//\{\{${key}\}\}/$value}"
+                    file_content="${file_content//\{\{${key}\}\}/$value}"
+                done
+
+                mkdir -p "$(dirname "$file_path")"
+                echo "$file_content" > "$file_path"
+
+                echo "Created: $file_path"
+            fi
+        done <<< "$config_files"
+    fi
+
+    echo ""
+    echo "Agent generated successfully!"
+    echo "Script: $script_path"
+    echo ""
+    echo "Next steps:"
+    echo "1. Review and customize the generated files"
+    echo "2. Implement the TODO sections"
+    echo "3. Test the agent"
+    echo "4. Register the agent: $script_path"
+}
+
+#
+# Interactive wizard
+#
+run_wizard() {
+    echo "╔════════════════════════════════════════════════════════════════╗"
+    echo "║            COMMIT-RELAY AGENT WIZARD                           ║"
+    echo "║         Create new agents from templates                       ║"
+    echo "╚════════════════════════════════════════════════════════════════╝"
+    echo ""
+
+    # List templates
+    list_templates
+
+    # Select template
+    echo "Enter template ID (e.g., basic-master, analysis-worker):"
+    read -r template_id
+
+    if [[ -z "$template_id" ]]; then
+        echo "Error: No template selected"
+        return 1
+    fi
+
+    # Verify template exists
+    if ! get_template "$template_id" >/dev/null 2>&1; then
+        echo "Error: Invalid template ID"
+        return 1
+    fi
+
+    echo ""
+    echo "Selected: $template_id"
+    echo ""
+
+    # Get parameters
+    local params=$(get_template_parameters "$template_id")
+    local config_keys=()
+    local config_values=()
+
+    echo "=== Configuration ==="
+    echo ""
+
+    while IFS= read -r param; do
+        if [[ -n "$param" && "$param" != "null" ]]; then
+            local param_name=$(echo "$param" | jq -r '.name')
+            local param_desc=$(echo "$param" | jq -r '.description')
+            local param_required=$(echo "$param" | jq -r '.required // false')
+            local param_default=$(echo "$param" | jq -r '.default // empty')
+
+            echo "$param_desc"
+            if [[ -n "$param_default" && "$param_default" != "null" ]]; then
+                echo -n "$param_name (default: $param_default): "
+            else
+                echo -n "$param_name: "
+            fi
+
+            read -r value
+
+            if [[ -z "$value" ]]; then
+                if [[ "$param_required" == "true" ]]; then
+                    if [[ -n "$param_default" && "$param_default" != "null" ]]; then
+                        value="$param_default"
+                    else
+                        echo "Error: $param_name is required"
+                        return 1
+                    fi
+                elif [[ -n "$param_default" && "$param_default" != "null" ]]; then
+                    value="$param_default"
+                fi
+            fi
+
+            config_keys+=("$param_name")
+            config_values+=("$value")
+            echo ""
+        fi
+    done <<< "$(echo "$params" | jq -c '.[]')"
+
+    echo ""
+    echo "=== Summary ==="
+    for i in "${!config_keys[@]}"; do
+        echo "${config_keys[$i]} = ${config_values[$i]}"
+    done
+    echo ""
+
+    echo "Generate agent? (y/n)"
+    read -r confirm
+
+    if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
+        echo "Cancelled"
+        return 0
+    fi
+
+    # Build config args
+    local config_args=()
+    for i in "${!config_keys[@]}"; do
+        config_args+=("${config_keys[$i]}=${config_values[$i]}")
+    done
+
+    # Generate
+    generate_agent "$template_id" "${config_args[@]}"
+}
+
+#
+# Show template info
+#
+show_template() {
+    local template_id="$1"
+
+    local template=$(get_template "$template_id")
+
+    echo "=== Template: $template_id ==="
+    echo ""
+
+    echo "Name: $(echo "$template" | jq -r '.name')"
+    echo "Version: $(echo "$template" | jq -r '.version')"
+    echo "Type: $(echo "$template" | jq -r '.agent_type')"
+    echo "Author: $(echo "$template" | jq -r '.author // "Unknown"')"
+    echo ""
+
+    echo "Description:"
+    echo "$(echo "$template" | jq -r '.description')"
+    echo ""
+
+    echo "Capabilities:"
+    echo "$template" | jq -r '.capabilities[] | "  - \(.name) (\(.category)): \(.description)"'
+    echo ""
+
+    echo "Customization Parameters:"
+    echo "$template" | jq -r '.customization.parameters[] | "  \(.name) (\(.type)): \(.description)"'
+    echo ""
+
+    echo "Best Practices:"
+    echo "$template" | jq -r '.best_practices[]? | "  - \(.)"'
+    echo ""
+
+    echo "Examples:"
+    echo "$template" | jq -r '.examples[]? | "  \(.title): \(.description)"'
+}
+
+#
+# Main CLI
+#
+main() {
+    local command="${1:-wizard}"
+
+    case "$command" in
+        wizard)
+            run_wizard
+            ;;
+        list)
+            list_templates
+            ;;
+        show)
+            local template_id="${2:?Template ID required}"
+            show_template "$template_id"
+            ;;
+        generate)
+            local template_id="${2:?Template ID required}"
+            shift 2
+            generate_agent "$template_id" "$@"
+            ;;
+        help|--help|-h)
+            cat <<EOF
+Agent Wizard - Create new agents from templates
+
+Usage: $0 <command> [options]
+
+Commands:
+  wizard              Run interactive wizard (default)
+  list                List available templates
+  show <template-id>  Show template details
+  generate <template-id> <config...>
+                      Generate agent from template non-interactively
+
+Generate Configuration:
+  agent_name=<name>           Name of the agent (required)
+  description=<desc>          Description of the agent
+  [param]=<value>             Additional template-specific parameters
+
+Examples:
+  # Interactive wizard
+  $0 wizard
+
+  # List templates
+  $0 list
+
+  # Show template info
+  $0 show basic-master
+
+  # Generate agent non-interactively
+  $0 generate basic-master \\
+    agent_name=my-router \\
+    description="Custom task router" \\
+    routing_algorithm=performance_based
+
+EOF
+            ;;
+        *)
+            echo "Unknown command: $command"
+            echo "Use '$0 help' for usage information"
+            exit 1
+            ;;
+    esac
+}
+
+# Run CLI
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

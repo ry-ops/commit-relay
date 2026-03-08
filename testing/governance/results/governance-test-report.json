@@ -1,0 +1,26 @@
+{
+  "test_suite": "governance",
+  "timestamp": "2025-11-11T15:09:25Z",
+  "summary": {
+    "total_tests": 11,
+    "passed": 5,
+    "failed": 6,
+    "skipped": 0,
+    "pass_rate": 45.45
+  },
+  "audit_log": "/Users/ryandahlberg/commit-relay/tests/governance/results/governance-audit-trail.jsonl",
+  "test_categories": {
+    "risk_assessment": 4,
+    "approval_workflow": 2,
+    "audit_trail": 2,
+    "service_recovery": 2,
+    "compliance": 1
+  },
+  "governance_controls": {
+    "risk_assessment_enabled": true,
+    "approval_workflows_enabled": true,
+    "audit_trail_enabled": true,
+    "circuit_breaker_enabled": true,
+    "compliance_monitoring_enabled": true
+  }
+}

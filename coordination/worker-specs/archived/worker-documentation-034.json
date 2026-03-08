@@ -1,0 +1,37 @@
+{
+  "worker_id": "worker-documentation-034",
+  "worker_type": "documentation-worker",
+  "created_by": "inventory-master",
+  "execution_manager": null,
+  "created_at": "2025-11-16T10:33:33-0600",
+  "task_id": "moe-test-ddqd-v5-1763247177-f8d7e80e",
+  "status": "failed",
+  "scope": {},
+  "context": {
+    "parent_task": "moe-test-ddqd-v5-1763247177-f8d7e80e",
+    "priority": "medium",
+    "deadline": null
+  },
+  "resources": {
+    "token_budget": 6000,
+    "timeout_minutes": 20,
+    "max_retries": 1
+  },
+  "deliverables": [],
+  "prompt_template": "agents/prompts/workers/documentation-worker.md",
+  "execution": {
+    "started_at": "2025-11-16T10:33:40-0600",
+    "completed_at": "2025-11-16T11:24:32-0600",
+    "tokens_used": 0,
+    "duration_minutes": 0,
+    "session_id": null,
+    "error": "Zombie worker detected - running for 3052s with no completion",
+    "killed_by": "zombie-killer-daemon"
+  },
+  "results": {
+    "status": null,
+    "output_location": null,
+    "summary": null,
+    "artifacts": []
+  }
+}

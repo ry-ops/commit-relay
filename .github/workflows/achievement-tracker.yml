@@ -1,0 +1,36 @@
+name: Achievement Tracker
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+  workflow_dispatch:
+
+jobs:
+  track-achievements:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Track GitHub Achievements
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USERNAME: ${{ github.repository_owner }}
+        run: |
+          node coordination/masters/achievement/lib/achievement-tracker.js
+      
+      - name: Generate Strategic Plan
+        run: |
+          node coordination/masters/achievement/lib/strategy-planner.js
+      
+      - name: Commit Progress Updates
+        run: |
+          git config user.name "Achievement Master"
+          git config user.email "achievement@commit-relay"
+          git add coordination/masters/achievement/knowledge-base/
+          git commit -m "chore: Update achievement progress" || echo "No changes"
+          git push || echo "Nothing to push"

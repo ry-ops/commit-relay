@@ -1,0 +1,228 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Autonomous Optimization Schema",
+  "description": "Schema for self-tuning agents, resource scaling, and performance optimization",
+  "type": "object",
+  "required": ["optimization_id", "agent_id", "type", "status", "created_at"],
+  "properties": {
+    "optimization_id": {
+      "type": "string",
+      "description": "Unique optimization record identifier",
+      "pattern": "^opt-[a-z0-9-]+-[a-f0-9]{8}$"
+    },
+    "agent_id": {
+      "type": "string",
+      "description": "Target agent for optimization"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["self_tuning", "resource_scaling", "performance", "configuration", "workflow"],
+      "description": "Type of optimization"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "analyzing", "optimizing", "validating", "applied", "rolled_back", "failed"],
+      "description": "Optimization status"
+    },
+    "trigger": {
+      "type": "object",
+      "description": "What triggered this optimization",
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": ["automatic", "scheduled", "threshold", "anomaly", "manual"]
+        },
+        "metric": { "type": "string" },
+        "value": { "type": "number" },
+        "threshold": { "type": "number" },
+        "condition": { "type": "string" }
+      }
+    },
+    "analysis": {
+      "type": "object",
+      "description": "Analysis results before optimization",
+      "properties": {
+        "current_state": {
+          "type": "object",
+          "properties": {
+            "throughput": { "type": "number" },
+            "latency_ms": { "type": "number" },
+            "success_rate": { "type": "number" },
+            "resource_usage": { "type": "number" },
+            "cost_per_task": { "type": "number" }
+          }
+        },
+        "bottlenecks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": { "type": "string" },
+              "severity": { "type": "string" },
+              "impact": { "type": "number" }
+            }
+          }
+        },
+        "opportunities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": { "type": "string" },
+              "potential_improvement": { "type": "number" },
+              "confidence": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "optimization_plan": {
+      "type": "object",
+      "description": "Planned optimization actions",
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "enum": ["incremental", "aggressive", "conservative", "experimental"]
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "action_id": { "type": "string" },
+              "type": {
+                "type": "string",
+                "enum": ["tune_parameter", "scale_resource", "modify_workflow", "update_config", "adjust_threshold"]
+              },
+              "target": { "type": "string" },
+              "current_value": { "type": "number" },
+              "new_value": { "type": "number" },
+              "expected_impact": { "type": "number" },
+              "risk_level": {
+                "type": "string",
+                "enum": ["low", "medium", "high"]
+              }
+            }
+          }
+        },
+        "rollback_plan": {
+          "type": "object",
+          "properties": {
+            "automatic": { "type": "boolean" },
+            "trigger_conditions": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "steps": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "description": "Execution details",
+      "properties": {
+        "started_at": { "type": "integer" },
+        "completed_at": { "type": "integer" },
+        "actions_executed": { "type": "integer" },
+        "actions_succeeded": { "type": "integer" },
+        "actions_failed": { "type": "integer" },
+        "logs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "timestamp": { "type": "integer" },
+              "action": { "type": "string" },
+              "result": { "type": "string" },
+              "details": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "description": "Post-optimization validation",
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": ["immediate", "canary", "a_b_test", "gradual_rollout"]
+        },
+        "duration_minutes": { "type": "integer" },
+        "metrics_compared": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "results": {
+          "type": "object",
+          "properties": {
+            "throughput_change": { "type": "number" },
+            "latency_change": { "type": "number" },
+            "success_rate_change": { "type": "number" },
+            "resource_change": { "type": "number" },
+            "cost_change": { "type": "number" }
+          }
+        },
+        "passed": { "type": "boolean" },
+        "issues": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "description": "Final optimization outcome",
+      "properties": {
+        "success": { "type": "boolean" },
+        "improvements": {
+          "type": "object",
+          "properties": {
+            "throughput_percent": { "type": "number" },
+            "latency_percent": { "type": "number" },
+            "success_rate_percent": { "type": "number" },
+            "resource_percent": { "type": "number" },
+            "cost_percent": { "type": "number" }
+          }
+        },
+        "lessons_learned": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "recommendations": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "learning": {
+      "type": "object",
+      "description": "Learning from this optimization",
+      "properties": {
+        "patterns_identified": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "model_updates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "model": { "type": "string" },
+              "parameter": { "type": "string" },
+              "old_value": { "type": "number" },
+              "new_value": { "type": "number" }
+            }
+          }
+        },
+        "feedback_score": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "created_at": { "type": "integer" },
+    "updated_at": { "type": "integer" }
+  }
+}

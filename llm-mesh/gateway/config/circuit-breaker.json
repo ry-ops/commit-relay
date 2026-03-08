@@ -1,0 +1,61 @@
+{
+  "defaults": {
+    "errorThresholdPercentage": 50,
+    "timeout": 30000,
+    "resetTimeout": 30000,
+    "volumeThreshold": 5,
+    "rollingCountTimeout": 10000,
+    "rollingCountBuckets": 10
+  },
+  "providers": {
+    "anthropic": {
+      "errorThresholdPercentage": 40,
+      "timeout": 60000,
+      "resetTimeout": 45000,
+      "volumeThreshold": 3,
+      "healthCheck": {
+        "interval": 60000,
+        "timeout": 15000
+      }
+    },
+    "openai": {
+      "errorThresholdPercentage": 50,
+      "timeout": 45000,
+      "resetTimeout": 30000,
+      "volumeThreshold": 5,
+      "healthCheck": {
+        "interval": 60000,
+        "timeout": 15000
+      }
+    },
+    "ollama": {
+      "errorThresholdPercentage": 60,
+      "timeout": 120000,
+      "resetTimeout": 15000,
+      "volumeThreshold": 3,
+      "healthCheck": {
+        "interval": 30000,
+        "timeout": 10000
+      }
+    }
+  },
+  "healthCheck": {
+    "interval": 60000,
+    "timeout": 10000,
+    "consecutiveFailuresThreshold": 3,
+    "consecutiveSuccessesThreshold": 2
+  },
+  "failover": {
+    "priority": ["anthropic", "openai", "ollama"],
+    "maxRetries": 2,
+    "retryDelay": 1000
+  },
+  "alerting": {
+    "enabled": true,
+    "channels": ["log", "dashboard"],
+    "thresholds": {
+      "circuitOpenDuration": 300000,
+      "consecutiveFailovers": 5
+    }
+  }
+}

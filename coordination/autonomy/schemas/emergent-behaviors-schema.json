@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Emergent Behaviors Schema",
+  "description": "Schema for inter-agent collaboration, collective intelligence, and adaptive strategies",
+  "type": "object",
+  "required": ["behavior_id", "type", "participants", "created_at"],
+  "properties": {
+    "behavior_id": {
+      "type": "string",
+      "pattern": "^emrg-[a-z0-9-]+-[a-f0-9]{8}$"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["collaboration", "swarm", "consensus", "adaptation", "evolution"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["forming", "active", "converging", "completed", "dissolved"]
+    },
+    "participants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "agent_id": { "type": "string" },
+          "role": { "type": "string" },
+          "contribution_score": { "type": "number" },
+          "joined_at": { "type": "integer" }
+        }
+      }
+    },
+    "objective": {
+      "type": "object",
+      "properties": {
+        "goal": { "type": "string" },
+        "success_criteria": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "priority": { "type": "string" }
+      }
+    },
+    "collaboration": {
+      "type": "object",
+      "properties": {
+        "pattern": {
+          "type": "string",
+          "enum": ["hierarchical", "peer_to_peer", "mesh", "hub_spoke", "dynamic"]
+        },
+        "communication_frequency": { "type": "integer" },
+        "shared_state": { "type": "object" },
+        "decisions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "decision_id": { "type": "string" },
+              "topic": { "type": "string" },
+              "method": { "type": "string" },
+              "outcome": { "type": "string" },
+              "consensus_level": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "collective_intelligence": {
+      "type": "object",
+      "properties": {
+        "knowledge_pool": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "insight": { "type": "string" },
+              "source": { "type": "string" },
+              "confidence": { "type": "number" },
+              "applications": { "type": "integer" }
+            }
+          }
+        },
+        "emergent_patterns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pattern": { "type": "string" },
+              "frequency": { "type": "integer" },
+              "effectiveness": { "type": "number" }
+            }
+          }
+        },
+        "collective_accuracy": { "type": "number" }
+      }
+    },
+    "adaptation": {
+      "type": "object",
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "enum": ["reactive", "proactive", "evolutionary", "learning"]
+        },
+        "adaptations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "trigger": { "type": "string" },
+              "change": { "type": "string" },
+              "impact": { "type": "number" },
+              "retained": { "type": "boolean" }
+            }
+          }
+        },
+        "fitness_score": { "type": "number" }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "synergy_score": { "type": "number" },
+        "emergence_level": { "type": "number" },
+        "collective_performance": { "type": "number" },
+        "individual_vs_collective": { "type": "number" }
+      }
+    },
+    "created_at": { "type": "integer" },
+    "updated_at": { "type": "integer" }
+  }
+}

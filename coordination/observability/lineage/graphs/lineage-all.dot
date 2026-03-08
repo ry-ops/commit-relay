@@ -1,0 +1,6 @@
+digraph LineageGraph {
+  rankdir=LR;
+  node [shape=box];
+
+
+}

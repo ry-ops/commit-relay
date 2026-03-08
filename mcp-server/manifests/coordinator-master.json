@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "manifestVersion": "1.0.0",
+  "master": {
+    "id": "coordinator-master",
+    "name": "Coordinator Master",
+    "description": "Central orchestrator using MoE (Mixture of Experts) routing to delegate tasks to specialist masters",
+    "version": "4.0.0",
+    "role": "orchestrator"
+  },
+  "capabilities": [
+    {
+      "name": "task_routing",
+      "description": "Route incoming tasks to appropriate specialist masters using MoE pattern matching",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": { "type": "string" },
+          "task_description": { "type": "string" },
+          "priority": {
+            "type": "string",
+            "enum": ["low", "normal", "high", "critical"]
+          },
+          "context": { "type": "object" }
+        },
+        "required": ["task_id", "task_description"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "selected_expert": { "type": "string" },
+          "confidence": { "type": "number" },
+          "routing_reason": { "type": "string" },
+          "fallback_experts": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    {
+      "name": "resource_allocation",
+      "description": "Allocate token budget and worker resources across masters",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "master_id": { "type": "string" },
+          "tokens_requested": { "type": "number" },
+          "workers_requested": { "type": "number" }
+        },
+        "required": ["master_id"]
+      }
+    },
+    {
+      "name": "cross_master_coordination",
+      "description": "Coordinate work between multiple specialist masters for complex tasks",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": { "type": "string" },
+          "masters_involved": { "type": "array", "items": { "type": "string" } },
+          "coordination_type": {
+            "type": "string",
+            "enum": ["parallel", "sequential", "hybrid"]
+          }
+        },
+        "required": ["task_id", "masters_involved"]
+      }
+    },
+    {
+      "name": "priority_management",
+      "description": "Manage task priorities and queue ordering",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": { "type": "string" },
+          "new_priority": {
+            "type": "string",
+            "enum": ["low", "normal", "high", "critical"]
+          },
+          "reason": { "type": "string" }
+        },
+        "required": ["task_id", "new_priority"]
+      }
+    },
+    {
+      "name": "results_aggregation",
+      "description": "Aggregate and synthesize results from multiple workers or masters"
+    }
+  ],
+  "workerTypes": [],
+  "dependencies": {
+    "masters": ["security-master", "development-master", "inventory-master", "cicd-master"],
+    "services": ["moe-router", "governance", "token-budget"]
+  },
+  "constraints": {
+    "maxConcurrentTasks": 50,
+    "tokenBudget": 30000,
+    "routingTimeout": 5000
+  },
+  "metrics": {
+    "tracked": ["tasks_routed", "routing_accuracy", "routing_latency", "cross_master_handoffs"],
+    "successCriteria": {
+      "min_routing_confidence": 0.6,
+      "max_routing_latency_ms": 5000
+    }
+  },
+  "mcp": {
+    "tools": ["route_task"],
+    "resources": ["commit-relay://masters/coordinator/state", "commit-relay://coordination/routing-patterns"]
+  }
+}

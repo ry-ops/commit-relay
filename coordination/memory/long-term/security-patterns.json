@@ -1,0 +1,257 @@
+{
+  "version": "2.0.0",
+  "created_at": "2025-11-20T19:30:00Z",
+  "updated_at": "2025-11-21T02:10:00Z",
+  "created_by": "moe-learning-task-worker-045",
+  "updated_by": "worker-implementation-055",
+  "description": "Comprehensive library of security patterns, vulnerabilities, and remediation strategies with 20+ patterns and commit-relay specific analysis",
+  "vulnerability_patterns": {
+    "injection_attacks": {
+      "types": ["SQL Injection", "Command Injection", "XSS", "LDAP Injection", "Template Injection", "Shell Injection"],
+      "severity": "critical",
+      "remediation": "Input validation, parameterized queries, output encoding, shell escaping",
+      "commit_relay_relevance": "Shell command execution in scripts - use quoting and validation"
+    },
+    "authentication_weaknesses": {
+      "types": ["Weak passwords", "Missing MFA", "Session hijacking", "Timing attacks", "Credential stuffing"],
+      "severity": "high",
+      "remediation": "Strong password policies, MFA, secure session management, rate limiting",
+      "commit_relay_relevance": "Local-only access currently - add auth for remote dashboard"
+    },
+    "authorization_flaws": {
+      "types": ["IDOR", "Privilege escalation", "Missing access controls", "Broken function-level auth"],
+      "severity": "high",
+      "remediation": "Server-side authorization, RBAC, least privilege, governance system",
+      "commit_relay_relevance": "Governance access control system in moe-router.sh"
+    },
+    "cryptographic_issues": {
+      "types": ["Weak algorithms", "Insecure key storage", "Missing encryption", "Hardcoded secrets"],
+      "severity": "high",
+      "remediation": "Modern algorithms (AES-256, bcrypt), secure key management, env vars",
+      "commit_relay_relevance": "API keys in environment - never commit .env files"
+    },
+    "dependency_vulnerabilities": {
+      "types": ["Outdated packages", "Known CVEs", "Transitive vulnerabilities", "Malicious packages"],
+      "severity": "varies",
+      "remediation": "Regular updates, vulnerability scanning, dependency pinning, lockfiles",
+      "commit_relay_relevance": "Run npm audit regularly - dashboard has 100+ dependencies"
+    },
+    "information_disclosure": {
+      "types": ["Error messages", "Debug endpoints", "Exposed secrets", "Stack traces", "Version info"],
+      "severity": "medium",
+      "remediation": "Generic error messages, proper environment handling, remove debug endpoints",
+      "commit_relay_relevance": "JSONL logs may contain sensitive task info"
+    },
+    "configuration_errors": {
+      "types": ["Default credentials", "Unnecessary services", "Misconfigured CORS", "Open ports"],
+      "severity": "medium",
+      "remediation": "Security hardening, minimal surface area, restrictive CORS",
+      "commit_relay_relevance": "CORS currently allows all origins - restrict in production"
+    },
+    "file_system_attacks": {
+      "types": ["Path traversal", "Symlink attacks", "File inclusion", "Race conditions"],
+      "severity": "high",
+      "remediation": "Validate paths, use realpath, avoid user input in paths",
+      "commit_relay_relevance": "Worker file access must be validated"
+    },
+    "denial_of_service": {
+      "types": ["Resource exhaustion", "Algorithmic complexity", "Amplification", "Slowloris"],
+      "severity": "medium",
+      "remediation": "Rate limiting, resource limits, timeouts, input validation",
+      "commit_relay_relevance": "Token budgets and timeouts limit worker resource usage"
+    },
+    "prototype_pollution": {
+      "types": ["Object prototype modification", "Property injection"],
+      "severity": "high",
+      "remediation": "Object.freeze, Map instead of object, input validation",
+      "commit_relay_relevance": "JSON parsing should use safe methods"
+    },
+    "server_side_request_forgery": {
+      "types": ["Internal network access", "Cloud metadata access", "Port scanning"],
+      "severity": "high",
+      "remediation": "URL allowlisting, disable unnecessary protocols, network segmentation",
+      "commit_relay_relevance": "Low risk - system doesn't make external HTTP requests"
+    },
+    "business_logic_flaws": {
+      "types": ["Race conditions", "State manipulation", "Workflow bypass"],
+      "severity": "varies",
+      "remediation": "Atomic operations, file locks, state validation",
+      "commit_relay_relevance": "File-based state needs atomic writes to prevent corruption"
+    }
+  },
+  "owasp_top_10_2021": [
+    {"id": "A01", "name": "Broken Access Control", "severity": "critical", "commit_relay_status": "Mitigated by governance system"},
+    {"id": "A02", "name": "Cryptographic Failures", "severity": "critical", "commit_relay_status": "N/A - no encryption currently"},
+    {"id": "A03", "name": "Injection", "severity": "critical", "commit_relay_status": "Low risk - file-based, no SQL"},
+    {"id": "A04", "name": "Insecure Design", "severity": "high", "commit_relay_status": "Architecture documented"},
+    {"id": "A05", "name": "Security Misconfiguration", "severity": "high", "commit_relay_status": "CORS is a concern"},
+    {"id": "A06", "name": "Vulnerable Components", "severity": "high", "commit_relay_status": "Need npm audit schedule"},
+    {"id": "A07", "name": "Authentication Failures", "severity": "high", "commit_relay_status": "N/A - localhost only"},
+    {"id": "A08", "name": "Integrity Failures", "severity": "high", "commit_relay_status": "File validation needed"},
+    {"id": "A09", "name": "Logging Failures", "severity": "medium", "commit_relay_status": "Good - JSONL logging"},
+    {"id": "A10", "name": "SSRF", "severity": "high", "commit_relay_status": "N/A - no external calls"}
+  ],
+  "remediation_timelines": {
+    "critical": {
+      "window": "24-48 hours",
+      "examples": ["RCE", "Auth bypass", "Exposed credentials", "Active exploitation"]
+    },
+    "high": {
+      "window": "1-2 weeks",
+      "examples": ["XSS", "CSRF", "Privilege escalation", "Data exposure"]
+    },
+    "medium": {
+      "window": "1-3 months",
+      "examples": ["Outdated deps without exploit", "Missing headers", "Info disclosure"]
+    },
+    "low": {
+      "window": "3+ months",
+      "examples": ["Code quality", "Minor misconfigurations", "Best practice deviations"]
+    }
+  },
+  "scan_types": {
+    "dependency_scan": {
+      "tools": ["npm audit", "Snyk", "Dependabot", "OWASP Dependency-Check"],
+      "frequency": "daily",
+      "focus": "Known CVEs, outdated packages",
+      "integration": "CI/CD pipeline, pre-commit hooks"
+    },
+    "sast_scan": {
+      "tools": ["eslint-security", "semgrep", "SonarQube", "Bandit"],
+      "frequency": "on commit",
+      "focus": "Code vulnerabilities, injection flaws, hardcoded secrets",
+      "integration": "Pre-commit hooks, PR checks"
+    },
+    "secrets_scan": {
+      "tools": ["trufflehog", "gitleaks", "detect-secrets"],
+      "frequency": "pre-commit",
+      "focus": "API keys, passwords, private keys, tokens",
+      "integration": "Pre-commit hooks, history scanning"
+    },
+    "compliance_scan": {
+      "tools": ["custom scripts", "OpenSCAP", "Prowler"],
+      "frequency": "weekly",
+      "focus": "Policy compliance, access control, audit requirements",
+      "integration": "Scheduled jobs"
+    },
+    "container_scan": {
+      "tools": ["Trivy", "Grype", "Clair"],
+      "frequency": "on build",
+      "focus": "Container vulnerabilities, base image issues",
+      "integration": "CI/CD pipeline"
+    }
+  },
+  "commit_relay_risks": [
+    {
+      "risk": "API key exposure in environment files",
+      "severity": "critical",
+      "mitigation": "Use .env.example, add .env to .gitignore, rotate exposed keys",
+      "status": "mitigated"
+    },
+    {
+      "risk": "Missing rate limiting on dashboard endpoints",
+      "severity": "medium",
+      "mitigation": "Add express-rate-limit middleware",
+      "status": "open"
+    },
+    {
+      "risk": "CORS configuration allowing all origins",
+      "severity": "medium",
+      "mitigation": "Restrict to specific origins in production",
+      "status": "open"
+    },
+    {
+      "risk": "Worker file access without sandboxing",
+      "severity": "high",
+      "mitigation": "Validate worker file paths, restrict to project directory",
+      "status": "open"
+    },
+    {
+      "risk": "Unvalidated JSON input parsing",
+      "severity": "medium",
+      "mitigation": "Use try-catch, validate schema before use",
+      "status": "partially mitigated"
+    },
+    {
+      "risk": "Shell command injection in scripts",
+      "severity": "high",
+      "mitigation": "Quote all variables, validate inputs, use arrays",
+      "status": "mitigated"
+    }
+  ],
+  "mitigations_implemented": [
+    {
+      "control": "Governance access control system",
+      "description": "Permission checking for master agent actions",
+      "location": "scripts/lib/access-check.sh",
+      "effectiveness": "high"
+    },
+    {
+      "control": "Permission checking in moe-router.sh",
+      "description": "Validates coordinator access to routing patterns",
+      "location": "coordination/masters/coordinator/lib/moe-router.sh",
+      "effectiveness": "high"
+    },
+    {
+      "control": "Audit logging of routing decisions",
+      "description": "All routing decisions logged to JSONL",
+      "location": "coordination/masters/coordinator/knowledge-base/routing-decisions.jsonl",
+      "effectiveness": "high"
+    },
+    {
+      "control": "Worker heartbeat monitoring",
+      "description": "Detects zombie workers and enables intervention",
+      "location": "PM daemon",
+      "effectiveness": "medium - needs worker compliance"
+    },
+    {
+      "control": "Token budget limits",
+      "description": "Prevents resource exhaustion by workers",
+      "location": "token-budget.json",
+      "effectiveness": "high"
+    },
+    {
+      "control": "Worker timeout enforcement",
+      "description": "Kills workers exceeding time limits",
+      "location": "PM daemon",
+      "effectiveness": "high"
+    }
+  ],
+  "security_best_practices": {
+    "shell_scripting": [
+      "Always use set -euo pipefail",
+      "Quote all variables: \"$VARIABLE\"",
+      "Validate file paths before operations",
+      "Use arrays for command arguments",
+      "Avoid eval and command substitution with user input"
+    ],
+    "nodejs": [
+      "Use helmet for security headers",
+      "Validate JSON input with schema",
+      "Use parameterized queries",
+      "Implement rate limiting",
+      "Set secure cookie options"
+    ],
+    "data_handling": [
+      "Never log sensitive data",
+      "Use environment variables for secrets",
+      "Validate JSON before parsing",
+      "Sanitize file paths",
+      "Use atomic file operations"
+    ]
+  },
+  "incident_response": {
+    "detection": "Monitor dashboard-events.jsonl for anomalies",
+    "containment": "PM daemon can kill suspicious workers",
+    "investigation": "Audit logs in routing-decisions.jsonl and pm-activity.jsonl",
+    "recovery": "Clean state files, restart daemons, rotate credentials"
+  },
+  "metadata": {
+    "total_patterns": 12,
+    "owasp_coverage": "10/10",
+    "commit_relay_specific_risks": 6,
+    "mitigations_implemented": 6,
+    "confidence": "high",
+    "next_review": "2025-11-28T00:00:00Z"
+  }
+}

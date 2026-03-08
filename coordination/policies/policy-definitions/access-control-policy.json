@@ -1,0 +1,123 @@
+{
+  "policy_id": "access-control-enforcement",
+  "name": "Access Control Enforcement Policy",
+  "description": "Ensures proper access controls and permission boundaries",
+  "version": "1.0.0",
+  "severity": "critical",
+  "enabled": true,
+  "frameworks": ["nist-csf", "soc2", "owasp"],
+  "controls": ["CR-PR-AC-1", "CR-PR-AC-4", "CR-ID-AM-1"],
+  "rules": [
+    {
+      "rule_id": "ACE-001",
+      "description": "Security workers must have audit trail enabled",
+      "condition": {
+        "type": "any",
+        "conditions": [
+          {
+            "field": "worker_type",
+            "type": "not_equals",
+            "value": "security"
+          },
+          {
+            "field": "audit.enabled",
+            "type": "equals",
+            "value": "true"
+          }
+        ]
+      },
+      "message": "Security workers require audit trail to be enabled",
+      "remediation": "Set audit.enabled to true for security workers"
+    },
+    {
+      "rule_id": "ACE-002",
+      "description": "Workers must not have system_shutdown operation",
+      "field": "task.operations",
+      "condition": {
+        "type": "not_contains",
+        "value": "system_shutdown"
+      },
+      "message": "system_shutdown operation is not permitted",
+      "remediation": "Remove system_shutdown from task operations"
+    },
+    {
+      "rule_id": "ACE-003",
+      "description": "Workers must not have credential_export operation",
+      "field": "task.operations",
+      "condition": {
+        "type": "not_contains",
+        "value": "credential_export"
+      },
+      "message": "credential_export operation is not permitted",
+      "remediation": "Remove credential_export from task operations"
+    },
+    {
+      "rule_id": "ACE-004",
+      "description": "Workers accessing PII must be authorized",
+      "condition": {
+        "type": "any",
+        "conditions": [
+          {
+            "field": "permissions.data_access",
+            "type": "not_contains",
+            "value": "pii"
+          },
+          {
+            "field": "worker_type",
+            "type": "in",
+            "value": ["security", "compliance", "audit"]
+          }
+        ]
+      },
+      "message": "Worker type not authorized for PII access",
+      "remediation": "Only security, compliance, and audit workers can access PII"
+    },
+    {
+      "rule_id": "ACE-005",
+      "description": "Workers accessing secrets must be security type",
+      "condition": {
+        "type": "any",
+        "conditions": [
+          {
+            "field": "permissions.data_access",
+            "type": "not_contains",
+            "value": "secrets"
+          },
+          {
+            "field": "worker_type",
+            "type": "equals",
+            "value": "security"
+          }
+        ]
+      },
+      "message": "Only security workers can access secrets",
+      "remediation": "Restrict secrets access to security worker type only"
+    },
+    {
+      "rule_id": "ACE-006",
+      "description": "Production deployment requires approval",
+      "condition": {
+        "type": "any",
+        "conditions": [
+          {
+            "field": "task.type",
+            "type": "not_equals",
+            "value": "production_deploy"
+          },
+          {
+            "field": "approval.approval_id",
+            "type": "exists"
+          }
+        ]
+      },
+      "message": "Production deployments require explicit approval",
+      "remediation": "Obtain approval and include approval_id in worker spec"
+    }
+  ],
+  "metadata": {
+    "author": "commit-relay-security",
+    "created_at": "2025-11-21T00:00:00Z",
+    "updated_at": "2025-11-21T00:00:00Z",
+    "tags": ["access-control", "permissions", "authorization", "critical"]
+  }
+}

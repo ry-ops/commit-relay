@@ -1,0 +1,213 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Agent Version Schema",
+  "description": "Schema for agent versioning, deployment tracking, and rollback management",
+  "type": "object",
+  "required": [
+    "version_id",
+    "agent_id",
+    "version",
+    "status",
+    "created_at"
+  ],
+  "properties": {
+    "version_id": {
+      "type": "string",
+      "description": "Unique identifier for this version",
+      "pattern": "^[a-z]+-[a-z]+-v[0-9]+\\.[0-9]+\\.[0-9]+-[a-f0-9]{8}$"
+    },
+    "agent_id": {
+      "type": "string",
+      "description": "Reference to the parent agent"
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version number",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(-[a-zA-Z0-9]+)?$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "testing", "staged", "deployed", "deprecated", "rolled_back"],
+      "description": "Current deployment status"
+    },
+    "source": {
+      "type": "object",
+      "description": "Source information for this version",
+      "properties": {
+        "template_id": {
+          "type": "string",
+          "description": "Template used to generate this version"
+        },
+        "commit_hash": {
+          "type": "string",
+          "description": "Git commit hash if version controlled"
+        },
+        "branch": {
+          "type": "string",
+          "description": "Git branch name"
+        },
+        "checksum": {
+          "type": "string",
+          "description": "SHA256 checksum of source files"
+        }
+      }
+    },
+    "configuration": {
+      "type": "object",
+      "description": "Configuration snapshot for this version",
+      "properties": {
+        "parameters": {
+          "type": "object",
+          "description": "Configuration parameters"
+        },
+        "resource_limits": {
+          "type": "object",
+          "properties": {
+            "max_memory_mb": { "type": "integer" },
+            "max_cpu_percent": { "type": "integer" },
+            "max_token_budget": { "type": "integer" }
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "version": { "type": "string" },
+              "required": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+    "deployment": {
+      "type": "object",
+      "description": "Deployment information",
+      "properties": {
+        "environment": {
+          "type": "string",
+          "enum": ["development", "staging", "production"],
+          "description": "Target environment"
+        },
+        "deployed_at": {
+          "type": "integer",
+          "description": "Deployment timestamp (Unix ms)"
+        },
+        "deployed_by": {
+          "type": "string",
+          "description": "Who/what triggered deployment"
+        },
+        "instances": {
+          "type": "integer",
+          "description": "Number of instances deployed",
+          "minimum": 0
+        },
+        "rollout_strategy": {
+          "type": "string",
+          "enum": ["immediate", "canary", "blue_green", "rolling"],
+          "description": "Deployment rollout strategy"
+        },
+        "health_check": {
+          "type": "object",
+          "properties": {
+            "endpoint": { "type": "string" },
+            "interval_seconds": { "type": "integer" },
+            "timeout_seconds": { "type": "integer" },
+            "healthy_threshold": { "type": "integer" },
+            "unhealthy_threshold": { "type": "integer" }
+          }
+        }
+      }
+    },
+    "changelog": {
+      "type": "object",
+      "description": "Changes in this version",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "Brief summary of changes"
+        },
+        "changes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["feature", "fix", "improvement", "breaking", "security", "performance"]
+              },
+              "description": { "type": "string" },
+              "issue_ref": { "type": "string" }
+            }
+          }
+        },
+        "breaking_changes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "migration_notes": {
+          "type": "string",
+          "description": "Notes for migrating from previous version"
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "description": "Performance metrics for this version",
+      "properties": {
+        "tasks_completed": { "type": "integer", "minimum": 0 },
+        "tasks_failed": { "type": "integer", "minimum": 0 },
+        "success_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+        "avg_execution_time_ms": { "type": "number", "minimum": 0 },
+        "p95_execution_time_ms": { "type": "number", "minimum": 0 },
+        "total_tokens_used": { "type": "integer", "minimum": 0 },
+        "error_count": { "type": "integer", "minimum": 0 },
+        "uptime_percent": { "type": "number", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "rollback": {
+      "type": "object",
+      "description": "Rollback information if applicable",
+      "properties": {
+        "rolled_back_at": {
+          "type": "integer",
+          "description": "Rollback timestamp"
+        },
+        "rolled_back_by": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Reason for rollback"
+        },
+        "previous_version": {
+          "type": "string",
+          "description": "Version that was restored"
+        }
+      }
+    },
+    "created_at": {
+      "type": "integer",
+      "description": "Version creation timestamp (Unix ms)"
+    },
+    "updated_at": {
+      "type": "integer",
+      "description": "Last update timestamp (Unix ms)"
+    },
+    "created_by": {
+      "type": "string",
+      "description": "Who/what created this version"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Version tags (e.g., latest, stable, beta)"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata",
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "orchestration_id": "orch-task-1762366071",
+  "parent_task_id": "task-1762366071",
+  "task_title": "Build Worker Health Monitoring System",
+  "status": "pending_analysis",
+  "created_at": "2025-11-05T18:08:03Z",
+  "prompt_file": "/tmp/orchestrator-prompt-task-1762366071.txt",
+  "notes": "Awaiting Task Orchestrator agent analysis. Run: claude < /tmp/orchestrator-prompt-task-1762366071.txt"
+}

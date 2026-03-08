@@ -1,0 +1,37 @@
+{
+  "handoff_id": "coord-to-development-B049E5E5-B31B-40E2-A0BD-B0D0E96C9FFC",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "moe-test-ddqd-v5-1763246973-15a1b47e",
+  "task_data": {
+    "id": "moe-test-ddqd-v5-1763246973-15a1b47e",
+    "title": "Implement new API endpoint for user management feature",
+    "type": "feature",
+    "description": "Implement new API endpoint for user management feature",
+    "priority": "medium",
+    "status": "assigned",
+    "assigned_to": "development",
+    "created_at": "2025-11-15T16:50:18-0600",
+    "created_by": "ddqd-v5-test",
+    "moe_test": true,
+    "test_id": "ddqd-v5-1763246973",
+    "context": {},
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-15T16:50:27-0600",
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-15T16:50:27-06:00"
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "medium",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "N/A",
+      "strategy": "pattern-based",
+      "routed_at": "2025-11-15T16:50:27-0600"
+    }
+  },
+  "created_at": "2025-11-15T16:50:27-0600",
+  "status": "pending_pickup"
+}

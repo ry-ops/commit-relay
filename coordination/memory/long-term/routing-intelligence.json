@@ -1,0 +1,488 @@
+{
+  "version": "2.0.0",
+  "created_at": "2025-11-16T16:35:00Z",
+  "created_by": "worker-implementation-013",
+  "description": "Advanced MoE routing intelligence model incorporating architectural understanding, workflow patterns, and agent specialization",
+  "architecture_aware_routing": {
+    "description": "Routing decisions informed by deep architectural knowledge",
+    "system_components": {
+      "moe_router": {
+        "location": "coordination/masters/coordinator/lib/moe-router.sh",
+        "routing_strategy": "mixture_of_experts",
+        "confidence_thresholds": {
+          "single_expert": 0.70,
+          "multi_expert": 0.50,
+          "minimum_activation": 0.30
+        },
+        "scoring_algorithm": {
+          "type": "additive_weighted",
+          "keyword_weight": 25,
+          "booster_weight": 12,
+          "negative_weight": -30,
+          "type_based_boost": 95
+        },
+        "key_features": [
+          "Type-based routing (95% confidence for explicit types)",
+          "Keyword matching with partial matching support",
+          "Sparse activation (only activate experts above threshold)",
+          "Parallel expert coordination for complex tasks",
+          "Governance-aware with permission checking"
+        ]
+      },
+      "task_queue": {
+        "states": ["pending", "assigned", "in_progress", "completed", "failed"],
+        "assignment_flow": "pending → coordinator routing → master handoff → worker spawn",
+        "multi_lane_support": true,
+        "workforce_streams": 5
+      },
+      "worker_pool": {
+        "lifecycle": "pending → running → completed/failed",
+        "heartbeat_required": false,
+        "timeout_enforcement": "60 min default",
+        "zombie_detection": "PM daemon monitors",
+        "token_budgets": {
+          "implementation": 10000,
+          "scan": 8000,
+          "documentation": 6000
+        }
+      },
+      "pm_daemon": {
+        "purpose": "Worker health monitoring and intervention",
+        "monitoring_loop": "Every 2-3 minutes",
+        "health_states": ["healthy", "late", "stalled", "zombie", "timeout_warning"],
+        "interventions": ["warnings", "escalations", "kill_and_restart", "time_extensions"],
+        "check_in_protocol": "Optional file-based, 5-10 min intervals",
+        "crisis_addressed": "Improving 26.8% success rate → 75% target"
+      },
+      "workforce_streams": {
+        "stream_a": "Critical Priority (security, incidents)",
+        "stream_b": "Standard Development (features, bugs)",
+        "stream_c": "Background/Maintenance (scans, cleanup)",
+        "stream_d": "CI/CD Pipeline (builds, tests, deploys)",
+        "stream_e": "Security/Audit (vulnerability scanning)",
+        "scheduling": "priority_load_balanced with preemption",
+        "total_capacity": 25
+      }
+    }
+  },
+  "agent_routing_intelligence": {
+    "development_master": {
+      "specialization": "Feature implementation, bug fixes, code quality, dashboard enhancements",
+      "optimal_task_patterns": [
+        "Type prefixes: feature, bug-fix, refactor, optimization, development",
+        "Keywords: implement, create, build, fix, enhance, improve, refactor",
+        "Dashboard work: frontend (Alpine.js + Tailwind), backend (Express + WebSocket)",
+        "File operations: JSONL state persistence, file watching (Chokidar)",
+        "Scripting: Shell automation, worker coordination"
+      ],
+      "technology_stack": {
+        "frontend": ["Alpine.js", "Tailwind CSS", "Chart.js"],
+        "backend": ["Express.js", "WebSocket", "SSE streaming", "Node.js"],
+        "data_formats": ["JSONL", "JSON"],
+        "automation": ["Bash", "Shell scripting"],
+        "file_watching": ["Chokidar"]
+      },
+      "routing_confidence_boosters": [
+        "Mentions specific tech (Alpine, Tailwind, Express, WebSocket)",
+        "References dashboard components or UI",
+        "Describes implementation steps or code changes",
+        "Includes test requirements",
+        "Mentions worker lifecycle or coordination"
+      ],
+      "typical_complexity": "medium",
+      "average_duration": "30-60 minutes",
+      "workforce_stream": "stream-b",
+      "token_budget": 30000,
+      "worker_pool_budget": 20000
+    },
+    "security_master": {
+      "specialization": "Vulnerability scanning, CVE remediation, compliance, secrets detection",
+      "optimal_task_patterns": [
+        "Type prefixes: security-scan, security-audit, cve, vulnerability, security-fix",
+        "Keywords: vulnerability, CVE, security, audit, compliance, secrets, risk",
+        "Severity classifications: critical, high, medium, low",
+        "Scan types: dependencies, SAST, secrets, compliance"
+      ],
+      "technology_stack": {
+        "scanning": ["npm audit", "dependency scanners", "SAST tools"],
+        "compliance": ["Risk assessments", "Governance frameworks"],
+        "remediation": ["Automated fixes", "Version updates", "Security patches"]
+      },
+      "routing_confidence_boosters": [
+        "CVE identifier in task (CVE-YYYY-NNNN)",
+        "Security severity level mentioned",
+        "Compliance framework referenced",
+        "Mentions dependency or supply chain",
+        "References production or critical systems"
+      ],
+      "typical_complexity": "high",
+      "average_duration": "45-90 minutes",
+      "workforce_stream": "stream-e",
+      "token_budget": 30000,
+      "worker_pool_budget": 15000
+    },
+    "inventory_master": {
+      "specialization": "Repository cataloging, metadata extraction, documentation, health monitoring",
+      "optimal_task_patterns": [
+        "Type prefixes: inventory, catalog, discovery, documentation",
+        "Keywords: catalog, discover, document, metadata, repository, portfolio, health, track",
+        "Portfolio operations: cross-repo analysis, dependency mapping",
+        "Documentation: README generation, API docs, architecture diagrams"
+      ],
+      "technology_stack": {
+        "cataloging": ["Metadata extraction", "Repository discovery"],
+        "documentation": ["Markdown generation", "API documentation"],
+        "analytics": ["Portfolio insights", "Health metrics"]
+      },
+      "routing_confidence_boosters": [
+        "Mentions portfolio or multi-repository work",
+        "References documentation generation",
+        "Describes catalog or inventory operations",
+        "Includes health status tracking",
+        "Metadata or dependency mapping mentioned"
+      ],
+      "typical_complexity": "low",
+      "average_duration": "20-45 minutes",
+      "workforce_stream": "stream-b",
+      "token_budget": 35000,
+      "worker_pool_budget": 15000
+    },
+    "cicd_master": {
+      "specialization": "Build automation, test orchestration, deployment, release management",
+      "optimal_task_patterns": [
+        "Type prefixes: build, deploy, test, ci-cd, release, rollback",
+        "Keywords: build, deploy, test, release, pipeline, CI/CD, automation",
+        "Pipeline stages: build → test → deploy → verify",
+        "Operations: deployment strategies, release workflows, rollback procedures"
+      ],
+      "technology_stack": {
+        "build": ["Build automation", "Artifact generation"],
+        "testing": ["Test suite execution", "Coverage reporting"],
+        "deployment": ["Deployment strategies", "Blue-green", "Canary"],
+        "pipelines": ["Multi-stage pipelines", "Parallel execution"]
+      },
+      "routing_confidence_boosters": [
+        "Mentions CI/CD or pipeline",
+        "References build, test, or deployment",
+        "Includes release workflow or versioning",
+        "Describes automation or orchestration",
+        "Production deployment mentioned"
+      ],
+      "typical_complexity": "medium-high",
+      "average_duration": "30-90 minutes",
+      "workforce_stream": "stream-d",
+      "token_budget": 35000,
+      "worker_pool_budget": 25000
+    },
+    "coordinator_master": {
+      "specialization": "Task routing, MoE orchestration, master coordination, system-wide operations",
+      "optimal_task_patterns": [
+        "Type prefixes: coordination, routing, orchestration, system",
+        "Keywords: route, coordinate, orchestrate, MoE, routing, decision, confidence",
+        "Meta-tasks: routing improvements, system design, architecture",
+        "Complex tasks requiring multi-expert activation"
+      ],
+      "technology_stack": {
+        "routing": ["MoE router", "Confidence scoring", "Pattern matching"],
+        "orchestration": ["Master coordination", "Task delegation"],
+        "intelligence": ["Learning systems", "Pattern recognition"]
+      },
+      "routing_confidence_boosters": [
+        "Mentions routing or coordination",
+        "References MoE or expert activation",
+        "Describes system-level operations",
+        "Includes multi-master coordination",
+        "Architecture or design work"
+      ],
+      "typical_complexity": "very-high",
+      "average_duration": "60-180 minutes",
+      "workforce_stream": "stream-a",
+      "token_budget": 50000,
+      "worker_pool_budget": 30000
+    }
+  },
+  "workflow_intelligence": {
+    "task_lifecycle": {
+      "stages": [
+        {
+          "stage": "submission",
+          "actions": ["Task created", "Added to queue", "Priority assigned"],
+          "location": "coordination/task-queue.json",
+          "next": "routing"
+        },
+        {
+          "stage": "routing",
+          "actions": ["MoE scoring", "Expert selection", "Confidence calculation"],
+          "location": "coordination/masters/coordinator/lib/moe-router.sh",
+          "decision_log": "coordination/masters/coordinator/knowledge-base/routing-decisions.jsonl",
+          "next": "assignment"
+        },
+        {
+          "stage": "assignment",
+          "actions": ["Handoff to master", "Resource allocation", "Worker spec creation"],
+          "location": "coordination/masters/{expert}/handoffs/",
+          "next": "execution"
+        },
+        {
+          "stage": "execution",
+          "actions": ["Worker spawn", "Task execution", "Progress monitoring", "Completion"],
+          "worker_daemon": "scripts/worker-daemon.sh",
+          "pm_monitoring": "PM daemon tracks health",
+          "next": "completion"
+        },
+        {
+          "stage": "completion",
+          "actions": ["Results validation", "Deliverables verification", "State update", "Metrics recording"],
+          "outcomes": ["completed", "failed"],
+          "location": "coordination/worker-pool.json",
+          "next": "archive"
+        }
+      ],
+      "typical_duration": {
+        "routing": "< 1 second",
+        "assignment": "< 5 seconds",
+        "execution": "5-180 minutes (task dependent)",
+        "completion": "< 1 minute"
+      }
+    },
+    "worker_lifecycle": {
+      "states": [
+        {"state": "pending", "description": "Worker spec created, awaiting daemon pickup"},
+        {"state": "running", "description": "Claude Code session active, executing task"},
+        {"state": "completed", "description": "Task finished successfully, deliverables created"},
+        {"state": "failed", "description": "Task failed or worker stalled/zombie"}
+      ],
+      "transitions": [
+        "pending → running (worker daemon spawns)",
+        "running → completed (task finishes successfully)",
+        "running → failed (error, timeout, or PM intervention)"
+      ],
+      "monitoring": {
+        "pm_daemon": {
+          "check_frequency": "Every 2-3 minutes",
+          "stall_threshold": "20 minutes no check-in",
+          "timeout_threshold": "60 minutes default",
+          "zombie_detection": "Process exists but no activity"
+        },
+        "worker_check_ins": {
+          "protocol": "Optional file-based",
+          "frequency": "5-10 minutes recommended",
+          "location": "coordination/worker-checkins/",
+          "format": "JSON with progress, status, metrics"
+        }
+      },
+      "interventions": {
+        "timeout_warning": "At 50%, 75%, 90% of time limit",
+        "stall_detection": "No check-in > 20 minutes",
+        "zombie_kill": "No activity, process cleanup",
+        "restart": "Automatic respawn for recoverable failures"
+      }
+    },
+    "parallel_activation_patterns": {
+      "description": "When multiple experts activated simultaneously",
+      "triggers": [
+        "No single expert confidence > 0.70",
+        "Multiple experts score > 0.50",
+        "Complex task requiring diverse expertise"
+      ],
+      "coordination": "Primary expert leads, parallel experts contribute",
+      "examples": [
+        "Security vulnerability fix (security + development)",
+        "Dashboard security enhancement (development + security)",
+        "CI/CD with security scanning (cicd + security)",
+        "Portfolio documentation with security audit (inventory + security)"
+      ],
+      "efficiency_gains": "2-3x faster than sequential",
+      "current_usage": "Rare (most tasks route to single expert)"
+    }
+  },
+  "intelligence_improvements": {
+    "routing_accuracy_enhancements": [
+      {
+        "enhancement": "Type-based routing",
+        "status": "implemented",
+        "confidence_boost": "95% for explicit task types",
+        "impact": "High - eliminates ambiguity for typed tasks"
+      },
+      {
+        "enhancement": "Partial keyword matching",
+        "status": "implemented",
+        "description": "grep -i without -w allows 'CVE' to match 'CVE-2024-1234'",
+        "impact": "Medium - more flexible matching"
+      },
+      {
+        "enhancement": "Additive scoring",
+        "status": "implemented",
+        "description": "Points-based instead of percentage (keyword=25, booster=12, negative=-30)",
+        "impact": "High - more predictable confidence scores"
+      },
+      {
+        "enhancement": "Architectural context awareness",
+        "status": "proposed",
+        "description": "Consider worker pool utilization, stream capacity, recent routing history",
+        "implementation": "Future - Phase 2 routing intelligence",
+        "impact": "Very High - load balancing and resource optimization"
+      },
+      {
+        "enhancement": "Historical success patterns",
+        "status": "proposed",
+        "description": "Learn from completed tasks: which expert succeeded for similar tasks",
+        "implementation": "Future - ML-based confidence adjustment",
+        "impact": "Very High - continuous improvement from experience"
+      },
+      {
+        "enhancement": "Task complexity estimation",
+        "status": "proposed",
+        "description": "Estimate duration and resources before routing",
+        "implementation": "Future - complexity scoring model",
+        "impact": "High - better resource allocation and stream assignment"
+      }
+    ],
+    "learning_mechanisms": {
+      "routing_decisions_log": {
+        "location": "coordination/masters/coordinator/knowledge-base/routing-decisions.jsonl",
+        "format": "JSONL with task_id, timestamp, decision, scores",
+        "usage": "Analyze patterns, validate accuracy, tune thresholds"
+      },
+      "task_patterns": {
+        "location": "coordination/memory/long-term/task-patterns.json",
+        "content": "Keywords by expert, complexity, success rates",
+        "update_frequency": "After each completed task batch"
+      },
+      "governance_learnings": {
+        "location": "coordination/governance/access-log.jsonl",
+        "usage": "Permission patterns, security insights"
+      },
+      "pm_activity": {
+        "location": "coordination/pm-activity.jsonl",
+        "insights": "Worker health patterns, intervention effectiveness"
+      }
+    }
+  },
+  "operational_patterns": {
+    "current_state_analysis": {
+      "worker_pool": {
+        "active": 38,
+        "completed": 0,
+        "failed": 0,
+        "success_rate": "0% (clean state after power outage)",
+        "observation": "All workers pending - awaiting daemon activation"
+      },
+      "token_usage": {
+        "total_budget": 500000,
+        "allocated": 486500,
+        "available": -286500,
+        "observation": "Over-allocated - need cleanup of pending workers",
+        "masters_used": 13500,
+        "workers_used": 51500,
+        "efficiency": "96.2%"
+      },
+      "workforce_streams": {
+        "active_streams": 5,
+        "total_capacity": 25,
+        "current_utilization": "38 workers (152% over capacity)",
+        "observation": "Need emergency cleanup and rebalancing"
+      },
+      "system_health": {
+        "status": "degraded",
+        "failed_services": ["coordinator", "development-master", "pm-daemon"],
+        "dashboard_api": "healthy",
+        "observation": "Service restart required"
+      }
+    },
+    "performance_baselines": {
+      "routing_latency": "< 1 second (measured)",
+      "worker_spawn_time": "< 10 seconds",
+      "task_completion_time": {
+        "simple": "5-15 minutes",
+        "medium": "15-45 minutes",
+        "complex": "45-120 minutes",
+        "very_complex": "120-180 minutes"
+      },
+      "pm_intervention_latency": "2-5 minutes (detection to action)",
+      "dashboard_update_latency": "< 100ms (WebSocket)"
+    },
+    "failure_patterns": {
+      "zombie_workers": {
+        "symptom": "Worker marked 'running' but no execution",
+        "detection": "PM daemon - no check-ins > 20 minutes",
+        "cause": "Worker crashes, Claude Code connection loss, or prompt errors",
+        "mitigation": "PM daemon automatic kill and optional restart"
+      },
+      "timeout_exceeded": {
+        "symptom": "Worker exceeds time limit",
+        "detection": "PM daemon - age > time_limit_minutes",
+        "cause": "Complex task, inefficient implementation, or infinite loops",
+        "mitigation": "Warnings at 50%, 75%, 90%; forced kill at 110%"
+      },
+      "token_budget_exceeded": {
+        "symptom": "Worker requests exceed budget",
+        "detection": "Token tracking in worker spec",
+        "cause": "Large context, repeated operations, or inefficient prompts",
+        "mitigation": "Budget allocation adjustment or task redesign"
+      },
+      "stalled_execution": {
+        "symptom": "Worker active but no progress",
+        "detection": "PM daemon - same progress % for 30+ minutes",
+        "cause": "Blocker, waiting on external dependency, or unclear requirements",
+        "mitigation": "PM escalation to master for help or clarification"
+      }
+    }
+  },
+  "recommendations": {
+    "immediate": [
+      "Clean up 38 pending workers to free token budget",
+      "Restart failed services (coordinator, development-master, pm-daemon)",
+      "Verify worker daemon is running and processing pending specs",
+      "Rebalance workforce stream allocations"
+    ],
+    "short_term": [
+      "Implement worker check-in protocol in all worker prompts",
+      "Enable PM daemon full intervention mode",
+      "Add architectural context to routing decisions",
+      "Create task complexity estimation model"
+    ],
+    "long_term": [
+      "ML-based routing confidence tuning from historical success",
+      "Predictive stall detection using pattern recognition",
+      "Automated capacity planning based on task queue analysis",
+      "Cross-repository routing intelligence for portfolio work"
+    ]
+  },
+  "confidence_calibration": {
+    "current_thresholds": {
+      "single_expert": 0.70,
+      "multi_expert": 0.50,
+      "minimum_activation": 0.30
+    },
+    "tuning_recommendations": {
+      "security_tasks": "Keep high threshold (0.70) - precision critical",
+      "development_tasks": "Can lower to 0.65 - more flexibility acceptable",
+      "inventory_tasks": "Can lower to 0.60 - low-risk domain",
+      "cicd_tasks": "Keep high threshold (0.70) - deployment risks",
+      "coordinator_tasks": "Require 0.80+ - meta-level decisions critical"
+    },
+    "parallel_activation_triggers": {
+      "current": "No single expert > 0.70 AND multiple > 0.50",
+      "recommended": "No single expert > 0.65 AND multiple > 0.45",
+      "rationale": "Enable more multi-expert collaboration for complex tasks"
+    }
+  },
+  "metadata": {
+    "learning_sources": [
+      "coordination/pm-architecture.md",
+      "coordination/masters/coordinator/lib/moe-router.sh",
+      "coordination/memory/long-term/task-patterns.json",
+      "coordination/worker-pool.json",
+      "coordination/workforce-streams.json",
+      "coordination/token-budget.json",
+      "coordination/pm-activity.jsonl",
+      "coordination/dashboard-events.jsonl",
+      "dashboard/README.md"
+    ],
+    "analysis_depth": "comprehensive",
+    "confidence_in_model": "high",
+    "next_review": "2025-11-20T00:00:00Z",
+    "improvement_tracking": "Monitor routing accuracy in next 20 tasks"
+  }
+}

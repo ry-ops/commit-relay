@@ -1,0 +1,43 @@
+{
+  "handoff_id": "coord-to-development-1ABB6874-5676-4DE7-AC18-FE81C3CAAB8B",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762553443",
+  "task_data": {
+    "id": "task-1762553443",
+    "title": "CRITICAL BLOCKER: Worker Pool Clogged with 20 Zombie Workers - System Completely Stalled. IMMEDIATE ACTION REQUIRED. Current state: Worker pool shows 20/8 active workers (250% capacity), all are zombies from DDQD stress tests created Nov 8 15:24 (4+ hours ago). Worker daemon refusing to spawn ANY new workers, blocking 4 critical security tasks (task-1762553439, task-1762553440, task-1762553441, task-1762553442). Root causes: 1) Zombie-killer daemon (PID 76168) running but NOT detecting/cleaning stale workers, 2) Workers stuck in 'pending' status with null heartbeats for hours, 3) 15-minute stale timeout not being enforced, 4) Heartbeat monitoring broken or not implemented. REQUIRED FIXES: 1) IMMEDIATELY move all 20 stale workers from coordination/worker-specs/active/ to coordination/worker-specs/failed/ to unblock pool (CRITICAL - do this first\\!), 2) Debug and fix zombie-killer-daemon.sh stale worker detection logic (check heartbeat comparison, timeout calculation, PID validation), 3) Add aggressive stale worker detection (any worker pending >30 min with null heartbeat = zombie), 4) Implement worker heartbeat monitoring if missing, 5) Add pool capacity safeguards (auto-cleanup when >150% capacity), 6) Test zombie-killer runs and validates cleanup works, 7) Document what went wrong and prevention measures. SUCCESS CRITERIA: Pool capacity drops to 0-2 active workers, 4 pending critical tasks get assigned and spawn workers within 2 minutes, zombie-killer properly detects and cleans future stale workers. URGENT: System is completely non-functional until this is fixed. Keywords: critical blocker bug-fix zombie-workers worker-pool daemon stale-detection heartbeat monitoring capacity cleanup emergency.",
+    "type": "development",
+    "priority": "critical",
+    "status": "assigned",
+    "assigned_to": "development",
+    "created_at": "2025-11-08T19:22:48-0600",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "CRITICAL BLOCKER: Worker Pool Clogged with 20 Zombie Workers - System Completely Stalled. IMMEDIATE ACTION REQUIRED. Current state: Worker pool shows 20/8 active workers (250% capacity), all are zombies from DDQD stress tests created Nov 8 15:24 (4+ hours ago). Worker daemon refusing to spawn ANY new workers, blocking 4 critical security tasks (task-1762553439, task-1762553440, task-1762553441, task-1762553442). Root causes: 1) Zombie-killer daemon (PID 76168) running but NOT detecting/cleaning stale workers, 2) Workers stuck in 'pending' status with null heartbeats for hours, 3) 15-minute stale timeout not being enforced, 4) Heartbeat monitoring broken or not implemented. REQUIRED FIXES: 1) IMMEDIATELY move all 20 stale workers from coordination/worker-specs/active/ to coordination/worker-specs/failed/ to unblock pool (CRITICAL - do this first\\!), 2) Debug and fix zombie-killer-daemon.sh stale worker detection logic (check heartbeat comparison, timeout calculation, PID validation), 3) Add aggressive stale worker detection (any worker pending >30 min with null heartbeat = zombie), 4) Implement worker heartbeat monitoring if missing, 5) Add pool capacity safeguards (auto-cleanup when >150% capacity), 6) Test zombie-killer runs and validates cleanup works, 7) Document what went wrong and prevention measures. SUCCESS CRITERIA: Pool capacity drops to 0-2 active workers, 4 pending critical tasks get assigned and spawn workers within 2 minutes, zombie-killer properly detects and cleans future stale workers. URGENT: System is completely non-functional until this is fixed. Keywords: critical blocker bug-fix zombie-workers worker-pool daemon stale-detection heartbeat monitoring capacity cleanup emergency.",
+      "requirements": []
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-09T06:08:51-0600",
+    "routing_confidence": "0.95",
+    "routing_strategy": "single_expert",
+    "worker_id": null,
+    "worker_type": "feature-implementer",
+    "completed_at": "2025-11-09T06:04:29-0600",
+    "error": "Worker became zombie and was killed",
+    "updated_at": "2025-11-09T06:08:51-06:00"
+  },
+  "context": {
+    "routing_reason": "MoE confidence-based routing (confidence: 0.95, strategy: single_expert)",
+    "priority": "critical",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "0.95",
+      "strategy": "single_expert",
+      "routed_at": "2025-11-09T06:08:51-0600"
+    }
+  },
+  "created_at": "2025-11-09T06:08:51-0600",
+  "status": "pending_pickup"
+}

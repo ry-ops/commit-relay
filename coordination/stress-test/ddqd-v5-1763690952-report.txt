@@ -1,0 +1,63 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  DDQD v5.0 STRESS TEST - FINAL REPORT
+  MoE Intelligence Validation Edition
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Test ID: ddqd-v5-1763690952
+Duration: 2 minutes (143 seconds)
+Started: 2025-11-20 20:09:12
+Completed: 2025-11-20 20:11:35
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  MOE INTELLIGENCE VALIDATION RESULTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Routing Accuracy Test
+   - Accuracy: 100.00% (target: >80%)
+   - Status: ✓ PASS
+
+2. Confidence Scores Test
+   - Average Confidence: .57
+   - Low Confidence Rate: 40.00% (target: <20%)
+   - Status: ⚠ FAIL
+
+3. Learning System Test
+   - Learning Score: 100%
+   - Status: ✓ PASS
+
+4. Pool Efficiency Test (Sparse Activation)
+   - Single Expert Routing: 55.00% (target: >70%)
+   - Status: ⚠ FAIL
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  SYSTEM VALIDATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ MoE Routing System: TESTED
+✓ Task Orchestrator: TESTED
+✓ Workforce Streams: TESTED
+✓ Token Budget Management: TESTED
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  FINAL METRICS - WORKERS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Total Workers Spawned: 64
+Workers Completed: 3
+Workers Failed: 0
+
+Token Budget Used: 0 / 500000 (0.0%)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  RESULT: PARTIAL SUCCESS ⚠
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Some MoE validation tests did not meet targets.
+Review metrics above for areas needing improvement.
+
+Full logs: /Users/ryandahlberg/Projects/commit-relay/agents/logs/stress-test/ddqd-v5-1763690952.log
+Metrics: /Users/ryandahlberg/Projects/commit-relay/coordination/stress-test/ddqd-v5-1763690952-metrics.json
+MoE Metrics: /Users/ryandahlberg/Projects/commit-relay/coordination/stress-test/ddqd-v5-1763690952-moe-metrics.json
+Report: /Users/ryandahlberg/Projects/commit-relay/coordination/stress-test/ddqd-v5-1763690952-report.txt
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

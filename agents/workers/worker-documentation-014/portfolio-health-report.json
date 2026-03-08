@@ -1,0 +1,185 @@
+{
+  "report_id": "portfolio-health-2025-11-21T02:35",
+  "generated_at": "2025-11-21T02:35:00Z",
+  "generated_by": "worker-documentation-014",
+  "task_id": "moe-test-ddqd-v5-1763692343-8200e19c",
+
+  "portfolio_summary": {
+    "total_repositories": 1,
+    "overall_health_score": 78,
+    "overall_status": "healthy",
+    "trend": "stable"
+  },
+
+  "repositories": [
+    {
+      "name": "commit-relay",
+      "url": "https://github.com/ry-ops/commit-relay.git",
+      "branch": "main",
+      "description": "AI-powered commit automation system with master-worker architecture",
+      "license": "MIT",
+      "version": "1.0.0",
+
+      "health_metrics": {
+        "overall_score": 78,
+        "status": "healthy",
+
+        "code_metrics": {
+          "total_tracked_files": 658,
+          "pending_changes": {
+            "files_modified": 176,
+            "insertions": 10658,
+            "deletions": 11809
+          },
+          "score": 65,
+          "notes": "Large number of uncommitted changes requires attention"
+        },
+
+        "security_metrics": {
+          "vulnerabilities": {
+            "critical": 0,
+            "high": 0,
+            "moderate": 0,
+            "low": 0,
+            "info": 0,
+            "total": 0
+          },
+          "status": "secure",
+          "score": 100,
+          "last_audit": "2025-11-21T02:34:48Z"
+        },
+
+        "dependency_metrics": {
+          "total_dependencies": 311,
+          "production_dependencies": 7,
+          "dev_dependencies": 305,
+          "optional_dependencies": 1,
+          "peer_dependencies": 2,
+          "status": "healthy",
+          "score": 95
+        },
+
+        "system_metrics": {
+          "dashboard_api": {
+            "status": "healthy",
+            "url": "http://localhost:3000/api",
+            "uptime_seconds": 2324
+          },
+          "worker_pool": {
+            "active_workers": 14,
+            "completed_workers": 43,
+            "failed_workers": 4,
+            "total_spawned_today": 90,
+            "success_rate_percent": 89.5
+          },
+          "token_budget": {
+            "total": 500000,
+            "available": 500000,
+            "usage_percent": 0
+          },
+          "tasks": {
+            "pending": 0,
+            "in_progress": 19,
+            "completed": 22,
+            "failed": 9,
+            "total": 53
+          },
+          "score": 75
+        }
+      },
+
+      "issues": [
+        {
+          "severity": "high",
+          "category": "git",
+          "description": "Very large number of uncommitted changes (176 files, 10658+ insertions, 11809- deletions)",
+          "recommendation": "Review and commit pending changes to reduce risk of data loss",
+          "impact_on_score": -15
+        },
+        {
+          "severity": "medium",
+          "category": "tasks",
+          "description": "9 failed tasks out of 53 total (17% failure rate)",
+          "recommendation": "Investigate failed tasks and improve task reliability",
+          "impact_on_score": -7
+        },
+        {
+          "severity": "low",
+          "category": "worker_pool",
+          "description": "14 active workers with 0 token usage - may indicate stalled workers",
+          "recommendation": "Monitor worker progress and heartbeats",
+          "impact_on_score": -0
+        }
+      ],
+
+      "strengths": [
+        {
+          "category": "security",
+          "description": "Zero known vulnerabilities across all dependencies",
+          "score_contribution": "+20"
+        },
+        {
+          "category": "dependencies",
+          "description": "Clean dependency tree with minimal production dependencies (7)",
+          "score_contribution": "+15"
+        },
+        {
+          "category": "services",
+          "description": "Dashboard API healthy with 38+ minutes uptime",
+          "score_contribution": "+10"
+        }
+      ],
+
+      "recommendations": [
+        "CRITICAL: Commit or stash the 176 modified files to prevent data loss",
+        "Investigate the 9 failed tasks to identify failure patterns",
+        "Monitor the 14 active workers for potential zombie detection",
+        "Consider periodic cleanup of completed worker directories"
+      ]
+    }
+  ],
+
+  "comparison_to_previous": {
+    "previous_report": "portfolio-health-2025-11-20",
+    "previous_score": 85,
+    "current_score": 78,
+    "change": -7,
+    "trend": "declining",
+    "reason": "Increased uncommitted changes (160 -> 176 files) and more failed tasks"
+  },
+
+  "next_actions": [
+    {
+      "priority": "critical",
+      "action": "Review and commit 176 modified files",
+      "owner": "development-master",
+      "rationale": "Risk of data loss increases with large uncommitted changes"
+    },
+    {
+      "priority": "high",
+      "action": "Investigate 9 failed tasks",
+      "owner": "coordinator-master",
+      "rationale": "17% failure rate indicates systemic issues"
+    },
+    {
+      "priority": "medium",
+      "action": "Monitor active workers for zombie detection",
+      "owner": "coordinator-master",
+      "rationale": "14 active workers with 0 token usage may be stalled"
+    }
+  ],
+
+  "metadata": {
+    "report_version": "1.1",
+    "data_collection_time_ms": 3000,
+    "tools_used": [
+      "git status --porcelain",
+      "git diff --stat",
+      "npm audit --json",
+      "dashboard API /health",
+      "dashboard API /metrics"
+    ],
+    "worker_id": "worker-documentation-014",
+    "token_budget": 6000
+  }
+}

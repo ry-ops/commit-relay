@@ -1,0 +1,828 @@
+{
+  "version": "1.1.0",
+  "last_updated": "2025-11-23T00:00:00-0600",
+  "fixes": [
+    {
+      "fix_id": "fix_increase_memory_for_oom",
+      "category": "resource",
+      "name": "Increase Memory Limit for OOM",
+      "description": "Increases worker memory limit when out-of-memory patterns detected",
+      "applies_to_patterns": [
+        "resource:out_of_memory",
+        "resource:memory_exhausted"
+      ],
+      "prerequisites": {
+        "min_pattern_confidence": 0.80,
+        "min_pattern_occurrences": 3,
+        "requires_worker_specs": true,
+        "max_memory_limit_mb": 8192
+      },
+      "safety": {
+        "safety_score": 0.95,
+        "requires_approval": false,
+        "rollback_supported": true,
+        "reversible": true,
+        "risk_level": "low"
+      },
+      "actions": [
+        {
+          "type": "modify_worker_spec",
+          "field": "resources.memory_limit_mb",
+          "operation": "multiply",
+          "value": 1.5,
+          "max_value": 8192
+        }
+      ],
+      "validation": {
+        "monitoring_period_hours": 24,
+        "success_criteria": [
+          {
+            "type": "pattern_occurrence_decrease",
+            "min_decrease_percent": 50,
+            "measurement_window_hours": 24
+          },
+          {
+            "type": "worker_success_rate",
+            "min_success_rate": 0.80
+          }
+        ]
+      },
+      "rollback": {
+        "type": "restore_previous_config",
+        "conditions": [
+          {
+            "type": "validation_failure",
+            "action": "immediate"
+          },
+          {
+            "type": "new_failures_detected",
+            "threshold": 3,
+            "action": "immediate"
+          }
+        ]
+      }
+    },
+    {
+      "fix_id": "fix_increase_timeout",
+      "category": "configuration",
+      "name": "Increase Task Timeout",
+      "description": "Increases task timeout when timeout patterns detected",
+      "applies_to_patterns": [
+        "systemic:timeout",
+        "systemic:task_timeout"
+      ],
+      "prerequisites": {
+        "min_pattern_confidence": 0.85,
+        "min_pattern_occurrences": 3,
+        "requires_worker_specs": true,
+        "max_timeout_seconds": 7200
+      },
+      "safety": {
+        "safety_score": 0.92,
+        "requires_approval": false,
+        "rollback_supported": true,
+        "reversible": true,
+        "risk_level": "low"
+      },
+      "actions": [
+        {
+          "type": "modify_worker_spec",
+          "field": "timeouts.task_timeout_seconds",
+          "operation": "add",
+          "value": 600,
+          "max_value": 7200
+        }
+      ],
+      "validation": {
+        "monitoring_period_hours": 24,
+        "success_criteria": [
+          {
+            "type": "pattern_occurrence_decrease",
+            "min_decrease_percent": 60,
+            "measurement_window_hours": 24
+          }
+        ]
+      },
+      "rollback": {
+        "type": "restore_previous_config",
+        "conditions": [
+          {
+            "type": "validation_failure",
+            "action": "immediate"
+          }
+        ]
+      }
+    },
+    {
+      "fix_id": "fix_adjust_rate_limit",
+      "category": "configuration",
+      "name": "Adjust Rate Limit",
+      "description": "Reduces rate limit when rate limit exceeded patterns detected",
+      "applies_to_patterns": [
+        "systemic:rate_limit_exceeded",
+        "environmental:api_throttling"
+      ],
+      "prerequisites": {
+        "min_pattern_confidence": 0.80,
+        "min_pattern_occurrences": 2,
+        "requires_worker_specs": true
+      },
+      "safety": {
+        "safety_score": 0.88,
+        "requires_approval": false,
+        "rollback_supported": true,
+        "reversible": true,
+        "risk_level": "low"
+      },
+      "actions": [
+        {
+          "type": "modify_worker_spec",
+          "field": "rate_limits.requests_per_minute",
+          "operation": "multiply",
+          "value": 0.7,
+          "min_value": 5
+        }
+      ],
+      "validation": {
+        "monitoring_period_hours": 12,
+        "success_criteria": [
+          {
+            "type": "pattern_occurrence_decrease",
+            "min_decrease_percent": 70,
+            "measurement_window_hours": 12
+          }
+        ]
+      },
+      "rollback": {
+        "type": "restore_previous_config",
+        "conditions": [
+          {
+            "type": "throughput_decrease",
+            "threshold_percent": 30,
+            "action": "immediate"
+          }
+        ]
+      }
+    },
+    {
+      "fix_id": "fix_restart_with_clean_state",
+      "category": "workflow",
+      "name": "Restart Worker with Clean State",
+      "description": "Restarts worker with cleared state when state corruption detected",
+      "applies_to_patterns": [
+        "data:state_corruption",
+        "data:corrupted_intermediate"
+      ],
+      "prerequisites": {
+        "min_pattern_confidence": 0.75,
+        "min_pattern_occurrences": 2,
+        "requires_worker_specs": true
+      },
+      "safety": {
+        "safety_score": 0.82,
+        "requires_approval": false,
+        "rollback_supported": false,
+        "reversible": false,
+        "risk_level": "medium"
+      },
+      "actions": [
+        {
+          "type": "cleanup_worker_state",
+          "paths": [
+            "agents/workers/{worker_id}/state",
+            "coordination/memory/working/{worker_id}"
+          ]
+        },
+        {
+          "type": "trigger_worker_restart",
+          "force_clean_start": true
+        }
+      ],
+      "validation": {
+        "monitoring_period_hours": 24,
+        "success_criteria": [
+          {
+            "type": "worker_success_rate",
+            "min_success_rate": 0.85
+          }
+        ]
+      },
+      "rollback": {
+        "type": "none",
+        "reason": "Non-reversible action, validation only"
+      }
+    },
+    {
+      "fix_id": "fix_reduce_batch_size",
+      "category": "resource",
+      "name": "Reduce Batch Size",
+      "description": "Reduces batch processing size when memory pressure detected",
+      "applies_to_patterns": [
+        "resource:memory_pressure",
+        "resource:gc_thrashing"
+      ],
+      "prerequisites": {
+        "min_pattern_confidence": 0.80,
+        "min_pattern_occurrences": 3,
+        "requires_worker_specs": true
+      },
+      "safety": {
+        "safety_score": 0.90,
+        "requires_approval": false,
+        "rollback_supported": true,
+        "reversible": true,
+        "risk_level": "low"
+      },
+      "actions": [
+        {
+          "type": "modify_worker_spec",
+          "field": "processing.batch_size",
+          "operation": "multiply",
+          "value": 0.5,
+          "min_value": 10
+        }
+      ],
+      "validation": {
+        "monitoring_period_hours": 24,
+        "success_criteria": [
+          {
+            "type": "pattern_occurrence_decrease",
+            "min_decrease_percent": 60,
+            "measurement_window_hours": 24
+          },
+          {
+            "type": "memory_usage_decrease",
+            "min_decrease_percent": 20
+          }
+        ]
+      },
+      "rollback": {
+        "type": "restore_previous_config",
+        "conditions": [
+          {
+            "type": "throughput_decrease",
+            "threshold_percent": 40,
+            "action": "gradual"
+          }
+        ]
+      }
+    },
+    {
+      "fix_id": "fix_enable_retry_backoff",
+      "category": "configuration",
+      "name": "Enable Exponential Retry Backoff",
+      "description": "Enables exponential backoff for workers with rapid retry patterns",
+      "applies_to_patterns": [
+        "systemic:max_retries_exceeded",
+        "systemic:rapid_retry_loop"
+      ],
+      "prerequisites": {
+        "min_pattern_confidence": 0.85,
+        "min_pattern_occurrences": 2,
+        "requires_worker_specs": true
+      },
+      "safety": {
+        "safety_score": 0.93,
+        "requires_approval": false,
+        "rollback_supported": true,
+        "reversible": true,
+        "risk_level": "low"
+      },
+      "actions": [
+        {
+          "type": "modify_worker_spec",
+          "field": "retry.strategy",
+          "operation": "set",
+          "value": "exponential_backoff"
+        },
+        {
+          "type": "modify_worker_spec",
+          "field": "retry.initial_delay_seconds",
+          "operation": "set",
+          "value": 30
+        },
+        {
+          "type": "modify_worker_spec",
+          "field": "retry.max_delay_seconds",
+          "operation": "set",
+          "value": 300
+        }
+      ],
+      "validation": {
+        "monitoring_period_hours": 24,
+        "success_criteria": [
+          {
+            "type": "pattern_occurrence_decrease",
+            "min_decrease_percent": 70,
+            "measurement_window_hours": 24
+          },
+          {
+            "type": "retry_success_rate",
+            "min_success_rate": 0.75
+          }
+        ]
+      },
+      "rollback": {
+        "type": "restore_previous_config",
+        "conditions": [
+          {
+            "type": "validation_failure",
+            "action": "immediate"
+          }
+        ]
+      }
+    },
+    {
+      "fix_id": "fix_adjust_heartbeat_interval",
+      "category": "configuration",
+      "name": "Adjust Heartbeat Interval",
+      "description": "Increases heartbeat interval for workers with frequent heartbeat failures",
+      "applies_to_patterns": [
+        "systemic:heartbeat_timeout",
+        "environmental:network_latency"
+      ],
+      "prerequisites": {
+        "min_pattern_confidence": 0.75,
+        "min_pattern_occurrences": 3,
+        "requires_worker_specs": true,
+        "max_heartbeat_interval_seconds": 300
+      },
+      "safety": {
+        "safety_score": 0.85,
+        "requires_approval": false,
+        "rollback_supported": true,
+        "reversible": true,
+        "risk_level": "medium"
+      },
+      "actions": [
+        {
+          "type": "modify_worker_spec",
+          "field": "heartbeat.interval_seconds",
+          "operation": "add",
+          "value": 30,
+          "max_value": 300
+        },
+        {
+          "type": "modify_worker_spec",
+          "field": "heartbeat.timeout_seconds",
+          "operation": "add",
+          "value": 60,
+          "max_value": 360
+        }
+      ],
+      "validation": {
+        "monitoring_period_hours": 24,
+        "success_criteria": [
+          {
+            "type": "pattern_occurrence_decrease",
+            "min_decrease_percent": 60,
+            "measurement_window_hours": 24
+          }
+        ]
+      },
+      "rollback": {
+        "type": "restore_previous_config",
+        "conditions": [
+          {
+            "type": "zombie_detection_delay",
+            "threshold_seconds": 180,
+            "action": "immediate"
+          }
+        ]
+      }
+    },
+    {
+      "fix_id": "fix_clear_circuit_breaker",
+      "category": "workflow",
+      "name": "Clear Circuit Breaker",
+      "description": "Manually clears circuit breaker after transient issues resolved",
+      "applies_to_patterns": [
+        "systemic:circuit_breaker_tripped",
+        "transient:temporary_failure"
+      ],
+      "prerequisites": {
+        "min_pattern_confidence": 0.70,
+        "min_pattern_occurrences": 1,
+        "min_cooldown_hours": 1,
+        "no_recent_failures": true
+      },
+      "safety": {
+        "safety_score": 0.75,
+        "requires_approval": true,
+        "rollback_supported": false,
+        "reversible": false,
+        "risk_level": "medium"
+      },
+      "actions": [
+        {
+          "type": "reset_circuit_breaker",
+          "worker_type": "{from_pattern}"
+        },
+        {
+          "type": "emit_event",
+          "event_type": "circuit_breaker_manual_reset"
+        }
+      ],
+      "validation": {
+        "monitoring_period_hours": 12,
+        "success_criteria": [
+          {
+            "type": "worker_restart_success",
+            "min_success_count": 3
+          },
+          {
+            "type": "no_circuit_breaker_retravel",
+            "window_hours": 12
+          }
+        ]
+      },
+      "rollback": {
+        "type": "none",
+        "reason": "Manual approval required, validation monitored"
+      }
+    },
+    {
+      "fix_id": "security_dependency_update",
+      "category": "security",
+      "name": "Update Vulnerable Dependency",
+      "description": "Update vulnerable dependency to patched version",
+      "applies_to_patterns": [
+        "security:outdated_dependency",
+        "security:vulnerable_dependency_version"
+      ],
+      "prerequisites": {
+        "min_pattern_confidence": 0.90,
+        "min_pattern_occurrences": 1,
+        "requires_dependency_scan": true,
+        "patch_available": true
+      },
+      "safety": {
+        "safety_score": 0.70,
+        "requires_approval": true,
+        "requires_review": true,
+        "rollback_supported": true,
+        "reversible": true,
+        "risk_level": "high"
+      },
+      "actions": [
+        {
+          "type": "update_dependency",
+          "operation": "upgrade_to_patched",
+          "verify_compatibility": true
+        },
+        {
+          "type": "run_tests",
+          "test_suite": "integration"
+        },
+        {
+          "type": "emit_event",
+          "event_type": "security_dependency_updated"
+        }
+      ],
+      "validation": {
+        "monitoring_period_hours": 48,
+        "success_criteria": [
+          {
+            "type": "vulnerability_scan_pass",
+            "severity_threshold": "high"
+          },
+          {
+            "type": "test_suite_pass",
+            "min_pass_rate": 1.0
+          },
+          {
+            "type": "no_regression_detected",
+            "measurement_window_hours": 48
+          }
+        ]
+      },
+      "rollback": {
+        "type": "restore_previous_version",
+        "conditions": [
+          {
+            "type": "test_failure",
+            "action": "immediate"
+          },
+          {
+            "type": "compatibility_issue",
+            "action": "immediate"
+          }
+        ]
+      },
+      "metadata": {
+        "priority": "high",
+        "handler_type": "update_dependency",
+        "security_category": "dependency_management"
+      }
+    },
+    {
+      "fix_id": "security_secret_rotation",
+      "category": "security",
+      "name": "Rotate Exposed Secret",
+      "description": "Rotate exposed credentials and update references",
+      "applies_to_patterns": [
+        "security:exposed_secret",
+        "security:credential_leak",
+        "security:api_key_exposed"
+      ],
+      "prerequisites": {
+        "min_pattern_confidence": 0.95,
+        "min_pattern_occurrences": 1,
+        "requires_secret_manager": true,
+        "immediate_action": true
+      },
+      "safety": {
+        "safety_score": 0.60,
+        "requires_approval": false,
+        "auto_approve": false,
+        "escalate_to": "security-master",
+        "rollback_supported": false,
+        "reversible": false,
+        "risk_level": "critical"
+      },
+      "actions": [
+        {
+          "type": "rotate_secret",
+          "invalidate_old": true,
+          "update_references": true
+        },
+        {
+          "type": "audit_access_logs",
+          "timeframe_hours": 72
+        },
+        {
+          "type": "notify_security_team",
+          "urgency": "critical"
+        },
+        {
+          "type": "emit_event",
+          "event_type": "security_secret_rotated"
+        }
+      ],
+      "validation": {
+        "monitoring_period_hours": 24,
+        "success_criteria": [
+          {
+            "type": "old_secret_invalidated",
+            "verified": true
+          },
+          {
+            "type": "new_secret_active",
+            "all_references_updated": true
+          },
+          {
+            "type": "no_authentication_failures",
+            "measurement_window_hours": 24
+          }
+        ]
+      },
+      "rollback": {
+        "type": "none",
+        "reason": "Secret rotation is non-reversible for security reasons"
+      },
+      "metadata": {
+        "priority": "critical",
+        "handler_type": "rotate_secret",
+        "security_category": "credential_management",
+        "escalation_required": true
+      }
+    },
+    {
+      "fix_id": "security_package_replace",
+      "category": "security",
+      "name": "Replace Vulnerable Package",
+      "description": "Replace vulnerable package with secure alternative",
+      "applies_to_patterns": [
+        "security:vulnerable_package",
+        "security:unmaintained_dependency",
+        "security:known_exploit"
+      ],
+      "prerequisites": {
+        "min_pattern_confidence": 0.85,
+        "min_pattern_occurrences": 1,
+        "alternative_available": true,
+        "requires_compatibility_check": true
+      },
+      "safety": {
+        "safety_score": 0.65,
+        "requires_approval": true,
+        "requires_review": true,
+        "rollback_supported": true,
+        "reversible": true,
+        "risk_level": "high"
+      },
+      "actions": [
+        {
+          "type": "replace_package",
+          "find_alternative": true,
+          "migrate_api_calls": true
+        },
+        {
+          "type": "run_tests",
+          "test_suite": "full"
+        },
+        {
+          "type": "update_documentation",
+          "sections": ["dependencies", "migration"]
+        },
+        {
+          "type": "emit_event",
+          "event_type": "security_package_replaced"
+        }
+      ],
+      "validation": {
+        "monitoring_period_hours": 72,
+        "success_criteria": [
+          {
+            "type": "vulnerability_scan_pass",
+            "severity_threshold": "medium"
+          },
+          {
+            "type": "test_suite_pass",
+            "min_pass_rate": 1.0
+          },
+          {
+            "type": "functionality_preserved",
+            "measurement_window_hours": 72
+          }
+        ]
+      },
+      "rollback": {
+        "type": "restore_previous_package",
+        "conditions": [
+          {
+            "type": "test_failure",
+            "action": "immediate"
+          },
+          {
+            "type": "functionality_regression",
+            "action": "immediate"
+          }
+        ]
+      },
+      "metadata": {
+        "priority": "high",
+        "handler_type": "replace_package",
+        "security_category": "dependency_management"
+      }
+    },
+    {
+      "fix_id": "security_config_fix",
+      "category": "security",
+      "name": "Fix Insecure Configuration",
+      "description": "Fix insecure configuration settings",
+      "applies_to_patterns": [
+        "security:insecure_config",
+        "security:weak_encryption",
+        "security:permissive_cors",
+        "security:debug_enabled_production"
+      ],
+      "prerequisites": {
+        "min_pattern_confidence": 0.80,
+        "min_pattern_occurrences": 1,
+        "secure_default_available": true
+      },
+      "safety": {
+        "safety_score": 0.85,
+        "requires_approval": false,
+        "auto_approve": true,
+        "auto_approve_conditions": {
+          "severity_below": "critical",
+          "non_breaking_change": true
+        },
+        "rollback_supported": true,
+        "reversible": true,
+        "risk_level": "medium"
+      },
+      "actions": [
+        {
+          "type": "update_config",
+          "apply_secure_defaults": true,
+          "preserve_custom_settings": true
+        },
+        {
+          "type": "validate_config",
+          "security_scan": true
+        },
+        {
+          "type": "emit_event",
+          "event_type": "security_config_fixed"
+        }
+      ],
+      "validation": {
+        "monitoring_period_hours": 24,
+        "success_criteria": [
+          {
+            "type": "security_scan_pass",
+            "severity_threshold": "medium"
+          },
+          {
+            "type": "service_health_check",
+            "min_pass_rate": 1.0
+          },
+          {
+            "type": "no_functionality_impact",
+            "measurement_window_hours": 24
+          }
+        ]
+      },
+      "rollback": {
+        "type": "restore_previous_config",
+        "conditions": [
+          {
+            "type": "service_disruption",
+            "action": "immediate"
+          },
+          {
+            "type": "validation_failure",
+            "action": "immediate"
+          }
+        ]
+      },
+      "metadata": {
+        "priority": "medium",
+        "handler_type": "update_config",
+        "security_category": "configuration_hardening"
+      }
+    },
+    {
+      "fix_id": "security_license_update",
+      "category": "security",
+      "name": "Update Package License",
+      "description": "Replace package with appropriately licensed alternative",
+      "applies_to_patterns": [
+        "security:license_violation",
+        "security:incompatible_license",
+        "security:copyleft_contamination"
+      ],
+      "prerequisites": {
+        "min_pattern_confidence": 0.90,
+        "min_pattern_occurrences": 1,
+        "compliant_alternative_available": true,
+        "requires_legal_review": false
+      },
+      "safety": {
+        "safety_score": 0.75,
+        "requires_approval": true,
+        "requires_review": true,
+        "rollback_supported": true,
+        "reversible": true,
+        "risk_level": "medium"
+      },
+      "actions": [
+        {
+          "type": "update_license",
+          "find_compliant_alternative": true,
+          "preserve_functionality": true
+        },
+        {
+          "type": "update_license_manifest",
+          "regenerate": true
+        },
+        {
+          "type": "run_tests",
+          "test_suite": "integration"
+        },
+        {
+          "type": "emit_event",
+          "event_type": "security_license_updated"
+        }
+      ],
+      "validation": {
+        "monitoring_period_hours": 48,
+        "success_criteria": [
+          {
+            "type": "license_scan_pass",
+            "all_compliant": true
+          },
+          {
+            "type": "test_suite_pass",
+            "min_pass_rate": 1.0
+          },
+          {
+            "type": "functionality_preserved",
+            "measurement_window_hours": 48
+          }
+        ]
+      },
+      "rollback": {
+        "type": "restore_previous_package",
+        "conditions": [
+          {
+            "type": "test_failure",
+            "action": "immediate"
+          },
+          {
+            "type": "functionality_regression",
+            "action": "immediate"
+          }
+        ]
+      },
+      "metadata": {
+        "priority": "medium",
+        "handler_type": "update_license",
+        "security_category": "license_compliance"
+      }
+    }
+  ]
+}

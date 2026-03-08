@@ -1,0 +1,157 @@
+{
+  "task_id": "task-system-improvements-" + Date.now(),
+  "title": "Post-Dashboard Fix System Improvements",
+  "priority": "high",
+  "created_at": "2025-11-09T14:10:00-0600",
+  "created_by": "claude-code",
+  "task_type": "system_enhancement",
+  "routing_confidence": 0.95,
+  "estimated_complexity": "high",
+  "parallel_execution": true,
+  "subtasks": [
+    {
+      "id": "test-dashboard",
+      "title": "Comprehensive Dashboard Testing",
+      "description": "Verify all dashboard fixes are working correctly",
+      "requirements": [
+        "Test all 4 new API endpoints (/api/activity-feed, /api/git-status, /api/health-alerts, /api/moe-intelligence)",
+        "Verify pagination works for events endpoint with limit/offset parameters",
+        "Confirm event buffer persistence across server restarts",
+        "Test real-time WebSocket event streaming",
+        "Validate task queue counts match actual queue state",
+        "Check git status indicators update in real-time",
+        "Verify activity feed shows correct 24-hour window",
+        "Test health alerts color coding and severity detection",
+        "Validate MoE intelligence data aggregation and filtering"
+      ],
+      "expert_type": "qa-engineer",
+      "confidence": 0.92
+    },
+    {
+      "id": "system-health",
+      "title": "System Health Monitoring & Recovery",
+      "description": "Check and restore system health status",
+      "requirements": [
+        "Investigate PM daemon stale heartbeat issue",
+        "Restart PM daemon using ./scripts/start-pm-daemon.sh",
+        "Check all daemon statuses (worker-daemon, health-monitor, orchestrator, metrics-snapshot)",
+        "Review coordination/health-alerts.json for active alerts",
+        "Clear resolved alerts and update alert statuses",
+        "Verify worker pool has sufficient active workers",
+        "Check task queue processing rate",
+        "Monitor memory and CPU usage of daemons",
+        "Create health report summarizing system status"
+      ],
+      "expert_type": "devops-engineer",
+      "confidence": 0.88
+    },
+    {
+      "id": "ui-enhancements",
+      "title": "Dashboard UI Enhancements",
+      "description": "Improve dashboard user interface based on new API capabilities",
+      "requirements": [
+        "Add visual health status badges to daemon section",
+        "Implement activity feed timeline visualization",
+        "Create MoE intelligence dashboard page with:",
+        "  - Sankey diagram for routing flow",
+        "  - Confidence distribution chart",
+        "  - Hourly heat map of activity",
+        "  - Success rate metrics by master type",
+        "Add auto-refresh toggles for real-time data",
+        "Implement filter controls for events and tasks",
+        "Add export functionality for metrics data",
+        "Create responsive mobile-friendly layout",
+        "Add dark mode support"
+      ],
+      "expert_type": "frontend-developer",
+      "confidence": 0.90
+    },
+    {
+      "id": "documentation",
+      "title": "Comprehensive Documentation Update",
+      "description": "Document all changes and create usage guides",
+      "requirements": [
+        "Create API documentation for new endpoints",
+        "Document request/response formats with examples",
+        "Update dashboard README with:",
+        "  - Installation instructions",
+        "  - Configuration options",
+        "  - API endpoint reference",
+        "  - Troubleshooting guide",
+        "Create architecture diagram showing data flow",
+        "Document monitoring best practices",
+        "Add code comments for complex logic",
+        "Create changelog for version 2.0",
+        "Write user guide for dashboard features"
+      ],
+      "expert_type": "technical-writer",
+      "confidence": 0.94
+    },
+    {
+      "id": "performance-optimization",
+      "title": "System Performance Optimization",
+      "description": "Optimize performance of critical components",
+      "requirements": [
+        "Profile dashboard server performance",
+        "Optimize event parsing to reduce JSON errors",
+        "Implement caching for frequently accessed data",
+        "Add database indexing for event queries",
+        "Optimize WebSocket message broadcasting",
+        "Reduce file I/O operations with better batching",
+        "Implement connection pooling for database",
+        "Add compression for API responses",
+        "Monitor and optimize memory usage",
+        "Set up performance benchmarks"
+      ],
+      "expert_type": "performance-engineer",
+      "confidence": 0.87
+    },
+    {
+      "id": "monitoring-infrastructure",
+      "title": "Enhanced Monitoring Infrastructure",
+      "description": "Set up comprehensive monitoring and alerting",
+      "requirements": [
+        "Configure Prometheus metrics collection",
+        "Set up Grafana dashboards for visualization",
+        "Implement alerting rules for critical issues",
+        "Add application performance monitoring (APM)",
+        "Set up log aggregation with ELK stack",
+        "Create custom metrics for business KPIs",
+        "Implement distributed tracing",
+        "Set up automated health checks",
+        "Configure incident response workflows",
+        "Create monitoring runbooks"
+      ],
+      "expert_type": "site-reliability-engineer",
+      "confidence": 0.85
+    }
+  ],
+  "success_criteria": {
+    "dashboard_testing": "All API endpoints return valid data without errors",
+    "system_health": "All daemons running with no critical alerts",
+    "ui_enhancements": "Dashboard displays all new data visualizations",
+    "documentation": "Complete API docs and user guides published",
+    "performance": "Response times < 100ms for all endpoints",
+    "monitoring": "Full observability stack operational"
+  },
+  "notes": [
+    "All dashboard P0, P1, and P2 issues have been resolved",
+    "3,046 events now accessible with proper JSONL format",
+    "Real-time event persistence implemented with 500-event buffer",
+    "Health alerts and MoE intelligence endpoints ready for visualization",
+    "System is stable but needs comprehensive testing and optimization"
+  ],
+  "moe_routing_hints": {
+    "preferred_strategy": "parallel_experts",
+    "expert_allocation": {
+      "qa-engineer": 0.20,
+      "devops-engineer": 0.20,
+      "frontend-developer": 0.20,
+      "technical-writer": 0.15,
+      "performance-engineer": 0.15,
+      "site-reliability-engineer": 0.10
+    },
+    "coordination_required": true,
+    "checkpoint_frequency": "hourly"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "worker_id": "worker-implementation-010",
+  "worker_type": "implementation-worker",
+  "created_by": "development-master",
+  "execution_manager": null,
+  "created_at": "2025-11-16T10:33:13-0600",
+  "task_id": "moe-test-ddqd-v5-1763307968-bb0f7015",
+  "status": "failed",
+  "scope": {},
+  "context": {
+    "parent_task": "moe-test-ddqd-v5-1763307968-bb0f7015",
+    "priority": "medium",
+    "deadline": null
+  },
+  "resources": {
+    "token_budget": 10000,
+    "timeout_minutes": 45,
+    "max_retries": 1
+  },
+  "deliverables": [],
+  "prompt_template": "agents/prompts/workers/implementation-worker.md",
+  "execution": {
+    "started_at": "2025-11-16T10:33:56-0600",
+    "completed_at": "2025-11-17T07:58:57-0600",
+    "tokens_used": 0,
+    "duration_minutes": 0,
+    "session_id": null,
+    "error": "Zombie worker detected - running for 77100s with no completion",
+    "killed_by": "zombie-killer-daemon"
+  },
+  "results": {
+    "status": null,
+    "output_location": null,
+    "summary": null,
+    "artifacts": []
+  }
+}

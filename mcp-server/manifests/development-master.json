@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "manifestVersion": "1.0.0",
+  "master": {
+    "id": "development-master",
+    "name": "Development Master",
+    "description": "Specialist for feature implementation, bug fixes, code refactoring, and technical improvements",
+    "version": "4.0.0",
+    "role": "specialist"
+  },
+  "capabilities": [
+    {
+      "name": "feature_implementation",
+      "description": "Implement new features based on requirements and specifications",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "feature_id": { "type": "string" },
+          "requirements": { "type": "string" },
+          "target_files": { "type": "array", "items": { "type": "string" } },
+          "test_required": { "type": "boolean", "default": true }
+        },
+        "required": ["feature_id", "requirements"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "files_modified": { "type": "array", "items": { "type": "string" } },
+          "files_created": { "type": "array", "items": { "type": "string" } },
+          "tests_added": { "type": "number" },
+          "lines_changed": { "type": "number" }
+        }
+      }
+    },
+    {
+      "name": "bug_fixing",
+      "description": "Diagnose and fix bugs in existing code",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "bug_id": { "type": "string" },
+          "description": { "type": "string" },
+          "reproduction_steps": { "type": "string" },
+          "affected_files": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["bug_id", "description"]
+      }
+    },
+    {
+      "name": "code_refactoring",
+      "description": "Refactor code for better maintainability, performance, or readability",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "target_scope": { "type": "string" },
+          "refactor_type": {
+            "type": "string",
+            "enum": ["extract_method", "rename", "move", "simplify", "optimize"]
+          },
+          "preserve_behavior": { "type": "boolean", "default": true }
+        },
+        "required": ["target_scope", "refactor_type"]
+      }
+    },
+    {
+      "name": "technical_improvements",
+      "description": "Implement technical improvements like performance optimization, error handling, etc."
+    },
+    {
+      "name": "code_review",
+      "description": "Review code for quality, security, and best practices"
+    },
+    {
+      "name": "test_creation",
+      "description": "Create unit tests, integration tests, and end-to-end tests"
+    }
+  ],
+  "workerTypes": ["implementation-worker", "fix-worker", "test-worker", "analysis-worker"],
+  "supportedLanguages": [
+    "javascript", "typescript", "python", "bash", "go", "rust", "java"
+  ],
+  "dependencies": {
+    "masters": ["coordinator-master"],
+    "services": ["governance", "token-budget", "git"]
+  },
+  "constraints": {
+    "maxConcurrentWorkers": 20,
+    "tokenBudget": 50000,
+    "implementationTimeout": 600000
+  },
+  "metrics": {
+    "tracked": ["tasks_completed", "code_quality_score", "test_coverage_delta", "avg_implementation_time"],
+    "successCriteria": {
+      "min_test_coverage": 0.8,
+      "max_complexity_increase": 5
+    }
+  },
+  "mcp": {
+    "tools": ["spawn_worker", "get_worker_pool", "get_task_queue"],
+    "resources": ["commit-relay://coordination/worker-pool", "commit-relay://coordination/task-queue"]
+  }
+}

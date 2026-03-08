@@ -1,0 +1,43 @@
+{
+  "handoff_id": "coord-to-security-4DF4E162-DCEE-4654-A3F4-42CAA6769B06",
+  "from_master": "coordinator",
+  "to_master": "security",
+  "task_id": "task-003",
+  "task_data": {
+    "id": "task-003",
+    "title": "Test MoE routing integration with security vulnerabilities scan",
+    "type": "security-scan",
+    "priority": "critical",
+    "status": "assigned",
+    "assigned_to": "security",
+    "created_at": "2025-11-07T21:51:32Z",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "test/moe-integration",
+      "branch": "main",
+      "description": "Test MoE routing integration with security vulnerabilities scan",
+      "scan_types": [
+        "dependencies",
+        "static-analysis",
+        "secrets"
+      ]
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-07T22:18:16Z",
+    "routing_confidence": "0.06",
+    "routing_strategy": "single_expert_low_confidence",
+    "updated_at": "2025-11-07T16:18:16-06:00"
+  },
+  "context": {
+    "routing_reason": "MoE confidence-based routing (confidence: 0.06, strategy: single_expert_low_confidence)",
+    "priority": "critical",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "0.06",
+      "strategy": "single_expert_low_confidence",
+      "routed_at": "2025-11-07T22:18:16Z"
+    }
+  },
+  "created_at": "2025-11-07T22:18:16Z",
+  "status": "pending_pickup"
+}

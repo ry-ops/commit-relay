@@ -1,0 +1,52 @@
+{
+  "id": "task-1762893199",
+  "title": "Increase Test Coverage to 80% for Internal Policy Compliance",
+  "type": "testing",
+  "priority": "high",
+  "status": "pending",
+  "created_at": "2025-11-11T20:33:19Z",
+  "created_by": "governance-monitor",
+  "context": {
+    "compliance_violation": "int-2",
+    "current_coverage": "65%",
+    "target_coverage": "80%",
+    "estimated_impact": "Improves compliance rate by 8%",
+    "requirements": [
+      "Implement comprehensive test suite for lib/governance/lineage.js (540 lines)",
+      "Implement comprehensive test suite for lib/governance/monitoring.js (460 lines)",
+      "Implement comprehensive test suite for lib/governance/compliance.js (280 lines)",
+      "Add integration tests for worker spawning logic",
+      "Add unit tests for coordination scripts (task creation, routing)",
+      "Set up test coverage reporting with NYC/Istanbul",
+      "Configure CI to enforce 80% minimum coverage",
+      "Generate coverage reports in HTML and JSON formats"
+    ],
+    "priority_areas": [
+      "lib/governance/* (newly added, 0% coverage)",
+      "scripts/spawn-worker.sh integration tests",
+      "coordination/masters/*/lib/*.sh unit tests"
+    ],
+    "success_criteria": [
+      "Overall test coverage >= 80%",
+      "All governance modules have >= 75% coverage",
+      "Integration tests pass for worker lifecycle",
+      "Coverage report generated and accessible",
+      "CI pipeline enforces coverage threshold"
+    ]
+  },
+  "deliverables": [
+    "tests/governance/lineage.test.js",
+    "tests/governance/monitoring.test.js", 
+    "tests/governance/compliance.test.js",
+    "tests/integration/worker-spawning.test.js",
+    "tests/unit/coordination-scripts.test.js",
+    ".nycrc (coverage configuration)",
+    "coverage/index.html (coverage report)",
+    "Updated package.json with test scripts"
+  ],
+  "metadata": {
+    "estimated_effort": "4-6 hours",
+    "complexity": "medium",
+    "automation_potential": "high"
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "worker_id": "worker-documentation-032",
+  "task_id": "moe-test-ddqd-v5-1763246973-4324258d",
+  "worker_type": "documentation-worker",
+  "created_by": "inventory-master",
+  "completion_status": "success",
+  "completed_at": "2025-11-16T10:35:00-0600",
+  "execution": {
+    "started_at": "2025-11-16T10:33:38-0600",
+    "completed_at": "2025-11-16T10:35:00-0600",
+    "duration_minutes": 1.37,
+    "duration_seconds": 82,
+    "tokens_used": 4500,
+    "token_budget": 6000,
+    "token_efficiency_percent": 75.0
+  },
+  "task_details": {
+    "title": "Discover and track portfolio health status across repositories",
+    "type": "inventory",
+    "priority": "medium",
+    "description": "Discover and track portfolio health status across repositories"
+  },
+  "deliverables": [
+    {
+      "name": "portfolio-health-report.md",
+      "type": "markdown_report",
+      "path": "agents/workers/worker-documentation-032/portfolio-health-report.md",
+      "size_bytes": 15789,
+      "description": "Comprehensive portfolio health status report with executive summary, repository inventory, service status, worker pool analysis, token budgets, and recommendations"
+    },
+    {
+      "name": "portfolio-health-summary.json",
+      "type": "json_data",
+      "path": "agents/workers/worker-documentation-032/portfolio-health-summary.json",
+      "size_bytes": 8456,
+      "description": "Machine-readable summary of portfolio health metrics for programmatic access"
+    },
+    {
+      "name": "worker-completion-report.json",
+      "type": "json_data",
+      "path": "agents/workers/worker-documentation-032/worker-completion-report.json",
+      "size_bytes": 3200,
+      "description": "Worker execution completion report with metrics and findings"
+    }
+  ],
+  "key_findings": {
+    "repositories": {
+      "total_discovered": 20,
+      "active": 20,
+      "archived": 0,
+      "cataloged": 0,
+      "pending_catalog": 20,
+      "health_coverage_percent": 0
+    },
+    "services": {
+      "dashboard_api": "healthy",
+      "routing_system": "healthy",
+      "system_health": "degraded",
+      "failed_services": [
+        "coordinator",
+        "development-master",
+        "pm-daemon"
+      ]
+    },
+    "workers": {
+      "active_count": 37,
+      "historical_success_rate_percent": 20.0,
+      "historical_failure_rate_percent": 78.6,
+      "zombies_killed": 3
+    },
+    "token_budget": {
+      "total": 500000,
+      "used": 65000,
+      "usage_percent": 13,
+      "available_percent": 87,
+      "efficiency_percent": 96.2
+    }
+  },
+  "critical_issues_identified": 5,
+  "critical_issues": [
+    {
+      "severity": "critical",
+      "issue": "Service Degradation",
+      "affected_services": [
+        "coordinator",
+        "development-master",
+        "pm-daemon"
+      ]
+    },
+    {
+      "severity": "high",
+      "issue": "High Worker Failure Rate",
+      "metric": "78.6% historical failure rate"
+    },
+    {
+      "severity": "medium",
+      "issue": "Stale System Health Data",
+      "age_days": 7
+    },
+    {
+      "severity": "medium",
+      "issue": "Pending Repository Cataloging",
+      "repositories_affected": 20
+    },
+    {
+      "severity": "low",
+      "issue": "Unassigned Workers",
+      "count": 2
+    }
+  ],
+  "recommendations": {
+    "immediate_count": 4,
+    "short_term_count": 5,
+    "long_term_count": 5,
+    "priority_actions": [
+      "Run service health check and restart failed services",
+      "Investigate recent worker failures",
+      "Execute repository cataloging for all 20 repositories",
+      "Update system-health.json with current status"
+    ]
+  },
+  "data_sources_analyzed": [
+    "/coordination/repository-inventory.json",
+    "/coordination/worker-pool.json",
+    "/coordination/pm-state.json",
+    "/coordination/routing-health.json",
+    "/coordination/system-health.json",
+    "/coordination/task-queue.json",
+    "Dashboard API: http://localhost:3000/api/health",
+    "Dashboard API: http://localhost:3000/api/metrics"
+  ],
+  "statistics": {
+    "files_read": 8,
+    "api_calls": 2,
+    "reports_generated": 2,
+    "data_points_analyzed": 150,
+    "issues_identified": 5,
+    "recommendations_provided": 14
+  },
+  "quality_metrics": {
+    "data_freshness": "mixed",
+    "data_completeness": "high",
+    "analysis_depth": "comprehensive",
+    "actionability": "high"
+  },
+  "next_steps_for_system": [
+    "Restore service health (coordinator, development-master, pm-daemon)",
+    "Catalog all 20 repositories to establish health baselines",
+    "Investigate and resolve worker failure patterns",
+    "Update system health monitoring to current state",
+    "Implement automated hourly health checks"
+  ],
+  "worker_notes": [
+    "Successfully completed portfolio health discovery and tracking",
+    "Identified critical service degradation requiring immediate attention",
+    "Generated comprehensive reports for both human and programmatic consumption",
+    "System health data is 7 days old - immediate refresh recommended",
+    "Worker failure rate (78.6%) is unacceptably high and requires investigation",
+    "All 20 repositories need cataloging to establish health baselines"
+  ],
+  "handoff_to": "inventory-master",
+  "handoff_message": "Portfolio health status successfully tracked. 20 repositories discovered (0 cataloged). System in DEGRADED state due to failed services (coordinator, development-master, pm-daemon). High worker failure rate (78.6%) requires investigation. Immediate actions: restart failed services, catalog repositories, investigate worker failures. Complete reports available in worker directory."
+}

@@ -1,0 +1,32 @@
+{
+  "handoff_id": "coord-to-development-task-1762553469-retry-2",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762553469",
+  "task_data": {
+    "title": "GOVERNANCE UPGRADE - Phase 6: Governance Metrics & Continuous Improvement",
+    "type": "development",
+    "priority": "high",
+    "status": "pending",
+    "retry_count": 2,
+    "previous_failure": "launcher_bug_task_context_injection_failure",
+    "description": "Build governance KPI framework with 20+ metrics, real-time metrics collection system, executive governance dashboard, continuous improvement process with ML-driven insights. Implement MetricsCollector class, governance health score calculation, trend analysis and forecasting, actionable recommendations engine.",
+    "success_criteria": [
+      "Track 20+ governance KPIs",
+      "real-time metric updates <100ms",
+      "95%+ dashboard uptime",
+      "automated improvement recommendations with 80%+ accuracy"
+    ]
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE - matched 'implement' keyword with code-development rule",
+    "routing_confidence": 0.90,
+    "routing_rule": "code-development",
+    "priority": "high",
+    "expected_outcome": "Worker spec creation for Phase 6 governance implementation",
+    "launcher_status": "fixed",
+    "urgency": "high - governance phases critical for system compliance"
+  },
+  "created_at": "2025-11-12T16:20:00Z",
+  "status": "pending_pickup"
+}

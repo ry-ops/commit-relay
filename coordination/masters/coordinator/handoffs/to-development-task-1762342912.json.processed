@@ -1,0 +1,32 @@
+{
+  "handoff_id": "coord-to-development-4C93A5CA-9CFA-468B-9902-2BD8A7F53B4C",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762342912",
+  "task_data": {
+  "id": "task-1762342912",
+  "title": "Improve task queue page status display. Replace raw 'worker_spawned' status text with styled badges/chips like the priority badges (completed, critical, etc.). Make all status values human-readable with appropriate colors: pending (gray), assigned (blue), worker_spawned (purple/running), in_progress (yellow), completed (green), failed (red). Apply consistent styling across all status columns.",
+  "type": "development",
+  "priority": "high",
+  "status": "assigned",
+  "assigned_to": "development",
+  "created_at": "2025-11-05T16:41:15Z",
+  "created_by": "create-task-cli",
+  "context": {
+    "repository": "ry-ops/commit-relay",
+    "branch": "main",
+    "description": "Improve task queue page status display. Replace raw 'worker_spawned' status text with styled badges/chips like the priority badges (completed, critical, etc.). Make all status values human-readable with appropriate colors: pending (gray), assigned (blue), worker_spawned (purple/running), in_progress (yellow), completed (green), failed (red). Apply consistent styling across all status columns.",
+    "requirements": []
+  },
+  "assigned_by": "coordinator",
+  "assigned_at": "2025-11-05T16:41:20Z",
+  "updated_at": "2025-11-05T10:41:20-06:00"
+},
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "high",
+    "expected_outcome": "Task completion with results handoff"
+  },
+  "created_at": "2025-11-05T16:41:20Z",
+  "status": "pending_pickup"
+}

@@ -1,0 +1,41 @@
+{
+  "handoff_id": "coord-to-development-54030DBC-B10B-4E30-B3EF-77AF0B841A04",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762553459",
+  "task_data": {
+    "title": "PROMPT ENGINEERING UPGRADE - Phase 1: Contract Definition",
+    "description": "Define comprehensive prompt contract schema for all commit-relay agents. This phase establishes the foundation for production-grade LLM system architecture by creating standardized, versioned contracts that govern agent behavior, responsibilities, and coordination patterns.",
+    "type": "development",
+    "priority": "high",
+    "architectural_significance": "critical",
+    "phase": "1-contract-definition",
+    "expected_deliverables": [
+      "Contract schema definition with version control",
+      "Template contracts for all master and worker types",
+      "Validation framework for contract enforcement",
+      "Migration path for existing agents",
+      "Documentation and governance model"
+    ]
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE - architectural development task matching 'implement|develop|feature' patterns",
+    "priority": "high",
+    "urgency": "immediate",
+    "architectural_impact": "This is a foundational upgrade that will transform commit-relay into a production-grade LLM system with proper contract governance",
+    "expected_outcome": "Complete contract definition framework ready for Phase 2 implementation",
+    "routing_confidence": 0.95,
+    "routing_rule_used": "code-development",
+    "human_priority_override": true,
+    "user_directive": "Route immediately - HIGH priority architectural upgrade"
+  },
+  "created_at": "2025-11-11T14:09:00Z",
+  "status": "pending_pickup",
+  "routed_by": "coordinator",
+  "metadata": {
+    "requires_architectural_review": true,
+    "blocks_future_phases": true,
+    "estimated_complexity": "high",
+    "expected_duration": "multi-session"
+  }
+}

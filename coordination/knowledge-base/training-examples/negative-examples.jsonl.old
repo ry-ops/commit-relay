@@ -1,0 +1,43 @@
+{"timestamp":"2025-11-19T10:40:00Z","worker_id":"test-worker-003","task_id":"test-task-003-partial-bug-fix","task_type":"bug-fix","strategy":"direct","complexity":"low","outcome":"partial_success","quality_score":64,"efficiency_score":70,"success_score":60,"duration_seconds":310,"tokens_used":8500,"context":{"approach":"quick_fix_without_analysis","tools_used":["edit"],"iterations":2},"error":"Incomplete fix - addressed formatting but missed error handling. Lack of thorough analysis led to partial solution.","feedback":"Direct strategy insufficient for bug-fix tasks. Should have used diagnostic approach to identify all issues. Quality below target."}
+{"timestamp":"2025-11-19T10:55:00Z","worker_id":"test-worker-006","task_id":"test-task-006-failure-case","task_type":"feature-development","strategy":"direct","complexity":"very_high","outcome":"failure","quality_score":28,"efficiency_score":25,"success_score":0,"duration_seconds":1850,"tokens_used":45000,"context":{"approach":"direct_implementation_attempt","tools_used":["write","bash"],"iterations":8},"error":"Task complexity far exceeds direct strategy capability. Complex distributed systems require decomposition and specialized workers.","feedback":"Critical mismatch - very high complexity requires decomposition strategy, not direct approach. Direct strategy failed predictably on complex algorithmic task."}
+{"timestamp":"2025-11-19T11:05:00Z","worker_id":"test-worker-008","task_id":"test-task-008-rushed-quality","task_type":"security-scan","strategy":"direct","complexity":"low","outcome":"partial_success","quality_score":45,"efficiency_score":88,"success_score":50,"duration_seconds":180,"tokens_used":6000,"context":{"approach":"rushed_quick_scan","tools_used":["grep"],"iterations":1},"error":"Prioritized speed over quality for security-critical task. Missed several vulnerability patterns. Inadequate depth of analysis.","feedback":"Wrong strategy selection - security tasks require thorough analysis regardless of complexity. Direct strategy too superficial for security work."}
+{"timestamp":"2025-11-19T11:10:00Z","worker_id":"test-worker-009","task_id":"test-task-009-over-engineered","task_type":"documentation","strategy":"plan_then_execute","complexity":"very_low","outcome":"success","quality_score":75,"efficiency_score":40,"success_score":100,"duration_seconds":450,"tokens_used":18000,"context":{"approach":"excessive_planning","tools_used":["write"],"iterations":6,"planning_time_seconds":300},"error":"Over-engineering - extensive planning phase unnecessary for simple documentation. Wasted resources on trivial task.","feedback":"Strategy mismatch - plan-then-execute overhead not justified for very low complexity task. Direct approach would be more efficient."}
+{"timestamp":"2025-11-19T11:15:00Z","worker_id":"test-worker-010","task_id":"test-task-010-wrong-tools","task_type":"bug-fix","strategy":"direct","complexity":"medium","outcome":"failure","quality_score":35,"efficiency_score":50,"success_score":0,"duration_seconds":600,"tokens_used":12000,"context":{"approach":"trial_and_error","tools_used":["edit"],"iterations":10},"error":"No diagnostic phase - attempted fixes without understanding root cause. Wrong strategy for medium complexity debugging.","feedback":"Bug-fix tasks require diagnostic strategy with systematic root cause analysis. Direct approach leads to trial-and-error instead of principled debugging."}
+{
+  "example_id": "example-1763569372-2245049C",
+  "worker_id": "test-worker-003",
+  "task_id": "test-task-006-failure-case",
+  "example_type": "negative",
+  "overall_score": 17,
+  "context": {
+    "task_type": null,
+    "worker_type": "feature-implementer",
+    "strategy": "direct",
+    "complexity": null,
+    "priority": null,
+    "context": null
+  },
+  "action": {
+    "strategy_used": "direct",
+    "worker_type": "feature-implementer",
+    "approach": null,
+    "tools_used": null
+  },
+  "outcome": {
+    "status": "failed",
+    "classification": "failure",
+    "scores": {
+      "quality": 10,
+      "efficiency": 70,
+      "success": 0,
+      "overall": 17
+    },
+    "metrics": {
+      "duration_seconds": 0,
+      "token_budget": 50000,
+      "tokens_used": 45000,
+      "token_efficiency": ".9000"
+    }
+  },
+  "created_at": "2025-11-19T16:22:52Z"
+}

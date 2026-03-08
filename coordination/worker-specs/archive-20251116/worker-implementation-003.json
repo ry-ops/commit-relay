@@ -1,0 +1,43 @@
+{
+  "worker_id": "worker-implementation-003",
+  "worker_type": "implementation-worker",
+  "created_by": "development-master",
+  "execution_manager": null,
+  "created_at": "2025-11-15T13:55:06-0600",
+  "task_id": "task-moe-learning-1763235765769",
+  "status": "cancelled",
+  "scope": {
+    "phase": "workflows_and_security",
+    "objectives": [
+      "Workflow intelligence and decision patterns",
+      "Security intelligence and risk patterns",
+      "Governance and compliance workflows"
+    ]
+  },
+  "context": {
+    "parent_task": "task-moe-learning-1763235765769",
+    "priority": "high",
+    "phase": "3-4",
+    "estimated_duration": "50-75 minutes"
+  },
+  "resources": {
+    "token_budget": 10000,
+    "timeout_minutes": 45,
+    "max_retries": 1
+  },
+  "deliverables": [],
+  "prompt_template": "agents/prompts/workers/implementation-worker.md",
+  "execution": {
+    "started_at": "2025-11-15T13:55:20-0600",
+    "completed_at": "2025-11-15T20:29:00+0000",
+    "tokens_used": 0,
+    "duration_minutes": 0,
+    "session_id": null
+  },
+  "results": {
+    "status": "cancelled",
+    "output_location": null,
+    "summary": null,
+    "artifacts": []
+  }
+}

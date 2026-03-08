@@ -1,0 +1,48 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-11-07T21:55:19Z",
+  "overall_metrics": {
+    "total_tasks_processed": 1,
+    "successful_completions": 1,
+    "failures": 0,
+    "success_rate": 100.00,
+    "average_completion_time_minutes": 0
+  },
+  "expert_performance": {
+    "development": {
+      "tasks_completed": 1,
+      "success_rate": 0,
+      "average_time_minutes": 25.00,
+      "specialization_scores": {}
+    },
+    "security": {
+      "tasks_completed": 0,
+      "success_rate": 0,
+      "average_time_minutes": 0,
+      "specialization_scores": {}
+    },
+    "inventory": {
+      "tasks_completed": 0,
+      "success_rate": 0,
+      "average_time_minutes": 0,
+      "specialization_scores": {}
+    }
+  },
+  "moe_effectiveness": {
+    "sparse_activation_efficiency": 0,
+    "average_experts_per_task": 0,
+    "parallel_activation_success_rate": 0,
+    "merge_strategy_effectiveness": {
+      "voting": 0,
+      "weighted": 0,
+      "sequential": 0,
+      "parallel": 0,
+      "auto": 0
+    }
+  },
+  "time_series": {
+    "daily_metrics": [],
+    "weekly_trends": [],
+    "performance_improvements": []
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "implementation-pattern.schema.json",
+  "title": "Implementation Pattern",
+  "description": "Schema for learned implementation patterns (JSONL entries in knowledge base)",
+  "type": "object",
+  "required": ["pattern_id", "feature", "approach", "timestamp"],
+  "additionalProperties": false,
+  "properties": {
+    "pattern_id": {
+      "type": "string",
+      "pattern": "^pattern-[0-9]+$",
+      "description": "Unique pattern identifier"
+    },
+    "feature": {
+      "type": "string",
+      "minLength": 3,
+      "description": "Feature or component name"
+    },
+    "approach": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Implementation approach description"
+    },
+    "tech_stack": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Technologies and libraries used"
+    },
+    "success_rate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Historical success rate"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Pattern creation/update timestamp"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes and lessons learned"
+    },
+    "code_samples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string"
+          },
+          "snippet": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "related_patterns": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^pattern-[0-9]+$"
+      },
+      "description": "Related pattern IDs"
+    },
+    "complexity": {
+      "type": "string",
+      "enum": ["low", "medium", "high"],
+      "description": "Implementation complexity"
+    },
+    "estimated_tokens": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Estimated token requirement"
+    }
+  }
+}

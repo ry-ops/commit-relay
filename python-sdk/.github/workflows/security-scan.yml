@@ -1,0 +1,78 @@
+name: Commit-Relay Security Scan
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Run daily at 2am UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install commit-relay client
+        run: |
+          pip install -e /path/to/commit-relay/python-sdk
+
+      - name: Run Security Scan
+        id: security_scan
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python - <<'EOF'
+          from commit_relay import TaskManager, GitHubActionsTrigger, GitHubActionsReporter
+          import sys
+
+          # Initialize
+          manager = TaskManager()
+          trigger = GitHubActionsTrigger(manager)
+          reporter = GitHubActionsReporter()
+
+          # Run security scan and wait for results
+          success = trigger.run_security_scan_and_wait(
+              timeout=600,
+              fail_on_vulnerabilities=True
+          )
+
+          # Set outputs
+          reporter.set_output('scan_completed', 'true' if success else 'false')
+
+          # Exit with appropriate code
+          if not success:
+              sys.exit(1)
+          EOF
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const success = '${{ steps.security_scan.outcome }}' === 'success';
+            const body = success
+              ? '✅ Security scan passed - no vulnerabilities found'
+              : '❌ Security scan failed - vulnerabilities detected. Check commit-relay dashboard for details.';
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+
+      - name: Report Results
+        if: always()
+        run: |
+          echo "Security scan completed"
+          echo "View detailed results at commit-relay dashboard"

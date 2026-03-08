@@ -1,0 +1,106 @@
+{
+  "worker_id": "dev-worker-6A53F8D4",
+  "worker_type": "feature-implementer",
+  "prompt_template": "agents/prompts/workers/implementation-worker.md",
+  "parent_master": "development",
+  "task_id": "task-018",
+  "task_data": {
+    "id": "task-018",
+    "title": "Merge tasks into events feed and reorganize dashboard overview",
+    "type": "development",
+    "priority": "high",
+    "status": "assigned",
+    "assigned_to": "development-master",
+    "assigned_by": "coordinator-master",
+    "assigned_at": "2025-11-04T18:30:00Z",
+    "created_at": "2025-11-04T18:15:00Z",
+    "created_by": "user",
+    "repository": "ry-ops/commit-relay",
+    "context": {
+      "description": "Consolidate the dashboard overview by merging tasks into the real-time events feed, making events show ALL system activity (workers, tasks, system events). Remove the Recent Tasks card and move detailed task information to the dedicated Tasks page.",
+      "current_issues": [
+        "Real-time Events card only shows worker/system events, missing task events",
+        "Recent Tasks card is redundant with Tasks page",
+        "Overview page has duplicate information",
+        "Events feed should be comprehensive showing all system activity",
+        "Task details belong on the dedicated Tasks page, not overview"
+      ],
+      "requirements": [
+        "Merge task events into the Real-time Events feed on overview page",
+        "Show task_created, task_assigned, task_completed, task_failed events",
+        "Remove the Recent Tasks card from overview page entirely",
+        "Keep Token Budget chart and Real-time Events as only cards on overview",
+        "Ensure Tasks page has comprehensive task information",
+        "Update event types to include all task lifecycle events",
+        "Maintain event coloring and icons for different event types",
+        "Real-time updates via WebSocket for all event types"
+      ],
+      "event_types_to_show": [
+        "worker_started (blue dot)",
+        "worker_completed (green dot)",
+        "worker_failed (red dot)",
+        "task_created (blue dot)",
+        "task_assigned (purple dot)",
+        "task_completed (green dot)",
+        "task_failed (red dot)",
+        "system_event (gray dot)",
+        "dashboard_event (teal dot)"
+      ],
+      "deliverables": [
+        "Updated dashboard/public/index.html - Remove Recent Tasks card",
+        "Updated dashboard/public/index.html - Expand Events feed to full width",
+        "Updated dashboard/public/dashboard-v2.js - Merge task events into events array",
+        "Updated dashboard/server/index.js - Generate task events from task-queue",
+        "Event type handling for task_created, task_assigned, task_completed",
+        "Color coding and icons for all event types",
+        "WebSocket broadcast for task events",
+        "Tests verifying event feed shows all activity"
+      ],
+      "files_to_modify": [
+        "dashboard/public/index.html",
+        "dashboard/public/dashboard-v2.js",
+        "dashboard/server/index.js"
+      ],
+      "success_criteria": [
+        "Overview page shows only metric cards, Token Budget, and Events feed",
+        "Recent Tasks card completely removed",
+        "Real-time Events feed shows ALL system activity (workers + tasks + system)",
+        "Task events have proper color coding and icons",
+        "Events update in real-time via WebSocket",
+        "Tasks page remains fully functional with complete task details",
+        "No duplicate information between overview and tasks page",
+        "Event feed is comprehensive and easy to read"
+      ],
+      "estimated_effort": "MEDIUM - UI restructuring and event generation logic"
+    },
+    "handoff_plan": {
+      "after_completion": "coordinator-master",
+      "reason": "Verify dashboard reorganization and event feed consolidation"
+    }
+  },
+  "context": {
+    "master_session": "3A24DCEC-39A6-495F-AC3E-262F0EEEDB03",
+    "expertise_area": "feature_development",
+    "skills_required": [
+      "design",
+      "implementation",
+      "testing"
+    ],
+    "knowledge_base_refs": {
+      "implementation_patterns": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/development/knowledge-base/implementation-patterns.jsonl",
+      "architecture_docs": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/development/knowledge-base/codebase-architecture.json"
+    }
+  },
+  "resources": {
+    "token_allocation": 15000,
+    "time_limit_minutes": 60
+  },
+  "status": "zombie",
+  "created_at": "2025-11-06T22:13:58Z",
+  "created_by": "development",
+  "execution": {
+    "started_at": "2025-11-06T22:14:01Z",
+    "ended_at": "2025-11-07T15:11:10Z",
+    "outcome": "zombie_cleanup_pm_detected"
+  }
+}

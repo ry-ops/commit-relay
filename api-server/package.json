@@ -1,0 +1,33 @@
+{
+  "name": "commit-relay-dashboard",
+  "version": "1.0.0",
+  "description": "Real-time metrics dashboard for commit-relay master-worker system",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
+    "test": "node test/server.test.js"
+  },
+  "keywords": [
+    "commit-relay",
+    "dashboard",
+    "metrics",
+    "monitoring"
+  ],
+  "author": "ry-ops",
+  "license": "MIT",
+  "dependencies": {
+    "chokidar": "^3.5.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "elastic-apm-node": "^4.5.4",
+    "express": "^4.18.2",
+    "express-rate-limit": "^8.2.1",
+    "express-validator": "^7.3.0",
+    "helmet": "^8.1.0",
+    "ws": "^8.14.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

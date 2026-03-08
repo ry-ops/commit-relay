@@ -1,0 +1,9 @@
+{
+  "total_decisions": 11,
+  "sampled": 1,
+  "dropped": 10,
+  "kept_for_errors": 0,
+  "kept_for_slow": 0,
+  "sampling_rate": 0.10,
+  "last_updated": "2025-11-21T10:56:04-06:00"
+}

@@ -1,0 +1,62 @@
+{
+  "worker_id": "worker-scan-035",
+  "worker_type": "scan-worker",
+  "created_by": "security",
+  "execution_manager": null,
+  "created_at": "2025-11-20T08:39:00-0600",
+  "task_id": "moe-test-ddqd-v5-1763247177-d2866cf8",
+  "status": "completed",
+  "scope": {},
+  "context": {
+    "parent_task": "moe-test-ddqd-v5-1763247177-d2866cf8",
+    "priority": "medium",
+    "deadline": null
+  },
+  "goal_based_planning": {
+    "enabled": true,
+    "strategy": "direct",
+    "goal_type": "general",
+    "complexity": "medium",
+    "strategy_plan_location": "coordination/knowledge-base/strategy-plans/worker-scan-035-plan.json"
+  },
+  "resources": {
+    "token_budget": 8000,
+    "timeout_minutes": 15,
+    "max_retries": 1
+  },
+  "deliverables": [],
+  "prompt_template": "agents/prompts/workers/scan-worker.md",
+  "execution": {
+    "started_at": "2025-11-20T08:39:09-0600",
+    "completed_at": "2025-11-20T08:42:00-0600",
+    "tokens_used": 4500,
+    "duration_minutes": 3,
+    "session_id": null
+  },
+  "results": {
+    "status": "SUCCESS",
+    "output_location": "agents/logs/workers/2025-11-20/worker-scan-035/scan_results.json",
+    "summary": "Security scan completed. CVE-2024-12345 timing attack vulnerability confirmed FIXED. Found 2 minor issues (1 medium, 1 low). No vulnerable dependencies detected.",
+    "artifacts": [
+      "agents/logs/workers/2025-11-20/worker-scan-035/scan_results.json",
+      "agents/logs/workers/2025-11-20/worker-scan-035/vulnerability_list.md",
+      "agents/logs/workers/2025-11-20/worker-scan-035/dependency_report.md"
+    ]
+  },
+  "heartbeat": {
+    "last_heartbeat": "2025-11-20T08:42:10-0600",
+    "heartbeat_sequence": 7,
+    "health": {
+      "status": "healthy",
+      "cpu_usage_percent": 0.3,
+      "memory_usage_mb": 2.15,
+      "tokens_used": 4500,
+      "tokens_remaining": -4500,
+      "active_for_seconds": 181,
+      "last_activity": "[2025-11-20T14:39:12Z] LAUNCHER: ============================================",
+      "health_score": 100
+    },
+    "warnings": [],
+    "missed_count": 0
+  }
+}

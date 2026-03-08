@@ -1,0 +1,121 @@
+{
+  "policy_id": "soc2-trust-services",
+  "name": "SOC2 Trust Services Criteria Policy",
+  "description": "Enforces SOC2 Trust Services Criteria for security, availability, and confidentiality",
+  "version": "1.0.0",
+  "severity": "high",
+  "enabled": true,
+  "frameworks": ["soc2"],
+  "controls": ["CC6.1", "CC6.2", "CC6.3", "CC7.1", "CC7.2", "CC8.1"],
+  "rules": [
+    {
+      "rule_id": "SOC2-CC6.1",
+      "description": "Logical access security must be implemented",
+      "condition": {
+        "type": "all",
+        "conditions": [
+          {
+            "field": "worker_type",
+            "type": "exists"
+          },
+          {
+            "field": "task_id",
+            "type": "exists"
+          }
+        ]
+      },
+      "message": "Workers must have proper identification (worker_type and task_id)",
+      "remediation": "Ensure both worker_type and task_id are specified"
+    },
+    {
+      "rule_id": "SOC2-CC6.2",
+      "description": "Access must follow least privilege principle",
+      "field": "resources.token_budget",
+      "condition": {
+        "type": "less_or_equal",
+        "value": "200000"
+      },
+      "message": "Resource allocation must follow least privilege (max 200000 tokens)",
+      "remediation": "Request only necessary token budget"
+    },
+    {
+      "rule_id": "SOC2-CC6.3",
+      "description": "System activities must be logged",
+      "condition": {
+        "type": "any",
+        "conditions": [
+          {
+            "field": "worker_type",
+            "type": "not_in",
+            "value": ["security", "compliance", "audit"]
+          },
+          {
+            "field": "audit.enabled",
+            "type": "equals",
+            "value": "true"
+          }
+        ]
+      },
+      "message": "Security-related workers must enable audit logging",
+      "remediation": "Set audit.enabled to true for security, compliance, and audit workers"
+    },
+    {
+      "rule_id": "SOC2-CC7.1",
+      "description": "System components must be identified and managed",
+      "field": "worker_id",
+      "condition": {
+        "type": "regex",
+        "value": "^worker-[a-z]+-[0-9A-Za-z]+$"
+      },
+      "message": "Worker must have proper identification format",
+      "remediation": "Use standard worker_id format: worker-{type}-{id}"
+    },
+    {
+      "rule_id": "SOC2-CC7.2",
+      "description": "System changes must be authorized",
+      "condition": {
+        "type": "any",
+        "conditions": [
+          {
+            "field": "task.type",
+            "type": "not_in",
+            "value": ["production_deploy", "security_scan", "credential_rotation"]
+          },
+          {
+            "field": "approval.approval_id",
+            "type": "exists"
+          }
+        ]
+      },
+      "message": "Critical operations require explicit approval",
+      "remediation": "Obtain approval for production deployments, security scans, and credential rotations"
+    },
+    {
+      "rule_id": "SOC2-CC8.1",
+      "description": "Changes must be tested before implementation",
+      "condition": {
+        "type": "any",
+        "conditions": [
+          {
+            "field": "task.type",
+            "type": "not_equals",
+            "value": "production_deploy"
+          },
+          {
+            "field": "quality.tests_passed",
+            "type": "equals",
+            "value": "true"
+          }
+        ]
+      },
+      "message": "Production deployments must pass tests first",
+      "remediation": "Set quality.tests_passed to true after successful test execution"
+    }
+  ],
+  "metadata": {
+    "author": "commit-relay-compliance",
+    "created_at": "2025-11-21T00:00:00Z",
+    "updated_at": "2025-11-21T00:00:00Z",
+    "tags": ["soc2", "trust-services", "compliance", "audit"]
+  }
+}

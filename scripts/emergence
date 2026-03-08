@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+#
+# Emergence CLI
+# Part of Q3 Weeks 41-44: Emergent Behaviors
+#
+
+set -euo pipefail
+
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/lib/autonomy/emergence.sh"
+
+main() {
+    local command="${1:-help}"
+
+    case "$command" in
+        form)
+            local goal="${2:?Goal required}"
+            shift 2
+            local agents=("$@")
+            if [[ ${#agents[@]} -lt 2 ]]; then
+                echo "Error: At least 2 agents required"
+                exit 1
+            fi
+            local behavior_id=$(form_collaboration "$goal" "${agents[@]}")
+            echo "Formed collaboration: $behavior_id"
+            ;;
+
+        decide)
+            local behavior_id="${2:?Behavior ID required}"
+            local topic="${3:?Topic required}"
+            local method="${4:-voting}"
+            make_decision "$behavior_id" "$topic" "$method" | jq .
+            ;;
+
+        share)
+            local behavior_id="${2:?Behavior ID required}"
+            local insight="${3:?Insight required}"
+            local source="${4:?Source required}"
+            share_knowledge "$behavior_id" "$insight" "$source"
+            ;;
+
+        patterns)
+            local behavior_id="${2:?Behavior ID required}"
+            identify_patterns "$behavior_id" | jq .
+            ;;
+
+        adapt)
+            local behavior_id="${2:?Behavior ID required}"
+            local trigger="${3:?Trigger required}"
+            local change="${4:?Change required}"
+            adapt_strategy "$behavior_id" "$trigger" "$change"
+            ;;
+
+        metrics)
+            local behavior_id="${2:?Behavior ID required}"
+            calculate_metrics "$behavior_id" | jq .
+            ;;
+
+        evolve)
+            local behavior_id="${2:?Behavior ID required}"
+            evolve_behavior "$behavior_id" | jq .
+            ;;
+
+        status)
+            local behavior_id="${2:?Behavior ID required}"
+            get_behavior "$behavior_id" | jq .
+            ;;
+
+        list)
+            local type="${2:-}"
+            local limit="${3:-20}"
+            list_behaviors "$type" "$limit" | jq .
+            ;;
+
+        stats)
+            get_emergence_stats | jq .
+            ;;
+
+        help|--help|-h)
+            cat <<EOF
+Emergence CLI - Inter-agent collaboration and collective intelligence
+
+Usage: $0 <command> [options]
+
+Commands:
+  form <goal> <agent1> <agent2> [...]
+                          Form collaboration
+  decide <behavior-id> <topic> [method]
+                          Make collective decision
+  share <behavior-id> <insight> <source>
+                          Share knowledge
+  patterns <behavior-id>  Identify emergent patterns
+  adapt <behavior-id> <trigger> <change>
+                          Adapt strategy
+  metrics <behavior-id>   Calculate emergence metrics
+  evolve <behavior-id>    Evolve behavior to next stage
+  status <behavior-id>    Get behavior status
+  list [type] [limit]     List behaviors
+  stats                   Get emergence statistics
+
+Examples:
+  $0 form "Complete task" agent-1 agent-2 agent-3
+  $0 decide emrg-collab-abc123 "Resource allocation" voting
+  $0 share emrg-collab-abc123 "Caching improves performance" agent-1
+  $0 evolve emrg-collab-abc123
+  $0 stats
+
+EOF
+            ;;
+
+        *)
+            echo "Unknown command: $command"
+            exit 1
+            ;;
+    esac
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

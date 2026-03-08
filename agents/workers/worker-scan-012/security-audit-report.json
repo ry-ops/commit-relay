@@ -1,0 +1,162 @@
+{
+  "audit_metadata": {
+    "task_id": "moe-test-ddqd-v5-1763692343-74d99867",
+    "worker_id": "worker-scan-012",
+    "audit_type": "Security audit and compliance scanning for production systems",
+    "started_at": "2025-11-21T02:34:08Z",
+    "completed_at": "2025-11-21T02:35:00Z",
+    "scope": "Full repository security scan"
+  },
+  "summary": {
+    "overall_status": "NEEDS_ATTENTION",
+    "critical_findings": 1,
+    "high_findings": 1,
+    "medium_findings": 2,
+    "low_findings": 1,
+    "informational": 3,
+    "security_score": 75
+  },
+  "findings": [
+    {
+      "id": "SEC-001",
+      "severity": "CRITICAL",
+      "category": "Secrets Exposure",
+      "title": "API Key Present in .env File",
+      "description": "An Anthropic API key is present in llm-mesh/.env file. While the file is correctly gitignored and has never been committed, having real credentials in the repository poses risk if the gitignore is modified or if developers inadvertently share the file.",
+      "location": "llm-mesh/.env:8",
+      "evidence": "ANTHROPIC_API_KEY=sk-ant-api03-... (key redacted)",
+      "recommendation": "1. Rotate the exposed API key immediately\n2. Use environment variables loaded from secure vault (AWS Secrets Manager, HashiCorp Vault)\n3. Add pre-commit hooks to prevent secrets from being committed\n4. Consider using .env.local for machine-specific secrets",
+      "compliance": ["OWASP-A01", "CIS-CONTROL-3"],
+      "status": "OPEN"
+    },
+    {
+      "id": "SEC-002",
+      "severity": "HIGH",
+      "category": "Authentication",
+      "title": "Dashboard API Key Not Configured",
+      "description": "The dashboard/.env file has API_KEY commented out with a note that authentication will show warnings but still allow access in development mode. This is acceptable for development but must be configured for production.",
+      "location": "dashboard/.env:12",
+      "evidence": "# API_KEY= (commented out)",
+      "recommendation": "1. Ensure API_KEY is always set in production environments\n2. Add startup validation that fails if API_KEY is not set in production mode\n3. Document required environment variables for production deployment",
+      "compliance": ["OWASP-A07"],
+      "status": "OPEN"
+    },
+    {
+      "id": "SEC-003",
+      "severity": "MEDIUM",
+      "category": "Code Security",
+      "title": "Child Process and Exec Usage",
+      "description": "Multiple files use child_process/exec functions. While the dashboard security utilities implement safe patterns (shell: false), other usages should be reviewed.",
+      "location": "Multiple files",
+      "evidence": "5 files contain exec/child_process usage",
+      "affected_files": [
+        "dashboard/server/index.js",
+        "lib/governance/lineage.js",
+        "lib/circuit-breaker-integrations.js",
+        "dashboard/server/utils/security.js",
+        "dashboard/dashboard/server/utils/security.js"
+      ],
+      "recommendation": "1. Audit all exec/spawn calls to ensure shell: false is used\n2. Use the security.js safeExec() wrapper for all command execution\n3. Add input validation for all command arguments",
+      "compliance": ["OWASP-A03"],
+      "status": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "SEC-004",
+      "severity": "MEDIUM",
+      "category": "XSS Prevention",
+      "title": "innerHTML Usage in Coverage Reports",
+      "description": "The coverage report files (coverage/sorter.js, coverage/prettify.js) use innerHTML. These are auto-generated test coverage files and pose minimal risk but should be noted.",
+      "location": "coverage/sorter.js, coverage/prettify.js",
+      "evidence": "innerHTML usage found in generated coverage files",
+      "recommendation": "These are auto-generated test coverage files - no immediate action required. Ensure coverage reports are not served in production.",
+      "compliance": ["OWASP-A03"],
+      "status": "ACCEPTED_RISK"
+    },
+    {
+      "id": "SEC-005",
+      "severity": "LOW",
+      "category": "Test Security",
+      "title": "Hardcoded Test Credentials",
+      "description": "Test files contain hardcoded credentials like 'secret123' and 'key-abc'. These are test fixtures and pose no security risk as they're not used in production.",
+      "location": "testing/governance/access-control.test.js",
+      "evidence": "password: 'secret123', api_key: 'key-abc'",
+      "recommendation": "Acceptable for test fixtures. Consider adding comments to clarify these are test-only values.",
+      "compliance": [],
+      "status": "ACCEPTED_RISK"
+    }
+  ],
+  "positive_findings": [
+    {
+      "id": "POS-001",
+      "category": "Dependency Security",
+      "title": "No Vulnerable Dependencies",
+      "description": "npm audit reports 0 vulnerabilities across 311 dependencies (7 production, 305 dev)",
+      "status": "PASS"
+    },
+    {
+      "id": "POS-002",
+      "category": "Git Security",
+      "title": ".env Files Properly Gitignored",
+      "description": "Both llm-mesh/.env and dashboard/.env are in .gitignore and have never been committed to git history",
+      "status": "PASS"
+    },
+    {
+      "id": "POS-003",
+      "category": "Security Implementation",
+      "title": "Safe Command Execution Utilities",
+      "description": "dashboard/server/utils/security.js implements secure patterns: shell: false, path validation, error sanitization, and timeout handling",
+      "status": "PASS"
+    },
+    {
+      "id": "POS-004",
+      "category": "Safety Filters",
+      "title": "LLM Safety Filters Enabled",
+      "description": "The llm-mesh configuration has PII, injection, and secrets filters enabled (SAFETY_ENABLE_PII_FILTER, SAFETY_ENABLE_INJECTION_FILTER, SAFETY_ENABLE_SECRETS_FILTER)",
+      "status": "PASS"
+    }
+  ],
+  "compliance_summary": {
+    "owasp_top_10": {
+      "A01_Broken_Access_Control": "NEEDS_REVIEW",
+      "A02_Cryptographic_Failures": "PASS",
+      "A03_Injection": "PASS",
+      "A04_Insecure_Design": "PASS",
+      "A05_Security_Misconfiguration": "NEEDS_REVIEW",
+      "A06_Vulnerable_Components": "PASS",
+      "A07_Auth_Failures": "NEEDS_REVIEW"
+    },
+    "notes": "Full compliance audit requires manual code review and penetration testing"
+  },
+  "recommendations_priority": [
+    {
+      "priority": 1,
+      "action": "Rotate the Anthropic API key in llm-mesh/.env",
+      "effort": "LOW",
+      "impact": "HIGH"
+    },
+    {
+      "priority": 2,
+      "action": "Add startup validation for required production environment variables",
+      "effort": "LOW",
+      "impact": "MEDIUM"
+    },
+    {
+      "priority": 3,
+      "action": "Implement pre-commit hooks to scan for secrets",
+      "effort": "MEDIUM",
+      "impact": "HIGH"
+    },
+    {
+      "priority": 4,
+      "action": "Audit all exec/child_process calls for injection vulnerabilities",
+      "effort": "MEDIUM",
+      "impact": "MEDIUM"
+    }
+  ],
+  "next_steps": [
+    "Rotate exposed API key immediately",
+    "Schedule follow-up security review in 30 days",
+    "Consider implementing secret scanning in CI/CD pipeline",
+    "Document security requirements for production deployment"
+  ]
+}

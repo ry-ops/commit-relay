@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+#
+# Scheduler CLI
+# Part of Phase 8.1: Automated Worker Scheduling
+#
+
+set -euo pipefail
+
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/lib/optimization/scheduler.sh"
+
+main() {
+    local command="${1:-help}"
+
+    case "$command" in
+        schedule)
+            local task_id="${2:?Task ID required}"
+            local task_type="${3:?Task type required}"
+            local urgency="${4:-medium}"
+            local tokens="${5:-5000}"
+            schedule_task "$task_id" "$task_type" "$urgency" "$tokens"
+            ;;
+
+        priority)
+            local task_type="${2:?Task type required}"
+            local urgency="${3:-medium}"
+            local deps="${4:-0}"
+            echo "Priority: $(calculate_priority "$task_type" "$urgency" "$deps")"
+            ;;
+
+        optimal)
+            local task_type="${2:?Task type required}"
+            local tokens="${3:-5000}"
+            get_optimal_worker "$task_type" "$tokens" | jq .
+            ;;
+
+        assign)
+            local task_id="${2:?Task ID required}"
+            local worker_id="${3:?Worker ID required}"
+            assign_task "$task_id" "$worker_id"
+            ;;
+
+        queue)
+            get_queue_status | jq .
+            ;;
+
+        auto)
+            local max="${2:-10}"
+            auto_schedule "$max" | jq .
+            ;;
+
+        balance)
+            balance_load | jq .
+            ;;
+
+        stats)
+            get_scheduler_stats | jq .
+            ;;
+
+        help|--help|-h)
+            cat <<EOF
+Scheduler CLI - Automated worker scheduling
+
+Usage: $0 <command> [options]
+
+Commands:
+  schedule <task-id> <type> [urgency] [tokens]
+                                Schedule a task
+  priority <type> [urgency] [deps]
+                                Calculate priority score
+  optimal <type> [tokens]       Get optimal worker
+  assign <task-id> <worker-id>  Assign task to worker
+  queue                         Get queue status
+  auto [max-concurrent]         Auto-schedule tasks
+  balance                       Get load balance info
+  stats                         Get scheduler statistics
+
+Examples:
+  $0 schedule task-001 security critical 8000
+  $0 priority implementation high 2
+  $0 optimal security 8000
+  $0 assign task-001 worker-scan-001
+  $0 queue
+  $0 auto 15
+  $0 balance
+  $0 stats
+
+EOF
+            ;;
+
+        *)
+            echo "Unknown command: $command"
+            exit 1
+            ;;
+    esac
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

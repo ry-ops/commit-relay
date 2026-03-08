@@ -1,0 +1,266 @@
+#!/usr/bin/env bash
+#
+# Agent Catalog CLI
+# Part of Q2 Week 21-22: Agent Registry & Catalog
+#
+# Main interface for agent registry operations
+#
+
+set -euo pipefail
+
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+# Source libraries
+source "$SCRIPT_DIR/lib/agentstudio/agent-register.sh"
+source "$SCRIPT_DIR/lib/agentstudio/agent-catalog.sh"
+
+#
+# Display help
+#
+show_help() {
+    cat <<EOF
+Agent Catalog - Manage and discover agents in commit-relay
+
+Usage: $0 <command> [options]
+
+Commands:
+  list [status]              List all agents (optionally filter by status)
+  show <agent_id>            Show detailed information for an agent
+  register <class> <name> <version> [capabilities_json]
+                            Register a new agent
+  update-status <id> <status>  Update agent status
+  heartbeat <id>             Record agent heartbeat
+  search <criteria_json>     Search agents by criteria
+  find-class <class>         Find agents by class
+  find-capability <cap>      Find agents by capability
+  best-for <capability>      Find best agent for a capability
+  match <capabilities_json>  Match agents to required capabilities
+  stats                      Show catalog statistics
+  capabilities               List all capabilities
+  classes                    List all agent classes
+  export [file]              Export catalog to JSON
+  stale [max_age_seconds]    Find stale agents
+  retire <id>                Retire an agent
+
+Examples:
+  # List all active agents
+  $0 list active
+
+  # Register a new worker
+  $0 register analysis-worker "Analysis Worker" "1.0.0" '[{"capability_id":"code_analysis","name":"Code Analysis","category":"development"}]'
+
+  # Find all agents with task_routing capability
+  $0 find-capability task_routing
+
+  # Search for healthy master agents
+  $0 search '{"agent_type":"master","health_status":"healthy"}'
+
+  # Show catalog statistics
+  $0 stats
+
+  # Export catalog
+  $0 export catalog.json
+
+EOF
+}
+
+#
+# Format agent for display
+#
+format_agent() {
+    local agent_data="$1"
+
+    echo "$agent_data" | jq -r '
+        "ID: \(.agent_id)",
+        "Class: \(.agent_class)",
+        "Name: \(.name)",
+        "Status: \(.status)",
+        "Health: \(.health.status)",
+        "Tasks: \(.performance.tasks_completed) completed / \(.performance.tasks_failed) failed",
+        "Success Rate: \(.performance.success_rate * 100 | floor)%",
+        "Registered: \(.registered_at)"
+    '
+}
+
+#
+# Format agent list for table display
+#
+format_agent_table() {
+    local agents="$1"
+
+    printf "%-30s %-25s %-15s %-10s %-10s %s\n" \
+        "AGENT ID" "CLASS" "STATUS" "HEALTH" "TASKS" "SUCCESS"
+    printf "%-30s %-25s %-15s %-10s %-10s %s\n" \
+        "------------------------------" "-------------------------" "---------------" "----------" "----------" "-------"
+
+    echo "$agents" | jq -r '.[] |
+        "\(.agent_id)\t\(.agent_class)\t\(.status)\t\(.health.status)\t\(.performance.tasks_completed)\t\((.performance.success_rate * 100 | floor))%"' |
+    while IFS=$'\t' read -r id class status health tasks success; do
+        printf "%-30s %-25s %-15s %-10s %-10s %s\n" \
+            "$id" "$class" "$status" "$health" "$tasks" "$success"
+    done
+}
+
+#
+# Main CLI handler
+#
+main() {
+    local command="${1:-help}"
+    shift || true
+
+    case "$command" in
+        list)
+            local status="${1:-}"
+            agents=$(list_agents "$status")
+            if [[ "$(echo "$agents" | jq 'length')" -eq 0 ]]; then
+                echo "No agents found"
+            else
+                format_agent_table "$agents"
+            fi
+            ;;
+
+        show)
+            local agent_id="${1:?Agent ID required}"
+            agent=$(get_agent "$agent_id")
+            if [[ "$agent" == *"error"* ]]; then
+                echo "$agent" | jq -r '.error'
+                exit 1
+            fi
+            format_agent "$agent"
+            echo ""
+            echo "Full JSON:"
+            echo "$agent" | jq .
+            ;;
+
+        register)
+            local agent_class="${1:?Agent class required}"
+            local name="${2:?Name required}"
+            local version="${3:?Version required}"
+            local capabilities="${4:-[]}"
+            local description="${5:-}"
+
+            agent_id=$(register_agent "$agent_class" "$name" "$version" "$capabilities" "$description")
+            echo "Agent registered: $agent_id"
+            ;;
+
+        update-status)
+            local agent_id="${1:?Agent ID required}"
+            local new_status="${2:?Status required}"
+            update_agent_status "$agent_id" "$new_status"
+            echo "Status updated: $agent_id -> $new_status"
+            ;;
+
+        heartbeat)
+            local agent_id="${1:?Agent ID required}"
+            agent_heartbeat "$agent_id"
+            echo "Heartbeat recorded: $agent_id"
+            ;;
+
+        search)
+            local criteria="${1:?Search criteria JSON required}"
+            agents=$(search_agents "$criteria")
+            if [[ "$(echo "$agents" | jq 'length')" -eq 0 ]]; then
+                echo "No agents found matching criteria"
+            else
+                format_agent_table "$agents"
+            fi
+            ;;
+
+        find-class)
+            local agent_class="${1:?Agent class required}"
+            agents=$(find_by_class "$agent_class")
+            if [[ "$(echo "$agents" | jq 'length')" -eq 0 ]]; then
+                echo "No agents found for class: $agent_class"
+            else
+                format_agent_table "$agents"
+            fi
+            ;;
+
+        find-capability)
+            local capability="${1:?Capability required}"
+            agents=$(find_by_capability "$capability")
+            if [[ "$(echo "$agents" | jq 'length')" -eq 0 ]]; then
+                echo "No agents found with capability: $capability"
+            else
+                format_agent_table "$agents"
+            fi
+            ;;
+
+        best-for)
+            local capability="${1:?Capability required}"
+            agent=$(find_best_for_capability "$capability")
+            if [[ "$agent" == "null" ]]; then
+                echo "No suitable agent found for capability: $capability"
+                exit 1
+            fi
+            echo "Best agent for $capability:"
+            format_agent "$agent"
+            ;;
+
+        match)
+            local capabilities="${1:?Required capabilities JSON required}"
+            agents=$(match_capabilities "$capabilities")
+            if [[ "$(echo "$agents" | jq 'length')" -eq 0 ]]; then
+                echo "No agents found matching all required capabilities"
+            else
+                format_agent_table "$agents"
+            fi
+            ;;
+
+        stats)
+            stats=$(get_catalog_stats)
+            echo "$stats" | jq .
+            ;;
+
+        capabilities)
+            echo "=== All Capabilities ==="
+            list_all_capabilities
+            ;;
+
+        classes)
+            echo "=== All Agent Classes ==="
+            list_all_classes
+            ;;
+
+        export)
+            local output_file="${1:-coordination/agentstudio/catalog-export.json}"
+            exported=$(export_catalog "$output_file")
+            echo "Catalog exported to: $exported"
+            ;;
+
+        stale)
+            local max_age="${1:-3600}"
+            stale_agents=$(find_stale_agents "$max_age")
+            count=$(echo "$stale_agents" | jq 'length')
+            if [[ "$count" -eq 0 ]]; then
+                echo "No stale agents found"
+            else
+                echo "Found $count stale agent(s):"
+                format_agent_table "$stale_agents"
+            fi
+            ;;
+
+        retire)
+            local agent_id="${1:?Agent ID required}"
+            deregister_agent "$agent_id"
+            echo "Agent retired: $agent_id"
+            ;;
+
+        help|--help|-h)
+            show_help
+            ;;
+
+        *)
+            echo "Error: Unknown command: $command"
+            echo ""
+            show_help
+            exit 1
+            ;;
+    esac
+}
+
+# Run CLI
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

@@ -1,0 +1,246 @@
+# Security Audit Workflow
+# Performs comprehensive security scanning with parallel execution
+
+name: security-audit
+version: "1.0.0"
+description: |
+  Comprehensive security audit workflow that clones a repository,
+  runs dependency and code scans in parallel, then generates a report.
+
+triggers:
+  - type: manual
+  - type: schedule
+    schedule: "0 2 * * *"  # Daily at 2 AM
+  - type: webhook
+    webhook_path: /webhooks/security-audit
+  - type: event
+    event: pr_opened
+
+inputs:
+  repository_url:
+    type: string
+    description: Git repository URL to audit
+    required: true
+  branch:
+    type: string
+    description: Branch to audit
+    default: main
+  scan_depth:
+    type: string
+    description: Scan depth (quick, standard, deep)
+    default: standard
+    enum: [quick, standard, deep]
+  notify_channel:
+    type: string
+    description: Notification channel for results
+    default: security-alerts
+
+outputs:
+  report_path: "{{ steps.generate_report.outputs.path }}"
+  vulnerabilities_count: "{{ steps.aggregate_results.outputs.total_vulnerabilities }}"
+  scan_duration_ms: "{{ steps.aggregate_results.outputs.total_duration_ms }}"
+
+steps:
+  # Step 1: Clone repository
+  - id: clone_repo
+    name: Clone Repository
+    description: Clone the target repository for security analysis
+    action: bash
+    inputs:
+      command: |
+        WORK_DIR="/tmp/security-audit-{{ inputs.repository_url | hash }}"
+        rm -rf "$WORK_DIR"
+        git clone --depth 100 --branch {{ inputs.branch }} {{ inputs.repository_url }} "$WORK_DIR"
+        echo "$WORK_DIR"
+    outputs:
+      repo_path: "$result.stdout"
+
+  # Step 2a: Dependency scan (runs in parallel with code scan)
+  - id: dependency_scan
+    name: Dependency Vulnerability Scan
+    description: Scan dependencies for known vulnerabilities
+    master: security
+    action: delegate
+    depends_on:
+      - clone_repo
+    inputs:
+      scan_type: dependencies
+      repo_path: "{{ steps.clone_repo.outputs.repo_path }}"
+      depth: "{{ inputs.scan_depth }}"
+      checks:
+        - npm_audit
+        - pip_safety
+        - cargo_audit
+        - bundler_audit
+    outputs:
+      vulnerabilities: "$result.vulnerabilities"
+      critical_count: "$result.critical_count"
+      high_count: "$result.high_count"
+
+  # Step 2b: Code scan (runs in parallel with dependency scan)
+  - id: code_scan
+    name: Static Code Security Scan
+    description: Analyze source code for security issues
+    master: security
+    action: delegate
+    depends_on:
+      - clone_repo
+    inputs:
+      scan_type: code
+      repo_path: "{{ steps.clone_repo.outputs.repo_path }}"
+      depth: "{{ inputs.scan_depth }}"
+      checks:
+        - semgrep
+        - bandit
+        - eslint_security
+        - gosec
+    outputs:
+      findings: "$result.findings"
+      critical_count: "$result.critical_count"
+      high_count: "$result.high_count"
+
+  # Step 2c: Secret detection (runs in parallel with other scans)
+  - id: secret_scan
+    name: Secret Detection Scan
+    description: Detect hardcoded secrets and credentials
+    action: bash
+    depends_on:
+      - clone_repo
+    inputs:
+      command: |
+        cd "{{ steps.clone_repo.outputs.repo_path }}"
+        # Run gitleaks or similar tool
+        gitleaks detect --source . --report-format json --report-path /tmp/secrets-report.json 2>/dev/null || true
+        cat /tmp/secrets-report.json 2>/dev/null || echo '{"findings": []}'
+    outputs:
+      secrets_found: "$result.stdout"
+
+  # Step 3: Aggregate results from parallel scans
+  - id: aggregate_results
+    name: Aggregate Scan Results
+    description: Combine results from all security scans
+    action: aggregate
+    depends_on:
+      - dependency_scan
+      - code_scan
+      - secret_scan
+    inputs:
+      steps:
+        - dependency_scan
+        - code_scan
+        - secret_scan
+    outputs:
+      total_vulnerabilities: "$result.total"
+      total_duration_ms: "$result.duration"
+
+  # Step 4: Generate comprehensive report
+  - id: generate_report
+    name: Generate Security Report
+    description: Create detailed security audit report
+    master: inventory
+    action: delegate
+    depends_on:
+      - aggregate_results
+    inputs:
+      report_type: security_audit
+      template: security-audit-report
+      data:
+        repository: "{{ inputs.repository_url }}"
+        branch: "{{ inputs.branch }}"
+        scan_depth: "{{ inputs.scan_depth }}"
+        dependency_results: "{{ steps.dependency_scan.outputs.vulnerabilities }}"
+        code_results: "{{ steps.code_scan.outputs.findings }}"
+        secret_results: "{{ steps.secret_scan.outputs.secrets_found }}"
+        summary:
+          total_vulnerabilities: "{{ steps.aggregate_results.outputs.total_vulnerabilities }}"
+    outputs:
+      path: "$result.report_path"
+      format: "$result.format"
+
+  # Step 5: Notify on critical/high findings
+  - id: notify_critical
+    name: Send Critical Alert
+    description: Send urgent notification for critical or high severity findings
+    action: http_request
+    depends_on:
+      - generate_report
+    condition: "{{ steps.dependency_scan.outputs.critical_count > 0 or steps.code_scan.outputs.critical_count > 0 }}"
+    inputs:
+      url: "{{ env.NOTIFICATION_WEBHOOK }}"
+      method: POST
+      headers:
+        Content-Type: application/json
+      body:
+        channel: security-critical
+        message: |
+          CRITICAL Security Alert
+          Repository: {{ inputs.repository_url }}
+          Critical Issues: {{ steps.dependency_scan.outputs.critical_count + steps.code_scan.outputs.critical_count }}
+          Report: {{ steps.generate_report.outputs.path }}
+        severity: critical
+        priority: urgent
+
+  # Step 6: Notify on any findings
+  - id: notify_results
+    name: Send Notifications
+    description: Notify relevant teams of audit results
+    action: http_request
+    depends_on:
+      - generate_report
+    condition: "{{ steps.aggregate_results.outputs.total_vulnerabilities > 0 and steps.dependency_scan.outputs.critical_count == 0 and steps.code_scan.outputs.critical_count == 0 }}"
+    inputs:
+      url: "{{ env.NOTIFICATION_WEBHOOK }}"
+      method: POST
+      headers:
+        Content-Type: application/json
+      body:
+        channel: "{{ inputs.notify_channel }}"
+        message: |
+          Security Audit Complete
+          Repository: {{ inputs.repository_url }}
+          Vulnerabilities Found: {{ steps.aggregate_results.outputs.total_vulnerabilities }}
+          High Issues: {{ steps.dependency_scan.outputs.high_count + steps.code_scan.outputs.high_count }}
+          Report: {{ steps.generate_report.outputs.path }}
+        severity: high
+
+  # Step 7: Cleanup temporary files
+  - id: cleanup
+    name: Cleanup Temporary Files
+    description: Remove temporary clone and working files
+    action: bash
+    depends_on:
+      - notify_critical
+      - notify_results
+    continue_on_failure: true
+    inputs:
+      command: |
+        rm -rf "{{ steps.clone_repo.outputs.repo_path }}"
+        echo "Cleanup complete"
+
+on_failure:
+  notify:
+    channels:
+      - security-alerts
+      - ops-oncall
+    template: workflow-failure
+  steps:
+    - id: failure_cleanup
+      name: Emergency Cleanup
+      action: bash
+      inputs:
+        command: |
+          # Cleanup any remaining temp files
+          rm -rf /tmp/security-audit-*
+          echo "Emergency cleanup complete"
+
+timeout_minutes: 60
+
+metadata:
+  author: security-team
+  team: security
+  tags:
+    - security
+    - audit
+    - compliance
+    - automated
+  created_at: "2024-11-23T00:00:00Z"

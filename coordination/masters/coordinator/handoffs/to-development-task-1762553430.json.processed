@@ -1,0 +1,39 @@
+{
+  "handoff_id": "coord-to-development-1A621655-0E32-45CD-B058-BC6D741C510E",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762553430",
+  "task_data": {
+    "id": "task-1762553430",
+    "title": "BUG FIX: Dashboard admin page event log purge button failing with error 'Failed to purge event log: Failed to purge event log'. User reports purge functionality not working. Investigate dashboard API endpoint, backend purge logic in dashboard server, file permissions on coordination/dashboard-events.jsonl, and error handling. Fix the purge functionality and add proper error messages to help debug future issues.",
+    "type": "development",
+    "priority": "high",
+    "status": "assigned",
+    "assigned_to": "development",
+    "created_at": "2025-11-08T04:49:10-0600",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "BUG FIX: Dashboard admin page event log purge button failing with error 'Failed to purge event log: Failed to purge event log'. User reports purge functionality not working. Investigate dashboard API endpoint, backend purge logic in dashboard server, file permissions on coordination/dashboard-events.jsonl, and error handling. Fix the purge functionality and add proper error messages to help debug future issues.",
+      "requirements": []
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-08T04:49:17-0600",
+    "routing_confidence": "0.95",
+    "routing_strategy": "single_expert",
+    "updated_at": "2025-11-08T04:49:17-06:00"
+  },
+  "context": {
+    "routing_reason": "MoE confidence-based routing (confidence: 0.95, strategy: single_expert)",
+    "priority": "high",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "0.95",
+      "strategy": "single_expert",
+      "routed_at": "2025-11-08T04:49:17-0600"
+    }
+  },
+  "created_at": "2025-11-08T04:49:17-0600",
+  "status": "pending_pickup"
+}

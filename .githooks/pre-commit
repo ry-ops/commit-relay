@@ -1,0 +1,102 @@
+#!/bin/bash
+# Pre-commit hook: JSON validation
+# Prevents commits with malformed JSON files
+
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+VALIDATOR="$PROJECT_ROOT/scripts/lib/json-validator.sh"
+
+# Source the JSON validator
+if [ ! -f "$VALIDATOR" ]; then
+    echo "ERROR: JSON validator not found at $VALIDATOR"
+    exit 1
+fi
+
+source "$VALIDATOR"
+
+echo "Running pre-commit JSON validation..."
+
+# Track validation errors
+validation_errors=0
+
+# Get list of staged JSON files
+staged_json_files=$(git diff --cached --name-only --diff-filter=ACM | grep '\.json$' || true)
+
+if [ -z "$staged_json_files" ]; then
+    echo "No JSON files staged for commit"
+    exit 0
+fi
+
+echo "Validating $(echo "$staged_json_files" | wc -l | tr -d ' ') JSON file(s)..."
+
+# Validate each staged JSON file
+while IFS= read -r file; do
+    if [ -f "$file" ]; then
+        echo -n "  Checking $file... "
+
+        # Read file content
+        content=$(cat "$file")
+
+        # Special handling for worker specs
+        if [[ "$file" =~ coordination/worker-specs/active/.*\.json ]]; then
+            # Validate worker spec with auto-repair
+            if repaired=$(validate_and_repair_json "$content" 1); then
+                # Check if schema is valid
+                if validate_worker_spec "$repaired"; then
+                    echo "✓ valid (worker spec)"
+
+                    # Write repaired content back if changed
+                    if [ "$repaired" != "$content" ]; then
+                        echo "$repaired" > "$file"
+                        git add "$file"
+                        echo "    Auto-repaired and re-staged"
+                    fi
+                else
+                    echo "✗ FAILED (invalid worker spec schema)"
+                    validation_errors=$((validation_errors + 1))
+                fi
+            else
+                echo "✗ FAILED (cannot repair JSON)"
+                validation_errors=$((validation_errors + 1))
+            fi
+        # Special handling for JSONL files
+        elif [[ "$file" =~ \.jsonl$ ]]; then
+            if validate_jsonl_file "$file" 0; then
+                echo "✓ valid (JSONL)"
+            else
+                echo "✗ FAILED (invalid JSONL)"
+                validation_errors=$((validation_errors + 1))
+            fi
+        # Regular JSON files
+        else
+            if repaired=$(validate_and_repair_json "$content" 1); then
+                echo "✓ valid"
+
+                # Write repaired content back if changed
+                if [ "$repaired" != "$content" ]; then
+                    echo "$repaired" > "$file"
+                    git add "$file"
+                    echo "    Auto-repaired and re-staged"
+                fi
+            else
+                echo "✗ FAILED"
+                validation_errors=$((validation_errors + 1))
+            fi
+        fi
+    fi
+done <<< "$staged_json_files"
+
+# Report results
+echo ""
+if [ "$validation_errors" -gt 0 ]; then
+    echo "❌ Pre-commit validation FAILED: $validation_errors JSON file(s) with errors"
+    echo ""
+    echo "Please fix the invalid JSON files before committing."
+    echo "You can use: ./scripts/lib/json-validator.sh repair-file <file_path>"
+    exit 1
+else
+    echo "✅ All JSON files are valid"
+    exit 0
+fi

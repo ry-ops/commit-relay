@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+#
+# Self-Healer CLI
+# Part of Q3 Weeks 37-40: Self-Healing Systems
+#
+
+set -euo pipefail
+
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/lib/autonomy/healer.sh"
+
+main() {
+    local command="${1:-help}"
+
+    case "$command" in
+        detect)
+            local target="${2:?Target required}"
+            detect_issue "$target" | jq .
+            ;;
+
+        create)
+            local target="${2:?Target required}"
+            local issue_type="${3:-}"
+            local healing_id=$(create_healing "$target" "$issue_type")
+            echo "Created healing: $healing_id"
+            ;;
+
+        heal)
+            local healing_id="${2:?Healing ID required}"
+            echo "Running healing: $healing_id"
+            run_healing "$healing_id" | jq .
+            ;;
+
+        auto)
+            local target="${2:?Target required}"
+            local healing_id=$(create_healing "$target")
+            run_healing "$healing_id" | jq .
+            ;;
+
+        status)
+            local healing_id="${2:?Healing ID required}"
+            get_healing "$healing_id" | jq .
+            ;;
+
+        list)
+            local target="${2:-}"
+            local limit="${3:-20}"
+            list_healings "$target" "$limit" | jq .
+            ;;
+
+        stats)
+            local target="${2:-}"
+            get_healing_stats "$target" | jq .
+            ;;
+
+        help|--help|-h)
+            cat <<EOF
+Self-Healer CLI - Automatic failure recovery and resilience
+
+Usage: $0 <command> [options]
+
+Commands:
+  detect <target>         Detect issues
+  create <target> [type]  Create healing record
+  heal <healing-id>       Execute healing
+  auto <target>           Detect, create, and heal automatically
+  status <healing-id>     Get healing status
+  list [target] [limit]   List healings
+  stats [target]          Get healing statistics
+
+Issue types: failure, degradation, resource_exhaustion, connectivity, configuration
+
+Examples:
+  $0 detect my-agent
+  $0 auto my-agent
+  $0 heal heal-my-agent-abc12345
+  $0 stats my-agent
+
+EOF
+            ;;
+
+        *)
+            echo "Unknown command: $command"
+            exit 1
+            ;;
+    esac
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

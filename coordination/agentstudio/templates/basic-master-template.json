@@ -1,0 +1,138 @@
+{
+  "template_id": "basic-master",
+  "name": "Basic Master Agent",
+  "version": "1.0.0",
+  "agent_type": "master",
+  "agent_class": "custom-master",
+  "description": "A basic master agent template for orchestrating tasks and coordinating workers. Provides task routing, worker management, and basic coordination capabilities.",
+  "author": "commit-relay",
+  "tags": ["master", "orchestration", "coordination", "basic"],
+  "capabilities": [
+    {
+      "capability_id": "task_routing",
+      "name": "Task Routing",
+      "category": "orchestration",
+      "description": "Route tasks to appropriate workers based on capabilities",
+      "parameters": {
+        "routing_algorithm": "capability_match",
+        "confidence_threshold": 0.7
+      }
+    },
+    {
+      "capability_id": "worker_coordination",
+      "name": "Worker Coordination",
+      "category": "orchestration",
+      "description": "Coordinate multiple workers for complex tasks"
+    }
+  ],
+  "configuration": {
+    "max_concurrent_tasks": 10,
+    "timeout_seconds": 600,
+    "retry_attempts": 3,
+    "priority": "high",
+    "auto_restart": true,
+    "resource_limits": {
+      "max_memory_mb": 512,
+      "max_cpu_percent": 50,
+      "max_token_budget": 100000
+    }
+  },
+  "scaffold": {
+    "script_path": "coordination/masters/{{agent_name}}/{{agent_name}}.sh",
+    "script_template": "#!/usr/bin/env bash\n#\n# {{agent_name}} - {{description}}\n# Generated from basic-master template\n#\n\nset -euo pipefail\n\nreadonly SCRIPT_DIR=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)\"\nreadonly PROJECT_ROOT=\"$(cd \"$SCRIPT_DIR/../../..\" && pwd)\"\n\n# Source libraries\nsource \"$PROJECT_ROOT/scripts/lib/agentstudio/agent-register.sh\"\n\n# Agent configuration\nreadonly AGENT_NAME=\"{{agent_name}}\"\nreadonly AGENT_CLASS=\"{{agent_class}}\"\n\n#\n# Initialize agent\n#\ninit_agent() {\n    # Register with agent registry\n    local capabilities='{{capabilities_json}}'\n    \n    AGENT_ID=$(register_agent \\\n        \"$AGENT_CLASS\" \\\n        \"$AGENT_NAME\" \\\n        \"1.0.0\" \\\n        \"$capabilities\" \\\n        \"{{description}}\")\n    \n    echo \"Agent registered: $AGENT_ID\"\n}\n\n#\n# Main agent loop\n#\nrun_agent() {\n    echo \"Starting $AGENT_NAME...\"\n    \n    init_agent\n    \n    # Main loop\n    while true; do\n        # Send heartbeat\n        agent_heartbeat \"$AGENT_ID\"\n        \n        # TODO: Implement task routing logic\n        # TODO: Implement worker coordination logic\n        \n        sleep {{heartbeat_interval:-60}}\n    done\n}\n\n# Run if executed directly\nif [[ \"${BASH_SOURCE[0]}\" == \"${0}\" ]]; then\n    run_agent\nfi\n",
+    "config_files": [
+      {
+        "path": "coordination/masters/{{agent_name}}/config.json",
+        "content": "{\n  \"max_concurrent_tasks\": {{max_concurrent_tasks}},\n  \"timeout_seconds\": {{timeout_seconds}},\n  \"routing_algorithm\": \"{{routing_algorithm}}\",\n  \"confidence_threshold\": {{confidence_threshold}}\n}\n"
+      }
+    ],
+    "dependencies": [
+      "agent-register.sh",
+      "agent-catalog.sh"
+    ]
+  },
+  "customization": {
+    "parameters": [
+      {
+        "name": "agent_name",
+        "type": "string",
+        "description": "Name of the master agent",
+        "required": true,
+        "validation": {
+          "pattern": "^[a-z][a-z0-9-]*$"
+        }
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "Description of the master agent's purpose",
+        "required": true
+      },
+      {
+        "name": "routing_algorithm",
+        "type": "string",
+        "description": "Task routing algorithm to use",
+        "default": "capability_match",
+        "validation": {
+          "enum": ["capability_match", "round_robin", "least_loaded", "performance_based"]
+        }
+      },
+      {
+        "name": "confidence_threshold",
+        "type": "number",
+        "description": "Minimum confidence threshold for routing decisions",
+        "default": 0.7,
+        "validation": {
+          "min": 0,
+          "max": 1
+        }
+      },
+      {
+        "name": "heartbeat_interval",
+        "type": "integer",
+        "description": "Heartbeat interval in seconds",
+        "default": 60,
+        "validation": {
+          "min": 10,
+          "max": 300
+        }
+      }
+    ]
+  },
+  "examples": [
+    {
+      "title": "Task Routing Master",
+      "description": "A master specialized in routing tasks to workers",
+      "configuration": {
+        "agent_name": "task-router",
+        "description": "Routes incoming tasks to appropriate workers",
+        "routing_algorithm": "performance_based",
+        "confidence_threshold": 0.8
+      }
+    },
+    {
+      "title": "Coordination Master",
+      "description": "A master focused on coordinating multiple workers",
+      "configuration": {
+        "agent_name": "coordinator",
+        "description": "Coordinates complex multi-worker tasks",
+        "routing_algorithm": "capability_match",
+        "confidence_threshold": 0.7
+      }
+    }
+  ],
+  "best_practices": [
+    "Set appropriate timeout values based on expected task complexity",
+    "Monitor worker health and remove unhealthy workers from routing",
+    "Implement proper error handling and retry logic",
+    "Use performance-based routing for high-priority tasks",
+    "Regular heartbeats ensure agent health monitoring",
+    "Log all routing decisions for debugging and analysis"
+  ],
+  "metadata": {
+    "created_at": 1763587400000,
+    "updated_at": 1763587400000,
+    "usage_count": 0,
+    "success_rate": 0.95
+  }
+}

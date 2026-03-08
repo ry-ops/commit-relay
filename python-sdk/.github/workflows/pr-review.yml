@@ -1,0 +1,62 @@
+name: Commit-Relay PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  pr-review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install commit-relay client
+        run: |
+          pip install -e /path/to/commit-relay/python-sdk
+
+      - name: Create PR Review Task
+        id: pr_review
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python - <<'EOF'
+          from commit_relay import TaskManager, GitHubActionsTrigger, GitHubActionsReporter
+          import os
+
+          # Initialize
+          manager = TaskManager()
+          trigger = GitHubActionsTrigger(manager)
+          reporter = GitHubActionsReporter()
+
+          # Get PR number
+          pr_number = int(os.environ.get('GITHUB_REF', '').split('/')[2])
+
+          # Create PR review task
+          task_id = trigger.create_pr_review_task(pr_number)
+
+          # Set output
+          reporter.set_output('task_id', task_id)
+
+          print(f"Created PR review task: {task_id}")
+          EOF
+
+      - name: Comment on PR with Task Link
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const taskId = '${{ steps.pr_review.outputs.task_id }}';
+            const body = `🤖 Commit-Relay PR review task created: \`${taskId}\`\n\nView status at your commit-relay dashboard.`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });

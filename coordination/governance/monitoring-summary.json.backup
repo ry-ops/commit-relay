@@ -1,0 +1,198 @@
+{
+  "timestamp": "2025-11-12T18:20:17Z",
+  "health_check": {
+  "generated_at": "2025-11-12T18:20:17.957Z",
+  "health_score": 93.9,
+  "status": "excellent",
+  "kpi_summary": {
+    "compliance": "87.5%",
+    "security": "0 incidents",
+    "quality": "96.8%",
+    "availability": "99.95%"
+  },
+  "alerts": {
+    "critical": 0,
+    "high": 1,
+    "medium": 0,
+    "low": 0
+  },
+  "trends": {
+    "governance_health": {
+      "direction": "improving",
+      "change_pct": 5.2
+    },
+    "compliance_rate": {
+      "direction": "stable",
+      "change_pct": 0.5
+    },
+    "security_score": {
+      "direction": "improving",
+      "change_pct": 2.1
+    },
+    "quality_score": {
+      "direction": "stable",
+      "change_pct": -0.3
+    }
+  },
+  "top_recommendations": [
+    {
+      "id": "rec-001",
+      "priority": "high",
+      "category": "compliance",
+      "recommendation": "Increase test coverage from 65% to 80% to meet internal policy",
+      "estimated_impact": "Improves compliance rate by 8%",
+      "automated": false,
+      "confidence": 0.95
+    },
+    {
+      "id": "rec-002",
+      "priority": "medium",
+      "category": "performance",
+      "recommendation": "Optimize lineage query indexing for sub-200ms response times",
+      "estimated_impact": "Reduces query latency by 20%",
+      "automated": true,
+      "confidence": 0.85
+    },
+    {
+      "id": "rec-003",
+      "priority": "low",
+      "category": "quality",
+      "recommendation": "Implement additional data quality checks for worker outputs",
+      "estimated_impact": "Increases quality score by 2%",
+      "automated": true,
+      "confidence": 0.78
+    }
+  ],
+  "uptime_pct": 99.95
+},
+  "compliance": {
+  "generated_at": "2025-11-12T18:20:17.992Z",
+  "frameworks": [
+    {
+      "framework": "GDPR (General Data Protection Regulation)",
+      "framework_id": "gdpr",
+      "compliant": true,
+      "total_rules": 3,
+      "passed": 3,
+      "violations": 0,
+      "results": [
+        {
+          "rule_id": "gdpr-1",
+          "rule_name": "Data minimization",
+          "compliant": true,
+          "evidence": "Catalog shows minimal data collection",
+          "timestamp": "2025-11-12T18:20:17.991Z"
+        },
+        {
+          "rule_id": "gdpr-2",
+          "rule_name": "Right to erasure",
+          "compliant": true,
+          "evidence": "Deletion APIs implemented",
+          "timestamp": "2025-11-12T18:20:17.992Z"
+        },
+        {
+          "rule_id": "gdpr-3",
+          "rule_name": "Data portability",
+          "compliant": true,
+          "evidence": "Export functionality available",
+          "timestamp": "2025-11-12T18:20:17.992Z"
+        }
+      ],
+      "timestamp": "2025-11-12T18:20:17.992Z"
+    },
+    {
+      "framework": "SOC 2 Type II",
+      "framework_id": "soc2",
+      "compliant": true,
+      "total_rules": 3,
+      "passed": 3,
+      "violations": 0,
+      "results": [
+        {
+          "rule_id": "soc2-1",
+          "rule_name": "Access control",
+          "compliant": true,
+          "evidence": "Role-based access control active",
+          "timestamp": "2025-11-12T18:20:17.992Z"
+        },
+        {
+          "rule_id": "soc2-2",
+          "rule_name": "Audit logging",
+          "compliant": true,
+          "evidence": "Comprehensive audit trail maintained",
+          "timestamp": "2025-11-12T18:20:17.992Z"
+        },
+        {
+          "rule_id": "soc2-3",
+          "rule_name": "Data encryption",
+          "compliant": true,
+          "evidence": "Data at rest and in transit encrypted",
+          "timestamp": "2025-11-12T18:20:17.992Z"
+        }
+      ],
+      "timestamp": "2025-11-12T18:20:17.992Z"
+    },
+    {
+      "framework": "Internal Policies",
+      "framework_id": "internal",
+      "compliant": false,
+      "total_rules": 2,
+      "passed": 1,
+      "violations": 1,
+      "results": [
+        {
+          "rule_id": "int-1",
+          "rule_name": "Code review",
+          "compliant": true,
+          "evidence": "PR review process enforced",
+          "timestamp": "2025-11-12T18:20:17.992Z"
+        },
+        {
+          "rule_id": "int-2",
+          "rule_name": "Testing coverage",
+          "compliant": false,
+          "evidence": "Coverage at 65%, target 80%",
+          "timestamp": "2025-11-12T18:20:17.992Z"
+        }
+      ],
+      "timestamp": "2025-11-12T18:20:17.992Z"
+    }
+  ],
+  "summary": {
+    "total_frameworks": 3,
+    "compliant_frameworks": 2,
+    "total_rules": 8,
+    "total_violations": 1,
+    "compliance_rate": "66.7%"
+  },
+  "generation_time_ms": 1
+},
+  "metrics": {
+  "timestamp": "2025-11-12T18:20:18.025Z",
+  "governance_health_score": 93.9,
+  "kpis": {
+    "catalog_coverage": 95.2,
+    "catalog_freshness": 98.5,
+    "catalog_accuracy": 99.1,
+    "access_violations": 0,
+    "permission_changes": 12,
+    "failed_auth_attempts": 2,
+    "lineage_completeness": 99.9,
+    "lineage_query_latency": 245,
+    "audit_trail_completeness": 99.9,
+    "pii_detections": 3,
+    "quality_issues": 0,
+    "drift_detections": 0,
+    "alert_response_time": 120,
+    "compliance_rate": 87.5,
+    "violations": 1,
+    "remediation_success_rate": 80,
+    "report_generation_time": 1850,
+    "system_availability": 99.95,
+    "query_performance": 380,
+    "data_quality_score": 96.8,
+    "security_incidents": 0
+  },
+  "collection_time_ms": 1
+}
+}

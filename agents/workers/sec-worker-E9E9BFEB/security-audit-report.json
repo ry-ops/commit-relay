@@ -1,0 +1,317 @@
+{
+  "report_id": "sec-audit-2025-11-19-E9E9BFEB",
+  "generated_at": "2025-11-19T14:56:00Z",
+  "worker_id": "sec-worker-E9E9BFEB",
+  "task_id": "moe-test-ddqd-v5-1763247177-0adcd7ae",
+  "audit_type": "comprehensive_security_compliance",
+  "scope": "commit-relay production systems",
+
+  "executive_summary": {
+    "overall_security_posture": "good",
+    "critical_findings": 0,
+    "high_findings": 2,
+    "medium_findings": 4,
+    "low_findings": 3,
+    "compliance_status": "mostly_compliant",
+    "immediate_actions_required": 2
+  },
+
+  "findings": {
+    "critical": [],
+
+    "high": [
+      {
+        "id": "SEC-H-001",
+        "title": "PII Detection in Coordination Files",
+        "description": "PII scanner detected high-risk data exposure in coordination files with action_required flag set",
+        "category": "data_privacy",
+        "severity": "high",
+        "evidence": "coordination/governance/pii-incidents.jsonl shows risk_level: high with action_required: true",
+        "impact": "Potential GDPR/privacy violation if PII is exposed in logs or coordination files",
+        "recommendation": "Run full PII scan using lib/governance/pii-scanner.js and remediate all high-risk findings",
+        "remediation_priority": "immediate",
+        "affected_components": ["coordination files", "governance logs"],
+        "compliance_frameworks": ["GDPR", "CCPA"],
+        "cvss_score": 7.5
+      },
+      {
+        "id": "SEC-H-002",
+        "title": "Daemon Failures with Active Alerts",
+        "description": "Worker daemon and PM daemon are down according to health-alerts.json",
+        "category": "availability",
+        "severity": "high",
+        "evidence": "health-alerts.json shows two active high-severity alerts: worker_daemon_failure and pm_daemon_failure",
+        "impact": "Reduced system availability and potential for unmonitored security events",
+        "recommendation": "Investigate and restart failed daemons immediately. Review daemon supervisor configuration.",
+        "remediation_priority": "immediate",
+        "affected_components": ["worker-daemon", "pm-daemon", "health monitoring"],
+        "compliance_frameworks": ["SOC2"],
+        "cvss_score": 7.0
+      }
+    ],
+
+    "medium": [
+      {
+        "id": "SEC-M-001",
+        "title": "Use of eval in Shell Scripts",
+        "description": "6 shell scripts contain 'eval' command which can pose code injection risk",
+        "category": "code_security",
+        "severity": "medium",
+        "evidence": "Found in: auto-fix-daemon.sh, worker-checkin.sh, generate-health-report.sh, load-cache.sh, benchmark-cag.sh, em-spawning.sh",
+        "impact": "If user input is passed to eval without sanitization, could allow arbitrary code execution",
+        "recommendation": "Review all eval usage and ensure proper input validation. Replace with safer alternatives where possible.",
+        "remediation_priority": "high",
+        "affected_components": ["shell scripts"],
+        "compliance_frameworks": ["OWASP"],
+        "cvss_score": 6.5
+      },
+      {
+        "id": "SEC-M-002",
+        "title": "Governance Bypass Attempts Detected",
+        "description": "System attempted governance bypass which was properly denied",
+        "category": "access_control",
+        "severity": "medium",
+        "evidence": "bypass-audit.jsonl shows denied bypass attempt with GOVERNANCE_BYPASS environment variable",
+        "impact": "Indicates potential misconfiguration or attempted unauthorized access",
+        "recommendation": "Review bypass-audit.jsonl for patterns. Ensure GOVERNANCE_BYPASS is never set in production.",
+        "remediation_priority": "medium",
+        "affected_components": ["governance system", "access control"],
+        "compliance_frameworks": ["SOC2"],
+        "cvss_score": 5.5
+      },
+      {
+        "id": "SEC-M-003",
+        "title": "API Key Exposed in Example Files",
+        "description": "Dashboard .env.example contains placeholder API key",
+        "category": "secrets_management",
+        "severity": "medium",
+        "evidence": "dashboard/.env.example shows API_KEY=your-secure-api-key-here",
+        "impact": "Low if only in example files, but should verify actual .env files are not committed",
+        "recommendation": "Verify .env files are in .gitignore. Add pre-commit hooks to prevent secret commits.",
+        "remediation_priority": "medium",
+        "affected_components": ["dashboard", "configuration management"],
+        "compliance_frameworks": ["OWASP"],
+        "cvss_score": 5.0
+      },
+      {
+        "id": "SEC-M-004",
+        "title": "Extensive Command Substitution Usage",
+        "description": "2095 instances of command substitution $() across 106 shell files",
+        "category": "code_security",
+        "severity": "medium",
+        "evidence": "Widespread use of $() in shell scripts which may include unsanitized data",
+        "impact": "Potential for command injection if external input flows into these substitutions",
+        "recommendation": "Conduct code review to ensure all command substitutions use validated/sanitized inputs",
+        "remediation_priority": "low",
+        "affected_components": ["shell scripts"],
+        "compliance_frameworks": ["OWASP"],
+        "cvss_score": 4.5
+      }
+    ],
+
+    "low": [
+      {
+        "id": "SEC-L-001",
+        "title": "chmod/chown Usage in Scripts",
+        "description": "3 scripts contain file permission modification commands",
+        "category": "privilege_management",
+        "severity": "low",
+        "evidence": "Found in auto-fix.sh, claude-worker-launcher-v2.sh, claude-worker-launcher-v2-FIXED.sh",
+        "impact": "Could lead to privilege escalation if misused, but appears to be legitimate operational use",
+        "recommendation": "Review permission changes to ensure principle of least privilege",
+        "remediation_priority": "low",
+        "affected_components": ["auto-fix system", "worker launcher"],
+        "compliance_frameworks": ["CIS"],
+        "cvss_score": 3.0
+      },
+      {
+        "id": "SEC-L-002",
+        "title": "Development Mode Bypass in Auth Middleware",
+        "description": "Authentication middleware allows unauthenticated access in development mode",
+        "category": "authentication",
+        "severity": "low",
+        "evidence": "dashboard/server/middleware/auth.js bypasses auth when NODE_ENV=development and API_KEY not set",
+        "impact": "Development environments may be accessible without authentication",
+        "recommendation": "Ensure NODE_ENV is always 'production' in production deployments",
+        "remediation_priority": "low",
+        "affected_components": ["dashboard API"],
+        "compliance_frameworks": ["OWASP"],
+        "cvss_score": 2.5
+      },
+      {
+        "id": "SEC-L-003",
+        "title": "Compliance Test Coverage Below Target",
+        "description": "Internal policy requires 80% test coverage but system is at 65%",
+        "category": "quality_assurance",
+        "severity": "low",
+        "evidence": "governance/monitoring-summary.json shows coverage at 65%, target 80%",
+        "impact": "Reduced confidence in code quality and security testing",
+        "recommendation": "Increase test coverage to meet policy requirements",
+        "remediation_priority": "low",
+        "affected_components": ["testing infrastructure"],
+        "compliance_frameworks": ["Internal"],
+        "cvss_score": 2.0
+      }
+    ]
+  },
+
+  "positive_security_controls": [
+    {
+      "control": "Timing-Safe API Key Comparison",
+      "description": "Dashboard authentication uses crypto.timingSafeEqual() to prevent timing attacks",
+      "file": "dashboard/server/middleware/auth.js:58",
+      "compliance": ["OWASP", "CWE-208"]
+    },
+    {
+      "control": "Comprehensive PII Detection",
+      "description": "Sophisticated PII scanner with multiple pattern types including SSN, credit cards, API keys, AWS keys, GitHub tokens",
+      "file": "lib/governance/pii-scanner.js",
+      "compliance": ["GDPR", "CCPA", "PCI-DSS"]
+    },
+    {
+      "control": "Role-Based Access Control (RBAC)",
+      "description": "Unified RBAC system with principal roles, namespace access controls, and audit logging",
+      "file": "coordination/governance/roles.json",
+      "compliance": ["SOC2", "ISO 27001"]
+    },
+    {
+      "control": "Access Audit Logging",
+      "description": "5175+ access control decisions logged with comprehensive audit trail",
+      "file": "coordination/governance/access-log.jsonl",
+      "compliance": ["SOC2", "HIPAA"]
+    },
+    {
+      "control": "Governance Bypass Protection",
+      "description": "System properly denies governance bypass attempts and logs them for audit",
+      "file": "coordination/governance/bypass-audit.jsonl",
+      "compliance": ["SOC2"]
+    },
+    {
+      "control": "Automated Fix Validation",
+      "description": "Auto-fix daemon validates fixes and performs automatic rollback on failure",
+      "file": "scripts/daemons/auto-fix-daemon.sh:269",
+      "compliance": ["DevSecOps Best Practices"]
+    },
+    {
+      "control": "Input Validation in Worker Launcher",
+      "description": "Enhanced worker launcher validates all required arguments before execution",
+      "file": "scripts/claude-worker-launcher-v2-FIXED.sh:24-38",
+      "compliance": ["CWE-20"]
+    },
+    {
+      "control": "Sensitive Asset Detection",
+      "description": "Access control system identifies sensitive assets based on naming patterns",
+      "file": "scripts/lib/access-check.sh:181-193",
+      "compliance": ["Data Classification"]
+    }
+  ],
+
+  "compliance_status": {
+    "frameworks": [
+      {
+        "framework": "GDPR",
+        "status": "mostly_compliant",
+        "violations": 1,
+        "notes": "PII detection active but high-risk findings require immediate remediation"
+      },
+      {
+        "framework": "SOC2",
+        "status": "compliant",
+        "violations": 0,
+        "notes": "Access control, audit logging, and monitoring all implemented properly"
+      },
+      {
+        "framework": "OWASP Top 10",
+        "status": "mostly_compliant",
+        "violations": 2,
+        "notes": "Timing attack protection implemented; eval usage and command injection need review"
+      },
+      {
+        "framework": "Internal Policies",
+        "status": "non_compliant",
+        "violations": 1,
+        "notes": "Test coverage below 80% target"
+      }
+    ],
+    "overall_compliance_rate": "87.5%"
+  },
+
+  "recommendations": {
+    "immediate": [
+      {
+        "priority": 1,
+        "action": "Run full PII scan and remediate high-risk findings",
+        "command": "node lib/governance/pii-scanner.js scan-dir coordination && node lib/governance/pii-scanner.js report",
+        "estimated_effort": "2-4 hours"
+      },
+      {
+        "priority": 2,
+        "action": "Restart failed daemons and investigate root cause",
+        "command": "scripts/ensure-services.sh && scripts/daemon-supervisor.sh status",
+        "estimated_effort": "1-2 hours"
+      }
+    ],
+    "short_term": [
+      {
+        "priority": 3,
+        "action": "Review and sanitize all eval usage in shell scripts",
+        "estimated_effort": "4-6 hours"
+      },
+      {
+        "priority": 4,
+        "action": "Implement pre-commit hooks for secret detection",
+        "estimated_effort": "2-3 hours"
+      },
+      {
+        "priority": 5,
+        "action": "Verify .env files are properly gitignored",
+        "estimated_effort": "30 minutes"
+      }
+    ],
+    "long_term": [
+      {
+        "priority": 6,
+        "action": "Increase test coverage from 65% to 80%",
+        "estimated_effort": "2-3 weeks"
+      },
+      {
+        "priority": 7,
+        "action": "Conduct comprehensive code review of command substitution usage",
+        "estimated_effort": "1 week"
+      }
+    ]
+  },
+
+  "metrics": {
+    "total_files_scanned": 2197,
+    "shell_scripts_reviewed": 106,
+    "access_log_entries": 5175,
+    "governance_health_score": 93.9,
+    "compliance_rate": 87.5,
+    "security_incidents": 0,
+    "pii_detections": 3,
+    "high_risk_pii_findings": 1,
+    "governance_bypass_attempts": 2,
+    "governance_bypass_denials": 2
+  },
+
+  "audit_trail": {
+    "scanned_directories": [
+      "/Users/ryandahlberg/commit-relay/scripts",
+      "/Users/ryandahlberg/commit-relay/lib/governance",
+      "/Users/ryandahlberg/commit-relay/dashboard",
+      "/Users/ryandahlberg/commit-relay/coordination/governance"
+    ],
+    "tools_used": [
+      "grep pattern matching",
+      "file enumeration",
+      "governance log analysis",
+      "code review"
+    ],
+    "scan_duration_seconds": 120,
+    "completion_status": "success"
+  },
+
+  "next_audit_date": "2025-12-19",
+  "report_version": "1.0"
+}

@@ -1,0 +1,90 @@
+{
+  "cache_id": "cicd-master-static-v1",
+  "cache_type": "static_system_knowledge",
+  "cache_version": "1.0.0",
+  "created_at": "2025-11-07T19:30:00Z",
+  "cache_strategy": "kv_cache",
+  "description": "Pre-loaded static knowledge for CI/CD Master - build, test, and deployment automation",
+  "worker_types": [
+    {
+      "type_id": "build-worker",
+      "description": "Executes build processes",
+      "specialization": "build_automation",
+      "typical_token_allocation": 7000,
+      "timeout_minutes": 20,
+      "skills": [
+        "compilation",
+        "bundling",
+        "artifact_generation"
+      ],
+      "output_format": "build_report"
+    },
+    {
+      "type_id": "test-worker",
+      "description": "Runs test suites and reports results",
+      "specialization": "test_automation",
+      "typical_token_allocation": 8000,
+      "timeout_minutes": 25,
+      "skills": [
+        "unit_testing",
+        "integration_testing",
+        "e2e_testing"
+      ],
+      "output_format": "test_report"
+    },
+    {
+      "type_id": "deploy-worker",
+      "description": "Handles deployment processes",
+      "specialization": "deployment_automation",
+      "typical_token_allocation": 6000,
+      "timeout_minutes": 15,
+      "skills": [
+        "deployment",
+        "rollback",
+        "health_checks"
+      ],
+      "output_format": "deployment_report"
+    },
+    {
+      "type_id": "release-worker",
+      "description": "Manages release workflows",
+      "specialization": "release_management",
+      "typical_token_allocation": 7000,
+      "timeout_minutes": 18,
+      "skills": [
+        "versioning",
+        "changelog",
+        "release_notes"
+      ],
+      "output_format": "release_report"
+    }
+  ],
+  "token_budgets": {
+    "master_budget": 25000,
+    "worker_pool_budget": 12000,
+    "per_worker_limits": {
+      "build-worker": 7000,
+      "test-worker": 8000,
+      "deploy-worker": 6000,
+      "release-worker": 7000
+    },
+    "emergency_reserve": 3000
+  },
+  "coordination_protocol": {
+    "worker_spawn_procedure": {
+      "step_1": "Check token budget availability",
+      "step_2": "Select appropriate worker type from cache",
+      "step_3": "Generate worker specification",
+      "step_4": "Create worker spec file",
+      "step_5": "Update worker-pool.json",
+      "step_6": "Emit dashboard event"
+    }
+  },
+  "metadata": {
+    "estimated_tokens": 2200,
+    "load_time_target_ms": 50,
+    "update_frequency": "rarely",
+    "last_updated": "2025-11-07T19:30:00Z"
+  },
+  "last_updated": "2025-11-07T20:06:45-0600"
+}

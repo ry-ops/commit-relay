@@ -1,0 +1,198 @@
+{
+  "handoff_id": "coord-to-development-A2FA9183-FCF6-46BF-A466-94C622988376",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762894589",
+  "task_data": {
+    "id": "task-1762894589",
+    "title": "Implement Multi-Lane Task Queue Architecture for Bottleneck Prevention",
+    "type": "architecture",
+    "priority": "high",
+    "status": "assigned",
+    "created_at": "2025-11-11T20:56:29Z",
+    "created_by": "user",
+    "context": {
+      "description": "Implement multiple task queue lanes to prevent bottlenecks, enable priority-based processing, and improve system throughput",
+      "current_problem": {
+        "single_queue_bottleneck": "61 tasks sharing one queue, only 3 active workers",
+        "priority_inversion": "Low priority tasks can block critical ones",
+        "head_of_line_blocking": "Failed/stuck tasks prevent others from processing",
+        "poor_visibility": "Hard to see which types of tasks are blocked",
+        "success_rate": "60.9% (below 70% threshold)",
+        "worker_failure_rate": "39.1% (above 30% threshold)"
+      },
+      "proposed_architecture": {
+        "lane_types": [
+          {
+            "name": "critical_lane",
+            "priority": 1,
+            "max_workers": 10,
+            "description": "Security vulnerabilities, system failures, blocking issues",
+            "task_types": [
+              "security",
+              "bug"
+            ],
+            "task_priorities": [
+              "critical"
+            ],
+            "file": "coordination/queues/critical-lane.json"
+          },
+          {
+            "name": "high_priority_lane",
+            "priority": 2,
+            "max_workers": 8,
+            "description": "Important features, high-priority bugs, compliance",
+            "task_types": [
+              "feature",
+              "bug",
+              "testing"
+            ],
+            "task_priorities": [
+              "high"
+            ],
+            "file": "coordination/queues/high-priority-lane.json"
+          },
+          {
+            "name": "standard_lane",
+            "priority": 3,
+            "max_workers": 6,
+            "description": "Regular features, refactoring, improvements",
+            "task_types": [
+              "feature",
+              "refactor",
+              "improvement"
+            ],
+            "task_priorities": [
+              "medium"
+            ],
+            "file": "coordination/queues/standard-lane.json"
+          },
+          {
+            "name": "background_lane",
+            "priority": 4,
+            "max_workers": 4,
+            "description": "Documentation, optimization, low priority tasks",
+            "task_types": [
+              "docs",
+              "optimization"
+            ],
+            "task_priorities": [
+              "low"
+            ],
+            "file": "coordination/queues/background-lane.json"
+          }
+        ],
+        "master_specific_lanes": {
+          "enabled": true,
+          "description": "Each master gets dedicated sub-lanes within main lanes",
+          "structure": "lane -> master -> tasks",
+          "example": "critical_lane/security/, critical_lane/development/"
+        }
+      },
+      "implementation_requirements": [
+        "Create coordination/queues/ directory structure",
+        "Implement lane-based task router (extends MoE coordinator)",
+        "Update coordinator master to route tasks to appropriate lanes",
+        "Implement lane-aware worker daemon (pulls from highest priority lane with capacity)",
+        "Add lane switching logic (tasks can be promoted/demoted based on priority changes)",
+        "Implement lane-specific metrics and monitoring",
+        "Create lane health checks and rebalancing logic",
+        "Add API endpoints for lane status (/api/lanes)",
+        "Update dashboard to show lane-specific queues and metrics",
+        "Migration utility to move existing tasks from single queue to lanes"
+      ],
+      "routing_logic": {
+        "step_1": "Coordinator receives task, analyzes priority + type",
+        "step_2": "Routes to appropriate lane based on priority + type matrix",
+        "step_3": "Within lane, routes to appropriate master (via existing MoE)",
+        "step_4": "Worker daemon checks lanes in priority order (critical first)",
+        "step_5": "Worker pulls highest priority available task it can handle",
+        "step_6": "Failed tasks stay in lane but marked for retry with backoff"
+      },
+      "benefits": [
+        "Critical tasks never blocked by low priority work",
+        "Better resource allocation (critical lane gets more workers)",
+        "Failure isolation (failed tasks in one lane don't block others)",
+        "Improved visibility (see which lanes are backed up)",
+        "Dynamic load balancing (shift workers between lanes based on demand)",
+        "Better SLA management (critical lane can have tighter SLAs)",
+        "Reduced head-of-line blocking",
+        "Parallel processing of different priority levels"
+      ],
+      "metrics_to_track": [
+        "Tasks per lane (pending/active/completed)",
+        "Lane throughput (tasks completed per hour)",
+        "Lane latency (time from enqueue to completion)",
+        "Lane success rate (by priority level)",
+        "Worker distribution across lanes",
+        "Lane switching events (task priority changes)",
+        "Lane capacity utilization",
+        "Cross-lane blocking (if any)"
+      ],
+      "migration_strategy": {
+        "phase_1": "Create lane infrastructure without breaking existing queue",
+        "phase_2": "Run both systems in parallel (dual-write to old and new)",
+        "phase_3": "Migrate existing 61 tasks to appropriate lanes",
+        "phase_4": "Switch coordinator to lane-based routing",
+        "phase_5": "Monitor for 24 hours, validate metrics",
+        "phase_6": "Deprecate old single queue system",
+        "rollback_plan": "Keep old system available for quick rollback if needed"
+      },
+      "integration_points": {
+        "moe_coordinator": "Enhanced with lane routing logic",
+        "worker_daemon": "Lane-aware worker selection",
+        "dashboard": "Lane visualization and metrics",
+        "health_monitoring": "Lane-specific health checks",
+        "governance": "Lane-level compliance tracking"
+      }
+    },
+    "deliverables": [
+      "coordination/queues/ directory with lane structure",
+      "scripts/lane-router.sh - lane-based task routing",
+      "Enhanced coordinator master with lane awareness",
+      "Lane-aware worker daemon updates",
+      "Migration utility: scripts/migrate-to-lanes.sh",
+      "Dashboard lane visualization",
+      "API endpoints: /api/lanes, /api/lanes/:lane/tasks",
+      "Lane health monitoring integration",
+      "Documentation: docs/architecture/multi-lane-queues.md",
+      "Metrics dashboard for lane performance"
+    ],
+    "success_criteria": [
+      "All 4 lanes operational and accepting tasks",
+      "Critical lane processes tasks within 15 minutes",
+      "No priority inversion (low priority blocking high priority)",
+      "System success rate improves to >= 70%",
+      "Worker failure rate drops to <= 30%",
+      "Lane-specific metrics visible in dashboard",
+      "Migration of 61 existing tasks completed successfully",
+      "Throughput increases by >= 50%"
+    ],
+    "metadata": {
+      "estimated_effort": "6-8 hours",
+      "complexity": "high",
+      "automation_potential": "very high",
+      "architectural_impact": "major",
+      "breaking_changes": false,
+      "requires_testing": true
+    },
+    "assigned_to": "development",
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-11T14:56:53-0600",
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-11T14:56:53-06:00"
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "high",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "N/A",
+      "strategy": "pattern-based",
+      "routed_at": "2025-11-11T14:56:53-0600"
+    }
+  },
+  "created_at": "2025-11-11T14:56:53-0600",
+  "status": "pending_pickup"
+}

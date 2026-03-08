@@ -1,0 +1,14 @@
+{
+  "id": "lineage-1762892415-2fdd3f",
+  "timestamp": "2025-11-11T20:20:15Z",
+  "type": "transform",
+  "source": "coordination/task-queue.json",
+  "target": "coordination/tasks/task-test-001.json",
+  "actor": "test-master",
+  "transformation": "task_extraction",
+  "metadata": {
+    "hostname": "MacBookAir",
+    "process_id": 29572,
+    "shell": "/bin/zsh"
+  }
+}

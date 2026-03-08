@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "pm-activity.schema.json",
+  "title": "PM Activity Entry",
+  "description": "Schema for PM activity log entries (JSONL)",
+  "type": "object",
+  "required": ["timestamp", "activity", "session_id"],
+  "additionalProperties": false,
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Activity timestamp"
+    },
+    "session_id": {
+      "type": "string",
+      "pattern": "^[A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{12}$",
+      "description": "PM session ID"
+    },
+    "activity": {
+      "type": "string",
+      "minLength": 5,
+      "description": "Activity description"
+    },
+    "details": {
+      "type": "object",
+      "description": "Additional activity details"
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["info", "warning", "error"],
+      "description": "Activity severity"
+    },
+    "related_tasks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(task-[0-9]+|test-task-[0-9]+)$"
+      },
+      "description": "Related task IDs"
+    },
+    "related_workers": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(dev|sec|inv|cicd)-worker-[A-F0-9]{8}$"
+      },
+      "description": "Related worker IDs"
+    }
+  }
+}

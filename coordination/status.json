@@ -1,0 +1,47 @@
+{
+  "version": "1.0",
+  "updated_at": "2025-11-04T16:11:56Z",
+  "agents": {
+    "coordinator-agent": {
+      "status": "active",
+      "last_checkin": "2025-10-31T19:20:00Z",
+      "current_tasks": [],
+      "completed_today": 3,
+      "blocked_tasks": [],
+      "next_scheduled_checkin": "2025-11-01T09:00:00Z"
+    },
+    "security-agent": {
+      "status": "active",
+      "last_checkin": "2025-10-31T19:55:00Z",
+      "current_tasks": [],
+      "completed_today": 5,
+      "blocked_tasks": [],
+      "next_scheduled_checkin": "2025-11-01T09:00:00Z"
+    },
+    "development-agent": {
+      "status": "active",
+      "last_checkin": "2025-11-04T17:50:00Z",
+      "current_tasks": [
+        "task-006",
+        "task-008",
+        "task-014",
+        "task-015",
+        "task-017"
+      ],
+      "completed_today": 3,
+      "blocked_tasks": [],
+      "next_scheduled_checkin": "2025-11-05T09:00:00Z"
+    }
+  },
+  "system_health": {
+    "total_active_tasks": 5,
+    "pending_handoffs": 0,
+    "blocked_tasks": 0,
+    "agents_online": 3,
+    "last_human_interaction": "2025-11-04T17:50:00Z"
+  },
+  "dashboard_agent": {
+    "status": "healthy",
+    "last_check": "2025-11-04T09:50:16-06:00"
+  }
+}

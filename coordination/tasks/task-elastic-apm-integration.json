@@ -1,0 +1,120 @@
+{
+  "task_id": "task-elastic-apm-integration",
+  "title": "Integrate Elastic APM for full observability",
+  "description": "Implement comprehensive Elastic APM integration into the commit-relay FastAPI application for traces, logs, metrics, and custom events",
+  "type": "development:feature",
+  "priority": "high",
+  "assigned_to": "development-master",
+  "status": "pending",
+  "created_at": "2025-11-25T12:00:00-0600",
+  "requirements": {
+    "dependencies": [
+      "elastic-apm"
+    ],
+    "environment_variables": [
+      "ELASTIC_APM_SERVICE_NAME",
+      "ELASTIC_APM_SERVER_URL",
+      "ELASTIC_APM_SECRET_TOKEN",
+      "ELASTIC_APM_ENVIRONMENT",
+      "ELASTIC_APM_ENABLED"
+    ],
+    "deliverables": [
+      "APM client initialization module (apm.py)",
+      "FastAPI middleware integration",
+      "Logging integration with trace correlation",
+      "Custom event tracking utilities",
+      "Exception tracking integration",
+      "Custom spans for key operations",
+      "Environment configuration (.env.example)",
+      "Integration tests",
+      "Documentation"
+    ]
+  },
+  "implementation_details": {
+    "components": [
+      {
+        "name": "APM Client Setup",
+        "description": "Create apm.py module with client initialization and graceful fallback",
+        "files": ["api-server/apm.py or lib/apm.py"],
+        "priority": 1
+      },
+      {
+        "name": "Middleware Integration",
+        "description": "Add ElasticAPM middleware to FastAPI app",
+        "files": ["api-server/server/index.js or main.py"],
+        "priority": 1
+      },
+      {
+        "name": "Logging Integration",
+        "description": "Configure Python logging with APM handler for trace correlation",
+        "files": ["api-server/logging_config.py or lib/logging.py"],
+        "priority": 2
+      },
+      {
+        "name": "Custom Event Tracking",
+        "description": "Create utility functions for agent events, tool usage, relay completions",
+        "files": ["api-server/lib/apm_events.py"],
+        "priority": 2
+      },
+      {
+        "name": "Exception Tracking",
+        "description": "Add capture_exception() to error handlers",
+        "files": ["api-server/error_handlers.py"],
+        "priority": 2
+      },
+      {
+        "name": "Custom Spans",
+        "description": "Wrap key operations in custom spans for detailed tracing",
+        "files": ["api-server/routes/*.py"],
+        "priority": 3
+      },
+      {
+        "name": "Configuration",
+        "description": "Add environment variables to .env.example and documentation",
+        "files": [".env.example", "docs/APM-INTEGRATION.md"],
+        "priority": 2
+      }
+    ],
+    "integration_points": [
+      "API endpoints (auto-instrumented by middleware)",
+      "Agent lifecycle events (track_agent_event)",
+      "Tool/API invocations (track_tool_usage)",
+      "Relay task completions (track_relay_completion)",
+      "Database operations (auto-instrumented)",
+      "HTTP client calls (auto-instrumented)",
+      "Error handling (capture_exception)"
+    ]
+  },
+  "acceptance_criteria": [
+    "elastic-apm dependency added to requirements",
+    "APM client initialized with environment variables",
+    "ElasticAPM middleware added to FastAPI app",
+    "Logging configured to ship to Elastic with trace correlation",
+    "Custom event tracking functions created and working",
+    "Exception tracking integrated in error handlers",
+    "Custom spans added to key operations",
+    "Environment variables documented in .env.example",
+    "Integration tests passing",
+    "Verification in Elastic Cloud Kibana successful",
+    "Documentation complete"
+  ],
+  "verification_steps": [
+    "Start commit-relay with APM enabled",
+    "Make several API requests",
+    "Verify in Elastic Cloud Kibana: Observability → APM → Services → commit-relay",
+    "Check traces appear with proper timing",
+    "Check logs correlate with trace IDs",
+    "Verify custom events appear in transaction metadata"
+  ],
+  "estimated_workers": 4,
+  "estimated_tokens": 35000,
+  "estimated_duration_minutes": 180,
+  "dependencies": [],
+  "metadata": {
+    "complexity": "high",
+    "scope": "multiple_files",
+    "testing_required": true,
+    "documentation_required": true,
+    "ml_enhanced": true
+  }
+}

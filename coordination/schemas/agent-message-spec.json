@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Agent Message Specification",
+  "description": "Schema for inter-agent communication messages in commit-relay",
+  "type": "object",
+  "required": ["message_id", "from", "to", "type", "body", "timestamp", "status"],
+  "properties": {
+    "message_id": {
+      "type": "string",
+      "description": "Unique message identifier",
+      "pattern": "^msg-[0-9]+-[a-f0-9]+$"
+    },
+    "from": {
+      "type": "string",
+      "description": "Sending agent ID"
+    },
+    "to": {
+      "type": "string",
+      "description": "Receiving agent ID"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["request", "response", "notification", "query", "handoff"],
+      "description": "Message type"
+    },
+    "body": {
+      "type": "object",
+      "description": "Message payload (structure varies by type)"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["sent", "delivered", "read", "responded"],
+      "description": "Message delivery status"
+    }
+  },
+  "definitions": {
+    "request": {
+      "description": "Request for action or information",
+      "properties": {
+        "body": {
+          "type": "object",
+          "required": ["request_type"],
+          "properties": {
+            "request_type": {"type": "string"},
+            "expects_response": {"type": "boolean"},
+            "timeout_seconds": {"type": "number"}
+          }
+        }
+      }
+    },
+    "response": {
+      "description": "Response to a previous request",
+      "properties": {
+        "body": {
+          "type": "object",
+          "required": ["in_response_to"],
+          "properties": {
+            "in_response_to": {"type": "string"},
+            "status": {"type": "string", "enum": ["success", "failure", "partial"]},
+            "result": {"type": "object"}
+          }
+        }
+      }
+    },
+    "notification": {
+      "description": "Informational message (no response expected)",
+      "properties": {
+        "body": {
+          "type": "object",
+          "required": ["event_type"],
+          "properties": {
+            "event_type": {"type": "string"},
+            "data": {"type": "object"}
+          }
+        }
+      }
+    },
+    "query": {
+      "description": "Query for data",
+      "properties": {
+        "body": {
+          "type": "object",
+          "required": ["query"],
+          "properties": {
+            "query": {"type": "string"},
+            "parameters": {"type": "object"}
+          }
+        }
+      }
+    },
+    "handoff": {
+      "description": "Task handoff between agents",
+      "properties": {
+        "body": {
+          "type": "object",
+          "required": ["task_spec", "handoff_reason"],
+          "properties": {
+            "handoff_type": {"type": "string"},
+            "task_spec": {"type": "object"},
+            "handoff_reason": {"type": "string"},
+            "expects_acknowledgment": {"type": "boolean"}
+          }
+        }
+      }
+    }
+  }
+}

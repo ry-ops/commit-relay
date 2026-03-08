@@ -1,0 +1,32 @@
+{
+  "handoff_id": "coord-to-security-task-1762553466-retry-2",
+  "from_master": "coordinator",
+  "to_master": "security",
+  "task_id": "task-1762553466",
+  "task_data": {
+    "title": "GOVERNANCE UPGRADE - Phase 3: Automated Data Lineage & Audit Trails",
+    "type": "development",
+    "priority": "high",
+    "status": "pending",
+    "retry_count": 2,
+    "previous_failure": "launcher_bug_task_context_injection_failure",
+    "description": "Implement comprehensive lineage tracking and audit trail system integrated with Phase 1 catalog and Phase 2 access control. Build LineageTracker class for recording all operations, implement comprehensive audit trail logging, create lineage visualization (source → transformation → target), add audit query interface and compliance reports.",
+    "success_criteria": [
+      "100% operation lineage tracked",
+      "audit trail completeness 99.9%",
+      "lineage query response <500ms",
+      "compliance report generation <2 seconds"
+    ]
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE - matched 'audit' keyword with security-scan rule",
+    "routing_confidence": 0.95,
+    "routing_rule": "security-scan",
+    "priority": "high",
+    "expected_outcome": "Worker spec creation for Phase 3 governance implementation",
+    "launcher_status": "fixed",
+    "urgency": "high - governance phases critical for system compliance"
+  },
+  "created_at": "2025-11-12T16:20:00Z",
+  "status": "pending_pickup"
+}

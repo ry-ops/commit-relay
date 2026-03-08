@@ -1,0 +1,41 @@
+{
+  "worker_id": "sec-worker-DC77FC1A",
+  "worker_type": "compliance-worker",
+  "parent_master": "security",
+  "task_id": "task-1762553466",
+  "created_at": "2025-11-12T13:56:14Z",
+  "status": "running",
+  "context": {
+    "repository": "ry-ops/commit-relay",
+    "branch": "main",
+    "task_title": "GOVERNANCE UPGRADE - Phase 3: Automated Data Lineage & Audit Trails",
+    "task_description": "Implement comprehensive lineage tracking and audit trail system integrated with Phase 1 catalog and Phase 2 access control. Build LineageTracker class for recording all operations, implement comprehensive audit trail logging, create lineage visualization (source → transformation → target), add audit query interface and compliance reports.",
+    "priority": "high",
+    "skills_required": [],
+    "success_criteria": [
+      "100% operation lineage tracked",
+      "audit trail completeness 99.9%",
+      "lineage query response <500ms",
+      "compliance report generation <2 seconds"
+    ],
+    "deliverables": [
+      "LineageTracker class implementation",
+      "Comprehensive audit trail logging",
+      "Lineage visualization (source → transformation → target)",
+      "Audit query interface",
+      "Compliance reports"
+    ],
+    "integration_points": [
+      "Phase 1 catalog",
+      "Phase 2 access control"
+    ]
+  },
+  "resources": {
+    "token_allocation": 50000,
+    "timeout_minutes": 120,
+    "max_retries": 2
+  },
+  "execution": {
+    "started_at": "2025-11-12T07:56:53-0600"
+  }
+}

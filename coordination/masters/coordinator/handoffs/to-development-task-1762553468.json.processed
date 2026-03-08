@@ -1,0 +1,32 @@
+{
+  "handoff_id": "coord-to-development-task-1762553468-retry-2",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762553468",
+  "task_data": {
+    "title": "GOVERNANCE UPGRADE - Phase 5: Compliance Automation & Reporting",
+    "type": "development",
+    "priority": "high",
+    "status": "pending",
+    "retry_count": 2,
+    "previous_failure": "launcher_bug_task_context_injection_failure",
+    "description": "Define compliance frameworks (GDPR, SOC2, internal policies), automated compliance checking engine, policy enforcement with automated remediation, comprehensive compliance reporting dashboard. Build ComplianceEngine class with framework definitions, automated policy validation, violation detection and remediation, executive compliance dashboard with metrics.",
+    "success_criteria": [
+      "Support 3+ compliance frameworks",
+      "100% policy enforcement",
+      "automated remediation for 80%+ violations",
+      "compliance report generation <5s"
+    ]
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE - matched 'implement' keyword with code-development rule",
+    "routing_confidence": 0.90,
+    "routing_rule": "code-development",
+    "priority": "high",
+    "expected_outcome": "Worker spec creation for Phase 5 governance implementation",
+    "launcher_status": "fixed",
+    "urgency": "high - governance phases critical for system compliance"
+  },
+  "created_at": "2025-11-12T16:20:00Z",
+  "status": "pending_pickup"
+}

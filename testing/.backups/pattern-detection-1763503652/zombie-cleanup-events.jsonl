@@ -1,0 +1,5 @@
+{"event_type":"zombie_detected","worker_id":"scan-worker-1","timestamp":"2025-11-18T14:00:00-0600","data":{"final_memory_usage":2048}}
+{"event_type":"zombie_detected","worker_id":"scan-worker-2","timestamp":"2025-11-18T14:05:00-0600","data":{"final_memory_usage":2100}}
+{"event_type":"zombie_detected","worker_id":"scan-worker-3","timestamp":"2025-11-18T14:10:00-0600","data":{"final_memory_usage":2050}}
+{"event_type":"zombie_detected","worker_id":"scan-worker-4","timestamp":"2025-11-18T14:15:00-0600","data":{"final_memory_usage":2048}}
+{"event_type":"zombie_detected","worker_id":"scan-worker-5","timestamp":"2025-11-18T14:20:00-0600","data":{"final_memory_usage":2099}}

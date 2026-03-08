@@ -1,0 +1,43 @@
+{
+  "validation_id": "val-1763744164510-9e7798",
+  "source_id": "task-data",
+  "timestamp": "2025-11-21T10:56:04-06:00",
+  "valid": true,
+  "errors": [
+    ""
+  ],
+  "warnings": [
+    ""
+  ],
+  "error_count": 1,
+  "warning_count": 1
+}
+{
+  "validation_id": "val-1763744164628-65ae57",
+  "source_id": "task-data",
+  "timestamp": "2025-11-21T10:56:04-06:00",
+  "valid": false,
+  "errors": [
+    "Missing required field: status",
+    "Missing required field: priority"
+  ],
+  "warnings": [
+    ""
+  ],
+  "error_count": 2,
+  "warning_count": 1
+}
+{
+  "validation_id": "val-1763744164769-d91b6f",
+  "source_id": "task-data",
+  "timestamp": "2025-11-21T10:56:04-06:00",
+  "valid": false,
+  "errors": [
+    "Field 'status' value 'unknown' not in allowed values"
+  ],
+  "warnings": [
+    ""
+  ],
+  "error_count": 1,
+  "warning_count": 1
+}

@@ -1,0 +1,39 @@
+{
+  "handoff_id": "coord-to-development-8342AE0E-3601-4A6A-BAB5-3CF6ECB600F9",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762553436",
+  "task_data": {
+    "id": "task-1762553436",
+    "title": "MoE Self-Improvement Phase 2: Fix routing decision logging (Priority 1), create automated worker cleanup cron job (Priority 2), build real-time MoE dashboard widgets (Priority 4), review and commit coordination/moe-insights.md insights, push commit f8385c4. Keywords: development MoE observability automation dashboard real-time monitoring routing-logging worker-lifecycle. Critical fixes: investigate coordinator master routing-decisions.jsonl logging mechanism, add real-time validation, create worker cleanup automation, build confidence score chart, MoE metrics widget, pool utilization graph. Run DDQD v5.1 to validate routing accuracy measurement after logging fix.",
+    "type": "development",
+    "priority": "critical",
+    "status": "assigned",
+    "assigned_to": "development",
+    "created_at": "2025-11-08T12:00:36-0600",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "MoE Self-Improvement Phase 2: Fix routing decision logging (Priority 1), create automated worker cleanup cron job (Priority 2), build real-time MoE dashboard widgets (Priority 4), review and commit coordination/moe-insights.md insights, push commit f8385c4. Keywords: development MoE observability automation dashboard real-time monitoring routing-logging worker-lifecycle. Critical fixes: investigate coordinator master routing-decisions.jsonl logging mechanism, add real-time validation, create worker cleanup automation, build confidence score chart, MoE metrics widget, pool utilization graph. Run DDQD v5.1 to validate routing accuracy measurement after logging fix.",
+      "requirements": []
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-08T12:00:53-0600",
+    "routing_confidence": "0.95",
+    "routing_strategy": "single_expert",
+    "updated_at": "2025-11-08T12:00:53-06:00"
+  },
+  "context": {
+    "routing_reason": "MoE confidence-based routing (confidence: 0.95, strategy: single_expert)",
+    "priority": "critical",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "0.95",
+      "strategy": "single_expert",
+      "routed_at": "2025-11-08T12:00:53-0600"
+    }
+  },
+  "created_at": "2025-11-08T12:00:53-0600",
+  "status": "pending_pickup"
+}

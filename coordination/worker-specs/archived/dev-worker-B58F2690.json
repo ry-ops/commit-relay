@@ -1,0 +1,52 @@
+{
+  "worker_id": "dev-worker-B58F2690",
+  "worker_type": "implementation-worker",
+  "prompt_template": "agents/prompts/workers/implementation-worker.md",
+  "parent_master": "development",
+  "task_id": "task-1762553469",
+  "task_data": {
+    "id": "task-1762553469",
+    "title": "GOVERNANCE UPGRADE - Phase 6: Governance Metrics & Continuous Improvement. Build governance KPI framework with 20+ metrics, real-time metrics collection system, executive governance dashboard, continuous improvement process with ML-driven insights. Implement MetricsCollector class, governance health score calculation, trend analysis and forecasting, actionable recommendations engine. Success criteria: Track 20+ governance KPIs, real-time metric updates <100ms, 95%+ dashboard uptime, automated improvement recommendations with 80%+ accuracy.",
+    "type": "development",
+    "priority": "high",
+    "status": "assigned",
+    "created_at": "2025-11-11T12:10:16-0600",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "GOVERNANCE UPGRADE - Phase 6: Governance Metrics & Continuous Improvement. Build governance KPI framework with 20+ metrics, real-time metrics collection system, executive governance dashboard, continuous improvement process with ML-driven insights. Implement MetricsCollector class, governance health score calculation, trend analysis and forecasting, actionable recommendations engine. Success criteria: Track 20+ governance KPIs, real-time metric updates <100ms, 95%+ dashboard uptime, automated improvement recommendations with 80%+ accuracy.",
+      "requirements": []
+    },
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-11T16:35:27-06:00",
+    "worker_id": null,
+    "worker_type": "implementation-worker",
+    "zombie_cleanup_at": "2025-11-11T22:35:16Z",
+    "previous_worker": "dev-worker-A532418A",
+    "retry_count": 1,
+    "assigned_to": "development",
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-11T16:35:27-0600"
+  },
+  "context": {
+    "master_session": "3A24DCEC-39A6-495F-AC3E-262F0EEEDB03",
+    "expertise_area": "",
+    "skills_required": [],
+    "knowledge_base_refs": {
+      "implementation_patterns": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/development/knowledge-base/implementation-patterns.jsonl",
+      "architecture_docs": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/development/knowledge-base/codebase-architecture.json"
+    }
+  },
+  "resources": {
+    "token_allocation": 50000,
+    "time_limit_minutes": 60
+  },
+  "status": "running",
+  "created_at": "2025-11-11T16:36:43-0600",
+  "created_by": "development",
+  "execution": {
+    "started_at": "2025-11-12T07:44:18-0600"
+  }
+}

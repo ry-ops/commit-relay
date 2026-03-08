@@ -1,0 +1,213 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Agent Performance Schema",
+  "description": "Schema for agent performance tracking, benchmarking, and optimization recommendations",
+  "type": "object",
+  "required": [
+    "agent_id",
+    "period_start",
+    "period_end",
+    "metrics"
+  ],
+  "properties": {
+    "agent_id": {
+      "type": "string",
+      "description": "Agent identifier"
+    },
+    "version_id": {
+      "type": "string",
+      "description": "Version identifier if version-specific"
+    },
+    "period_start": {
+      "type": "integer",
+      "description": "Start of measurement period (Unix ms)"
+    },
+    "period_end": {
+      "type": "integer",
+      "description": "End of measurement period (Unix ms)"
+    },
+    "metrics": {
+      "type": "object",
+      "description": "Core performance metrics",
+      "properties": {
+        "throughput": {
+          "type": "object",
+          "properties": {
+            "tasks_per_hour": { "type": "number", "minimum": 0 },
+            "tasks_per_day": { "type": "number", "minimum": 0 },
+            "peak_tasks_per_hour": { "type": "number", "minimum": 0 }
+          }
+        },
+        "latency": {
+          "type": "object",
+          "properties": {
+            "avg_ms": { "type": "number", "minimum": 0 },
+            "p50_ms": { "type": "number", "minimum": 0 },
+            "p90_ms": { "type": "number", "minimum": 0 },
+            "p95_ms": { "type": "number", "minimum": 0 },
+            "p99_ms": { "type": "number", "minimum": 0 },
+            "max_ms": { "type": "number", "minimum": 0 }
+          }
+        },
+        "reliability": {
+          "type": "object",
+          "properties": {
+            "success_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+            "error_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+            "timeout_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+            "retry_rate": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "resource_usage": {
+          "type": "object",
+          "properties": {
+            "avg_memory_mb": { "type": "number", "minimum": 0 },
+            "peak_memory_mb": { "type": "number", "minimum": 0 },
+            "avg_cpu_percent": { "type": "number", "minimum": 0, "maximum": 100 },
+            "peak_cpu_percent": { "type": "number", "minimum": 0, "maximum": 100 },
+            "total_tokens": { "type": "integer", "minimum": 0 },
+            "tokens_per_task": { "type": "number", "minimum": 0 }
+          }
+        },
+        "availability": {
+          "type": "object",
+          "properties": {
+            "uptime_percent": { "type": "number", "minimum": 0, "maximum": 100 },
+            "downtime_minutes": { "type": "number", "minimum": 0 },
+            "restart_count": { "type": "integer", "minimum": 0 },
+            "health_check_failures": { "type": "integer", "minimum": 0 }
+          }
+        }
+      }
+    },
+    "benchmarks": {
+      "type": "array",
+      "description": "Benchmark results",
+      "items": {
+        "type": "object",
+        "properties": {
+          "benchmark_id": { "type": "string" },
+          "name": { "type": "string" },
+          "category": {
+            "type": "string",
+            "enum": ["speed", "accuracy", "efficiency", "scalability", "reliability"]
+          },
+          "score": { "type": "number", "minimum": 0, "maximum": 100 },
+          "baseline_score": { "type": "number", "minimum": 0, "maximum": 100 },
+          "improvement_percent": { "type": "number" },
+          "run_at": { "type": "integer" },
+          "details": { "type": "object" }
+        }
+      }
+    },
+    "trends": {
+      "type": "object",
+      "description": "Performance trends over time",
+      "properties": {
+        "throughput_trend": {
+          "type": "string",
+          "enum": ["improving", "stable", "degrading"]
+        },
+        "latency_trend": {
+          "type": "string",
+          "enum": ["improving", "stable", "degrading"]
+        },
+        "reliability_trend": {
+          "type": "string",
+          "enum": ["improving", "stable", "degrading"]
+        },
+        "resource_trend": {
+          "type": "string",
+          "enum": ["improving", "stable", "degrading"]
+        }
+      }
+    },
+    "bottlenecks": {
+      "type": "array",
+      "description": "Identified performance bottlenecks",
+      "items": {
+        "type": "object",
+        "properties": {
+          "bottleneck_id": { "type": "string" },
+          "category": {
+            "type": "string",
+            "enum": ["cpu", "memory", "io", "network", "token_limit", "concurrency", "dependency"]
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "critical"]
+          },
+          "description": { "type": "string" },
+          "impact_percent": { "type": "number", "minimum": 0, "maximum": 100 },
+          "detected_at": { "type": "integer" }
+        }
+      }
+    },
+    "recommendations": {
+      "type": "array",
+      "description": "Optimization recommendations",
+      "items": {
+        "type": "object",
+        "properties": {
+          "recommendation_id": { "type": "string" },
+          "category": {
+            "type": "string",
+            "enum": ["configuration", "resource", "algorithm", "scaling", "caching", "architecture"]
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "critical"]
+          },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "expected_improvement": { "type": "string" },
+          "effort": {
+            "type": "string",
+            "enum": ["low", "medium", "high"]
+          },
+          "action": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "in_progress", "completed", "dismissed"]
+          },
+          "created_at": { "type": "integer" }
+        }
+      }
+    },
+    "comparisons": {
+      "type": "object",
+      "description": "Performance comparisons",
+      "properties": {
+        "vs_baseline": {
+          "type": "object",
+          "properties": {
+            "throughput_change": { "type": "number" },
+            "latency_change": { "type": "number" },
+            "reliability_change": { "type": "number" },
+            "resource_change": { "type": "number" }
+          }
+        },
+        "vs_previous_period": {
+          "type": "object",
+          "properties": {
+            "throughput_change": { "type": "number" },
+            "latency_change": { "type": "number" },
+            "reliability_change": { "type": "number" },
+            "resource_change": { "type": "number" }
+          }
+        },
+        "vs_peer_agents": {
+          "type": "object",
+          "properties": {
+            "percentile_rank": { "type": "number", "minimum": 0, "maximum": 100 },
+            "above_average": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "created_at": {
+      "type": "integer",
+      "description": "Report creation timestamp"
+    }
+  }
+}

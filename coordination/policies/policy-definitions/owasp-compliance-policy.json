@@ -1,0 +1,111 @@
+{
+  "policy_id": "owasp-secure-coding",
+  "name": "OWASP Secure Coding Standards Policy",
+  "description": "Enforces OWASP secure coding practices for worker operations",
+  "version": "1.0.0",
+  "severity": "high",
+  "enabled": true,
+  "frameworks": ["owasp"],
+  "controls": ["A01-Broken-Access-Control", "A02-Cryptographic-Failures", "A03-Injection", "A07-Identification-Authentication-Failures"],
+  "rules": [
+    {
+      "rule_id": "OWS-001",
+      "description": "Input validation must be enabled for external data",
+      "condition": {
+        "type": "any",
+        "conditions": [
+          {
+            "field": "task.handles_external_input",
+            "type": "not_equals",
+            "value": "true"
+          },
+          {
+            "field": "security.input_validation",
+            "type": "equals",
+            "value": "true"
+          }
+        ]
+      },
+      "message": "Workers handling external input must enable input validation",
+      "remediation": "Set security.input_validation to true when handling external input"
+    },
+    {
+      "rule_id": "OWS-002",
+      "description": "Database operations must use parameterized queries",
+      "condition": {
+        "type": "any",
+        "conditions": [
+          {
+            "field": "task.operations",
+            "type": "not_contains",
+            "value": "database"
+          },
+          {
+            "field": "security.parameterized_queries",
+            "type": "equals",
+            "value": "true"
+          }
+        ]
+      },
+      "message": "Database operations must use parameterized queries to prevent injection",
+      "remediation": "Set security.parameterized_queries to true for database operations"
+    },
+    {
+      "rule_id": "OWS-003",
+      "description": "Sensitive data must be encrypted",
+      "condition": {
+        "type": "any",
+        "conditions": [
+          {
+            "field": "permissions.data_access",
+            "type": "not_exists"
+          },
+          {
+            "field": "security.encryption_enabled",
+            "type": "equals",
+            "value": "true"
+          }
+        ]
+      },
+      "message": "Workers accessing sensitive data must enable encryption",
+      "remediation": "Set security.encryption_enabled to true when accessing sensitive data"
+    },
+    {
+      "rule_id": "OWS-004",
+      "description": "Session timeout must be configured for long-running workers",
+      "condition": {
+        "type": "any",
+        "conditions": [
+          {
+            "field": "resources.time_limit_minutes",
+            "type": "less_than",
+            "value": "60"
+          },
+          {
+            "field": "security.session_timeout_minutes",
+            "type": "exists"
+          }
+        ]
+      },
+      "message": "Long-running workers must configure session timeout",
+      "remediation": "Set security.session_timeout_minutes for workers running > 60 minutes"
+    },
+    {
+      "rule_id": "OWS-005",
+      "description": "Error handling must not expose sensitive information",
+      "field": "security.safe_error_handling",
+      "condition": {
+        "type": "not_equals",
+        "value": "false"
+      },
+      "message": "Safe error handling must be enabled (not explicitly disabled)",
+      "remediation": "Remove or set security.safe_error_handling to true"
+    }
+  ],
+  "metadata": {
+    "author": "commit-relay-security",
+    "created_at": "2025-11-21T00:00:00Z",
+    "updated_at": "2025-11-21T00:00:00Z",
+    "tags": ["owasp", "secure-coding", "web-security"]
+  }
+}

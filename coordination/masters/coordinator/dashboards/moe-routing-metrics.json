@@ -1,0 +1,51 @@
+{
+  "dashboard": {
+    "title": "MoE Routing Intelligence",
+    "description": "Real-time master routing decisions and confidence scores",
+    "version": "1.0.0",
+    "metrics": [
+      {
+        "name": "routing_confidence",
+        "type": "gauge",
+        "description": "Average routing confidence (0-1)",
+        "query": "avg(labels.moe.confidence)",
+        "threshold": {
+          "warning": 0.7,
+          "critical": 0.5
+        }
+      },
+      {
+        "name": "master_task_distribution",
+        "type": "pie",
+        "description": "Tasks routed to each master",
+        "query": "count by labels.moe.assigned_master"
+      },
+      {
+        "name": "routing_latency",
+        "type": "histogram",
+        "description": "Time to route task (ms)",
+        "query": "histogram(span.duration where span.name='moe.route_task')"
+      },
+      {
+        "name": "pattern_learning_accuracy",
+        "type": "timeseries",
+        "description": "Learning accuracy over time",
+        "query": "labels.moe.learning_accuracy"
+      }
+    ],
+    "alerts": [
+      {
+        "name": "low_routing_confidence",
+        "condition": "avg(labels.moe.confidence) < 0.6",
+        "severity": "warning",
+        "action": "Review routing patterns and retrain model"
+      },
+      {
+        "name": "master_overload",
+        "condition": "count(labels.moe.assigned_master='development-master') > 10",
+        "severity": "critical",
+        "action": "Redistribute tasks to other masters"
+      }
+    ]
+  }
+}

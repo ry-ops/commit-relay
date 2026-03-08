@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "orchestrator-state.schema.json",
+  "title": "Orchestrator State",
+  "description": "Schema for system orchestrator state",
+  "type": "object",
+  "required": [],
+  "additionalProperties": true,
+  "properties": {
+    "state_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "State version (semver)"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last state update timestamp"
+    },
+    "system_status": {
+      "type": "string",
+      "enum": ["initializing", "healthy", "degraded", "critical", "offline"],
+      "description": "Overall system health status"
+    },
+    "active_masters": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["coordinator", "development", "security", "inventory", "cicd"]
+      },
+      "description": "Currently active master agents"
+    },
+    "active_workers": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total active worker count"
+    },
+    "pending_tasks": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Tasks awaiting assignment"
+    },
+    "in_progress_tasks": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Tasks currently being worked"
+    },
+    "completed_tasks_today": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Tasks completed today"
+    },
+    "token_budget": {
+      "type": "object",
+      "properties": {
+        "daily_limit": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "used_today": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "remaining": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "utilization": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "health_checks": {
+      "type": "object",
+      "properties": {
+        "last_check": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "services_up": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "services_down": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "alerts_active": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "moe_status": {
+      "type": "object",
+      "properties": {
+        "router_active": {
+          "type": "boolean"
+        },
+        "pool_activation": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "routing_confidence_avg": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "last_routing": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

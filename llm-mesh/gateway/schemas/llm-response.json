@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LLM Gateway Response",
+  "description": "Standardized response format from LLM Gateway",
+  "type": "object",
+  "required": ["request_id", "response", "metadata"],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "description": "Matching request identifier"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "response": {
+      "type": "string",
+      "description": "The LLM's response"
+    },
+    "parsed_response": {
+      "type": "object",
+      "description": "JSON-parsed response if applicable"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["model", "provider", "tokens", "cost"],
+      "properties": {
+        "model": {"type": "string"},
+        "provider": {"type": "string"},
+        "model_version": {"type": "string"},
+        "tokens": {
+          "type": "object",
+          "properties": {
+            "input": {"type": "integer"},
+            "output": {"type": "integer"},
+            "total": {"type": "integer"}
+          }
+        },
+        "cost": {
+          "type": "object",
+          "properties": {
+            "input_cost": {"type": "number"},
+            "output_cost": {"type": "number"},
+            "total_cost": {"type": "number"},
+            "currency": {"type": "string", "default": "USD"}
+          }
+        },
+        "performance": {
+          "type": "object",
+          "properties": {
+            "latency_ms": {"type": "integer"},
+            "ttft_ms": {"type": "integer", "description": "Time to first token"},
+            "tokens_per_second": {"type": "number"}
+          }
+        },
+        "selection": {
+          "type": "object",
+          "description": "Why this model was selected",
+          "properties": {
+            "selection_strategy": {"type": "string"},
+            "selection_reason": {"type": "string"},
+            "alternatives_considered": {"type": "array", "items": {"type": "string"}}
+          }
+        }
+      }
+    },
+    "quality_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Estimated quality of response (if evaluator available)"
+    },
+    "error": {
+      "type": "object",
+      "properties": {
+        "code": {"type": "string"},
+        "message": {"type": "string"},
+        "provider_error": {"type": "object"}
+      }
+    }
+  }
+}

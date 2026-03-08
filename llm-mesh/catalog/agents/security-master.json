@@ -1,0 +1,75 @@
+{
+  "agent_id": "security-master",
+  "display_name": "Security Master",
+  "version": "2.5.0",
+  "type": "specialist",
+  "specialization": "security",
+  "description": "Security specialist for vulnerability scanning and remediation",
+  "capabilities": [
+    "vulnerability_scanning",
+    "cve_remediation",
+    "dependency_audits",
+    "security_patches",
+    "compliance_monitoring",
+    "secrets_detection",
+    "security_policy_enforcement",
+    "penetration_testing",
+    "security_incident_response"
+  ],
+  "activation_patterns": {
+    "keywords": [
+      "vulnerability", "security", "CVE", "audit", "scan",
+      "exploit", "patch", "fix security", "secure", "harden",
+      "compliance", "secrets", "credentials",
+      "authentication", "authorization", "encryption"
+    ],
+    "confidence_boosters": [
+      "attack", "threat", "malicious", "injection",
+      "XSS", "CSRF", "SQL injection", "buffer overflow",
+      "dependency", "npm audit", "OWASP", "penetration"
+    ]
+  },
+  "tools": [
+    "security-scanner",
+    "vulnerability-db",
+    "dependency-checker",
+    "secrets-detector",
+    "compliance-checker",
+    "cve-lookup"
+  ],
+  "prompts": [
+    "vulnerability-analysis-v2",
+    "security-audit-v1",
+    "remediation-plan-v1",
+    "risk-assessment-v1"
+  ],
+  "performance": {
+    "total_tasks": 89,
+    "success_rate": 0.96,
+    "avg_task_duration_seconds": 2100,
+    "avg_quality_score": 0.93
+  },
+  "collaboration": {
+    "works_well_with": ["development-master"],
+    "common_workflows": [
+      {
+        "workflow": "security_audit_with_remediation",
+        "partners": ["development-master"],
+        "description": "Scan → identify vulnerabilities → development fixes",
+        "success_rate": 0.94
+      }
+    ]
+  },
+  "optimal_for": [
+    "cve_scanning",
+    "security_audits",
+    "vulnerability_remediation",
+    "dependency_security",
+    "compliance_checks"
+  ],
+  "resource_requirements": {
+    "avg_llm_calls_per_task": 2,
+    "avg_llm_cost_per_task": 0.032,
+    "preferred_model": "claude-sonnet-4"
+  }
+}

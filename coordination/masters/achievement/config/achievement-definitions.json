@@ -1,0 +1,459 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-11-25",
+  "achievements": {
+    "pair_extraordinaire": {
+      "id": "pair_extraordinaire",
+      "name": "Pair Extraordinaire",
+      "description": "Co-author commits in merged pull requests",
+      "icon": "👥",
+      "category": "collaboration",
+      "earnable": true,
+      "automation_priority": "high",
+      "tiers": [
+        {
+          "name": "default",
+          "requirement": 1,
+          "description": "1 coauthored PR merged"
+        },
+        {
+          "name": "bronze",
+          "multiplier": "x2",
+          "requirement": 10,
+          "description": "10 coauthored PRs merged"
+        },
+        {
+          "name": "silver",
+          "multiplier": "x3",
+          "requirement": 24,
+          "description": "24 coauthored PRs merged"
+        },
+        {
+          "name": "gold",
+          "multiplier": "x4",
+          "requirement": 48,
+          "description": "48 coauthored PRs merged"
+        }
+      ],
+      "github_api": {
+        "endpoint": "/search/commits",
+        "query_param": "author:USERNAME+co-author:*"
+      },
+      "automation": {
+        "enabled": true,
+        "strategy": "coauthor_commits",
+        "notes": "commit-relay already does this via Co-Authored-By: Claude"
+      }
+    },
+    "pull_shark": {
+      "id": "pull_shark",
+      "name": "Pull Shark",
+      "description": "Open PRs that get merged",
+      "icon": "🦈",
+      "category": "contribution",
+      "earnable": true,
+      "automation_priority": "high",
+      "tiers": [
+        {
+          "name": "bronze",
+          "requirement": 2,
+          "description": "2 merged PRs"
+        },
+        {
+          "name": "silver",
+          "multiplier": "x2",
+          "requirement": 16,
+          "description": "16 merged PRs"
+        },
+        {
+          "name": "gold",
+          "multiplier": "x3",
+          "requirement": 128,
+          "description": "128 merged PRs"
+        },
+        {
+          "name": "platinum",
+          "multiplier": "x4",
+          "requirement": 1024,
+          "description": "1,024 merged PRs"
+        }
+      ],
+      "github_api": {
+        "endpoint": "/search/issues",
+        "query_param": "type:pr+author:USERNAME+is:merged"
+      },
+      "automation": {
+        "enabled": true,
+        "strategy": "feature_branch_workflow",
+        "workflow": "Create feature branch → Implement → PR → Auto-merge",
+        "master": "development-master"
+      }
+    },
+    "galaxy_brain": {
+      "id": "galaxy_brain",
+      "name": "Galaxy Brain",
+      "description": "Get accepted answers in GitHub Discussions",
+      "icon": "🧠",
+      "category": "community",
+      "earnable": true,
+      "automation_priority": "medium",
+      "tiers": [
+        {
+          "name": "bronze",
+          "requirement": 2,
+          "description": "2 accepted answers"
+        },
+        {
+          "name": "silver",
+          "multiplier": "x2",
+          "requirement": 8,
+          "description": "8 accepted answers"
+        },
+        {
+          "name": "gold",
+          "multiplier": "x3",
+          "requirement": 16,
+          "description": "16 accepted answers"
+        },
+        {
+          "name": "platinum",
+          "multiplier": "x4",
+          "requirement": 32,
+          "description": "32 accepted answers"
+        }
+      ],
+      "github_api": {
+        "endpoint": "/graphql",
+        "query": "discussions with accepted answers by user"
+      },
+      "automation": {
+        "enabled": true,
+        "strategy": "discussion_response",
+        "workflow": "Monitor discussions → Generate response → Submit answer",
+        "notes": "Requires GraphQL API for discussions"
+      }
+    },
+    "starstruck": {
+      "id": "starstruck",
+      "name": "Starstruck",
+      "description": "Create repos that get starred",
+      "icon": "⭐",
+      "category": "popularity",
+      "earnable": true,
+      "automation_priority": "medium",
+      "tiers": [
+        {
+          "name": "bronze",
+          "requirement": 16,
+          "description": "16 stars on a repo"
+        },
+        {
+          "name": "silver",
+          "multiplier": "x2",
+          "requirement": 128,
+          "description": "128 stars on a repo"
+        },
+        {
+          "name": "gold",
+          "multiplier": "x3",
+          "requirement": 512,
+          "description": "512 stars on a repo"
+        },
+        {
+          "name": "platinum",
+          "multiplier": "x4",
+          "requirement": 4096,
+          "description": "4,096 stars on a repo"
+        }
+      ],
+      "github_api": {
+        "endpoint": "/users/USERNAME/repos",
+        "sort": "stargazers_count"
+      },
+      "automation": {
+        "enabled": false,
+        "strategy": "organic_growth",
+        "notes": "Requires quality content, marketing, community engagement"
+      }
+    },
+    "quickdraw": {
+      "id": "quickdraw",
+      "name": "Quickdraw",
+      "description": "Close issue or PR within 5 minutes of opening",
+      "icon": "⚡",
+      "category": "speed",
+      "earnable": true,
+      "automation_priority": "high",
+      "tiers": [
+        {
+          "name": "single",
+          "requirement": 1,
+          "description": "Close 1 issue/PR within 5 minutes"
+        }
+      ],
+      "github_api": {
+        "endpoint": "/repos/OWNER/REPO/issues",
+        "check": "created_at vs closed_at diff < 5 minutes"
+      },
+      "automation": {
+        "enabled": true,
+        "strategy": "instant_fix",
+        "workflow": "Create issue → Spawn worker → Auto-fix → Close (< 5min)",
+        "master": "development-master",
+        "notes": "Easy win with automation"
+      }
+    },
+    "yolo": {
+      "id": "yolo",
+      "name": "YOLO",
+      "description": "Merge a PR without code review",
+      "icon": "🎲",
+      "category": "boldness",
+      "earnable": true,
+      "automation_priority": "high",
+      "tiers": [
+        {
+          "name": "single",
+          "requirement": 1,
+          "description": "Merge 1 PR without review"
+        }
+      ],
+      "github_api": {
+        "endpoint": "/repos/OWNER/REPO/pulls",
+        "check": "merged without review"
+      },
+      "automation": {
+        "enabled": true,
+        "strategy": "self_merge",
+        "workflow": "Create PR → Run tests → Auto-merge without review",
+        "notes": "Easy win, just merge next PR immediately after tests"
+      }
+    },
+    "public_sponsor": {
+      "id": "public_sponsor",
+      "name": "Public Sponsor",
+      "description": "Sponsor open source via GitHub Sponsors",
+      "icon": "💖",
+      "category": "support",
+      "earnable": true,
+      "automation_priority": "low",
+      "tiers": [
+        {
+          "name": "single",
+          "requirement": 1,
+          "description": "Sponsor 1 developer or project"
+        }
+      ],
+      "github_api": {
+        "endpoint": "/user/sponsors",
+        "check": "active sponsorships"
+      },
+      "automation": {
+        "enabled": false,
+        "strategy": "manual",
+        "notes": "Requires financial decision and GitHub Sponsors setup"
+      }
+    },
+    "achievement_unlocked": {
+      "id": "achievement_unlocked",
+      "name": "Achievement Unlocked",
+      "description": "Enable achievements on GitHub profile",
+      "icon": "🏆",
+      "category": "meta",
+      "earnable": true,
+      "automation_priority": "high",
+      "tiers": [
+        {
+          "name": "single",
+          "requirement": 1,
+          "description": "Enable achievements in settings"
+        }
+      ],
+      "github_api": {
+        "endpoint": "/user",
+        "check": "profile settings"
+      },
+      "automation": {
+        "enabled": false,
+        "strategy": "manual",
+        "notes": "One-time manual action in GitHub settings"
+      }
+    },
+    "heart_on_your_sleeve": {
+      "id": "heart_on_your_sleeve",
+      "name": "Heart On Your Sleeve",
+      "description": "React with ❤️ emoji on GitHub",
+      "icon": "❤️",
+      "category": "engagement",
+      "earnable": false,
+      "automation_priority": "low",
+      "status": "testing",
+      "tiers": [
+        {
+          "name": "unknown",
+          "requirement": null,
+          "description": "In testing phase"
+        }
+      ],
+      "github_api": {
+        "endpoint": "/repos/OWNER/REPO/issues/NUMBER/reactions",
+        "check": "heart reactions by user"
+      },
+      "automation": {
+        "enabled": false,
+        "strategy": "pending",
+        "notes": "Not yet available for earning"
+      }
+    },
+    "open_sourcerer": {
+      "id": "open_sourcerer",
+      "name": "Open Sourcerer",
+      "description": "Get PRs merged across multiple public repos",
+      "icon": "🔮",
+      "category": "contribution",
+      "earnable": false,
+      "automation_priority": "low",
+      "status": "testing",
+      "tiers": [
+        {
+          "name": "unknown",
+          "requirement": null,
+          "description": "In testing phase"
+        }
+      ],
+      "github_api": {
+        "endpoint": "/search/issues",
+        "query_param": "type:pr+author:USERNAME+is:merged"
+      },
+      "automation": {
+        "enabled": false,
+        "strategy": "pending",
+        "notes": "Not yet available for earning"
+      }
+    },
+    "arctic_code_vault": {
+      "id": "arctic_code_vault",
+      "name": "Arctic Code Vault Contributor",
+      "description": "Contributed to 2020 GitHub Archive Program",
+      "icon": "🏔️",
+      "category": "historical",
+      "earnable": false,
+      "automation_priority": "none",
+      "status": "closed",
+      "tiers": [
+        {
+          "name": "single",
+          "requirement": 1,
+          "description": "Historical achievement from 2020"
+        }
+      ],
+      "github_api": {
+        "endpoint": null,
+        "check": "historical badge"
+      },
+      "automation": {
+        "enabled": false,
+        "strategy": "none",
+        "notes": "No longer earnable"
+      }
+    },
+    "mars_2020": {
+      "id": "mars_2020",
+      "name": "Mars 2020 Contributor",
+      "description": "Contributed to Mars 2020 Helicopter Mission repos",
+      "icon": "🚁",
+      "category": "historical",
+      "earnable": false,
+      "automation_priority": "none",
+      "status": "closed",
+      "tiers": [
+        {
+          "name": "single",
+          "requirement": 1,
+          "description": "Historical achievement from Mars 2020"
+        }
+      ],
+      "github_api": {
+        "endpoint": null,
+        "check": "historical badge"
+      },
+      "automation": {
+        "enabled": false,
+        "strategy": "none",
+        "notes": "No longer earnable"
+      }
+    }
+  },
+  "automation_strategies": {
+    "coauthor_commits": {
+      "description": "Add Co-Authored-By to all commits",
+      "implementation": "Already implemented in commit-relay",
+      "master": "all-masters"
+    },
+    "feature_branch_workflow": {
+      "description": "Create feature branches with PRs for each enhancement",
+      "steps": [
+        "Identify enhancement opportunity",
+        "Create feature branch",
+        "Implement changes",
+        "Create pull request",
+        "Run CI/CD tests",
+        "Auto-merge after tests pass"
+      ],
+      "master": "development-master"
+    },
+    "instant_fix": {
+      "description": "Create and immediately fix issues",
+      "steps": [
+        "Create issue with known fix",
+        "Spawn implementation worker",
+        "Apply fix",
+        "Close issue (< 5 minutes)"
+      ],
+      "master": "development-master",
+      "achievement": "quickdraw"
+    },
+    "self_merge": {
+      "description": "Merge PR without code review",
+      "steps": [
+        "Create PR",
+        "Wait for CI tests",
+        "Auto-merge without review"
+      ],
+      "master": "cicd-master",
+      "achievement": "yolo"
+    },
+    "discussion_response": {
+      "description": "Monitor and respond to GitHub Discussions",
+      "steps": [
+        "Monitor discussion activity",
+        "Identify answerable questions",
+        "Generate helpful response",
+        "Submit answer",
+        "Track acceptance"
+      ],
+      "master": "achievement-master",
+      "achievement": "galaxy_brain"
+    }
+  },
+  "priority_matrix": {
+    "immediate_wins": [
+      "achievement_unlocked",
+      "yolo",
+      "quickdraw"
+    ],
+    "high_value": [
+      "pair_extraordinaire",
+      "pull_shark"
+    ],
+    "medium_value": [
+      "galaxy_brain"
+    ],
+    "long_term": [
+      "starstruck"
+    ],
+    "manual_only": [
+      "public_sponsor"
+    ]
+  }
+}

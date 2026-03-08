@@ -1,0 +1,23 @@
+{
+  "handoff_id": "moe-test-ddqd-v5-1763691538-eeed2657",
+  "task_id": "moe-test-ddqd-v5-1763691538-eeed2657",
+  "assigned_to": "development",
+  "created_at": "2025-11-20T20:19:55-0600",
+  "status": "processed",
+  "task": {
+    "id": "moe-test-ddqd-v5-1763691538-eeed2657",
+    "title": "Fix performance bug in database query optimization code",
+    "type": "bug-fix",
+    "description": "Fix performance bug in database query optimization code",
+    "priority": "medium",
+    "status": "pending",
+    "assigned_to": null,
+    "created_at": "2025-11-20T20:19:45-0600",
+    "created_by": "ddqd-v5-test",
+    "moe_test": true,
+    "test_id": "ddqd-v5-1763691538",
+    "context": {}
+  },
+  "processed_at": "2025-11-20T20:20:02-0600",
+  "worker_id": "worker-worker-1763691601-11463"
+}

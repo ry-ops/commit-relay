@@ -1,0 +1,124 @@
+{
+  "worker_id": "worker-scan-038",
+  "repository": "/Users/ryandahlberg/Projects/commit-relay",
+  "scan_date": "2025-11-23T19:49:45Z",
+  "scan_types": ["dependencies", "secrets", "code-patterns", "configuration"],
+  "summary": {
+    "total_findings": 9,
+    "critical": 1,
+    "high": 2,
+    "medium": 4,
+    "low": 2,
+    "info": 0,
+    "risk_level": "HIGH"
+  },
+  "findings": [
+    {
+      "id": "SEC-001",
+      "severity": "critical",
+      "type": "secret-exposure",
+      "title": "Exposed Anthropic API Key in .env file",
+      "description": "An active Anthropic API key is present in llm-mesh/.env file. While .env is gitignored, this represents a credential that should be rotated if exposed.",
+      "affected_files": ["llm-mesh/.env"],
+      "remediation": "Rotate the API key immediately at console.anthropic.com and ensure .env files are never committed",
+      "effort": "low"
+    },
+    {
+      "id": "SEC-002",
+      "severity": "high",
+      "type": "dependency",
+      "title": "Critically Outdated @anthropic-ai/sdk",
+      "description": "Package @anthropic-ai/sdk is at version 0.32.1, but latest is 0.70.1. This represents a significant version gap that may include security fixes.",
+      "affected_files": ["package.json"],
+      "remediation": "Update to @anthropic-ai/sdk@0.70.1 or higher",
+      "effort": "medium"
+    },
+    {
+      "id": "SEC-003",
+      "severity": "high",
+      "type": "dependency",
+      "title": "Major Version Gap in OpenAI SDK",
+      "description": "Package openai is significantly outdated (4.104.0 vs 6.9.1). Major version changes often include critical security improvements.",
+      "affected_files": ["package.json"],
+      "remediation": "Update to openai@6.9.1 with careful review of breaking changes",
+      "effort": "medium"
+    },
+    {
+      "id": "SEC-004",
+      "severity": "medium",
+      "type": "code-pattern",
+      "title": "Multiple spawn/exec calls without input sanitization review",
+      "description": "Found 24 files with spawn/exec/child_process patterns. While many appear to be legitimate system operations, command injection risks should be reviewed.",
+      "affected_files": [
+        "mcp-server/tools/index.js",
+        "lib/circuit-breaker-integrations.js",
+        "lib/governance/lineage.js",
+        "lib/orchestration/step-executor.js",
+        "api-server/server/routes/security.js"
+      ],
+      "remediation": "Audit all spawn/exec calls to ensure user input is properly sanitized before use in commands",
+      "effort": "high"
+    },
+    {
+      "id": "SEC-005",
+      "severity": "medium",
+      "type": "documentation",
+      "title": "Placeholder API Keys in Documentation",
+      "description": "README documentation contains placeholder API key patterns (sk-ant-..., sk-...) that could confuse users about proper key handling.",
+      "affected_files": ["llm-mesh/gateway/README.md"],
+      "remediation": "Replace with clearly marked placeholder text like YOUR_API_KEY_HERE",
+      "effort": "low"
+    },
+    {
+      "id": "SEC-006",
+      "severity": "medium",
+      "type": "configuration",
+      "title": "Development Mode API Authentication Bypass",
+      "description": "Dashboard configuration allows authentication bypass in development mode when API_KEY is not set, which could be a security risk if accidentally deployed.",
+      "affected_files": ["dashboard/.env"],
+      "remediation": "Add startup warnings and consider requiring API_KEY even in development",
+      "effort": "low"
+    },
+    {
+      "id": "SEC-007",
+      "severity": "medium",
+      "type": "dependency",
+      "title": "Jest and Types Outdated (Major Version)",
+      "description": "Jest 29.7.0 vs 30.2.0 and @types/jest 29.5.14 vs 30.0.0 represent major version gaps in testing dependencies.",
+      "affected_files": ["package.json"],
+      "remediation": "Update to Jest 30.x with breaking change review",
+      "effort": "medium"
+    },
+    {
+      "id": "SEC-008",
+      "severity": "low",
+      "type": "code-pattern",
+      "title": "innerHTML usage in bundled assets",
+      "description": "Found innerHTML usage in bundled dashboard assets. While likely from EUI library, XSS risks should be monitored.",
+      "affected_files": ["eui-dashboard/dist/assets/index-8FqX9oqQ.js"],
+      "remediation": "Ensure all dynamic content is properly sanitized before rendering",
+      "effort": "low"
+    },
+    {
+      "id": "SEC-009",
+      "severity": "low",
+      "type": "best-practice",
+      "title": "Missing minisearch Installation",
+      "description": "Package minisearch is listed as wanted but not currently installed.",
+      "affected_files": ["package.json"],
+      "remediation": "Run npm install to ensure all dependencies are properly installed",
+      "effort": "low"
+    }
+  ],
+  "dependencies": {
+    "total": 316,
+    "outdated": 7,
+    "vulnerable": 0,
+    "licenses_reviewed": false
+  },
+  "metrics": {
+    "scan_duration_seconds": 180,
+    "tokens_used": 0,
+    "files_scanned": 24
+  }
+}

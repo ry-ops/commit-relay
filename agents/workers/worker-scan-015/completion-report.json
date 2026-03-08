@@ -1,0 +1,35 @@
+{
+  "worker_id": "worker-scan-015",
+  "task_id": "moe-test-ddqd-v5-1763692592-17036789",
+  "task_type": "security-scan",
+  "status": "completed",
+  "completed_at": "2025-11-21T02:38:45Z",
+  "execution_time_seconds": 76,
+  "result": {
+    "success": true,
+    "summary": "CVE-2024-12345 vulnerability scan complete - ALREADY FIXED",
+    "details": "The timing attack vulnerability (CVE-2024-12345) in the authentication module has already been remediated. The fix implements crypto.timingSafeEqual() for constant-time API key comparison in dashboard/server/middleware/auth.js.",
+    "primary_finding": {
+      "cve": "CVE-2024-12345",
+      "status": "RESOLVED",
+      "file": "dashboard/server/middleware/auth.js",
+      "fix_method": "crypto.timingSafeEqual()"
+    },
+    "additional_findings": 3,
+    "security_score": 85,
+    "action_required": false
+  },
+  "artifacts": [
+    {
+      "type": "security-report",
+      "path": "agents/workers/worker-scan-015/security-scan-report.json",
+      "description": "Detailed security scan report with findings and recommendations"
+    }
+  ],
+  "metrics": {
+    "files_scanned": 2,
+    "vulnerabilities_found": 0,
+    "vulnerabilities_fixed": 1,
+    "informational_findings": 3
+  }
+}

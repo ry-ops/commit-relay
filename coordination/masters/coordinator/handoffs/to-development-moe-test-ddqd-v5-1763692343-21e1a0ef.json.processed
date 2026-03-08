@@ -1,0 +1,37 @@
+{
+  "handoff_id": "coord-to-development-DD4F596B-256E-43F2-9836-C89FD429F156",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "moe-test-ddqd-v5-1763692343-21e1a0ef",
+  "task_data": {
+    "id": "moe-test-ddqd-v5-1763692343-21e1a0ef",
+    "title": "Implement new API endpoint for user management feature",
+    "type": "feature",
+    "description": "Implement new API endpoint for user management feature",
+    "priority": "medium",
+    "status": "assigned",
+    "assigned_to": "development",
+    "created_at": "2025-11-20T20:33:08-0600",
+    "created_by": "ddqd-v5-test",
+    "moe_test": true,
+    "test_id": "ddqd-v5-1763692343",
+    "context": {},
+    "assigned_at": "2025-11-20T20:33:22-0600",
+    "assigned_by": "coordinator",
+    "routing_confidence": "0.95",
+    "routing_strategy": "single_expert",
+    "updated_at": "2025-11-20T20:33:22-06:00"
+  },
+  "context": {
+    "routing_reason": "MoE confidence-based routing (confidence: 0.95, strategy: single_expert)",
+    "priority": "medium",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "0.95",
+      "strategy": "single_expert",
+      "routed_at": "2025-11-20T20:33:22-0600"
+    }
+  },
+  "created_at": "2025-11-20T20:33:22-0600",
+  "status": "pending_pickup"
+}

@@ -1,0 +1,33 @@
+# Core dependencies
+requests>=2.32.2
+pandas>=1.5.0
+numpy>=1.23.0
+scipy>=1.9.0
+matplotlib>=3.6.0
+seaborn>=0.12.0
+
+# Optional dependencies for enhanced features
+openpyxl>=3.0.0  # For Excel export
+jupyter>=1.0.0   # For Jupyter notebooks
+ipykernel>=6.0.0 # Jupyter kernel
+
+# Integration dependencies
+PyGithub>=1.59.0  # For GitHub integration and discovery
+
+# Development dependencies (optional)
+pytest>=7.0
+pytest-cov>=4.0
+black>=22.0
+mypy>=0.991
+flake8>=5.0
+pillow>=10.3.0 # not directly required, pinned by Snyk to avoid a vulnerability
+tornado>=6.5 # not directly required, pinned by Snyk to avoid a vulnerability
+anyio>=4.4.0 # not directly required, pinned by Snyk to avoid a vulnerability
+fonttools>=4.43.0 # not directly required, pinned by Snyk to avoid a vulnerability
+jupyter-server>=2.14.1 # not directly required, pinned by Snyk to avoid a vulnerability
+setuptools>=78.1.1 # not directly required, pinned by Snyk to avoid a vulnerability
+jupyter-core>=5.8.0 # not directly required, pinned by Snyk to avoid a vulnerability
+zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
+urllib3>=2.5.0 # not directly required, pinned by Snyk to avoid a vulnerability
+jupyterlab>=4.4.8 # not directly required, pinned by Snyk to avoid a vulnerability
+ipython>=8.10.0 # not directly required, pinned by Snyk to avoid a vulnerability

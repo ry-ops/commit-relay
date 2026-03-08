@@ -1,0 +1,49 @@
+{
+  "tool_id": "file-operations",
+  "display_name": "File Operations",
+  "version": "1.0.0",
+  "category": "file_system",
+  "description": "File system manipulation tools",
+  "operations": [
+    {
+      "operation": "read",
+      "description": "Read file contents",
+      "parameters": ["file_path", "offset", "limit"],
+      "success_rate": 0.99,
+      "avg_duration_ms": 50
+    },
+    {
+      "operation": "write",
+      "description": "Write content to file",
+      "parameters": ["file_path", "content"],
+      "success_rate": 0.98,
+      "avg_duration_ms": 80
+    },
+    {
+      "operation": "edit",
+      "description": "Edit file with pattern replacement",
+      "parameters": ["file_path", "old_string", "new_string"],
+      "success_rate": 0.96,
+      "avg_duration_ms": 120
+    },
+    {
+      "operation": "glob",
+      "description": "Find files matching pattern",
+      "parameters": ["pattern", "path"],
+      "success_rate": 0.99,
+      "avg_duration_ms": 200
+    }
+  ],
+  "used_by_agents": ["development-master", "inventory-master", "security-master"],
+  "performance": {
+    "total_calls": 3421,
+    "success_rate": 0.98,
+    "avg_duration_ms": 95
+  },
+  "optimal_contexts": [
+    "code_implementation",
+    "bug_fixes",
+    "refactoring",
+    "documentation"
+  ]
+}

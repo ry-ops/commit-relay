@@ -1,0 +1,262 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://commit-relay.dev/schemas/workflow.json",
+  "title": "Commit-Relay Workflow Schema",
+  "description": "Schema for declarative DAG workflow definitions",
+  "type": "object",
+  "required": ["name", "version", "steps"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique workflow identifier",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version of the workflow",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable workflow description"
+    },
+    "triggers": {
+      "type": "array",
+      "description": "Events that can trigger this workflow",
+      "items": {
+        "type": "object",
+        "required": ["type"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["manual", "schedule", "webhook", "event", "cron"],
+            "description": "Trigger type"
+          },
+          "schedule": {
+            "type": "string",
+            "description": "Cron expression for scheduled triggers"
+          },
+          "event": {
+            "type": "string",
+            "description": "Event name for event triggers"
+          },
+          "webhook_path": {
+            "type": "string",
+            "description": "Webhook endpoint path"
+          },
+          "conditions": {
+            "type": "object",
+            "description": "Conditions for trigger activation"
+          }
+        }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "description": "Workflow input parameters",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["string", "number", "boolean", "array", "object"],
+            "description": "Input parameter type"
+          },
+          "description": {
+            "type": "string",
+            "description": "Parameter description"
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether this input is required",
+            "default": false
+          },
+          "default": {
+            "description": "Default value if not provided"
+          },
+          "enum": {
+            "type": "array",
+            "description": "Allowed values for this parameter"
+          }
+        }
+      }
+    },
+    "outputs": {
+      "type": "object",
+      "description": "Workflow output definitions",
+      "additionalProperties": {
+        "type": "string",
+        "description": "Output value expression (e.g., {{ steps.X.outputs.Y }})"
+      }
+    },
+    "steps": {
+      "type": "array",
+      "description": "Workflow steps to execute",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/step"
+      }
+    },
+    "on_failure": {
+      "type": "object",
+      "description": "Failure handling configuration",
+      "properties": {
+        "notify": {
+          "type": "object",
+          "properties": {
+            "channels": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "template": {
+              "type": "string"
+            }
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/step"
+          }
+        },
+        "retry": {
+          "type": "object",
+          "properties": {
+            "max_attempts": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "delay_seconds": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "timeout_minutes": {
+      "type": "integer",
+      "description": "Maximum workflow execution time in minutes",
+      "minimum": 1
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional workflow metadata",
+      "properties": {
+        "author": {
+          "type": "string"
+        },
+        "team": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "step": {
+      "type": "object",
+      "required": ["id"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique step identifier within the workflow",
+          "pattern": "^[a-z0-9_-]+$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable step name"
+        },
+        "description": {
+          "type": "string",
+          "description": "Step description"
+        },
+        "master": {
+          "type": "string",
+          "description": "Target master for delegation",
+          "enum": ["coordinator", "development", "security", "inventory", "cicd"]
+        },
+        "action": {
+          "type": "string",
+          "description": "Action to execute",
+          "enum": [
+            "shell",
+            "bash",
+            "script",
+            "file_write",
+            "file_read",
+            "http_request",
+            "handoff",
+            "delegate",
+            "parallel",
+            "wait",
+            "condition",
+            "aggregate"
+          ]
+        },
+        "inputs": {
+          "type": "object",
+          "description": "Step input parameters (supports {{ }} interpolation)",
+          "additionalProperties": true
+        },
+        "outputs": {
+          "type": "object",
+          "description": "Step output definitions",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "depends_on": {
+          "type": "array",
+          "description": "Step IDs this step depends on",
+          "items": {
+            "type": "string"
+          }
+        },
+        "condition": {
+          "type": "string",
+          "description": "Condition expression for step execution. Uses {{ }} syntax for variable interpolation. Supports operators: ==, !=, >, <, >=, <=, in, not in, and, or, not. Examples: '{{ steps.tests.outputs.passed == true }}', '{{ steps.scan.outputs.severity in [\"high\", \"critical\"] }}', '{{ inputs.deploy_env == \"production\" and steps.tests.outputs.passed == true }}'"
+        },
+        "continue_on_failure": {
+          "type": "boolean",
+          "description": "Continue workflow if this step fails",
+          "default": false
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "description": "Step timeout in seconds",
+          "minimum": 1
+        },
+        "retry": {
+          "type": "object",
+          "description": "Step retry configuration",
+          "properties": {
+            "max_attempts": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "delay_seconds": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    }
+  }
+}

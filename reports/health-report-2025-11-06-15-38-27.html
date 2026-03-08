@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Commit-Relay Health Report</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="/dev/fd/63" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Commit-Relay Health Report</h1>
+</header>
+<h1 id="commit-relay-health-report">Commit-Relay Health Report</h1>
+<p><strong>Generated:</strong> $(date ‘+%Y-%m-%d %H:%M:%S %Z’)</p>
+<hr />
+<h2 id="executive-summary">Executive Summary</h2>
+<ul>
+<li><strong>Active Alerts:</strong> 2</li>
+<li><strong>Total Incidents:</strong> 2</li>
+<li><strong>Report Status:</strong> ⚠️ Attention Required</li>
+</ul>
+<hr />
+<h2 id="current-health-alerts">Current Health Alerts</h2>
+<h3 id="alert-alert-lowsuccess-001">Alert: alert-lowsuccess-001</h3>
+<p><strong>Type:</strong> low_success_rate <strong>Severity:</strong>
+high <strong>Status:</strong> needs_review <strong>Message:</strong>
+Worker success rate is 65% (threshold: 75%) <strong>Created:</strong>
+2025-11-06T18:30:00Z <strong>SLA:</strong> 30 minutes</p>
+<p><strong>Metrics:</strong> - Current Value: 0.65 - Threshold: 0.75</p>
+<hr />
+<h3 id="alert-alert-zombie-threshold-1762464822">Alert:
+alert-zombie-threshold-1762464822</h3>
+<p><strong>Type:</strong> zombie_threshold <strong>Severity:</strong>
+high <strong>Status:</strong> active <strong>Message:</strong> Zombie
+threshold exceeded: 13 zombies detected (threshold: 10)
+<strong>Created:</strong> 2025-11-06T21:33:42Z <strong>SLA:</strong> 30
+minutes</p>
+<p><strong>Metrics:</strong> - Current Value: 13 - Threshold: 10</p>
+<hr />
+<h2 id="recent-incidents">Recent Incidents</h2>
+<h3 id="incident-2025-11-06-alert-zombie-threshold-1762464822">Incident:
+2025-11-06-alert-zombie-threshold-1762464822</h3>
+<pre><code>================================================================================
+HEALTH ALERT INCIDENT REPORT
+================================================================================
+Incident ID: inc-1762464822
+Alert ID: alert-zombie-threshold-1762464822
+Worker ID: pm-daemon
+Outcome: zombie_threshold_exceeded
+Timestamp: 2025-11-06T21:33:42Z
+
+DETAILS:
+13 zombie workers detected (threshold: 10). Workers: dev-worker-2D6C668D,dev-worker-37A01F3D,dev-worker-4FD07A66,dev-worker-5F3CFA26,dev-worker-693450EA,dev-worker-89DE27B5,dev-worker-92D7943C,dev-worker-A2BE7A42,dev-worker-DE5535B6,dev-worker-DF971C09,dev-worker-F9966F3A,inv-worker-A6A5C517,sec-worker-FD673A67
+
+NEXT STEPS:
+- Review worker logs for details
+- Check if issue persists
+- Consider manual intervention
+- Update alert status to &#39;needs_review&#39;
+
+================================================================================</code></pre>
+<hr />
+<h3 id="incident-2025-11-06-alert-lowsuccess-001">Incident:
+2025-11-06-alert-lowsuccess-001</h3>
+<pre><code>================================================================================
+HEALTH ALERT INCIDENT REPORT
+================================================================================
+Incident ID: inc-1762449385
+Alert ID: alert-lowsuccess-001
+Worker ID: dev-worker-A3BA1E63
+Outcome: sla_exceeded
+Timestamp: 2025-11-06T17:16:25Z
+
+DETAILS:
+Worker exceeded 60 minute SLA while investigating low success rate alert. Worker has been running for over 4 hours without completion. Requires manual review to determine if progress was made or if worker is stuck.
+
+NEXT STEPS:
+- Review worker logs for details
+- Check if issue persists
+- Consider manual intervention
+- Update alert status to &#39;needs_review&#39;
+
+================================================================================</code></pre>
+<hr />
+<h2 id="system-health-overview">System Health Overview</h2>
+<p><strong>System Status:</strong> ⚠️ MONITORING</p>
+<p>The system has 2 active alert(s) and 2 recorded incident(s) that
+require attention.</p>
+<h3 id="recommended-actions">Recommended Actions:</h3>
+<ol type="1">
+<li>Review all “needs_review” alerts</li>
+<li>Check incident reports for patterns</li>
+<li>Verify worker logs for stuck processes</li>
+<li>Consider manual intervention if needed</li>
+</ol>
+<p><strong>Last Check:</strong> 2025-11-06 15:38:27 CST</p>
+<hr />
+<h2 id="report-information">Report Information</h2>
+<ul>
+<li><strong>Report Type:</strong> Health Status</li>
+<li><strong>Format:</strong> Automated PDF Report</li>
+<li><strong>Data Sources:</strong>
+<ul>
+<li><code>coordination/health-alerts.json</code></li>
+<li><code>coordination/health-incidents/*.log</code></li>
+</ul></li>
+<li><strong>Generated By:</strong> Commit-Relay Health Monitoring
+System</li>
+</ul>
+<hr />
+<p><em>This report is automatically generated. For real-time status,
+visit the Commit-Relay Dashboard.</em></p>
+</body>
+</html>

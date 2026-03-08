@@ -1,0 +1,384 @@
+{
+  "id": "task-integration-validator-master",
+  "title": "Create Integration Validator Master and Validate All Existing Routing Paths",
+  "type": "architecture",
+  "priority": "critical",
+  "status": "pending",
+  "created_at": "2025-11-15T12:45:00Z",
+  "created_by": "system-health-diagnostic",
+  "context": {
+    "description": "Critical system issue: 102 tasks stuck in queue, routing pipeline broken, no validation of integration points. Create Integration Validator Master agent and validate all existing routing paths end-to-end.",
+    "problem_statement": {
+      "current_failures": [
+        "102 tasks stuck in task-queue.json since Nov 14, none being processed",
+        "Learning task (task-moe-learning-1763158243889) pending for 24+ hours with no routing",
+        "60+ workers registered but all in 'stalled' state with no heartbeats",
+        "1.8% success rate (52 failed, 1 completed today)",
+        "Coordinator daemon not routing tasks from queue",
+        "Worker daemon running but not processing any tasks",
+        "No end-to-end validation of routing pipeline",
+        "No runtime detection of routing failures"
+      ],
+      "root_cause": "Missing integration validation between components. New processes added without verifying complete routing path works.",
+      "chicken_egg_problem": "Learning task would identify routing issues, but routing is broken so learning task never runs. System cannot self-heal."
+    },
+    "objectives": {
+      "immediate": {
+        "priority": 1,
+        "goal": "Fix broken routing pipeline and get tasks processing",
+        "tasks": [
+          "Validate task-queue.json → coordinator routing path",
+          "Verify coordinator → handoff → master assignment flow",
+          "Test master → worker-spec creation process",
+          "Validate worker-daemon → worker-spec pickup",
+          "Ensure worker execution and heartbeat mechanism",
+          "Fix all identified routing breaks",
+          "Get learning task and other pending tasks processing"
+        ]
+      },
+      "comprehensive_validation": {
+        "priority": 2,
+        "goal": "Validate ALL existing routing paths end-to-end",
+        "routing_paths_to_validate": [
+          {
+            "path": "Task Creation → Queue → Coordinator → Development Master → Worker → Completion",
+            "test_types": ["feature", "bug", "refactor", "implementation", "optimization"],
+            "validation_points": [
+              "scripts/create-task.sh writes to task-queue.json",
+              "Coordinator reads from task-queue.json",
+              "MoE router (moe-router.sh) pattern matches correctly",
+              "Coordinator creates handoff file",
+              "Development master picks up handoff",
+              "Master creates worker-spec in coordination/worker-specs/pending/",
+              "Worker daemon detects pending worker-spec",
+              "Worker spawns via scripts/run-development-master.sh or worker launcher",
+              "Worker registers in worker-pool.json",
+              "Worker sends heartbeats to PM daemon",
+              "Worker completes and updates task status",
+              "Task marked completed in task-queue.json"
+            ]
+          },
+          {
+            "path": "Security Scan Task → Security Master → Scan Worker → Results",
+            "test_types": ["security-scan", "security_scan", "audit", "vulnerability"],
+            "validation_points": [
+              "Task routed to security master",
+              "Security master creates scan-worker spec",
+              "Scan worker executes security scans",
+              "Results written to appropriate location",
+              "Task completion triggers governance checks"
+            ]
+          },
+          {
+            "path": "CI/CD Task → CICD Master → Pipeline Execution",
+            "test_types": ["build", "test", "deploy", "release"],
+            "validation_points": [
+              "Task routed to cicd master",
+              "CICD master orchestrates pipeline",
+              "Build/test/deploy workers spawn correctly",
+              "Pipeline status tracked properly",
+              "Deployment verification works"
+            ]
+          },
+          {
+            "path": "Inventory Task → Inventory Master → Cataloging",
+            "test_types": ["catalog", "inventory", "documentation"],
+            "validation_points": [
+              "Task routed to inventory master",
+              "Cataloging workers spawn",
+              "Repository metadata extracted",
+              "Catalog files updated correctly"
+            ]
+          },
+          {
+            "path": "Dashboard Update → CICD Master → Dashboard Deployment",
+            "test_types": ["dashboard-update"],
+            "validation_points": [
+              "Dashboard update handoffs work",
+              "CICD master receives handoff",
+              "Dashboard restart orchestrated",
+              "Version updates tracked"
+            ]
+          }
+        ]
+      },
+      "create_validator_master": {
+        "priority": 3,
+        "goal": "Create Integration Validator Master for ongoing validation",
+        "responsibilities": [
+          "Pre-deployment validation of new processes",
+          "Runtime health monitoring of routing pipelines",
+          "End-to-end integration testing",
+          "Automatic detection of routing failures",
+          "Self-healing trigger when routing breaks"
+        ]
+      }
+    },
+    "implementation_plan": {
+      "phase_1_immediate_fix": {
+        "duration": "1-2 hours",
+        "steps": [
+          "Diagnose why coordinator not reading task-queue.json",
+          "Verify coordinator daemon startup and logging",
+          "Test moe-router.sh manually with learning task",
+          "Identify missing/broken coordination files or permissions",
+          "Fix critical path: task-queue → coordinator → assignment",
+          "Manually route learning task if needed to unblock",
+          "Verify worker-daemon is watching correct directories",
+          "Fix worker heartbeat mechanism if broken"
+        ],
+        "success_criteria": [
+          "Coordinator successfully reads from task-queue.json",
+          "Learning task gets routed to development-master",
+          "At least 1 task moves from pending → assigned → in_progress",
+          "Worker heartbeats appear in PM daemon logs"
+        ]
+      },
+      "phase_2_comprehensive_validation": {
+        "duration": "2-3 hours",
+        "steps": [
+          "Create validation test suite: tests/integration/routing-validation/",
+          "Write end-to-end routing test for each master type",
+          "Test complete flow: create task → route → assign → execute → complete",
+          "Validate file permissions on all coordination directories",
+          "Check daemon PID files, log files, state files accessibility",
+          "Verify handoff directories exist and are writable",
+          "Test worker-spec creation and pickup mechanism",
+          "Validate PM daemon worker registration and monitoring",
+          "Check task-completion-daemon.sh functionality",
+          "Test failure scenarios and recovery mechanisms"
+        ],
+        "deliverables": [
+          "tests/integration/routing-validation/test-end-to-end-development.sh",
+          "tests/integration/routing-validation/test-end-to-end-security.sh",
+          "tests/integration/routing-validation/test-end-to-end-cicd.sh",
+          "tests/integration/routing-validation/test-end-to-end-inventory.sh",
+          "tests/integration/routing-validation/test-coordinator-startup.sh",
+          "tests/integration/routing-validation/test-worker-lifecycle.sh",
+          "tests/integration/routing-validation/run-all-routing-tests.sh",
+          "coordination/routing-validation-report.json"
+        ]
+      },
+      "phase_3_integration_validator_master": {
+        "duration": "2-3 hours",
+        "steps": [
+          "Create .claude/agents/integration-validator-master.md",
+          "Define agent responsibilities and capabilities",
+          "Create scripts/run-integration-validator-master.sh",
+          "Implement coordination/masters/integration-validator/",
+          "Build validation test execution framework",
+          "Create runtime health monitoring daemon",
+          "Implement auto-detection of routing failures",
+          "Add dashboard integration for validation status",
+          "Create alert system for routing breakages"
+        ],
+        "deliverables": [
+          ".claude/agents/integration-validator-master.md",
+          "scripts/run-integration-validator-master.sh",
+          "coordination/masters/integration-validator/",
+          "scripts/integration-health-monitor-daemon.sh",
+          "dashboard API endpoints for validation status",
+          "coordination/routing-health.json",
+          "Automated routing health checks (cron/daemon)"
+        ]
+      },
+      "phase_4_preventive_measures": {
+        "duration": "1 hour",
+        "steps": [
+          "Add integration validation to new process checklist",
+          "Create pre-commit hooks for routing validation",
+          "Document integration validation requirements",
+          "Add routing validation to governance framework",
+          "Create runbook for routing failure recovery"
+        ],
+        "deliverables": [
+          "docs/integration-validation-requirements.md",
+          "docs/runbooks/routing-failure-recovery.md",
+          ".github/workflows/validate-routing.yml (if using GitHub Actions)",
+          "Updated governance framework with integration checks"
+        ]
+      }
+    },
+    "integration_validator_master_spec": {
+      "name": "Integration Validator Master",
+      "agent_file": ".claude/agents/integration-validator-master.md",
+      "role": "Ensures all system integration points work correctly and routing pipelines are healthy",
+      "capabilities": [
+        "End-to-end routing validation",
+        "Component integration testing",
+        "Runtime health monitoring",
+        "Automatic failure detection",
+        "Self-healing orchestration",
+        "Pre-deployment validation",
+        "Continuous integration verification"
+      ],
+      "validation_types": {
+        "pre_deployment": {
+          "when": "Before new process/feature goes live",
+          "validates": [
+            "All file paths exist and are accessible",
+            "Required coordination files can be created",
+            "Daemons can read/write coordination state",
+            "Handoff mechanisms work bidirectionally",
+            "Worker specs can be created and picked up",
+            "Routing patterns match correctly",
+            "Integration points have proper error handling"
+          ]
+        },
+        "runtime": {
+          "when": "Continuously during system operation",
+          "monitors": [
+            "Task queue processing rate (tasks/hour)",
+            "Routing latency (task created → assigned)",
+            "Worker spawn success rate",
+            "Heartbeat reception rate",
+            "Stalled worker detection",
+            "Task completion rate vs creation rate",
+            "Daemon health and uptime"
+          ],
+          "alerts_on": [
+            "No tasks processed in 30 minutes",
+            "Task queue growing (backlog building)",
+            "Worker spawn failure rate > 30%",
+            "No heartbeats received in 15 minutes",
+            "Daemon crashes or stops",
+            "Routing latency > 5 minutes"
+          ]
+        },
+        "periodic": {
+          "when": "Daily or on-demand",
+          "executes": [
+            "Full end-to-end routing tests",
+            "Component integration smoke tests",
+            "File permission audits",
+            "Coordination file integrity checks",
+            "Daemon configuration validation",
+            "Recovery mechanism tests"
+          ]
+        }
+      },
+      "self_healing_actions": [
+        "Restart crashed daemons automatically",
+        "Clear stuck tasks after investigation",
+        "Recreate missing coordination directories",
+        "Fix file permissions if broken",
+        "Manually route stuck tasks",
+        "Trigger zombie worker cleanup",
+        "Alert human operators for critical failures"
+      ]
+    },
+    "testing_strategy": {
+      "test_harness": "tests/integration/routing-validation/",
+      "test_types": [
+        {
+          "name": "Smoke Test",
+          "duration": "2 minutes",
+          "validates": "Basic routing functionality works",
+          "tests": [
+            "Create test task → verify appears in queue",
+            "Verify coordinator can read queue",
+            "Test MoE router pattern matching",
+            "Check handoff file creation"
+          ]
+        },
+        {
+          "name": "End-to-End Test",
+          "duration": "10-15 minutes",
+          "validates": "Complete task lifecycle works",
+          "tests": [
+            "Create task of each type",
+            "Wait for routing (timeout 5 min)",
+            "Verify worker spawns",
+            "Monitor heartbeats",
+            "Check task completion",
+            "Validate cleanup"
+          ]
+        },
+        {
+          "name": "Failure Mode Test",
+          "duration": "15-20 minutes",
+          "validates": "System handles failures gracefully",
+          "tests": [
+            "Coordinator crash recovery",
+            "Worker daemon crash recovery",
+            "Worker failure handling",
+            "Task timeout handling",
+            "Stalled worker detection",
+            "Recovery from corrupted state files"
+          ]
+        },
+        {
+          "name": "Load Test",
+          "duration": "30 minutes",
+          "validates": "Routing handles backlog correctly",
+          "tests": [
+            "Queue 50 tasks rapidly",
+            "Verify all get routed",
+            "Check no tasks lost",
+            "Monitor routing latency",
+            "Validate priority ordering"
+          ]
+        }
+      ]
+    },
+    "success_criteria": {
+      "phase_1_complete": [
+        "Current 102 pending tasks start processing within 1 hour",
+        "Learning task successfully routed and executing",
+        "Worker success rate improves to > 50%",
+        "At least 5 tasks complete successfully",
+        "No new stalled workers after fixes"
+      ],
+      "phase_2_complete": [
+        "All 5 routing paths validated end-to-end",
+        "100% of integration tests passing",
+        "Routing validation report shows no critical failures",
+        "All identified routing breaks documented and fixed",
+        "Comprehensive test suite available for regression testing"
+      ],
+      "phase_3_complete": [
+        "Integration Validator Master agent created and tested",
+        "Runtime health monitoring operational",
+        "Dashboard shows routing health metrics",
+        "Auto-detection of routing failures working",
+        "Self-healing actions tested and documented"
+      ],
+      "phase_4_complete": [
+        "Integration validation added to development checklist",
+        "Documentation complete and reviewed",
+        "Runbooks tested and validated",
+        "Preventive measures in place"
+      ],
+      "overall_success": [
+        "Zero tasks stuck in queue for more than 15 minutes",
+        "95%+ routing success rate",
+        "Automatic detection of routing failures within 5 minutes",
+        "Self-healing resolves 80%+ of routing issues automatically",
+        "New processes validated before deployment"
+      ]
+    },
+    "priority_justification": "CRITICAL - System is currently non-functional. 102 tasks stuck, routing completely broken, learning task cannot run to help diagnose. This is blocking all autonomous operations.",
+    "dependencies": [],
+    "estimated_effort": "6-9 hours total (can be done in phases)",
+    "assigned_to_recommendation": "development-master (requires system-level architecture work)"
+  },
+  "deliverables": [
+    "Fixed routing pipeline (immediate)",
+    "Comprehensive routing validation test suite",
+    "Integration Validator Master agent",
+    "Runtime health monitoring daemon",
+    "Dashboard routing health visualization",
+    "Integration validation documentation",
+    "Routing failure recovery runbook",
+    "Preventive measures and checklists"
+  ],
+  "metadata": {
+    "complexity": "very high",
+    "impact": "critical - system currently non-functional",
+    "architectural_scope": "system-wide",
+    "breaking_changes": false,
+    "requires_testing": true,
+    "requires_documentation": true,
+    "can_be_automated": true
+  }
+}

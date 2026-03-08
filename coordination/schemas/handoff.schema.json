@@ -1,0 +1,117 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "handoff.schema.json",
+  "title": "Master Handoff",
+  "description": "Schema for inter-master agent handoffs",
+  "type": "object",
+  "required": ["handoff_id", "from_master", "to_master", "task_id", "created_at", "status"],
+  "additionalProperties": true,
+  "properties": {
+    "handoff_id": {
+      "type": "string",
+      "pattern": "^[a-z]+-to-[a-z0-9]+-[A-F0-9-]{36}$|^[a-z]+-to-[a-z0-9]+-task-[0-9]+$|^dev-to-cicd-dashboard-[A-F0-9-]{36}$",
+      "description": "Unique handoff identifier"
+    },
+    "from_master": {
+      "type": "string",
+      "enum": ["coordinator", "development", "security", "inventory", "cicd"],
+      "description": "Source master agent"
+    },
+    "to_master": {
+      "type": "string",
+      "enum": ["coordinator", "development", "security", "inventory", "cicd"],
+      "description": "Destination master agent"
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^(task-[0-9]+|test-task-[0-9]+)$",
+      "description": "Associated task ID"
+    },
+    "task_data": {
+      "type": "object",
+      "description": "Complete task data payload"
+    },
+    "handoff_type": {
+      "type": "string",
+      "enum": ["dashboard_deployment", "task_assignment", "task_completion", "escalation", "coordination"],
+      "description": "Type of handoff"
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "routing_reason": {
+          "type": "string",
+          "description": "Reason for routing decision"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["critical", "high", "medium", "low"],
+          "description": "Handoff priority"
+        },
+        "expected_outcome": {
+          "type": "string",
+          "description": "Expected outcome description"
+        },
+        "moe_metadata": {
+          "type": "object",
+          "properties": {
+            "confidence": {
+              "type": "string",
+              "pattern": "^0\\.[0-9]{2}$|^1\\.00$"
+            },
+            "strategy": {
+              "type": "string",
+              "enum": ["single_expert", "single_expert_low_confidence", "ensemble", "sparse_pool", "full_pool"]
+            },
+            "routed_at": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "dashboard_update": {
+      "type": "object",
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["events", "metrics", "tasks", "workers", "moe"]
+          }
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["immediate", "high", "normal", "low"]
+        },
+        "validation_required": {
+          "type": "boolean"
+        },
+        "changes_summary": {
+          "type": "string"
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Handoff creation timestamp"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending_pickup", "picked_up", "in_progress", "completed", "failed", "expired"],
+      "description": "Handoff status"
+    },
+    "picked_up_at": {
+      "type": "string",
+      "description": "Timestamp when handoff was picked up"
+    },
+    "completed_at": {
+      "type": "string",
+      "description": "Timestamp when handoff was completed"
+    }
+  }
+}

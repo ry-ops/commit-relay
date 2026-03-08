@@ -1,0 +1,38 @@
+{
+  "worker_id": "worker-scan-019",
+  "worker_type": "scan-worker",
+  "created_by": "security-master",
+  "execution_manager": null,
+  "created_at": "2025-11-16T10:33:21-0600",
+  "task_id": "moe-test-ddqd-v5-1763246282-ff986227",
+  "status": "completed",
+  "scope": {},
+  "context": {
+    "parent_task": "moe-test-ddqd-v5-1763246282-ff986227",
+    "priority": "medium",
+    "deadline": null
+  },
+  "resources": {
+    "token_budget": 8000,
+    "timeout_minutes": 15,
+    "max_retries": 1
+  },
+  "deliverables": [],
+  "prompt_template": "agents/prompts/workers/scan-worker.md",
+  "execution": {
+    "started_at": "2025-11-16T10:34:13-0600",
+    "completed_at": "2025-11-16T16:37:14Z",
+    "tokens_used": 1200,
+    "duration_minutes": 0,
+    "session_id": null
+  },
+  "results": {
+    "status": "SUCCESS",
+    "output_location": "/Users/ryandahlberg/Projects/commit-relay/agents/logs/workers/2025-11-16/worker-scan-019/scan_results.json",
+    "summary": "DDQD Test: Mock scan completed with 3 test findings (1 high, 1 medium, 1 low)",
+    "artifacts": [
+      "/Users/ryandahlberg/Projects/commit-relay/agents/logs/workers/2025-11-16/worker-scan-019/scan_results.json",
+      "/Users/ryandahlberg/Projects/commit-relay/agents/logs/workers/2025-11-16/worker-scan-019/vulnerability_list.md"
+    ]
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "handoff_id": "coord-to-development-B4D60A39-5263-4BAE-BD1B-C20A34C19FF7",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762896847",
+  "task_data": {
+    "id": "task-1762896847",
+    "title": "CRITICAL: Fix Claude Worker Launcher Ink TTY Error",
+    "type": "bug",
+    "priority": "critical",
+    "status": "assigned",
+    "created_at": "2025-11-11T21:34:07Z",
+    "created_by": "user",
+    "context": {
+      "description": "IMMEDIATE HOTFIX: Fix claude-worker-launcher-v2.sh that causes 100% worker failure due to Ink TTY requirement",
+      "root_cause": {
+        "file": "scripts/claude-worker-launcher-v2.sh",
+        "line": 165,
+        "broken_code": "claude < prompt.md",
+        "error": "Raw mode is not supported on the current process.stdin, which Ink uses as input stream",
+        "explanation": "Piping file to stdin makes it non-TTY, Ink crashes immediately before Claude Code starts"
+      },
+      "impact": {
+        "severity": "CRITICAL",
+        "worker_failure_rate": "100% (all new workers fail immediately)",
+        "zombie_creation": "Every worker spawn creates a zombie task",
+        "current_zombies": "48 tasks stuck from Nov 7-8",
+        "blocking": "Cannot spawn any functional workers until fixed"
+      },
+      "immediate_fix": {
+        "approach": "Use osascript to launch Claude Code in actual Terminal.app window with TTY",
+        "why": "Terminal.app provides real TTY that satisfies Ink's isRawModeSupported() check",
+        "alternative_considered": "expect/script/pty - but Terminal.app is simpler and already used in worker-daemon.sh"
+      },
+      "required_changes": {
+        "file": "scripts/claude-worker-launcher-v2.sh",
+        "changes": [
+          "Replace 'claude < prompt.md' with osascript Terminal launch",
+          "Add stderr capture to file: agents/logs/workers/WORKER_ID/stderr.log",
+          "Add pre-flight validation: check if claude command exists and is executable",
+          "Add error detection: Check for Ink errors in stderr",
+          "Add failure handling: Mark worker as 'failed' and update task status to 'failed'",
+          "Add success verification: Wait for worker to create status.json before returning",
+          "Add timeout handling: Kill worker if no progress after 5 minutes",
+          "Log all errors to agents/logs/system/launcher-errors.log"
+        ]
+      },
+      "terminal_launch_pattern": {
+        "description": "Use AppleScript to launch Claude in Terminal with proper TTY",
+        "code_example": "osascript -e 'tell application \"Terminal\" to do script \"cd  && claude --prompt prompt.md\"'",
+        "benefits": [
+          "Real TTY that Ink accepts",
+          "Worker isolation (each in own Terminal window)",
+          "Visual monitoring capability",
+          "Proper signal handling"
+        ]
+      },
+      "error_capture": {
+        "stderr_redirect": "2> agents/logs/workers/WORKER_ID/stderr.log",
+        "stdout_redirect": "> agents/logs/workers/WORKER_ID/stdout.log",
+        "launcher_log": "agents/logs/system/launcher.log (already exists)",
+        "error_patterns": [
+          "Raw mode is not supported",
+          "isRawModeSupported",
+          "process.stdin",
+          "Ink uses"
+        ]
+      },
+      "testing_requirements": [
+        "Test with single worker spawn",
+        "Verify stderr capture works",
+        "Verify status.json gets created",
+        "Verify task status updates correctly",
+        "Test failure scenario (invalid task)",
+        "Ensure no more zombie workers created"
+      ]
+    },
+    "deliverables": [
+      "Fixed scripts/claude-worker-launcher-v2.sh with Terminal.app launch",
+      "Error logging to agents/logs/workers/WORKER_ID/stderr.log",
+      "Pre-flight validation checks",
+      "Failure detection and task status updates",
+      "Test verification with dev-worker-0AAEBC29 (zombie cleanup worker)",
+      "Documentation: docs/fixes/launcher-ink-tty-fix.md"
+    ],
+    "success_criteria": [
+      "dev-worker-0AAEBC29 launches successfully without Ink error",
+      "Worker creates status.json file",
+      "Task status updates from 'worker_spawned' to 'running' or 'completed'",
+      "No 'Raw mode is not supported' errors in logs",
+      "Stderr captured to worker log directory",
+      "Future workers launch successfully"
+    ],
+    "metadata": {
+      "estimated_effort": "30 minutes",
+      "complexity": "medium",
+      "automation_potential": "high",
+      "blocking_issue": true,
+      "fixes_zombie_creation": true
+    },
+    "assigned_to": "development",
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-11T15:34:21-0600",
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-11T15:34:21-06:00"
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "critical",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "N/A",
+      "strategy": "pattern-based",
+      "routed_at": "2025-11-11T15:34:21-0600"
+    }
+  },
+  "created_at": "2025-11-11T15:34:21-0600",
+  "status": "pending_pickup"
+}

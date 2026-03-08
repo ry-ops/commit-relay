@@ -1,0 +1,52 @@
+{
+  "worker_id": "dev-worker-F9966F3A",
+  "worker_type": "feature-implementer",
+  "prompt_template": "agents/prompts/workers/implementation-worker.md",
+  "parent_master": "development",
+  "task_id": "task-1762342918",
+  "task_data": {
+    "id": "task-1762342918",
+    "title": "Replace token budget pie chart with AUTONOMOUS PRODUCTIVITY ANALYTICS chart. YOU MUST edit dashboard/public/dashboard-v2.js and dashboard/server/index.js files. Create beautiful time-series chart showing tasks completed, commits, success rate, completion time trends. Add stat cards. Make it visually stunning with animations. This will make the user BLUSH with excitement seeing their autonomous system's exponential growth\\!",
+    "type": "development",
+    "priority": "high",
+    "status": "assigned",
+    "assigned_to": "development",
+    "created_at": "2025-11-05T17:03:35Z",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "Replace token budget pie chart with AUTONOMOUS PRODUCTIVITY ANALYTICS chart. YOU MUST edit dashboard/public/dashboard-v2.js and dashboard/server/index.js files. Create beautiful time-series chart showing tasks completed, commits, success rate, completion time trends. Add stat cards. Make it visually stunning with animations. This will make the user BLUSH with excitement seeing their autonomous system's exponential growth\\!",
+      "requirements": []
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-05T17:03:36Z",
+    "updated_at": "2025-11-05T11:03:36-06:00"
+  },
+  "context": {
+    "master_session": "3A24DCEC-39A6-495F-AC3E-262F0EEEDB03",
+    "expertise_area": "feature_development",
+    "skills_required": [
+      "design",
+      "implementation",
+      "testing"
+    ],
+    "knowledge_base_refs": {
+      "implementation_patterns": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/development/knowledge-base/implementation-patterns.jsonl",
+      "architecture_docs": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/development/knowledge-base/codebase-architecture.json"
+    }
+  },
+  "resources": {
+    "token_allocation": 15000,
+    "time_limit_minutes": 60
+  },
+  "status": "failed",
+  "created_at": "2025-11-05T17:03:36Z",
+  "created_by": "development",
+  "execution": {
+    "started_at": "2025-11-05T17:03:56Z",
+    "completed_at": "2025-11-06T21:32:04Z",
+    "error": "Zombie worker detected - running for 80886s with no completion",
+    "killed_by": "zombie-killer-daemon"
+  }
+}

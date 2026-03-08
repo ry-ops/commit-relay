@@ -1,0 +1,131 @@
+{
+  "task_id": "moe-test-ddqd-v5-1763253547-f4e113af",
+  "worker_id": "worker-scan-025",
+  "task_type": "security",
+  "status": "completed",
+  "started_at": "2025-11-16T16:35:00-0600",
+  "completed_at": "2025-11-16T16:38:00-0600",
+  "duration_minutes": 3,
+  "summary": "Security vulnerability analysis completed for CVE-2024-12345",
+  "findings": {
+    "cve": "CVE-2024-12345",
+    "title": "Critical Authentication Vulnerabilities in Dashboard API",
+    "severity": "CRITICAL",
+    "affected_file": "/dashboard/server/middleware/auth.js",
+    "vulnerabilities_found": 5,
+    "critical_count": 1,
+    "high_count": 1,
+    "medium_count": 2,
+    "low_count": 1
+  },
+  "deliverables": [
+    {
+      "type": "security_analysis_report",
+      "path": "/Users/ryandahlberg/Projects/commit-relay/agents/workers/worker-scan-025/security-analysis-CVE-2024-12345.md",
+      "description": "Comprehensive security analysis with POC and remediation guidance"
+    },
+    {
+      "type": "completion_report",
+      "path": "/Users/ryandahlberg/Projects/commit-relay/agents/workers/worker-scan-025/task-completion-report.json",
+      "description": "Task completion metadata and metrics"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "CVE-2024-12345-1",
+      "severity": "CRITICAL",
+      "title": "Timing Attack Vulnerability",
+      "location": "auth.js:31",
+      "cvss": 7.5,
+      "description": "Non-constant-time string comparison allows timing attacks to recover API keys"
+    },
+    {
+      "id": "CVE-2024-12345-2",
+      "severity": "HIGH",
+      "title": "Information Disclosure in Error Messages",
+      "location": "auth.js:32-36",
+      "cvss": 5.3,
+      "description": "Error messages reveal authentication mechanism details"
+    },
+    {
+      "id": "CVE-2024-12345-3",
+      "severity": "MEDIUM",
+      "title": "Insecure Development Mode Bypass",
+      "location": "auth.js:16-19",
+      "cvss": 6.1,
+      "description": "Complete authentication bypass in development mode without safeguards"
+    },
+    {
+      "id": "CVE-2024-12345-4",
+      "severity": "MEDIUM",
+      "title": "Missing Rate Limiting",
+      "location": "entire middleware",
+      "cvss": 6.5,
+      "description": "No rate limiting allows brute force and timing attack amplification"
+    },
+    {
+      "id": "CVE-2024-12345-5",
+      "severity": "MEDIUM",
+      "title": "Weak Confirmation Middleware",
+      "location": "auth.js:47-58",
+      "cvss": 4.3,
+      "description": "Predictable confirmation values and same timing vulnerability"
+    }
+  ],
+  "recommendations": {
+    "immediate": [
+      "Implement constant-time comparison using crypto.timingSafeEqual",
+      "Add rate limiting to prevent brute force attacks"
+    ],
+    "short_term": [
+      "Reduce information disclosure in error messages",
+      "Add security headers",
+      "Implement comprehensive audit logging"
+    ],
+    "long_term": [
+      "Implement API key rotation mechanism",
+      "Add CSRF protection for sensitive operations",
+      "Consider migration to JWT or OAuth 2.0"
+    ]
+  },
+  "compliance_impact": [
+    "OWASP Top 10: A02:2021 - Cryptographic Failures",
+    "PCI DSS: Requirement 6.5.10",
+    "SOC 2: CC6.1",
+    "GDPR: Article 32"
+  ],
+  "next_steps": [
+    {
+      "action": "Create remediation task for development-master",
+      "priority": "critical",
+      "estimated_effort": "4-6 hours"
+    },
+    {
+      "action": "Security review of other authentication endpoints",
+      "priority": "high",
+      "estimated_effort": "2-3 hours"
+    },
+    {
+      "action": "Implement automated security testing",
+      "priority": "medium",
+      "estimated_effort": "8-10 hours"
+    }
+  ],
+  "metrics": {
+    "files_analyzed": 1,
+    "lines_of_code_reviewed": 64,
+    "vulnerabilities_identified": 5,
+    "poc_created": true,
+    "remediation_guidance_provided": true,
+    "test_cases_defined": 5
+  },
+  "test_validation": {
+    "moe_test": true,
+    "test_id": "ddqd-v5-1763253547",
+    "routing_accuracy": "correct",
+    "expected_master": "security",
+    "actual_master": "security",
+    "worker_type": "scan-worker",
+    "autonomous_completion": true
+  }
+}

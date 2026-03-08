@@ -1,0 +1,39 @@
+{
+  "handoff_id": "coord-to-development-F6DCAF88-640C-4E25-841F-E96E998BDD10",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762553463",
+  "task_data": {
+    "id": "task-1762553463",
+    "title": "PROMPT ENGINEERING UPGRADE - Phase 6: Production Hardening. Ensure upgraded system is production-ready with monitoring, alerting, and failsafes. OBJECTIVES: 1) Integrate circuit breakers (from task-1762553455) into all agent call paths - coordinator routing, worker spawning, API calls. 2) Implement rate limiting to prevent LLM API overload - 30 calls per 60s window, exponential backoff on limit hit. 3) Create monitoring dashboard with real-time metrics: agent call volume, validation success rates, retry rates, schema violations, circuit breaker states, rate limit usage. 4) Build alerting system that triggers on: validation failure >10%, retry rate >20%, circuit breaker opens, schema violations detected, rate limit exceeded. 5) Create operations runbook documenting: common failure modes, remediation steps, rollback procedures, emergency contacts. 6) Add health check endpoints and implement automated recovery. TECHNICAL: Use existing circuit-breaker.js, add Prometheus-compatible /metrics endpoint, integrate with dashboard server. DELIVERABLES: Circuit breaker integration, rate limiter, monitoring dashboard, alerting system, ops runbook. SUCCESS: 99.9% uptime, <5min MTTR, zero data loss.",
+    "type": "development",
+    "priority": "high",
+    "status": "assigned",
+    "assigned_to": "development",
+    "created_at": "2025-11-11T10:34:01-0600",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "PROMPT ENGINEERING UPGRADE - Phase 6: Production Hardening. Ensure upgraded system is production-ready with monitoring, alerting, and failsafes. OBJECTIVES: 1) Integrate circuit breakers (from task-1762553455) into all agent call paths - coordinator routing, worker spawning, API calls. 2) Implement rate limiting to prevent LLM API overload - 30 calls per 60s window, exponential backoff on limit hit. 3) Create monitoring dashboard with real-time metrics: agent call volume, validation success rates, retry rates, schema violations, circuit breaker states, rate limit usage. 4) Build alerting system that triggers on: validation failure >10%, retry rate >20%, circuit breaker opens, schema violations detected, rate limit exceeded. 5) Create operations runbook documenting: common failure modes, remediation steps, rollback procedures, emergency contacts. 6) Add health check endpoints and implement automated recovery. TECHNICAL: Use existing circuit-breaker.js, add Prometheus-compatible /metrics endpoint, integrate with dashboard server. DELIVERABLES: Circuit breaker integration, rate limiter, monitoring dashboard, alerting system, ops runbook. SUCCESS: 99.9% uptime, <5min MTTR, zero data loss.",
+      "requirements": []
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-11T11:42:14-0600",
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-11T11:42:14-06:00"
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "high",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "N/A",
+      "strategy": "pattern-based",
+      "routed_at": "2025-11-11T11:42:14-0600"
+    }
+  },
+  "created_at": "2025-11-11T11:42:14-0600",
+  "status": "pending_pickup"
+}

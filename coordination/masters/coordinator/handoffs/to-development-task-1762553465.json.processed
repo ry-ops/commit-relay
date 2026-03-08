@@ -1,0 +1,62 @@
+{
+  "handoff_id": "coord-to-development-1762553465",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762553465",
+  "task_data": {
+    "id": "task-1762553465",
+    "title": "GOVERNANCE UPGRADE - Phase 2: Single-Permission Model & Access Controls",
+    "type": "development",
+    "priority": "critical",
+    "status": "assigned",
+    "description": "Implement unified role-based access control inspired by Amgen (120 roles → 1-2 principal roles). BUILDS ON: Phase 1 unified catalog (task-1762553464).",
+    "objectives": [
+      "Define 3 principal roles: system-admin (full access), agent-operator (standard operations), observer (read-only)",
+      "Implement fine-grained access control library (lib/governance/access-control.js) with checkPermission(principal, asset, operation), role-based permissions, asset-level restrictions, PII access requirements",
+      "Integrate permission checks into ALL agent calls - update spawn-worker.sh, emit-event.sh, moe-router.sh, create-task.sh to check permissions before operations",
+      "Add row/column level security for sensitive coordination files - filter fields based on principal permissions",
+      "Create permission logging - log all access decisions to audit trail",
+      "Build permission management CLI for role assignment and review"
+    ],
+    "technical_requirements": [
+      "Use catalog from Phase 1 for asset metadata",
+      "Implement deny-by-default security",
+      "Async permission checks for performance (<5ms overhead)"
+    ],
+    "deliverables": [
+      "AccessControl class",
+      "Permission checks in all operations",
+      "Role definitions",
+      "Audit logging",
+      "CLI tools"
+    ],
+    "success_criteria": [
+      "100% operations check permissions",
+      "Zero unauthorized access",
+      "<5ms latency",
+      "All decisions logged"
+    ],
+    "inspiration": "Amgen simplified from 120+ roles to 1-2, Block simplified IAM complexity, 98% of CIOs need unified governance model",
+    "dependencies": [
+      "task-1762553464 (Phase 1: Unified Catalog)"
+    ]
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE - development task (governance implementation)",
+    "priority": "critical",
+    "expected_outcome": "Complete Phase 2 of governance upgrade with working access control system",
+    "phase": "2",
+    "builds_on": "task-1762553464",
+    "governance_pattern": "Amgen single-permission model",
+    "human_priority": "CRITICAL - User-requested immediate routing"
+  },
+  "created_at": "2025-11-11T14:09:00Z",
+  "status": "pending_pickup",
+  "routing_confidence": 0.98,
+  "notes": [
+    "CRITICAL PRIORITY - User requested immediate routing",
+    "Phase 2 of multi-phase governance upgrade",
+    "Builds on Phase 1 catalog system (task-1762553464)",
+    "Implements Amgen-proven pattern of role simplification"
+  ]
+}

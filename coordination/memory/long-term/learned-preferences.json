@@ -1,0 +1,41 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-11-07T21:35:00Z",
+  "user_preferences": {
+    "preferred_merge_strategy": "auto",
+    "activation_threshold_adjustments": {},
+    "expert_priority_overrides": {},
+    "custom_routing_rules": []
+  },
+  "system_optimizations": {
+    "confidence_thresholds": {
+      "single_expert": 0.8,
+      "multi_expert": 0.6,
+      "minimum_activation": 0.3,
+      "learned_adjustments": []
+    },
+    "worker_pool_preferences": {
+      "preferred_activation_rate": 14,
+      "scale_up_triggers": [],
+      "scale_down_triggers": []
+    }
+  },
+  "expert_refinements": {
+    "development": {
+      "keyword_additions": [],
+      "keyword_removals": [],
+      "confidence_modifier": 1.0
+    },
+    "security": {
+      "keyword_additions": [],
+      "keyword_removals": [],
+      "confidence_modifier": 1.0
+    },
+    "inventory": {
+      "keyword_additions": [],
+      "keyword_removals": [],
+      "confidence_modifier": 1.0
+    }
+  },
+  "learning_history": []
+}
