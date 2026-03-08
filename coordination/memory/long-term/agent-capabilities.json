@@ -1,0 +1,790 @@
+{
+  "version": "2.0.0",
+  "created_at": "2025-11-16T16:40:00Z",
+  "created_by": "worker-implementation-013",
+  "description": "Comprehensive agent capability matrix documenting each master agent's strengths, patterns, and optimal use cases",
+  "agents": {
+    "development-master": {
+      "id": "development",
+      "role": "Feature implementation and code quality specialist",
+      "expertise_areas": [
+        "Feature implementation and enhancement",
+        "Bug fixing and debugging",
+        "Code refactoring and optimization",
+        "Dashboard UI/UX development",
+        "Backend API development",
+        "Worker coordination and lifecycle management",
+        "Testing and validation",
+        "Technical documentation"
+      ],
+      "technology_proficiency": {
+        "frontend": {
+          "frameworks": ["Alpine.js", "Tailwind CSS"],
+          "visualization": ["Chart.js"],
+          "proficiency": "expert",
+          "use_cases": ["Dashboard components", "Real-time UI updates", "Responsive design"]
+        },
+        "backend": {
+          "runtime": ["Node.js"],
+          "frameworks": ["Express.js"],
+          "real_time": ["WebSocket", "Server-Sent Events (SSE)"],
+          "proficiency": "expert",
+          "use_cases": ["API endpoints", "Real-time metrics", "File watching", "Event streaming"]
+        },
+        "data_management": {
+          "formats": ["JSON", "JSONL"],
+          "tools": ["jq", "File system operations"],
+          "patterns": ["Append-only logs", "State persistence", "Event sourcing"],
+          "proficiency": "expert"
+        },
+        "automation": {
+          "languages": ["Bash", "Shell scripting"],
+          "tools": ["Process management", "Daemon operations"],
+          "proficiency": "expert",
+          "use_cases": ["Worker spawning", "Task automation", "Service management"]
+        },
+        "monitoring": {
+          "tools": ["Chokidar (file watching)", "WebSocket broadcasting"],
+          "patterns": ["Real-time updates", "Event-driven architecture"],
+          "proficiency": "expert"
+        }
+      },
+      "common_task_patterns": {
+        "feature_implementation": {
+          "typical_steps": [
+            "Requirements analysis",
+            "Design and planning",
+            "Implementation",
+            "Testing",
+            "Documentation",
+            "Integration"
+          ],
+          "average_duration": "45-90 minutes",
+          "complexity": "medium-high",
+          "success_indicators": ["Tests passing", "Code quality maintained", "Documentation updated"]
+        },
+        "bug_fix": {
+          "typical_steps": [
+            "Root cause analysis",
+            "Fix implementation",
+            "Regression testing",
+            "Verification"
+          ],
+          "average_duration": "20-45 minutes",
+          "complexity": "low-medium",
+          "success_indicators": ["Bug resolved", "No new bugs introduced", "Tests added"]
+        },
+        "dashboard_enhancement": {
+          "typical_steps": [
+            "UI/UX design",
+            "Frontend implementation (Alpine.js + Tailwind)",
+            "Backend API development (if needed)",
+            "Real-time data integration",
+            "Testing and polish"
+          ],
+          "average_duration": "60-120 minutes",
+          "complexity": "medium",
+          "success_indicators": ["Responsive UI", "Real-time updates working", "Consistent design"]
+        },
+        "refactoring": {
+          "typical_steps": [
+            "Code analysis",
+            "Refactoring plan",
+            "Implementation",
+            "Testing",
+            "Performance validation"
+          ],
+          "average_duration": "30-90 minutes",
+          "complexity": "medium",
+          "success_indicators": ["Code quality improved", "Tests still passing", "No functionality broken"]
+        }
+      },
+      "routing_optimization": {
+        "high_confidence_keywords": [
+          "implement", "create", "build", "develop", "enhance",
+          "feature", "bug", "fix", "refactor", "optimize",
+          "dashboard", "frontend", "backend", "API", "UI",
+          "Alpine", "Tailwind", "Express", "WebSocket", "worker"
+        ],
+        "confidence_boosters": [
+          "Specific technology mentioned (Alpine.js, Tailwind, Express)",
+          "Dashboard or UI work described",
+          "Worker coordination mentioned",
+          "Testing requirements included",
+          "Implementation steps outlined"
+        ],
+        "negative_indicators": [
+          "Security scan", "vulnerability", "CVE",
+          "Documentation only", "catalog", "inventory",
+          "Deploy", "release", "build pipeline"
+        ],
+        "optimal_task_types": [
+          "feature",
+          "bug-fix",
+          "refactor",
+          "optimization",
+          "development",
+          "enhancement"
+        ]
+      },
+      "resource_allocation": {
+        "token_budget": 30000,
+        "worker_pool_budget": 20000,
+        "workforce_stream": "stream-b",
+        "typical_worker_types": ["implementation-worker"],
+        "max_concurrent_workers": 5,
+        "worker_token_allocation": 10000
+      },
+      "success_patterns": {
+        "total_tasks_handled": 45,
+        "success_rate": "pending measurement",
+        "common_deliverables": [
+          "Code changes committed",
+          "Tests passing",
+          "Documentation updated",
+          "PR created (when applicable)",
+          "Dashboard features deployed"
+        ],
+        "failure_modes": [
+          "Unclear requirements",
+          "Token budget exceeded on complex tasks",
+          "Integration conflicts",
+          "Test failures not caught early"
+        ]
+      },
+      "collaboration_patterns": {
+        "works_well_with": {
+          "security": "When implementing security features or fixing vulnerabilities in code",
+          "inventory": "When documenting features or generating architecture diagrams",
+          "cicd": "When implementing build/test automation or deployment scripts",
+          "coordinator": "On meta-level system improvements and routing enhancements"
+        },
+        "parallel_activation_scenarios": [
+          "Security-critical feature (development + security)",
+          "Dashboard security audit (development + security)",
+          "Worker lifecycle improvements (development + coordinator)"
+        ]
+      },
+      "optimization_opportunities": [
+        "Pre-analyze task complexity to adjust worker token budgets",
+        "Create reusable component library for dashboard work",
+        "Implement automated testing for common patterns",
+        "Build template library for frequent task types"
+      ]
+    },
+    "security-master": {
+      "id": "security",
+      "role": "Security and compliance specialist",
+      "expertise_areas": [
+        "Vulnerability scanning and detection",
+        "CVE remediation and patching",
+        "Security audits and compliance",
+        "Dependency security analysis",
+        "Secrets detection and prevention",
+        "Risk assessment and mitigation",
+        "Security policy enforcement",
+        "Penetration testing and validation"
+      ],
+      "technology_proficiency": {
+        "scanning": {
+          "tools": ["npm audit", "Security scanners", "Dependency analyzers"],
+          "proficiency": "expert",
+          "scan_types": ["dependencies", "SAST", "secrets", "compliance"]
+        },
+        "vulnerability_management": {
+          "databases": ["CVE database", "Security advisories"],
+          "tracking": ["Severity classification", "Remediation workflows"],
+          "proficiency": "expert"
+        },
+        "compliance": {
+          "frameworks": ["Risk assessment", "Governance policies"],
+          "reporting": ["Audit logs", "Compliance reports"],
+          "proficiency": "advanced"
+        }
+      },
+      "common_task_patterns": {
+        "vulnerability_scan": {
+          "typical_steps": [
+            "Scan execution",
+            "Results analysis",
+            "Severity classification",
+            "Risk assessment",
+            "Remediation recommendations"
+          ],
+          "average_duration": "30-60 minutes",
+          "complexity": "medium",
+          "success_indicators": ["All vulnerabilities identified", "Severity classified", "Remediation plan created"]
+        },
+        "cve_remediation": {
+          "typical_steps": [
+            "CVE analysis",
+            "Impact assessment",
+            "Patch identification",
+            "Testing",
+            "Deployment plan",
+            "Verification"
+          ],
+          "average_duration": "60-120 minutes",
+          "complexity": "high",
+          "success_indicators": ["CVE patched", "No regressions", "Security verified"]
+        },
+        "security_audit": {
+          "typical_steps": [
+            "Scope definition",
+            "Audit execution",
+            "Finding documentation",
+            "Risk assessment",
+            "Remediation recommendations",
+            "Compliance validation"
+          ],
+          "average_duration": "90-180 minutes",
+          "complexity": "high",
+          "success_indicators": ["Comprehensive audit report", "Prioritized findings", "Actionable recommendations"]
+        }
+      },
+      "routing_optimization": {
+        "high_confidence_keywords": [
+          "security", "vulnerability", "CVE", "audit", "compliance",
+          "risk", "threat", "exploit", "patch", "remediation",
+          "secrets", "credentials", "authentication", "authorization",
+          "scan", "SAST", "dependency"
+        ],
+        "confidence_boosters": [
+          "CVE identifier (CVE-YYYY-NNNN)",
+          "Severity level mentioned (critical, high, medium, low)",
+          "Security framework referenced",
+          "Compliance requirement stated",
+          "Production system mentioned"
+        ],
+        "negative_indicators": [
+          "Feature development", "UI work", "dashboard",
+          "Documentation generation", "catalog",
+          "Build automation", "deployment (without security context)"
+        ],
+        "optimal_task_types": [
+          "security-scan",
+          "security-audit",
+          "cve",
+          "vulnerability",
+          "security-fix",
+          "compliance-check"
+        ]
+      },
+      "resource_allocation": {
+        "token_budget": 30000,
+        "worker_pool_budget": 15000,
+        "workforce_stream": "stream-e",
+        "typical_worker_types": ["scan-worker", "audit-worker"],
+        "max_concurrent_workers": 5,
+        "worker_token_allocation": 8000
+      },
+      "success_patterns": {
+        "total_tasks_handled": 14,
+        "severity_distribution": {
+          "critical": "Immediate action required",
+          "high": "Address within 7 days",
+          "medium": "Address within 30 days",
+          "low": "Address when convenient"
+        },
+        "common_deliverables": [
+          "Security scan reports",
+          "CVE remediation summaries",
+          "Risk assessments",
+          "Compliance audit reports",
+          "Remediation patches"
+        ],
+        "failure_modes": [
+          "False positives requiring manual verification",
+          "Unfixable vulnerabilities requiring workarounds",
+          "Complex dependency chains preventing upgrades"
+        ]
+      },
+      "collaboration_patterns": {
+        "works_well_with": {
+          "development": "When implementing security fixes or secure features",
+          "cicd": "When integrating security scans into pipelines",
+          "coordinator": "On system-wide security policy enforcement"
+        },
+        "parallel_activation_scenarios": [
+          "Critical security fix requiring code changes (security + development)",
+          "Security-integrated CI/CD pipeline (security + cicd)",
+          "Compliance audit with code review (security + development)"
+        ]
+      },
+      "optimization_opportunities": [
+        "Automated triage for known vulnerability patterns",
+        "Pre-approved remediation strategies for common CVEs",
+        "Integration with real-time vulnerability feeds",
+        "Automated dependency update workflows with safety checks"
+      ]
+    },
+    "inventory-master": {
+      "id": "inventory",
+      "role": "Portfolio management and documentation specialist",
+      "expertise_areas": [
+        "Repository cataloging and discovery",
+        "Metadata extraction and normalization",
+        "Cross-repository dependency mapping",
+        "Documentation generation",
+        "Health status monitoring",
+        "Portfolio analytics and insights",
+        "Architecture diagram generation"
+      ],
+      "technology_proficiency": {
+        "cataloging": {
+          "operations": ["Repository discovery", "Metadata extraction", "Dependency tracking"],
+          "proficiency": "expert"
+        },
+        "documentation": {
+          "formats": ["Markdown", "API docs", "Architecture diagrams"],
+          "generation": ["Automated README", "Dependency graphs", "Health reports"],
+          "proficiency": "expert"
+        },
+        "analytics": {
+          "metrics": ["Portfolio health", "Dependency insights", "Usage patterns"],
+          "reporting": ["Dashboard integration", "Periodic reports"],
+          "proficiency": "advanced"
+        }
+      },
+      "common_task_patterns": {
+        "repository_catalog": {
+          "typical_steps": [
+            "Repository discovery",
+            "Metadata extraction",
+            "Dependency analysis",
+            "Health assessment",
+            "Catalog update"
+          ],
+          "average_duration": "20-45 minutes",
+          "complexity": "low-medium",
+          "success_indicators": ["Complete metadata", "Dependencies mapped", "Health status accurate"]
+        },
+        "documentation_generation": {
+          "typical_steps": [
+            "Content analysis",
+            "Structure planning",
+            "Documentation writing",
+            "Review and polish",
+            "Integration"
+          ],
+          "average_duration": "30-60 minutes",
+          "complexity": "low-medium",
+          "success_indicators": ["Comprehensive docs", "Clear structure", "Accurate information"]
+        },
+        "portfolio_analysis": {
+          "typical_steps": [
+            "Data collection",
+            "Cross-repo analysis",
+            "Insight generation",
+            "Report creation",
+            "Recommendations"
+          ],
+          "average_duration": "45-90 minutes",
+          "complexity": "medium",
+          "success_indicators": ["Actionable insights", "Clear trends identified", "Recommendations prioritized"]
+        }
+      },
+      "routing_optimization": {
+        "high_confidence_keywords": [
+          "inventory", "catalog", "document", "documentation",
+          "repository", "metadata", "portfolio", "health",
+          "discover", "track", "map", "analyze",
+          "README", "architecture", "diagram"
+        ],
+        "confidence_boosters": [
+          "Multi-repository or portfolio context",
+          "Documentation generation mentioned",
+          "Catalog or inventory operations",
+          "Health monitoring described",
+          "Cross-repo analysis requested"
+        ],
+        "negative_indicators": [
+          "Code implementation", "feature development",
+          "Security scan", "vulnerability",
+          "Build", "deploy", "test automation"
+        ],
+        "optimal_task_types": [
+          "inventory",
+          "catalog",
+          "discovery",
+          "documentation"
+        ]
+      },
+      "resource_allocation": {
+        "token_budget": 35000,
+        "worker_pool_budget": 15000,
+        "workforce_stream": "stream-b",
+        "typical_worker_types": ["documentation-worker", "catalog-worker"],
+        "max_concurrent_workers": 5,
+        "worker_token_allocation": 6000
+      },
+      "success_patterns": {
+        "total_tasks_handled": 12,
+        "common_deliverables": [
+          "Repository catalogs",
+          "Documentation (README, API docs)",
+          "Dependency maps",
+          "Health status reports",
+          "Portfolio analytics"
+        ],
+        "failure_modes": [
+          "Incomplete repository access",
+          "Stale metadata requiring refresh",
+          "Complex dependency graphs hard to visualize"
+        ]
+      },
+      "collaboration_patterns": {
+        "works_well_with": {
+          "development": "When documenting new features or architecture",
+          "security": "When documenting security posture or compliance",
+          "cicd": "When cataloging build and deployment configurations"
+        },
+        "parallel_activation_scenarios": [
+          "Comprehensive documentation with security audit (inventory + security)",
+          "Portfolio health with development insights (inventory + development)"
+        ]
+      },
+      "optimization_opportunities": [
+        "Automated metadata refresh workflows",
+        "Template-based documentation generation",
+        "Real-time portfolio health dashboards",
+        "Dependency update impact analysis"
+      ]
+    },
+    "cicd-master": {
+      "id": "cicd",
+      "role": "CI/CD and release management specialist",
+      "expertise_areas": [
+        "Build automation and orchestration",
+        "Test execution and reporting",
+        "Deployment strategy implementation",
+        "Release workflow management",
+        "Pipeline optimization",
+        "Rollback procedures",
+        "Environment management"
+      ],
+      "technology_proficiency": {
+        "build": {
+          "automation": ["Build scripts", "Artifact generation", "Dependency management"],
+          "proficiency": "expert"
+        },
+        "testing": {
+          "execution": ["Test suite orchestration", "Parallel testing", "Coverage reporting"],
+          "proficiency": "expert"
+        },
+        "deployment": {
+          "strategies": ["Blue-green", "Canary", "Rolling updates"],
+          "automation": ["Deployment scripts", "Environment provisioning"],
+          "proficiency": "expert"
+        },
+        "pipelines": {
+          "patterns": ["Multi-stage pipelines", "Parallel execution", "Conditional logic"],
+          "proficiency": "expert"
+        }
+      },
+      "common_task_patterns": {
+        "build_automation": {
+          "typical_steps": [
+            "Build configuration",
+            "Dependency resolution",
+            "Build execution",
+            "Artifact generation",
+            "Verification"
+          ],
+          "average_duration": "20-45 minutes",
+          "complexity": "medium",
+          "success_indicators": ["Build succeeds", "Artifacts generated", "Tests pass"]
+        },
+        "deployment": {
+          "typical_steps": [
+            "Environment preparation",
+            "Pre-deployment checks",
+            "Deployment execution",
+            "Post-deployment verification",
+            "Monitoring"
+          ],
+          "average_duration": "30-90 minutes",
+          "complexity": "medium-high",
+          "success_indicators": ["Successful deployment", "Health checks pass", "Rollback plan ready"]
+        },
+        "pipeline_optimization": {
+          "typical_steps": [
+            "Pipeline analysis",
+            "Bottleneck identification",
+            "Optimization implementation",
+            "Testing",
+            "Performance validation"
+          ],
+          "average_duration": "60-120 minutes",
+          "complexity": "high",
+          "success_indicators": ["Faster pipeline", "Improved reliability", "Resource efficiency"]
+        }
+      },
+      "routing_optimization": {
+        "high_confidence_keywords": [
+          "build", "deploy", "deployment", "release", "pipeline",
+          "CI/CD", "continuous", "automation", "test", "testing",
+          "rollback", "environment", "production", "staging"
+        ],
+        "confidence_boosters": [
+          "CI/CD or pipeline mentioned",
+          "Build, test, or deploy operations",
+          "Release workflow described",
+          "Environment management",
+          "Production deployment context"
+        ],
+        "negative_indicators": [
+          "Feature implementation (without deployment context)",
+          "Security scan (unless in pipeline)",
+          "Documentation generation",
+          "UI/UX work"
+        ],
+        "optimal_task_types": [
+          "build",
+          "deploy",
+          "test",
+          "ci-cd",
+          "release",
+          "rollback"
+        ]
+      },
+      "resource_allocation": {
+        "token_budget": 35000,
+        "worker_pool_budget": 25000,
+        "workforce_stream": "stream-d",
+        "typical_worker_types": ["build-worker", "deploy-worker"],
+        "max_concurrent_workers": 5,
+        "worker_token_allocation": 10000
+      },
+      "success_patterns": {
+        "total_tasks_handled": "new agent",
+        "common_deliverables": [
+          "Build artifacts",
+          "Test reports",
+          "Deployment plans",
+          "Release notes",
+          "Pipeline configurations"
+        ],
+        "failure_modes": [
+          "Environment inconsistencies",
+          "Flaky tests blocking deployment",
+          "Rollback complexity",
+          "Resource contention"
+        ]
+      },
+      "collaboration_patterns": {
+        "works_well_with": {
+          "development": "When implementing build/test automation",
+          "security": "When integrating security scans into pipelines",
+          "coordinator": "On system-wide deployment orchestration"
+        },
+        "parallel_activation_scenarios": [
+          "Secure deployment pipeline (cicd + security)",
+          "Feature deployment with monitoring (cicd + development)"
+        ]
+      },
+      "optimization_opportunities": [
+        "Parallel test execution to reduce pipeline time",
+        "Caching strategies for faster builds",
+        "Automated rollback on failure detection",
+        "Progressive deployment strategies"
+      ]
+    },
+    "coordinator-master": {
+      "id": "coordinator",
+      "role": "System orchestrator and meta-level specialist",
+      "expertise_areas": [
+        "Task routing and MoE orchestration",
+        "Multi-master coordination",
+        "System-wide architecture and design",
+        "Routing intelligence improvement",
+        "Resource allocation optimization",
+        "Pattern recognition and learning",
+        "Crisis management and intervention"
+      ],
+      "technology_proficiency": {
+        "routing": {
+          "algorithms": ["MoE routing", "Confidence scoring", "Pattern matching"],
+          "proficiency": "expert"
+        },
+        "orchestration": {
+          "coordination": ["Master coordination", "Task delegation", "Load balancing"],
+          "proficiency": "expert"
+        },
+        "intelligence": {
+          "learning": ["Pattern recognition", "Success analysis", "Continuous improvement"],
+          "proficiency": "advanced"
+        }
+      },
+      "common_task_patterns": {
+        "routing_optimization": {
+          "typical_steps": [
+            "Pattern analysis",
+            "Algorithm tuning",
+            "Testing",
+            "Validation",
+            "Deployment"
+          ],
+          "average_duration": "60-120 minutes",
+          "complexity": "very-high",
+          "success_indicators": ["Improved routing accuracy", "Better confidence scores", "Reduced misroutes"]
+        },
+        "system_design": {
+          "typical_steps": [
+            "Requirements gathering",
+            "Architecture design",
+            "Impact analysis",
+            "Implementation planning",
+            "Documentation"
+          ],
+          "average_duration": "90-180 minutes",
+          "complexity": "very-high",
+          "success_indicators": ["Clear architecture", "Scalable design", "Implementation ready"]
+        },
+        "crisis_intervention": {
+          "typical_steps": [
+            "Problem diagnosis",
+            "Impact assessment",
+            "Mitigation strategy",
+            "Execution",
+            "Verification",
+            "Post-mortem"
+          ],
+          "average_duration": "30-120 minutes",
+          "complexity": "high",
+          "success_indicators": ["Crisis resolved", "System restored", "Prevention measures implemented"]
+        }
+      },
+      "routing_optimization": {
+        "high_confidence_keywords": [
+          "coordinate", "orchestrate", "route", "routing", "MoE",
+          "expert", "activation", "confidence", "decision",
+          "architecture", "system", "meta", "coordination",
+          "learning", "intelligence"
+        ],
+        "confidence_boosters": [
+          "MoE or routing mentioned",
+          "Multi-master coordination",
+          "System-level architecture",
+          "Pattern learning or intelligence",
+          "Crisis or emergency context"
+        ],
+        "negative_indicators": [
+          "Single-domain task (unless meta-level)",
+          "Routine implementation work",
+          "Standard security scan",
+          "Simple documentation"
+        ],
+        "optimal_task_types": [
+          "coordination",
+          "routing",
+          "orchestration",
+          "system",
+          "architecture"
+        ]
+      },
+      "resource_allocation": {
+        "token_budget": 50000,
+        "worker_pool_budget": 30000,
+        "workforce_stream": "stream-a",
+        "typical_worker_types": ["implementation-worker", "analysis-worker"],
+        "max_concurrent_workers": 5,
+        "worker_token_allocation": 15000
+      },
+      "success_patterns": {
+        "total_tasks_handled": "meta-level",
+        "common_deliverables": [
+          "Routing improvements",
+          "System architecture designs",
+          "Coordination strategies",
+          "Learning models",
+          "Crisis resolutions"
+        ],
+        "failure_modes": [
+          "Over-complexity in design",
+          "Insufficient testing of routing changes",
+          "Resource contention during crisis"
+        ]
+      },
+      "collaboration_patterns": {
+        "works_well_with": {
+          "all_masters": "Coordinates across all domains",
+          "development": "On system infrastructure improvements",
+          "security": "On system-wide security architecture",
+          "cicd": "On deployment orchestration"
+        },
+        "parallel_activation_scenarios": [
+          "Complex system redesign (coordinator + all masters)",
+          "Multi-domain crisis (coordinator + affected masters)"
+        ]
+      },
+      "optimization_opportunities": [
+        "ML-based routing confidence tuning",
+        "Predictive task complexity estimation",
+        "Automated master load balancing",
+        "Real-time routing analytics"
+      ]
+    }
+  },
+  "cross_agent_patterns": {
+    "parallel_activation_effectiveness": {
+      "current_usage": "Rare (most tasks single-expert)",
+      "efficiency_gain": "2-3x faster than sequential",
+      "optimal_scenarios": [
+        "Security + Development: Security-critical features",
+        "Development + Inventory: Feature documentation",
+        "Security + CI/CD: Security-integrated pipelines",
+        "Coordinator + Any: System-wide initiatives"
+      ],
+      "coordination_overhead": "< 5 minutes",
+      "success_rate": "pending measurement"
+    },
+    "handoff_patterns": {
+      "coordinator_to_master": {
+        "mechanism": "Task handoff files in coordination/masters/{expert}/handoffs/",
+        "latency": "< 5 seconds",
+        "reliability": "high"
+      },
+      "master_to_worker": {
+        "mechanism": "Worker spec creation in coordination/worker-specs/pending/",
+        "spawn_time": "< 10 seconds",
+        "reliability": "medium (improving with PM daemon)"
+      }
+    },
+    "escalation_patterns": {
+      "worker_to_pm": "Check-in with issues or requests",
+      "pm_to_master": "Alert files for stalled/blocked workers",
+      "master_to_coordinator": "Routing disputes or complex coordination",
+      "coordinator_to_human": "System-level crises or decisions"
+    }
+  },
+  "capability_gaps_identified": [
+    {
+      "gap": "Limited worker success tracking",
+      "impact": "Cannot measure agent effectiveness",
+      "recommendation": "Implement comprehensive success metrics per agent"
+    },
+    {
+      "gap": "No historical routing analysis",
+      "impact": "Cannot tune routing from experience",
+      "recommendation": "Build routing accuracy dashboard and feedback loop"
+    },
+    {
+      "gap": "Task complexity estimation",
+      "impact": "Sub-optimal resource allocation",
+      "recommendation": "Develop complexity scoring model"
+    },
+    {
+      "gap": "Limited parallel activation usage",
+      "impact": "Missing efficiency gains",
+      "recommendation": "Lower thresholds and promote multi-expert collaboration"
+    }
+  ],
+  "metadata": {
+    "analysis_date": "2025-11-16T16:40:00Z",
+    "worker_id": "worker-implementation-013",
+    "task_id": "task-moe-learning-1763235765769",
+    "confidence": "high",
+    "next_review": "2025-11-20T00:00:00Z"
+  }
+}

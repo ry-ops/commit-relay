@@ -1,0 +1,85 @@
+{
+  "id": "task-1762894381",
+  "title": "Investigate and Remediate System Health Alerts",
+  "type": "bug",
+  "priority": "high",
+  "status": "pending",
+  "created_at": "2025-11-11T20:53:01Z",
+  "created_by": "health-monitor",
+  "context": {
+    "description": "Critical health alerts detected: low success rate and high worker failure rate",
+    "alerts": [
+      {
+        "type": "low_success_rate",
+        "severity": "high",
+        "current_value": "60.9%",
+        "threshold": "70%",
+        "triggered_at": "2025-11-11T14:50:49-06:00",
+        "message": "System success rate dropped below threshold"
+      },
+      {
+        "type": "high_worker_failure_rate",
+        "severity": "high",
+        "current_value": "39.1%",
+        "threshold": "30%",
+        "triggered_at": "2025-11-11T14:50:49-06:00",
+        "message": "Worker failure rate exceeds acceptable threshold"
+      }
+    ],
+    "investigation_steps": [
+      "Analyze recent worker failures in coordination/worker-specs/failed/",
+      "Review worker-daemon logs for launch failures",
+      "Check task queue for stuck or failed tasks",
+      "Examine worker launcher issues (previous issue: invalid CLI flags)",
+      "Identify patterns in worker failures (spawn vs execution)",
+      "Check system resource constraints (CPU, memory, file descriptors)",
+      "Analyze correlation between worker failures and specific task types"
+    ],
+    "remediation_actions": [
+      "Fix any worker launcher issues (similar to recent CLI flag fix)",
+      "Implement retry logic for transient failures",
+      "Add worker health checks before task assignment",
+      "Improve error reporting in worker specs",
+      "Consider implementing worker warm-up/pre-spawn strategy",
+      "Add circuit breaker for repeatedly failing workers",
+      "Enhance PM daemon to detect and recover stuck workers"
+    ],
+    "root_cause_analysis": {
+      "hypothesis_1": "Recent worker launcher fix may not be applied to all workers",
+      "hypothesis_2": "Workers failing to launch properly due to JSON spec issues",
+      "hypothesis_3": "System resource exhaustion preventing new worker spawns",
+      "hypothesis_4": "Worker execution failures after successful spawn",
+      "hypothesis_5": "Terminal tab/window limitations for worker isolation"
+    },
+    "success_criteria": [
+      "System success rate >= 70%",
+      "Worker failure rate <= 30%",
+      "Automated health alert response process in place",
+      "Root cause documented and fixed",
+      "Preventive measures implemented"
+    ],
+    "related_files": [
+      "coordination/worker-specs/failed/",
+      "agents/logs/system/worker-daemon.log",
+      "scripts/claude-worker-launcher-v2.sh",
+      "scripts/spawn-worker.sh",
+      "coordination/pm-activity.jsonl",
+      "coordination/health-incidents/"
+    ]
+  },
+  "deliverables": [
+    "Root cause analysis report",
+    "Fixed worker launcher/spawn scripts (if needed)",
+    "Enhanced error handling in worker lifecycle",
+    "Automated alert response process",
+    "Health metrics documentation",
+    "Preventive monitoring improvements"
+  ],
+  "metadata": {
+    "estimated_effort": "3-4 hours",
+    "complexity": "high",
+    "automation_potential": "high",
+    "requires_investigation": true,
+    "alert_severity": "high"
+  }
+}

@@ -1,0 +1,345 @@
+{
+  "timestamp": "2025-11-21T07:39:46-0600",
+  "elapsed_seconds": 30,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 0,
+    "completed": 43,
+    "failed": 4
+  },
+  "tasks": {
+    "pending": 259,
+    "completed": 29
+  },
+  "zombies": {
+    "created": 0,
+    "killed": 0
+  },
+  "execution_managers": {
+    "active": 2,
+    "completed": 0,
+    "zombies": 0
+  }
+}
+{
+  "timestamp": "2025-11-21T07:40:16-0600",
+  "elapsed_seconds": 60,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 0,
+    "completed": 43,
+    "failed": 4
+  },
+  "tasks": {
+    "pending": 260,
+    "completed": 29
+  },
+  "zombies": {
+    "created": 0,
+    "killed": 0
+  },
+  "execution_managers": {
+    "active": 2,
+    "completed": 0,
+    "zombies": 0
+  }
+}
+{
+  "timestamp": "2025-11-21T07:40:46-0600",
+  "elapsed_seconds": 90,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 0,
+    "completed": 43,
+    "failed": 4
+  },
+  "tasks": {
+    "pending": 261,
+    "completed": 29
+  },
+  "zombies": {
+    "created": 0,
+    "killed": 0
+  },
+  "execution_managers": {
+    "active": 2,
+    "completed": 0,
+    "zombies": 0
+  }
+}
+{
+  "timestamp": "2025-11-21T07:41:16-0600",
+  "elapsed_seconds": 120,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 0,
+    "completed": 43,
+    "failed": 4
+  },
+  "tasks": {
+    "pending": 262,
+    "completed": 29
+  },
+  "zombies": {
+    "created": 0,
+    "killed": 0
+  },
+  "execution_managers": {
+    "active": 2,
+    "completed": 0,
+    "zombies": 0
+  }
+}
+{
+  "timestamp": "2025-11-21T07:41:46-0600",
+  "elapsed_seconds": 150,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 0,
+    "completed": 43,
+    "failed": 4
+  },
+  "tasks": {
+    "pending": 263,
+    "completed": 29
+  },
+  "zombies": {
+    "created": 0,
+    "killed": 0
+  },
+  "execution_managers": {
+    "active": 2,
+    "completed": 0,
+    "zombies": 0
+  }
+}
+{
+  "timestamp": "2025-11-21T07:42:02-0600",
+  "elapsed_seconds": 166,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 0,
+    "completed": 43,
+    "failed": 4
+  },
+  "tasks": {
+    "pending": 263,
+    "completed": 29
+  },
+  "zombies": {
+    "created": 0,
+    "killed": 0
+  },
+  "execution_managers": {
+    "active": 3,
+    "completed": 0,
+    "zombies": 0
+  }
+}
+{
+  "timestamp": "2025-11-21T07:42:17-0600",
+  "elapsed_seconds": 181,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 0,
+    "completed": 43,
+    "failed": 4
+  },
+  "tasks": {
+    "pending": 263,
+    "completed": 29
+  },
+  "zombies": {
+    "created": 0,
+    "killed": 0
+  },
+  "execution_managers": {
+    "active": 4,
+    "completed": 0,
+    "zombies": 0
+  }
+}
+{
+  "timestamp": "2025-11-21T07:42:32-0600",
+  "elapsed_seconds": 196,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 0,
+    "completed": 43,
+    "failed": 4
+  },
+  "tasks": {
+    "pending": 263,
+    "completed": 29
+  },
+  "zombies": {
+    "created": 0,
+    "killed": 0
+  },
+  "execution_managers": {
+    "active": 5,
+    "completed": 0,
+    "zombies": 0
+  }
+}
+{
+  "timestamp": "2025-11-21T07:43:02-0600",
+  "elapsed_seconds": 226,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 0,
+    "completed": 43,
+    "failed": 4
+  },
+  "tasks": {
+    "pending": 263,
+    "completed": 29
+  },
+  "zombies": {
+    "created": 0,
+    "killed": 0
+  },
+  "execution_managers": {
+    "active": 6,
+    "completed": 0,
+    "zombies": 0
+  }
+}
+{
+  "timestamp": "2025-11-21T07:44:02-0600",
+  "elapsed_seconds": 286,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 0,
+    "completed": 43,
+    "failed": 4
+  },
+  "tasks": {
+    "pending": 278,
+    "completed": 29
+  },
+  "zombies": {
+    "created": 0,
+    "killed": 0
+  },
+  "execution_managers": {
+    "active": 6,
+    "completed": 0,
+    "zombies": 0
+  }
+}
+{
+  "timestamp": "2025-11-21T07:47:03-0600",
+  "elapsed_seconds": 467,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 6,
+    "completed": 43,
+    "failed": 4
+  },
+  "tasks": {
+    "pending": 278,
+    "completed": 29
+  },
+  "zombies": {
+    "created": 6,
+    "killed": 0
+  },
+  "execution_managers": {
+    "active": 6,
+    "completed": 2,
+    "zombies": 0
+  }
+}
+{
+  "timestamp": "2025-11-21T07:49:33-0600",
+  "elapsed_seconds": 617,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 6,
+    "completed": 43,
+    "failed": 4
+  },
+  "tasks": {
+    "pending": 281,
+    "completed": 29
+  },
+  "zombies": {
+    "created": 6,
+    "killed": 0
+  },
+  "execution_managers": {
+    "active": 6,
+    "completed": 2,
+    "zombies": 0
+  }
+}
+{
+  "timestamp": "2025-11-21T07:52:03-0600",
+  "elapsed_seconds": 767,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 6,
+    "completed": 43,
+    "failed": 4
+  },
+  "tasks": {
+    "pending": 284,
+    "completed": 29
+  },
+  "zombies": {
+    "created": 6,
+    "killed": 0
+  },
+  "execution_managers": {
+    "active": 6,
+    "completed": 4,
+    "zombies": 0
+  }
+}
+{
+  "timestamp": "2025-11-21T07:54:33-0600",
+  "elapsed_seconds": 917,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 6,
+    "completed": 43,
+    "failed": 4
+  },
+  "tasks": {
+    "pending": 287,
+    "completed": 29
+  },
+  "zombies": {
+    "created": 6,
+    "killed": 0
+  },
+  "execution_managers": {
+    "active": 6,
+    "completed": 4,
+    "zombies": 0
+  }
+}
+{
+  "timestamp": "2025-11-21T07:55:33-0600",
+  "elapsed_seconds": 977,
+  "token_usage_pct": 0.00,
+  "workers": {
+    "active": 6,
+    "completed": 43,
+    "failed": 4
+  },
+  "tasks": {
+    "pending": 287,
+    "completed": 29
+  },
+  "zombies": {
+    "created": 6,
+    "killed": 0
+  },
+  "execution_managers": {
+    "active": 6,
+    "completed": 4,
+    "zombies": 0
+  }
+}

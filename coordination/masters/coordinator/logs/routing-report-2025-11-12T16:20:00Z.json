@@ -1,0 +1,76 @@
+{
+  "report_id": "routing-report-2025-11-12T16:20:00Z",
+  "timestamp": "2025-11-12T16:20:00Z",
+  "master": "coordinator",
+  "session_id": "CE51B6D2-1BF9-4EF9-B147-EC76CC3BA2D8",
+  "routing_summary": {
+    "total_tasks_routed": 4,
+    "tasks_to_security": 1,
+    "tasks_to_development": 3,
+    "high_priority_tasks": 4,
+    "retry_tasks": 4
+  },
+  "routing_details": [
+    {
+      "task_id": "task-1762553466",
+      "title": "GOVERNANCE UPGRADE - Phase 3: Automated Data Lineage & Audit Trails",
+      "routed_to": "security",
+      "rule_used": "security-scan",
+      "pattern_matched": "audit",
+      "confidence": 0.95,
+      "retry_attempt": 2,
+      "handoff_id": "coord-to-security-task-1762553466-retry-2"
+    },
+    {
+      "task_id": "task-1762553467",
+      "title": "GOVERNANCE UPGRADE - Phase 4: AI-Powered Monitoring & Quality Assurance",
+      "routed_to": "development",
+      "rule_used": "code-development",
+      "pattern_matched": "implement",
+      "confidence": 0.90,
+      "retry_attempt": 2,
+      "handoff_id": "coord-to-development-task-1762553467-retry-2"
+    },
+    {
+      "task_id": "task-1762553468",
+      "title": "GOVERNANCE UPGRADE - Phase 5: Compliance Automation & Reporting",
+      "routed_to": "development",
+      "rule_used": "code-development",
+      "pattern_matched": "implement",
+      "confidence": 0.90,
+      "retry_attempt": 2,
+      "handoff_id": "coord-to-development-task-1762553468-retry-2"
+    },
+    {
+      "task_id": "task-1762553469",
+      "title": "GOVERNANCE UPGRADE - Phase 6: Governance Metrics & Continuous Improvement",
+      "routed_to": "development",
+      "rule_used": "code-development",
+      "pattern_matched": "implement",
+      "confidence": 0.90,
+      "retry_attempt": 2,
+      "handoff_id": "coord-to-development-task-1762553469-retry-2"
+    }
+  ],
+  "context": {
+    "previous_failure": "launcher_bug_task_context_injection_failure",
+    "launcher_status": "fixed",
+    "urgency": "high - governance phases critical for system compliance"
+  },
+  "next_steps": [
+    "Security master will process task-1762553466 handoff",
+    "Development master will process tasks 1762553467, 1762553468, 1762553469 handoffs",
+    "Masters will create worker specs for worker daemon to launch",
+    "Worker daemon will automatically spawn workers with fixed launcher"
+  ],
+  "master_state": {
+    "security": {
+      "workload": 1,
+      "status": "busy"
+    },
+    "development": {
+      "workload": 18,
+      "status": "busy"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "version": "1.0.0",
+  "created_at": "2025-11-23T14:32:09.109Z",
+  "last_updated": "2025-11-23T14:32:09.109Z",
+  "total_vectors": 0,
+  "collections": {
+    "code": {
+      "name": "code",
+      "dimension": 1536,
+      "description": "Code snippets and implementations",
+      "count": 0,
+      "vectors": []
+    },
+    "documentation": {
+      "name": "documentation",
+      "dimension": 1536,
+      "description": "Documentation and runbooks",
+      "count": 0,
+      "vectors": []
+    },
+    "decisions": {
+      "name": "decisions",
+      "dimension": 1536,
+      "description": "AI decision history and reasoning",
+      "count": 0,
+      "vectors": []
+    },
+    "patterns": {
+      "name": "patterns",
+      "dimension": 1536,
+      "description": "Failure patterns and solutions",
+      "count": 0,
+      "vectors": []
+    },
+    "tasks": {
+      "name": "tasks",
+      "dimension": 1536,
+      "description": "Task descriptions and outcomes",
+      "count": 0,
+      "vectors": []
+    }
+  }
+}

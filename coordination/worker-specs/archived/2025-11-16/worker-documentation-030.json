@@ -1,0 +1,37 @@
+{
+  "worker_id": "worker-documentation-030",
+  "worker_type": "documentation-worker",
+  "created_by": "inventory-master",
+  "execution_manager": null,
+  "created_at": "2025-11-16T10:33:30-0600",
+  "task_id": "moe-test-ddqd-v5-1763246282-6b53d344",
+  "status": "completed",
+  "scope": {},
+  "context": {
+    "parent_task": "moe-test-ddqd-v5-1763246282-6b53d344",
+    "priority": "medium",
+    "deadline": null
+  },
+  "resources": {
+    "token_budget": 6000,
+    "timeout_minutes": 20,
+    "max_retries": 1
+  },
+  "deliverables": [],
+  "prompt_template": "agents/prompts/workers/documentation-worker.md",
+  "execution": {
+    "started_at": "2025-11-16T10:33:36-0600",
+    "completed_at": "2025-11-16T10:36:37",
+    "tokens_used": 62000,
+    "duration_minutes": 1,
+    "session_id": null
+  },
+  "results": {
+    "status": "success",
+    "output_location": "agents/workers/worker-documentation-030/task-execution-report.md",
+    "summary": "Successfully completed DDQD v5 MoE routing test documentation task",
+    "artifacts": [
+      "task-execution-report.md"
+    ]
+  }
+}

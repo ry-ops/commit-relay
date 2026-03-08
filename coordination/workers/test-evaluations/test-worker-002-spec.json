@@ -1,0 +1,26 @@
+{
+  "worker_id": "test-worker-002",
+  "task_id": "test-task-002-complex-feature",
+  "worker_type": "feature-implementer",
+  "strategy": "plan_then_execute",
+  "status": "completed",
+  "created_at": "2025-11-19T10:35:00-06:00",
+  "started_at": "2025-11-19T10:35:20-06:00",
+  "completed_at": "2025-11-19T10:45:00-06:00",
+  "resources": {
+    "token_budget": 20000
+  },
+  "metrics": {
+    "tokens_used": 15200,
+    "tests_run": 5,
+    "tests_passed": 5,
+    "linting_passed": true,
+    "documentation_created": true,
+    "errors": 0
+  },
+  "outcome": {
+    "success": true,
+    "quality": "high",
+    "files_modified": ["scripts/lib/task-validator.sh"]
+  }
+}

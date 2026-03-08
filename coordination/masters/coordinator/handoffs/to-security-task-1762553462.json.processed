@@ -1,0 +1,39 @@
+{
+  "handoff_id": "coord-to-security-5C56F338-F078-43A6-AE76-69AAFE010219",
+  "from_master": "coordinator",
+  "to_master": "security",
+  "task_id": "task-1762553462",
+  "task_data": {
+    "id": "task-1762553462",
+    "title": "PROMPT ENGINEERING UPGRADE - Phase 4: Prompt Templates & Version Control. Standardize all prompts using templates, enabling version control and A/B testing. OBJECTIVES: 1) Create prompt template library in coordination/prompt-templates/ organized by agent type (coordinator/, development/, security/, inventory/, cicd/) with 20+ templates. 2) Build template engine (lib/prompt-templates/engine.js) with render() method supporting variable substitution, required variable validation, strictness levels. 3) Add template metadata (YAML frontmatter) including version, author, success_rate, avg_tokens, required_variables, output_schema. 4) Implement A/B testing framework for comparing prompt versions - run_ab_test.sh script to route traffic, compare_template_performance() analysis. 5) Create prompt registry dashboard showing version history, usage stats, success rates, A/B test results. TECHNICAL: Use Mustache/Handlebars-style templates, store metadata in YAML, track template usage in coordination/prompt-usage.jsonl. DELIVERABLES: 20+ templates, template engine, A/B testing framework, registry dashboard. SUCCESS: 100% agent calls use templates, A/B tests run weekly, template success >95%.",
+    "type": "development",
+    "priority": "high",
+    "status": "assigned",
+    "assigned_to": "security",
+    "created_at": "2025-11-11T10:33:45-0600",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "PROMPT ENGINEERING UPGRADE - Phase 4: Prompt Templates & Version Control. Standardize all prompts using templates, enabling version control and A/B testing. OBJECTIVES: 1) Create prompt template library in coordination/prompt-templates/ organized by agent type (coordinator/, development/, security/, inventory/, cicd/) with 20+ templates. 2) Build template engine (lib/prompt-templates/engine.js) with render() method supporting variable substitution, required variable validation, strictness levels. 3) Add template metadata (YAML frontmatter) including version, author, success_rate, avg_tokens, required_variables, output_schema. 4) Implement A/B testing framework for comparing prompt versions - run_ab_test.sh script to route traffic, compare_template_performance() analysis. 5) Create prompt registry dashboard showing version history, usage stats, success rates, A/B test results. TECHNICAL: Use Mustache/Handlebars-style templates, store metadata in YAML, track template usage in coordination/prompt-usage.jsonl. DELIVERABLES: 20+ templates, template engine, A/B testing framework, registry dashboard. SUCCESS: 100% agent calls use templates, A/B tests run weekly, template success >95%.",
+      "requirements": []
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-11T11:42:14-0600",
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-11T11:42:14-06:00"
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "high",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "N/A",
+      "strategy": "pattern-based",
+      "routed_at": "2025-11-11T11:42:14-0600"
+    }
+  },
+  "created_at": "2025-11-11T11:42:14-0600",
+  "status": "pending_pickup"
+}

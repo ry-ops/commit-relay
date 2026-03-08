@@ -1,0 +1,11 @@
+{
+    "status": "degraded",
+    "timestamp": "2025-11-09T20:15:43Z",
+    "failed_services": [
+  "coordinator",
+  "development-master",
+  "pm-daemon"
+],
+    "last_check": "2025-11-09T20:15:43Z",
+    "check_by": "ensure-services"
+}

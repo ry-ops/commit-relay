@@ -1,0 +1,26 @@
+{
+  "worker_id": "test-worker-004",
+  "task_id": "test-task-004-security-scan",
+  "worker_type": "security-specialist",
+  "strategy": "thorough_analysis",
+  "status": "completed",
+  "created_at": "2025-11-19T10:45:00-06:00",
+  "started_at": "2025-11-19T10:45:15-06:00",
+  "completed_at": "2025-11-19T11:00:15-06:00",
+  "resources": {
+    "token_budget": 30000
+  },
+  "metrics": {
+    "tokens_used": 22000,
+    "tests_run": 0,
+    "tests_passed": 0,
+    "linting_passed": true,
+    "documentation_created": true,
+    "errors": 0
+  },
+  "outcome": {
+    "success": true,
+    "quality": "very_high",
+    "findings": ["3 potential vulnerabilities", "12 best practice recommendations"]
+  }
+}

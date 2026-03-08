@@ -1,0 +1,714 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Commit-Relay Dashboard API",
+    "description": "Real-time metrics and monitoring API for the commit-relay master-worker system",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Commit-Relay Team"
+    },
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5001/api/v1",
+      "description": "Development server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Metrics",
+      "description": "System metrics and monitoring"
+    },
+    {
+      "name": "Workers",
+      "description": "Worker management and status"
+    },
+    {
+      "name": "Tasks",
+      "description": "Task queue operations"
+    },
+    {
+      "name": "Daemons",
+      "description": "Daemon control and monitoring"
+    },
+    {
+      "name": "Health",
+      "description": "Health checks and alerts"
+    },
+    {
+      "name": "Admin",
+      "description": "Administrative operations"
+    }
+  ],
+  "paths": {
+    "/metrics": {
+      "get": {
+        "tags": ["Metrics"],
+        "summary": "Get current system metrics",
+        "description": "Returns comprehensive metrics including worker pool, token budget, task queue, and handoffs",
+        "operationId": "getMetrics",
+        "security": [{"ApiKeyAuth": []}],
+        "responses": {
+          "200": {
+            "description": "Current system metrics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Metrics"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workers": {
+      "get": {
+        "tags": ["Workers"],
+        "summary": "List all workers",
+        "description": "Returns list of all workers with their current status",
+        "operationId": "listWorkers",
+        "security": [{"ApiKeyAuth": []}],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by worker status",
+            "schema": {
+              "type": "string",
+              "enum": ["active", "idle", "failed", "completed"]
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Filter by worker type",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of workers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Worker"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workers/{workerId}": {
+      "get": {
+        "tags": ["Workers"],
+        "summary": "Get worker details",
+        "operationId": "getWorker",
+        "security": [{"ApiKeyAuth": []}],
+        "parameters": [
+          {
+            "name": "workerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Worker details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Worker"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Worker not found"
+          }
+        }
+      }
+    },
+    "/workers/{workerId}/restart": {
+      "post": {
+        "tags": ["Workers"],
+        "summary": "Restart a worker",
+        "operationId": "restartWorker",
+        "security": [{"ApiKeyAuth": []}],
+        "parameters": [
+          {
+            "name": "workerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reason": {
+                    "type": "string",
+                    "description": "Reason for restart"
+                  },
+                  "force": {
+                    "type": "boolean",
+                    "default": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Worker restart initiated"
+          },
+          "404": {
+            "description": "Worker not found"
+          }
+        }
+      }
+    },
+    "/tasks": {
+      "get": {
+        "tags": ["Tasks"],
+        "summary": "List tasks in queue",
+        "operationId": "listTasks",
+        "security": [{"ApiKeyAuth": []}],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["pending", "in_progress", "completed", "failed"]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "maximum": 200
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Task"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tasks/{taskId}": {
+      "get": {
+        "tags": ["Tasks"],
+        "summary": "Get task details",
+        "operationId": "getTask",
+        "security": [{"ApiKeyAuth": []}],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Task not found"
+          }
+        }
+      }
+    },
+    "/daemons": {
+      "get": {
+        "tags": ["Daemons"],
+        "summary": "List all daemons and their status",
+        "operationId": "listDaemons",
+        "security": [{"ApiKeyAuth": []}],
+        "responses": {
+          "200": {
+            "description": "Daemon status list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Daemon"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/daemons/{daemonName}/start": {
+      "post": {
+        "tags": ["Daemons"],
+        "summary": "Start a daemon",
+        "operationId": "startDaemon",
+        "security": [{"ApiKeyAuth": []}],
+        "parameters": [
+          {
+            "name": "daemonName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["ddqd", "heartbeat-monitor", "zombie-cleanup", "failure-pattern-monitor", "auto-fix-daemon", "learning-monitor"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Daemon started"
+          },
+          "400": {
+            "description": "Invalid daemon name"
+          }
+        }
+      }
+    },
+    "/daemons/{daemonName}/stop": {
+      "post": {
+        "tags": ["Daemons"],
+        "summary": "Stop a daemon",
+        "operationId": "stopDaemon",
+        "security": [{"ApiKeyAuth": []}],
+        "parameters": [
+          {
+            "name": "daemonName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Daemon stopped"
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": ["Health"],
+        "summary": "Health check endpoint",
+        "operationId": "healthCheck",
+        "responses": {
+          "200": {
+            "description": "Service is healthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/alerts": {
+      "get": {
+        "tags": ["Health"],
+        "summary": "Get active health alerts",
+        "operationId": "getAlerts",
+        "security": [{"ApiKeyAuth": []}],
+        "responses": {
+          "200": {
+            "description": "Active alerts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Alert"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/alerts/{alertId}/resolve": {
+      "post": {
+        "tags": ["Health"],
+        "summary": "Resolve an alert",
+        "operationId": "resolveAlert",
+        "security": [{"ApiKeyAuth": []}],
+        "parameters": [
+          {
+            "name": "alertId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "resolution": {
+                    "type": "string"
+                  }
+                },
+                "required": ["resolution"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Alert resolved"
+          }
+        }
+      }
+    },
+    "/events": {
+      "get": {
+        "tags": ["Metrics"],
+        "summary": "Get recent events",
+        "operationId": "getEvents",
+        "security": [{"ApiKeyAuth": []}],
+        "parameters": [
+          {
+            "name": "since",
+            "in": "query",
+            "description": "ISO timestamp to get events since",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Event list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Event"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/token-budget": {
+      "get": {
+        "tags": ["Metrics"],
+        "summary": "Get current token budget",
+        "operationId": "getTokenBudget",
+        "security": [{"ApiKeyAuth": []}],
+        "responses": {
+          "200": {
+            "description": "Token budget information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenBudget"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    },
+    "schemas": {
+      "Metrics": {
+        "type": "object",
+        "properties": {
+          "workerPool": {
+            "$ref": "#/components/schemas/WorkerPool"
+          },
+          "tokenBudget": {
+            "$ref": "#/components/schemas/TokenBudget"
+          },
+          "taskQueue": {
+            "type": "object",
+            "properties": {
+              "tasks": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "handoffs": {
+            "type": "object"
+          },
+          "lastUpdate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Worker": {
+        "type": "object",
+        "properties": {
+          "worker_id": {
+            "type": "string"
+          },
+          "worker_type": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "active", "completed", "failed"]
+          },
+          "task_id": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "resources": {
+            "type": "object",
+            "properties": {
+              "token_budget": {
+                "type": "integer"
+              },
+              "timeout_minutes": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "WorkerPool": {
+        "type": "object",
+        "properties": {
+          "active": {
+            "type": "integer"
+          },
+          "idle": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          },
+          "workers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Worker"
+            }
+          }
+        }
+      },
+      "Task": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "in_progress", "completed", "failed"]
+          },
+          "priority": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "assigned_worker": {
+            "type": "string"
+          }
+        }
+      },
+      "TokenBudget": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer"
+          },
+          "used": {
+            "type": "integer"
+          },
+          "remaining": {
+            "type": "integer"
+          },
+          "percentage_used": {
+            "type": "number"
+          }
+        }
+      },
+      "Daemon": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["running", "stopped", "error"]
+          },
+          "pid": {
+            "type": "integer"
+          },
+          "uptime": {
+            "type": "string"
+          },
+          "last_activity": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "HealthStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["healthy", "degraded", "unhealthy"]
+          },
+          "uptime": {
+            "type": "integer"
+          },
+          "version": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Alert": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["info", "warning", "error", "critical"]
+          },
+          "message": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "resolved": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Event": {
+        "type": "object",
+        "properties": {
+          "event_type": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "data": {
+            "type": "object"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

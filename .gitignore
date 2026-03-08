@@ -1,0 +1,63 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.bak
+.env
+.env.local
+
+# Node modules if we add tooling
+node_modules/
+
+# Python if we add scripts
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Logs - keep directory structure but ignore large log files
+# (We want to commit daily summaries but not huge debug logs)
+*.log
+agents/logs/system/
+
+# Sensitive data
+secrets/
+*.key
+*.pem
+credentials.json
+.env.test
+
+# Runtime coordination files (state, metrics, events)
+coordination/events/*.jsonl
+coordination/metrics/*.json
+coordination/metrics/*.jsonl
+coordination/metrics/learning/*.jsonl
+coordination/history/
+coordination/memory/working/*.json
+coordination/orchestrator/state/*.json
+coordination/pm-activity.jsonl
+coordination/pm-state.json
+coordination/token-budget.json
+coordination/worker-pool.json
+coordination/workforce-streams.json
+coordination/dashboard-events.jsonl
+coordination/health-alerts.json
+coordination/patterns/failure-patterns.jsonl
+coordination/patterns/pattern-index.json
+coordination/governance/access-log.jsonl
+coordination/knowledge-base/learned-patterns/patterns-*.json
+coordination/knowledge-base/model-versions/
+coordination/masters/*/knowledge-base/
+coordination/masters/*/metrics/
+coordination/tasks/pending/
+coordination/worker-specs/zombie/
+agents/logs/zombie-workers/

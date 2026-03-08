@@ -1,0 +1,280 @@
+#!/bin/bash
+# scripts/obs-query.sh
+# Observability Query Tool - Search and analyze trace events
+#
+# Usage:
+#   obs-query --trace-id TRACE_ID [--timeline]
+#   obs-query --worker-id WORKER_ID [--events]
+#   obs-query --error-code ERROR_CODE [--last DURATION]
+#   obs-query --component COMPONENT [--since DURATION]
+
+set -eo pipefail
+
+# Get script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+COMMIT_RELAY_HOME="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+# Event file location
+EVENT_FILE="$COMMIT_RELAY_HOME/coordination/observability/events/all-events.jsonl"
+
+# Colors
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+CYAN='\033[0;36m'
+RED='\033[0;31m'
+BOLD='\033[1m'
+NC='\033[0m'
+
+# Options
+TRACE_ID=""
+WORKER_ID=""
+ERROR_CODE=""
+COMPONENT=""
+EVENT_TYPE=""
+SINCE=""
+LAST=""
+OUTPUT_MODE="events"  # events, timeline, count, performance
+LIMIT=50
+
+# Show usage
+usage() {
+    cat << EOF
+${BOLD}obs-query${NC} - Observability Query Tool
+
+${BOLD}USAGE:${NC}
+  obs-query [OPTIONS]
+
+${BOLD}QUERY OPTIONS:${NC}
+  --trace-id ID          Find all events for trace ID
+  --worker-id ID         Find all events for worker ID
+  --error-code CODE      Find all events with error code
+  --component NAME       Find events from component
+  --event-type TYPE      Filter by event type (e.g., "worker.spawn")
+
+${BOLD}TIME FILTERS:${NC}
+  --since DURATION       Events since duration ago (e.g., "1h", "30m", "2d")
+  --last DURATION        Alias for --since
+
+${BOLD}OUTPUT OPTIONS:${NC}
+  --timeline             Show events as timeline (default for trace-id)
+  --events               Show raw events (default)
+  --count                Show count of matching events
+  --performance          Show performance stats
+
+${BOLD}GENERAL OPTIONS:${NC}
+  --limit N              Limit results to N events (default: 50)
+  --help                 Show this help
+
+${BOLD}EXAMPLES:${NC}
+  # Show timeline for a trace
+  obs-query --trace-id task-1234 --timeline
+
+  # Find all worker events
+  obs-query --worker-id worker-001
+
+  # Find recent errors
+  obs-query --error-code CONTEXT_INJECTION_FAILED --since 1h
+
+  # Show all events from coordinator in last hour
+  obs-query --component coordinator-master --since 1h --timeline
+
+  # Count events by type
+  obs-query --event-type "worker.spawn" --count
+
+${BOLD}EVENT FILE:${NC}
+  $EVENT_FILE
+
+EOF
+}
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --trace-id)
+            TRACE_ID="$2"
+            OUTPUT_MODE="timeline"  # Default to timeline for traces
+            shift 2
+            ;;
+        --worker-id)
+            WORKER_ID="$2"
+            shift 2
+            ;;
+        --error-code)
+            ERROR_CODE="$2"
+            shift 2
+            ;;
+        --component)
+            COMPONENT="$2"
+            shift 2
+            ;;
+        --event-type)
+            EVENT_TYPE="$2"
+            shift 2
+            ;;
+        --since|--last)
+            SINCE="$2"
+            shift 2
+            ;;
+        --timeline)
+            OUTPUT_MODE="timeline"
+            shift
+            ;;
+        --events)
+            OUTPUT_MODE="events"
+            shift
+            ;;
+        --count)
+            OUTPUT_MODE="count"
+            shift
+            ;;
+        --performance)
+            OUTPUT_MODE="performance"
+            shift
+            ;;
+        --limit)
+            LIMIT="$2"
+            shift 2
+            ;;
+        --help)
+            usage
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $1"
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+# Check if event file exists
+if [ ! -f "$EVENT_FILE" ]; then
+    echo -e "${RED}Error: Event file not found${NC}"
+    echo "  Expected: $EVENT_FILE"
+    echo ""
+    echo "No events have been recorded yet."
+    echo "Events are automatically recorded when using init-common.sh"
+    exit 1
+fi
+
+# Build jq filter
+JQ_FILTER="."
+
+# Apply filters
+if [ -n "$TRACE_ID" ]; then
+    JQ_FILTER="$JQ_FILTER | select(.trace_id == \"$TRACE_ID\")"
+fi
+
+if [ -n "$WORKER_ID" ]; then
+    JQ_FILTER="$JQ_FILTER | select(.component_id == \"$WORKER_ID\" or .metadata.worker_id == \"$WORKER_ID\")"
+fi
+
+if [ -n "$ERROR_CODE" ]; then
+    JQ_FILTER="$JQ_FILTER | select(.metadata.error_code == \"$ERROR_CODE\")"
+fi
+
+if [ -n "$COMPONENT" ]; then
+    JQ_FILTER="$JQ_FILTER | select(.component == \"$COMPONENT\" or (.component_id // \"\" | startswith(\"$COMPONENT\")))"
+fi
+
+if [ -n "$EVENT_TYPE" ]; then
+    JQ_FILTER="$JQ_FILTER | select(.event_type | test(\"$EVENT_TYPE\"))"
+fi
+
+# Time filtering (simple - last N lines for now)
+TAIL_LINES=1000
+if [ -n "$SINCE" ]; then
+    case "$SINCE" in
+        *h) TAIL_LINES=$((${SINCE%h} * 60)) ;;  # hours
+        *m) TAIL_LINES=${SINCE%m} ;;            # minutes
+        *d) TAIL_LINES=$((${SINCE%d} * 1440)) ;; # days
+        *) TAIL_LINES=$SINCE ;;
+    esac
+fi
+
+# Execute query based on output mode
+case "$OUTPUT_MODE" in
+    timeline)
+        echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
+        echo -e "${BOLD}Trace Timeline${NC}"
+        if [ -n "$TRACE_ID" ]; then
+            echo -e "Trace ID: ${YELLOW}$TRACE_ID${NC}"
+        fi
+        echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
+        echo ""
+
+        tail -n "$TAIL_LINES" "$EVENT_FILE" | \
+        jq -r "$JQ_FILTER | [.timestamp, .event_type, .status, (.metadata.operation // .metadata.worker_id // .metadata.task_id // \"\")] | @tsv" | \
+        head -n "$LIMIT" | \
+        while IFS=$'\t' read -r timestamp event_type status metadata; do
+            # Color code by status
+            case "$status" in
+                success|info) color="$GREEN" ;;
+                error|failed) color="$RED" ;;
+                warn|warning) color="$YELLOW" ;;
+                *) color="$NC" ;;
+            esac
+
+            # Format output
+            printf "${color}[%s]${NC} %-30s %s\n" \
+                "$(echo "$timestamp" | cut -d'T' -f2 | cut -d'Z' -f1)" \
+                "$event_type" \
+                "$metadata"
+        done
+
+        echo ""
+        echo -e "${CYAN}────────────────────────────────────────────────────────────${NC}"
+        ;;
+
+    events)
+        echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
+        echo -e "${BOLD}Events${NC}"
+        echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
+        echo ""
+
+        tail -n "$TAIL_LINES" "$EVENT_FILE" | \
+        jq -c "$JQ_FILTER" | \
+        head -n "$LIMIT" | \
+        jq '.'
+        ;;
+
+    count)
+        COUNT=$(tail -n "$TAIL_LINES" "$EVENT_FILE" | jq -c "$JQ_FILTER" | wc -l | tr -d ' ')
+        echo -e "${BOLD}Event Count:${NC} $COUNT"
+        ;;
+
+    performance)
+        echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
+        echo -e "${BOLD}Performance Stats${NC}"
+        echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
+        echo ""
+
+        # Extract durations
+        tail -n "$TAIL_LINES" "$EVENT_FILE" | \
+        jq -r "$JQ_FILTER | select(.metadata.duration_seconds != null) | [.event_type, .metadata.duration_seconds] | @tsv" | \
+        head -n "$LIMIT" | \
+        awk '{
+            sum[$1] += $2
+            count[$1]++
+            if (min[$1] == "" || $2 < min[$1]) min[$1] = $2
+            if ($2 > max[$1]) max[$1] = $2
+        }
+        END {
+            printf "%-40s %8s %8s %8s %8s\n", "Event Type", "Count", "Avg (s)", "Min (s)", "Max (s)"
+            printf "%-40s %8s %8s %8s %8s\n", "----------------------------------------", "--------", "--------", "--------", "--------"
+            for (type in count) {
+                printf "%-40s %8d %8.2f %8.2f %8.2f\n", type, count[type], sum[type]/count[type], min[type], max[type]
+            }
+        }'
+
+        echo ""
+        ;;
+
+    *)
+        echo "Unknown output mode: $OUTPUT_MODE"
+        exit 1
+        ;;
+esac
+
+echo ""

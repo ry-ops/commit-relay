@@ -1,0 +1,65 @@
+{
+  "enabled": true,
+  "version": "1.0.0",
+  "description": "Zombie worker cleanup policy for automatic detection and remediation",
+  "detection": {
+    "zombie_threshold_seconds": 300,
+    "double_check_enabled": true,
+    "double_check_delay_seconds": 2
+  },
+  "cleanup_actions": {
+    "verify_timeout_seconds": 5,
+    "graceful_shutdown_timeout_seconds": 30,
+    "force_kill_if_graceful_fails": true,
+    "archive_logs": true,
+    "return_tokens": true,
+    "preserve_worker_specs": true
+  },
+  "safety": {
+    "max_cleanups_per_minute": 5,
+    "require_process_check": true,
+    "require_heartbeat_double_check": true,
+    "mass_zombification_threshold": 5,
+    "alert_on_mass_zombification": true,
+    "circuit_breaker_enabled": true
+  },
+  "directories": {
+    "zombie_specs": "coordination/worker-specs/zombie",
+    "zombie_logs_archive": "agents/logs/zombie-workers",
+    "cleanup_events": "coordination/events/zombie-cleanup-events.jsonl"
+  },
+  "observability": {
+    "emit_events": true,
+    "log_all_actions": true,
+    "events": {
+      "zombie_detected": true,
+      "zombie_process_terminated": true,
+      "zombie_cleanup_completed": true,
+      "zombie_cleanup_failed": true,
+      "zombie_cleanup_rate_limited": true,
+      "mass_zombification_alert": true
+    }
+  },
+  "recovery": {
+    "allow_manual_resurrection": true,
+    "resurrection_grace_period_hours": 24,
+    "automatic_resurrection_on_false_positive": false
+  },
+  "thresholds": {
+    "warning": {
+      "description": "Worker not responding but not yet zombie",
+      "seconds": 60,
+      "action": "emit_warning_event"
+    },
+    "critical": {
+      "description": "Worker likely hung but still within grace period",
+      "seconds": 120,
+      "action": "emit_critical_event"
+    },
+    "zombie": {
+      "description": "Worker confirmed unresponsive, trigger cleanup",
+      "seconds": 300,
+      "action": "automatic_cleanup"
+    }
+  }
+}

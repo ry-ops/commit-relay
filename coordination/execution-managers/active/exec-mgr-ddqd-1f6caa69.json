@@ -1,0 +1,16 @@
+{
+  "exec_mgr_id": "exec-mgr-ddqd-1f6caa69",
+  "master_type": "security",
+  "subtask_id": "ddqd-subtask-6905582c",
+  "status": "running",
+  "started_at": "2025-11-21T06:32:32-0600",
+  "last_heartbeat": "2025-11-21T06:37:32-0600",
+  "workers_spawned": 3,
+  "workers_completed": 0,
+  "workers_failed": 0,
+  "tokens_used": 8000,
+  "current_phase": "executing",
+  "stress_test": true,
+  "zombie_type": "em_timeout",
+  "test_id": "ddqd-1763732356"
+}

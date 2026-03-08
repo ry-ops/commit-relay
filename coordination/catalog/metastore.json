@@ -1,0 +1,203 @@
+{
+  "catalog_name": "commit-relay",
+  "version": "1.0.0",
+  "created_at": "2025-11-18T00:00:00Z",
+  "last_updated": "2025-11-18T00:00:00Z",
+  "description": "Unified catalog for all Commit-Relay data and AI assets",
+  "namespaces": [
+    {
+      "name": "coordinator",
+      "type": "master_agent",
+      "owner": "system",
+      "description": "Central coordination and task routing",
+      "assets": {
+        "data_assets": [
+          "task-queue",
+          "routing-decisions",
+          "handoffs",
+          "master-state",
+          "moe-routing-patterns"
+        ],
+        "ai_assets": [
+          "coordinator-master",
+          "moe-router"
+        ],
+        "model_assets": []
+      },
+      "access_policies": ["coordinator-admin", "coordinator-read"],
+      "compliance_tags": ["internal", "no-pii"],
+      "sensitivity_level": "internal"
+    },
+    {
+      "name": "development",
+      "type": "master_agent",
+      "owner": "development-team",
+      "description": "Feature implementation and bug fixes",
+      "assets": {
+        "data_assets": [
+          "development-tasks",
+          "code-changes",
+          "implementation-history"
+        ],
+        "ai_assets": [
+          "development-master",
+          "implementation-worker",
+          "fix-worker",
+          "test-worker"
+        ],
+        "model_assets": []
+      },
+      "access_policies": ["development-admin", "development-write", "development-read"],
+      "compliance_tags": ["internal", "code"],
+      "sensitivity_level": "internal"
+    },
+    {
+      "name": "security",
+      "type": "master_agent",
+      "owner": "security-team",
+      "description": "Security scanning and vulnerability remediation",
+      "assets": {
+        "data_assets": [
+          "scan-results",
+          "vulnerability-reports",
+          "cve-database",
+          "security-tasks"
+        ],
+        "ai_assets": [
+          "security-master",
+          "scan-worker",
+          "security-fix-worker"
+        ],
+        "model_assets": []
+      },
+      "access_policies": ["security-admin", "security-write", "security-read"],
+      "compliance_tags": ["confidential", "security-sensitive"],
+      "sensitivity_level": "confidential"
+    },
+    {
+      "name": "inventory",
+      "type": "master_agent",
+      "owner": "operations-team",
+      "description": "Repository cataloging and dependency tracking",
+      "assets": {
+        "data_assets": [
+          "repository-catalog",
+          "dependency-graphs",
+          "documentation-index"
+        ],
+        "ai_assets": [
+          "inventory-master",
+          "documentation-worker",
+          "analysis-worker"
+        ],
+        "model_assets": []
+      },
+      "access_policies": ["inventory-admin", "inventory-write", "inventory-read"],
+      "compliance_tags": ["internal", "metadata"],
+      "sensitivity_level": "internal"
+    },
+    {
+      "name": "cicd",
+      "type": "master_agent",
+      "owner": "devops-team",
+      "description": "Build automation and deployment workflows",
+      "assets": {
+        "data_assets": [
+          "build-history",
+          "deployment-logs",
+          "release-manifests"
+        ],
+        "ai_assets": [
+          "cicd-master",
+          "build-worker",
+          "deploy-worker"
+        ],
+        "model_assets": []
+      },
+      "access_policies": ["cicd-admin", "cicd-write", "cicd-read"],
+      "compliance_tags": ["internal", "deployment"],
+      "sensitivity_level": "internal"
+    },
+    {
+      "name": "dashboard",
+      "type": "observability_agent",
+      "owner": "operations-team",
+      "description": "System monitoring and metrics (read-only)",
+      "assets": {
+        "data_assets": [
+          "metrics-snapshots",
+          "dashboard-events",
+          "health-reports",
+          "system-health"
+        ],
+        "ai_assets": [
+          "dashboard-agent"
+        ],
+        "model_assets": []
+      },
+      "access_policies": ["dashboard-read"],
+      "compliance_tags": ["internal", "observability"],
+      "sensitivity_level": "internal"
+    },
+    {
+      "name": "governance",
+      "type": "governance_system",
+      "owner": "compliance-team",
+      "description": "Governance, compliance, and quality assurance",
+      "assets": {
+        "data_assets": [
+          "access-logs",
+          "pii-scan-results",
+          "quality-reports",
+          "compliance-audits"
+        ],
+        "ai_assets": [
+          "pii-scanner",
+          "quality-monitor",
+          "bypass-auditor"
+        ],
+        "model_assets": []
+      },
+      "access_policies": ["governance-admin", "compliance-read"],
+      "compliance_tags": ["confidential", "audit-trail"],
+      "sensitivity_level": "confidential"
+    },
+    {
+      "name": "self-healing",
+      "type": "automation_system",
+      "owner": "system",
+      "description": "Autonomous recovery and pattern detection",
+      "assets": {
+        "data_assets": [
+          "failure-patterns",
+          "auto-fix-history",
+          "circuit-breakers",
+          "restart-queue"
+        ],
+        "ai_assets": [
+          "pattern-detector",
+          "auto-fix-engine",
+          "restart-coordinator"
+        ],
+        "model_assets": []
+      },
+      "access_policies": ["self-healing-admin", "self-healing-read"],
+      "compliance_tags": ["internal", "automation"],
+      "sensitivity_level": "internal"
+    }
+  ],
+  "global_policies": {
+    "audit_retention_days": 90,
+    "pii_detection_enabled": true,
+    "lineage_tracking_enabled": true,
+    "quality_monitoring_enabled": true,
+    "access_logging_enabled": true
+  },
+  "catalog_stats": {
+    "total_namespaces": 8,
+    "total_data_assets": 0,
+    "total_ai_assets": 0,
+    "total_model_assets": 0,
+    "last_scan": null
+  }
+}

@@ -1,0 +1,238 @@
+{
+  "master_id": "security",
+  "master_name": "Security Master",
+  "initialized_at": "2025-11-03T19:09:31Z",
+  "session_id": "D3E7AA88-CB9B-44A8-A1DC-8BEE4B0FA048",
+  "status": "active",
+  "expertise": {
+    "security_domains": [
+      "vulnerability_scanning",
+      "dependency_auditing",
+      "secrets_detection",
+      "security_remediation",
+      "compliance_monitoring"
+    ],
+    "threat_databases": [
+      "CVE",
+      "NVD",
+      "npm_advisories",
+      "pip_advisories"
+    ]
+  },
+  "active_workers": [
+    {
+      "worker_id": "sec-worker-AA0D073A",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-05T11:43:17Z",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-027336D3",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-05T11:43:17Z",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-14A89C13",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-05T11:51:55Z",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-FD673A67",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-05T11:51:55Z",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-03B228A5",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-05T16:44:26Z",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-484EA99D",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-07T20:18:50-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-CF03574D",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-07T20:18:51-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-4FA7457D",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-07T20:19:14-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-AAC692A5",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:36:57-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-D20C3813",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:36:57-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-2D607E2D",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:36:57-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-C622A67A",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:36:57-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-CCF9834D",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:36:58-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-16E1DF67",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:36:58-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-0E7D5F4F",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:36:58-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-B9B8E6B0",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:36:58-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-82577B3E",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:36:59-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-CAF80759",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:36:59-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-168CF8AF",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:36:59-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-2E10F604",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:36:59-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-8FD950D8",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:36:59-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-76D0AF62",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:37:00-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-39C6E144",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:37:00-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-579F2CFA",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:37:00-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-060ED770",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:37:00-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-64C0DA8A",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:37:01-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-3A4ECD64",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-11T16:37:01-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-7A7CFD6E",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-12T13:43:30-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-CA8C6924",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-19T07:45:08-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-8E10FBA3",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-19T07:45:08-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-9301A557",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-19T07:45:08-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-E9E9BFEB",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-19T07:45:09-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-E28B06CB",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-19T07:45:09-0600",
+      "status": "active"
+    },
+    {
+      "worker_id": "sec-worker-4AB29994",
+      "worker_type": "scan-worker",
+      "spawned_at": "2025-11-19T07:45:09-0600",
+      "status": "active"
+    }
+  ],
+  "completed_tasks": 1,
+  "security_metrics": {
+    "vulnerabilities_found": 1,
+    "vulnerabilities_fixed": 0,
+    "critical_count": 0,
+    "high_count": 0,
+    "last_scan": "2025-11-19T13:47:00Z"
+  },
+  "last_run": "2025-11-19T13:47:00Z",
+  "last_started": "2025-11-19T07:45:08-0600"
+}

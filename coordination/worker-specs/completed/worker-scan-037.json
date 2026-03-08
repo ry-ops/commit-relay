@@ -1,0 +1,72 @@
+{
+  "worker_id": "worker-scan-037",
+  "worker_type": "scan-worker",
+  "created_by": "security-master",
+  "execution_manager": null,
+  "created_at": "2025-11-23T12:47:50-0600",
+  "task_id": "security-scan-1763923669236-v9jt0qgg",
+  "status": "completed",
+  "scope": {},
+  "context": {
+    "parent_task": "security-scan-1763923669236-v9jt0qgg",
+    "priority": "high",
+    "deadline": null
+  },
+  "goal_based_planning": {
+    "enabled": true,
+    "strategy": "direct",
+    "goal_type": "general",
+    "complexity": "medium",
+    "strategy_plan_location": "coordination/knowledge-base/strategy-plans/worker-scan-037-plan.json"
+  },
+  "resources": {
+    "token_budget": 8000,
+    "timeout_minutes": 15,
+    "max_retries": 1
+  },
+  "deliverables": [
+    "agents/workers/worker-scan-037/results/scan_results.json",
+    "agents/workers/worker-scan-037/results/vulnerability_list.md",
+    "agents/workers/worker-scan-037/results/dependency_report.md"
+  ],
+  "prompt_template": "agents/prompts/workers/scan-worker.md",
+  "execution": {
+    "started_at": "2025-11-23T12:48:00-0600",
+    "completed_at": "2025-11-23T18:51:55Z",
+    "tokens_used": 6000,
+    "duration_minutes": 3.5,
+    "session_id": null
+  },
+  "results": {
+    "status": "SUCCESS",
+    "output_location": "agents/workers/worker-scan-037/results/scan_results.json",
+    "summary": "Found 11 vulnerabilities: 1 critical (exposed API key), 2 high, 7 medium, 1 low. Risk level: HIGH",
+    "artifacts": [
+      "agents/workers/worker-scan-037/results/scan_results.json",
+      "agents/workers/worker-scan-037/results/vulnerability_list.md",
+      "agents/workers/worker-scan-037/results/dependency_report.md"
+    ]
+  },
+  "review": {
+    "enabled": true,
+    "min_cycles": 2,
+    "auto_approve_threshold": 0.95,
+    "history": []
+  },
+  "heartbeat": {
+    "last_heartbeat": "2025-11-23T12:51:32-0600",
+    "heartbeat_sequence": 9,
+    "health": {
+      "status": "healthy",
+      "cpu_usage_percent": 0.0,
+      "memory_usage_mb": 1.90,
+      "tokens_used": 6000,
+      "tokens_remaining": -6000,
+      "active_for_seconds": 212,
+      "last_activity": "[2025-11-23T18:48:03Z] LAUNCHER: ============================================",
+      "health_score": 100
+    },
+    "warnings": [],
+    "missed_count": 0
+  }
+}

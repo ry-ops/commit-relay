@@ -1,0 +1,157 @@
+{
+  "template_id": "learning-agent",
+  "name": "Learning Agent",
+  "version": "1.0.0",
+  "agent_type": "learning",
+  "agent_class": "custom-learner",
+  "description": "A learning agent that improves through feedback and pattern recognition. Implements adaptive algorithms and continuous improvement mechanisms.",
+  "author": "commit-relay",
+  "tags": ["learning", "adaptive", "ml", "improvement"],
+  "capabilities": [
+    {
+      "capability_id": "pattern_recognition",
+      "name": "Pattern Recognition",
+      "category": "learning",
+      "description": "Identify patterns in data and behavior"
+    },
+    {
+      "capability_id": "feedback_processing",
+      "name": "Feedback Processing",
+      "category": "learning",
+      "description": "Process feedback to improve performance"
+    }
+  ],
+  "configuration": {
+    "max_concurrent_tasks": 1,
+    "timeout_seconds": 600,
+    "retry_attempts": 3,
+    "priority": "medium",
+    "auto_restart": true,
+    "resource_limits": {
+      "max_memory_mb": 256,
+      "max_cpu_percent": 40,
+      "max_token_budget": 30000
+    }
+  },
+  "scaffold": {
+    "script_path": "llm-mesh/agents/{{agent_name}}/{{agent_name}}.sh",
+    "script_template": "#!/usr/bin/env bash\n#\n# {{agent_name}} - {{description}}\n# Generated from learning-agent template\n#\n\nset -euo pipefail\n\nreadonly SCRIPT_DIR=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)\"\nreadonly PROJECT_ROOT=\"$(cd \"$SCRIPT_DIR/../../..\" && pwd)\"\n\n# Source libraries\nsource \"$PROJECT_ROOT/scripts/lib/agentstudio/agent-register.sh\"\n\n# Learning configuration\nreadonly AGENT_NAME=\"{{agent_name}}\"\nreadonly LEARNING_RATE={{learning_rate}}\nreadonly MODEL_DIR=\"$SCRIPT_DIR/models\"\nreadonly PATTERNS_FILE=\"$SCRIPT_DIR/patterns.jsonl\"\n\nmkdir -p \"$MODEL_DIR\"\n\n#\n# Initialize learning agent\n#\ninit_agent() {\n    local capabilities='{{capabilities_json}}'\n    \n    AGENT_ID=$(register_agent \\\n        \"{{agent_class}}\" \\\n        \"$AGENT_NAME\" \\\n        \"1.0.0\" \\\n        \"$capabilities\" \\\n        \"{{description}}\")\n    \n    echo \"Learning agent registered: $AGENT_ID\"\n    \n    # Initialize pattern storage\n    if [[ ! -f \"$PATTERNS_FILE\" ]]; then\n        touch \"$PATTERNS_FILE\"\n    fi\n}\n\n#\n# Extract patterns from data\n#\nextract_patterns() {\n    local data=\"$1\"\n    \n    echo \"Extracting patterns from data...\"\n    \n    # TODO: Implement pattern extraction logic\n    # - Analyze data structure\n    # - Identify recurring patterns\n    # - Calculate pattern confidence\n    # - Store patterns\n    \n    local patterns='[]'\n    echo \"$patterns\"\n}\n\n#\n# Process feedback\n#\nprocess_feedback() {\n    local feedback=\"$1\"\n    \n    echo \"Processing feedback...\"\n    \n    # TODO: Implement feedback processing\n    # - Parse feedback\n    # - Update model weights\n    # - Adjust learning rate\n    # - Save updated model\n    \n    local timestamp=$(date +%s)\n    echo \"{\\\"timestamp\\\":$timestamp,\\\"feedback\\\":$feedback}\" >> \"$PATTERNS_FILE\"\n}\n\n#\n# Update model\n#\nupdate_model() {\n    echo \"Updating model with learning rate: $LEARNING_RATE\"\n    \n    # TODO: Implement model update logic\n    # - Load current model\n    # - Apply learning updates\n    # - Validate model performance\n    # - Save new model version\n}\n\n#\n# Main learning loop\n#\nrun_agent() {\n    echo \"Starting $AGENT_NAME...\"\n    echo \"Learning rate: $LEARNING_RATE\"\n    \n    init_agent\n    \n    local iteration=0\n    \n    while true; do\n        iteration=$((iteration + 1))\n        \n        agent_heartbeat \"$AGENT_ID\"\n        \n        # TODO: Collect new data\n        # TODO: Extract patterns\n        # TODO: Process feedback\n        # TODO: Update model every N iterations\n        \n        if [[ $((iteration % {{update_interval}})) -eq 0 ]]; then\n            update_model\n        fi\n        \n        sleep {{check_interval:-60}}\n    done\n}\n\n# Run if executed directly\nif [[ \"${BASH_SOURCE[0]}\" == \"${0}\" ]]; then\n    run_agent\nfi\n",
+    "config_files": [
+      {
+        "path": "llm-mesh/agents/{{agent_name}}/learning-config.json",
+        "content": "{\n  \"learning_rate\": {{learning_rate}},\n  \"update_interval\": {{update_interval}},\n  \"min_samples\": {{min_samples}},\n  \"confidence_threshold\": {{confidence_threshold}}\n}\n"
+      }
+    ],
+    "dependencies": [
+      "agent-register.sh"
+    ]
+  },
+  "customization": {
+    "parameters": [
+      {
+        "name": "agent_name",
+        "type": "string",
+        "description": "Name of the learning agent",
+        "required": true,
+        "validation": {
+          "pattern": "^[a-z][a-z0-9-]*$"
+        }
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "Description of what the agent learns",
+        "required": true
+      },
+      {
+        "name": "learning_rate",
+        "type": "number",
+        "description": "Learning rate for model updates",
+        "default": 0.01,
+        "validation": {
+          "min": 0.001,
+          "max": 1.0
+        }
+      },
+      {
+        "name": "update_interval",
+        "type": "integer",
+        "description": "Number of iterations between model updates",
+        "default": 10,
+        "validation": {
+          "min": 1,
+          "max": 100
+        }
+      },
+      {
+        "name": "min_samples",
+        "type": "integer",
+        "description": "Minimum samples required before learning",
+        "default": 100,
+        "validation": {
+          "min": 10,
+          "max": 10000
+        }
+      },
+      {
+        "name": "confidence_threshold",
+        "type": "number",
+        "description": "Minimum confidence for pattern recognition",
+        "default": 0.7,
+        "validation": {
+          "min": 0.5,
+          "max": 0.99
+        }
+      },
+      {
+        "name": "check_interval",
+        "type": "integer",
+        "description": "Check interval in seconds",
+        "default": 60,
+        "validation": {
+          "min": 10,
+          "max": 300
+        }
+      }
+    ]
+  },
+  "examples": [
+    {
+      "title": "Routing Optimizer",
+      "description": "Learns optimal routing patterns",
+      "configuration": {
+        "agent_name": "routing-optimizer",
+        "description": "Learns from routing decisions to optimize task assignment",
+        "learning_rate": 0.05,
+        "update_interval": 50,
+        "min_samples": 200
+      }
+    },
+    {
+      "title": "Performance Predictor",
+      "description": "Predicts task performance",
+      "configuration": {
+        "agent_name": "performance-predictor",
+        "description": "Learns to predict task execution time and success rate",
+        "learning_rate": 0.01,
+        "update_interval": 10,
+        "confidence_threshold": 0.8
+      }
+    }
+  ],
+  "best_practices": [
+    "Start with conservative learning rates",
+    "Collect sufficient samples before making predictions",
+    "Implement model versioning for rollback",
+    "Monitor learning progress and adjust parameters",
+    "Validate model performance regularly",
+    "Use exponential moving average for stable learning",
+    "Implement safeguards against overfitting"
+  ],
+  "metadata": {
+    "created_at": 1763587400000,
+    "updated_at": 1763587400000,
+    "usage_count": 0,
+    "success_rate": 0.85
+  }
+}

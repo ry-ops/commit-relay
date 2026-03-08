@@ -1,0 +1,26 @@
+{
+  "worker_id": "test-worker-003",
+  "task_id": "test-task-006-failure-case",
+  "worker_type": "feature-implementer",
+  "strategy": "direct",
+  "status": "failed",
+  "created_at": "2025-11-19T10:55:00-06:00",
+  "started_at": "2025-11-19T10:55:20-06:00",
+  "completed_at": "2025-11-19T11:25:50-06:00",
+  "resources": {
+    "token_budget": 50000
+  },
+  "metrics": {
+    "tokens_used": 45000,
+    "tests_run": 2,
+    "tests_passed": 0,
+    "linting_passed": false,
+    "documentation_created": false,
+    "errors": 8
+  },
+  "outcome": {
+    "success": false,
+    "quality": "low",
+    "error": "Complexity too high for direct strategy"
+  }
+}

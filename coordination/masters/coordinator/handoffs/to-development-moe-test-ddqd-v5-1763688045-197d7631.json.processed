@@ -1,0 +1,37 @@
+{
+  "handoff_id": "coord-to-development-49F53630-F33F-4B30-9DF8-4BDD19F798D6",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "moe-test-ddqd-v5-1763688045-197d7631",
+  "task_data": {
+    "id": "moe-test-ddqd-v5-1763688045-197d7631",
+    "title": "Fix performance bug in database query optimization code",
+    "type": "bug-fix",
+    "description": "Fix performance bug in database query optimization code",
+    "priority": "medium",
+    "status": "assigned",
+    "assigned_to": "development",
+    "created_at": "2025-11-20T19:21:32-0600",
+    "created_by": "ddqd-v5-test",
+    "moe_test": true,
+    "test_id": "ddqd-v5-1763688045",
+    "context": {},
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-20T19:21:39-0600",
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-20T19:21:39-06:00"
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "medium",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "N/A",
+      "strategy": "pattern-based",
+      "routed_at": "2025-11-20T19:21:39-0600"
+    }
+  },
+  "created_at": "2025-11-20T19:21:39-0600",
+  "status": "pending_pickup"
+}

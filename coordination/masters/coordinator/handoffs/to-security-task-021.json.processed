@@ -1,0 +1,36 @@
+{
+  "handoff_id": "coord-to-security-0185AC45-DFB4-4E04-81F5-636638AF7F26",
+  "from_master": "coordinator",
+  "to_master": "security",
+  "task_id": "task-021",
+  "task_data": {
+  "id": "task-021",
+  "title": "System Test - Security Master: Run a basic security scan on package.json dependencies and create a report at tests/system-test-security.txt with findings summary and 'Security Master Test Completed' message",
+  "type": "security-scan",
+  "priority": "medium",
+  "status": "assigned",
+  "assigned_to": "security",
+  "created_at": "2025-11-05T11:33:55Z",
+  "created_by": "create-task-cli",
+  "context": {
+    "repository": "ry-ops/commit-relay",
+    "branch": "main",
+    "description": "System Test - Security Master: Run a basic security scan on package.json dependencies and create a report at tests/system-test-security.txt with findings summary and 'Security Master Test Completed' message",
+    "scan_types": [
+      "dependencies",
+      "static-analysis",
+      "secrets"
+    ]
+  },
+  "assigned_by": "coordinator",
+  "assigned_at": "2025-11-05T11:42:29Z",
+  "updated_at": "2025-11-05T05:42:29-06:00"
+},
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "medium",
+    "expected_outcome": "Task completion with results handoff"
+  },
+  "created_at": "2025-11-05T11:42:29Z",
+  "status": "pending_pickup"
+}

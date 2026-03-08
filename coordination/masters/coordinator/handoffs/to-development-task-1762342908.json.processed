@@ -1,0 +1,32 @@
+{
+  "handoff_id": "coord-to-development-4AFDC65B-BF5A-4A9D-94F2-D70AFBAFE58F",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762342908",
+  "task_data": {
+  "id": "task-1762342908",
+  "title": "Clean up all .processed handoff files from coordination/masters/*/handoffs/ directories (7 files total)",
+  "type": "development",
+  "priority": "low",
+  "status": "assigned",
+  "assigned_to": "development",
+  "created_at": "2025-11-05T12:13:45Z",
+  "created_by": "create-task-cli",
+  "context": {
+    "repository": "ry-ops/commit-relay",
+    "branch": "main",
+    "description": "Clean up all .processed handoff files from coordination/masters/*/handoffs/ directories (7 files total)",
+    "requirements": []
+  },
+  "assigned_by": "coordinator",
+  "assigned_at": "2025-11-05T12:14:37Z",
+  "updated_at": "2025-11-05T06:14:37-06:00"
+},
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "low",
+    "expected_outcome": "Task completion with results handoff"
+  },
+  "created_at": "2025-11-05T12:14:37Z",
+  "status": "pending_pickup"
+}

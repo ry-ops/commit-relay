@@ -1,0 +1,32 @@
+{
+  "handoff_id": "coord-to-development-779C2320-1BE2-4C50-822C-9C3A65792DFE",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-020",
+  "task_data": {
+  "id": "task-020",
+  "title": "System Test - Development Master: Create a simple test file at tests/system-test-dev.txt with content 'Development Master Test Completed' and commit with message 'test: development master verification - Task Completed'",
+  "type": "development",
+  "priority": "medium",
+  "status": "assigned",
+  "assigned_to": "development",
+  "created_at": "2025-11-05T11:33:46Z",
+  "created_by": "create-task-cli",
+  "context": {
+    "repository": "ry-ops/commit-relay",
+    "branch": "main",
+    "description": "System Test - Development Master: Create a simple test file at tests/system-test-dev.txt with content 'Development Master Test Completed' and commit with message 'test: development master verification - Task Completed'",
+    "requirements": []
+  },
+  "assigned_by": "coordinator",
+  "assigned_at": "2025-11-05T11:42:29Z",
+  "updated_at": "2025-11-05T05:42:29-06:00"
+},
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "medium",
+    "expected_outcome": "Task completion with results handoff"
+  },
+  "created_at": "2025-11-05T11:42:29Z",
+  "status": "pending_pickup"
+}

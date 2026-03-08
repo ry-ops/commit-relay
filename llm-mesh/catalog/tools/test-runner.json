@@ -1,0 +1,35 @@
+{
+  "tool_id": "test-runner",
+  "display_name": "Test Runner",
+  "version": "1.0.0",
+  "category": "testing",
+  "description": "Test execution and validation",
+  "operations": [
+    {
+      "operation": "run_tests",
+      "description": "Execute test suite",
+      "parameters": ["test_path", "type"],
+      "success_rate": 0.94,
+      "avg_duration_ms": 5000
+    },
+    {
+      "operation": "coverage",
+      "description": "Generate code coverage report",
+      "parameters": ["test_path"],
+      "success_rate": 0.92,
+      "avg_duration_ms": 6000
+    }
+  ],
+  "used_by_agents": ["development-master", "cicd-master"],
+  "performance": {
+    "total_calls": 456,
+    "success_rate": 0.93,
+    "avg_duration_ms": 5200
+  },
+  "optimal_contexts": [
+    "feature_completion",
+    "bug_fix_validation",
+    "pre_deployment",
+    "ci_cd_pipeline"
+  ]
+}

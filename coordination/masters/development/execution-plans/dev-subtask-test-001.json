@@ -1,0 +1,19 @@
+{
+  "subtask_id": "dev-subtask-test-001",
+  "execution_manager_id": "exec-mgr-dev-903e3486",
+  "master": "development",
+  "description": "Test execution manager spawning",
+  "files_affected": [
+  "src/test1.ts",
+  "src/test2.ts",
+  "src/test3.ts"
+],
+  "repos": [],
+  "estimated_duration_minutes": 45,
+  "token_budget": 30000,
+  "acceptance_criteria": [],
+  "dependencies": [],
+  "status": "pending",
+  "created_at": "2025-11-05T21:16:56Z",
+  "updated_at": "2025-11-05T21:16:56Z"
+}

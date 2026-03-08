@@ -1,0 +1,115 @@
+{
+  "version": "1.0.0",
+  "description": "RAG connector configurations for commit-relay",
+  "connectors": [
+    {
+      "name": "github-commit-relay",
+      "type": "github",
+      "enabled": true,
+      "owner": "ry-ops",
+      "repo": "commit-relay",
+      "branch": "main",
+      "schedule": "1h",
+      "includePatterns": [
+        "**/*.md",
+        "**/*.js",
+        "**/*.json",
+        "scripts/**/*.sh"
+      ],
+      "excludePatterns": [
+        "**/node_modules/**",
+        "**/dist/**",
+        "**/coverage/**",
+        "**/.git/**"
+      ],
+      "fetchReadme": true,
+      "fetchIssues": true,
+      "fetchPullRequests": true,
+      "fetchCodeFiles": true,
+      "maxFileSize": 50000,
+      "batchSize": 50,
+      "rateLimitDelay": 500
+    },
+    {
+      "name": "confluence-docs",
+      "type": "confluence",
+      "enabled": false,
+      "baseUrl": "${CONFLUENCE_BASE_URL}",
+      "username": "${CONFLUENCE_USERNAME}",
+      "apiToken": "${CONFLUENCE_API_TOKEN}",
+      "spaceKeys": ["DEV", "ARCH", "OPS"],
+      "includeLabels": ["documentation", "runbook", "architecture"],
+      "excludeLabels": ["draft", "deprecated"],
+      "schedule": "6h",
+      "maxPages": 500,
+      "fetchAttachments": false,
+      "fetchComments": false,
+      "batchSize": 25,
+      "rateLimitDelay": 1000
+    },
+    {
+      "name": "slack-engineering",
+      "type": "slack",
+      "enabled": false,
+      "token": "${SLACK_BOT_TOKEN}",
+      "channels": [],
+      "excludeChannels": ["random", "general"],
+      "messageLimit": 500,
+      "fetchThreads": true,
+      "minReactions": 2,
+      "schedule": "30m",
+      "batchSize": 100,
+      "rateLimitDelay": 1000
+    }
+  ],
+  "global": {
+    "logPath": "coordination/metrics/ingestion-history.jsonl",
+    "statePath": "coordination/memory/ingestion-state.json",
+    "concurrency": 2,
+    "defaultRetries": 3,
+    "defaultTimeout": 60000
+  },
+  "scheduleGroups": {
+    "high-frequency": {
+      "interval": "15m",
+      "connectors": []
+    },
+    "standard": {
+      "interval": "1h",
+      "connectors": ["github-commit-relay"]
+    },
+    "low-frequency": {
+      "interval": "6h",
+      "connectors": ["confluence-docs"]
+    }
+  },
+  "alerting": {
+    "enabled": true,
+    "errorThreshold": 3,
+    "notifyOnFailure": true,
+    "notifyOnRecovery": true
+  },
+  "storage": {
+    "vectorStore": "file",
+    "collection": "rag-documents",
+    "embeddings": {
+      "provider": "openai",
+      "model": "text-embedding-3-small"
+    }
+  },
+  "notes": {
+    "setup": [
+      "1. Set environment variables for credentials",
+      "2. Enable connectors by setting enabled: true",
+      "3. Adjust schedules based on your needs",
+      "4. Run: node lib/rag/connectors/ingestion-scheduler.js init"
+    ],
+    "environment_variables": {
+      "GITHUB_TOKEN": "GitHub personal access token (optional for public repos)",
+      "CONFLUENCE_BASE_URL": "Your Confluence instance URL (e.g., https://company.atlassian.net/wiki)",
+      "CONFLUENCE_USERNAME": "Your Confluence username/email",
+      "CONFLUENCE_API_TOKEN": "Confluence API token from id.atlassian.com",
+      "SLACK_BOT_TOKEN": "Slack Bot User OAuth Token (xoxb-...)"
+    }
+  }
+}

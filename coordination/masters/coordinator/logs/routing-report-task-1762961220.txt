@@ -1,0 +1,106 @@
+================================================================================
+COORDINATOR MASTER - MoE ROUTING REPORT
+================================================================================
+
+Task Routing Complete: task-1762961220
+Timestamp: 2025-11-12T15:47:37Z
+
+TASK DETAILS
+------------
+Title: CRITICAL: Investigate Worker Launcher Script Bug - Task Context Injection Failure
+Priority: CRITICAL
+Type: Investigation
+
+INCIDENT SUMMARY
+----------------
+- 6 governance workers failed immediately upon launch (70+ minutes ago)
+- Root cause: Worker launcher script not properly injecting task context
+- Symptoms: Empty task IDs, unsubstituted placeholder text (TASK_CONTEXT_PLACEHOLDER)
+- Worker specs incorrectly showing "running" status
+
+Affected Workers:
+  - dev-worker-04B8F99C
+  - dev-worker-72AB3732
+  - dev-worker-899AB82C
+  - dev-worker-21C2A367
+  - sec-worker-DC77FC1A
+  - sec-worker-48C1327F
+
+Script Under Investigation:
+  /Users/ryandahlberg/commit-relay/scripts/claude-worker-launcher-v2.sh
+
+MOE ROUTING ANALYSIS
+--------------------
+Pattern Matching Results:
+  ✓ Development Pattern: bug.*fix|code|script debugging
+    Confidence: 0.95 (STRONG MATCH)
+    
+  ~ Security Pattern: governance (related)
+    Confidence: 0.40 (WEAK MATCH)
+    
+  ✗ Inventory Pattern: No match
+    Confidence: 0.10
+
+Routing Decision: DEVELOPMENT MASTER
+Confidence Score: 0.95
+Rule Used: code-development
+
+Reasoning:
+- Script debugging requires development expertise
+- Bug investigation and fixing is core development work
+- Strong pattern match on "bug.*fix" and "script"
+- Development master has necessary capabilities for script analysis
+
+ROUTING ACTIONS TAKEN
+----------------------
+✓ Created handoff file: 
+  /Users/ryandahlberg/commit-relay/coordination/masters/coordinator/handoffs/to-development-task-1762961220.json
+
+✓ Logged routing decision to knowledge base:
+  - knowledge-base/routing-decisions.jsonl
+  - logs/routing-decisions.jsonl
+
+✓ Updated coordinator master state:
+  - Status: active
+  - Tasks routed: 15 (total)
+  - Development master workload: 15 tasks
+
+✓ Added task to queue:
+  - Status: assigned
+  - Assigned to: development-master
+  - Total tasks in queue: 99
+
+✓ Logged dashboard event:
+  - Event type: task_routed
+  - MoE confidence: 0.95
+
+✓ Marked incoming handoff as processed:
+  - to-coordinator-task-1762961220.json.processed
+
+GOVERNANCE REQUIREMENTS
+------------------------
+- Findings must be added to MoE learning system for pattern prevention
+- User directive: "MoE should investigate the launcher script and all scripts moving forward"
+- This establishes autonomous quality checking for system scripts
+
+EXPECTED OUTCOMES
+-----------------
+1. Root cause analysis of launcher script bug
+2. Bug fix implementation and testing
+3. Documentation of findings for MoE knowledge base
+4. Pattern prevention measures added to learning system
+5. Governance framework for autonomous script validation
+
+WORKLOAD NOTE
+-------------
+Development master currently busy with 15 tasks, but CRITICAL priority
+overrides normal workload considerations.
+
+HANDOFF STATUS
+--------------
+Status: PENDING PICKUP by development-master
+Handoff ID: coord-to-development-task-1762961220
+
+================================================================================
+END REPORT
+================================================================================

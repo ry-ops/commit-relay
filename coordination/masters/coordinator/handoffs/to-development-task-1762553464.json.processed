@@ -1,0 +1,45 @@
+{
+  "handoff_id": "coord-to-development-57b74443-6312-412b-88d6-027d0e275915",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762553464",
+  "task_data": {
+    "id": "task-1762553464",
+    "title": "GOVERNANCE UPGRADE - Phase 1: Unified Data & AI Catalog",
+    "type": "feature",
+    "priority": "critical",
+    "status": "assigned",
+    "created_at": "2025-11-11T14:30:00Z",
+    "assigned_to": "development-master",
+    "context": {
+      "description": "CRITICAL foundation task that transforms commit-relay into an enterprise-grade AI system with unified governance",
+      "phase": "Phase 1",
+      "components": [
+        "Unified catalog for all data and AI assets",
+        "Automated asset discovery",
+        "Natural language search",
+        "Lineage tracking infrastructure",
+        "AI asset tracking alongside data assets"
+      ],
+      "governance_patterns": "Databricks-proven governance patterns",
+      "importance": "Foundation for enterprise-grade AI system",
+      "requirements": [
+        "Implement unified catalog schema",
+        "Build asset discovery automation",
+        "Create natural language search interface",
+        "Establish lineage tracking foundation",
+        "Integrate AI asset tracking with data assets"
+      ]
+    }
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE - development task with implement/feature patterns",
+    "priority": "critical",
+    "expected_outcome": "Complete implementation of Phase 1 unified governance catalog with all components functional",
+    "routing_confidence": 0.95,
+    "routing_strategy": "pattern_match_development",
+    "urgency": "IMMEDIATE - Foundation task for enterprise AI transformation"
+  },
+  "created_at": "2025-11-11T16:51:33Z",
+  "status": "pending_pickup"
+}

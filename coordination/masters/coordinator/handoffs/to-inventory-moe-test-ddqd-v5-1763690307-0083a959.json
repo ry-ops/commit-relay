@@ -1,0 +1,37 @@
+{
+  "handoff_id": "coord-to-inventory-96D5398E-A165-46CA-A924-9D4E6C4F6DB3",
+  "from_master": "coordinator",
+  "to_master": "inventory",
+  "task_id": "moe-test-ddqd-v5-1763690307-0083a959",
+  "task_data": {
+    "id": "moe-test-ddqd-v5-1763690307-0083a959",
+    "title": "Catalog and document all repository metadata and dependencies",
+    "type": "catalog",
+    "description": "Catalog and document all repository metadata and dependencies",
+    "priority": "medium",
+    "status": "assigned",
+    "assigned_to": "inventory",
+    "created_at": "2025-11-20T19:59:15-0600",
+    "created_by": "ddqd-v5-test",
+    "moe_test": true,
+    "test_id": "ddqd-v5-1763690307",
+    "context": {},
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-20T19:59:20-0600",
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-20T19:59:20-06:00"
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "medium",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "N/A",
+      "strategy": "pattern-based",
+      "routed_at": "2025-11-20T19:59:20-0600"
+    }
+  },
+  "created_at": "2025-11-20T19:59:20-0600",
+  "status": "pending_pickup"
+}

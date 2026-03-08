@@ -1,0 +1,20 @@
+{
+  "handoff_id": "handoff-1762961220",
+  "from": "system",
+  "to": "coordinator-master",
+  "task_id": "task-1762961220",
+  "handoff_type": "task_routing",
+  "priority": "critical",
+  "routing_hints": {
+    "suggested_expert": "development",
+    "task_type": "investigation",
+    "requires_moe": true,
+    "governance_category": "autonomous_script_validation"
+  },
+  "context": {
+    "summary": "Worker launcher script failing to inject task context into worker prompts, causing all workers to launch without proper task assignments",
+    "urgency": "critical - 6 governance workers failed 70+ minutes ago",
+    "learning_requirement": "Add findings to MoE learning system for pattern prevention"
+  },
+  "created_at": "2025-11-12T15:07:00Z"
+}

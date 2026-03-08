@@ -1,0 +1,32 @@
+{
+  "handoff_id": "coord-to-development-4FA6F90E-25AA-4C7F-A4AD-FF89D1A6AC07",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762342917",
+  "task_data": {
+  "id": "task-1762342917",
+  "title": "Replace token budget pie chart with AUTONOMOUS PRODUCTIVITY METRICS. Edit dashboard/public/dashboard-v2.js: Replace initTokenChart() and tokenChart with initProductivityChart() and productivityChart. Create time-series line chart with ApexCharts showing: 1) Tasks completed per day (green), 2) Autonomous commits per day (blue), 3) Worker success rate (purple), 4) Avg completion time (orange). Add stat cards: Total Autonomous Commits, Hours Saved, Tasks Today, Current Streak. Edit dashboard/server/index.js: Add /api/productivity-metrics endpoint returning historical data. Make it visually stunning with gradients and animations. Title: 🚀 Autonomous Productivity Analytics. MUST edit actual dashboard files, NOT create test files.",
+  "type": "development",
+  "priority": "high",
+  "status": "assigned",
+  "assigned_to": "development",
+  "created_at": "2025-11-05T17:01:56Z",
+  "created_by": "create-task-cli",
+  "context": {
+    "repository": "ry-ops/commit-relay",
+    "branch": "main",
+    "description": "Replace token budget pie chart with AUTONOMOUS PRODUCTIVITY METRICS. Edit dashboard/public/dashboard-v2.js: Replace initTokenChart() and tokenChart with initProductivityChart() and productivityChart. Create time-series line chart with ApexCharts showing: 1) Tasks completed per day (green), 2) Autonomous commits per day (blue), 3) Worker success rate (purple), 4) Avg completion time (orange). Add stat cards: Total Autonomous Commits, Hours Saved, Tasks Today, Current Streak. Edit dashboard/server/index.js: Add /api/productivity-metrics endpoint returning historical data. Make it visually stunning with gradients and animations. Title: 🚀 Autonomous Productivity Analytics. MUST edit actual dashboard files, NOT create test files.",
+    "requirements": []
+  },
+  "assigned_by": "coordinator",
+  "assigned_at": "2025-11-05T17:02:03Z",
+  "updated_at": "2025-11-05T11:02:03-06:00"
+},
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "high",
+    "expected_outcome": "Task completion with results handoff"
+  },
+  "created_at": "2025-11-05T17:02:03Z",
+  "status": "pending_pickup"
+}

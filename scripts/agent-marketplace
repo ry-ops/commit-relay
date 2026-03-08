@@ -1,0 +1,340 @@
+#!/usr/bin/env bash
+#
+# Agent Marketplace CLI
+# Part of Q2 Week 27: Agent Marketplace & Sharing
+#
+# Command-line interface for marketplace operations
+#
+
+set -euo pipefail
+
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+# Source marketplace library
+source "$SCRIPT_DIR/lib/agentstudio/marketplace.sh"
+
+#
+# Format listing for display
+#
+format_listing() {
+    local listing="$1"
+
+    local name=$(echo "$listing" | jq -r '.name')
+    local version=$(echo "$listing" | jq -r '.version')
+    local status=$(echo "$listing" | jq -r '.status')
+    local category=$(echo "$listing" | jq -r '.metadata.category')
+    local desc=$(echo "$listing" | jq -r '.metadata.short_description')
+    local rating=$(echo "$listing" | jq -r '.ratings.average')
+    local downloads=$(echo "$listing" | jq -r '.statistics.downloads')
+    local author=$(echo "$listing" | jq -r '.author.name')
+
+    echo "=== $name v$version ==="
+    echo "  Status: $status"
+    echo "  Category: $category"
+    echo "  Author: $author"
+    echo "  Rating: $rating/5 ($(echo "$listing" | jq -r '.ratings.count') reviews)"
+    echo "  Downloads: $downloads"
+    echo "  Description: $desc"
+    echo ""
+}
+
+#
+# Format search results
+#
+format_search_results() {
+    local results="$1"
+    local count=$(echo "$results" | jq 'length')
+
+    if [[ $count -eq 0 ]]; then
+        echo "No results found"
+        return
+    fi
+
+    echo "Found $count listing(s):"
+    echo ""
+
+    echo "$results" | jq -c '.[]' | while read -r listing; do
+        local id=$(echo "$listing" | jq -r '.listing_id')
+        local name=$(echo "$listing" | jq -r '.name')
+        local version=$(echo "$listing" | jq -r '.version')
+        local rating=$(echo "$listing" | jq -r '.ratings.average')
+        local downloads=$(echo "$listing" | jq -r '.statistics.downloads')
+        local desc=$(echo "$listing" | jq -r '.metadata.short_description' | cut -c1-60)
+
+        printf "%-35s v%-8s ★%-3s ⬇%-6s\n" "$name" "$version" "$rating" "$downloads"
+        echo "  ID: $id"
+        echo "  $desc..."
+        echo ""
+    done
+}
+
+#
+# Format reviews
+#
+format_reviews() {
+    local reviews="$1"
+    local count=$(echo "$reviews" | jq 'length')
+
+    if [[ $count -eq 0 ]]; then
+        echo "No reviews yet"
+        return
+    fi
+
+    echo "=== Reviews ($count) ==="
+    echo ""
+
+    echo "$reviews" | jq -c '.[]' | while read -r review; do
+        local user=$(echo "$review" | jq -r '.user')
+        local rating=$(echo "$review" | jq -r '.rating')
+        local title=$(echo "$review" | jq -r '.title')
+        local content=$(echo "$review" | jq -r '.content')
+        local timestamp=$(echo "$review" | jq -r '.created_at')
+        local date=$(date -r $((timestamp / 1000)) '+%Y-%m-%d' 2>/dev/null || echo "unknown")
+
+        echo "★ $rating - $title"
+        echo "  By: $user on $date"
+        echo "  $content"
+        echo ""
+    done
+}
+
+#
+# Main CLI
+#
+main() {
+    local command="${1:-help}"
+
+    case "$command" in
+        publish)
+            local agent_id="${2:?Agent ID required}"
+            local name="${3:?Name required}"
+            local version="${4:?Version required}"
+            local description="${5:?Description required}"
+            local category="${6:-utility}"
+
+            local listing_id=$(publish_agent "$agent_id" "$name" "$version" "$description" "$category")
+            echo "Published to marketplace: $listing_id"
+            ;;
+
+        search)
+            local query="${2:-}"
+            local category="${3:-}"
+            local limit="${4:-20}"
+
+            local results=$(search_marketplace "$query" "$category" "$limit")
+            format_search_results "$results"
+            ;;
+
+        list)
+            local category="${2:-}"
+            local limit="${3:-20}"
+
+            if [[ -n "$category" ]]; then
+                local results=$(list_by_category "$category" "$limit")
+            else
+                local results=$(search_marketplace "" "" "$limit")
+            fi
+            format_search_results "$results"
+            ;;
+
+        featured)
+            local limit="${2:-10}"
+
+            local results=$(get_featured "$limit")
+            local count=$(echo "$results" | jq 'length')
+
+            if [[ $count -eq 0 ]]; then
+                echo "No featured listings"
+            else
+                echo "=== Featured Agents ==="
+                echo ""
+                format_search_results "$results"
+            fi
+            ;;
+
+        trending)
+            local limit="${2:-10}"
+
+            local results=$(get_trending "$limit")
+            echo "=== Trending Agents ==="
+            echo ""
+            format_search_results "$results"
+            ;;
+
+        show)
+            local listing_id="${2:?Listing ID required}"
+
+            local listing=$(get_listing "$listing_id")
+            if [[ "$listing" =~ "error" ]]; then
+                echo "Error: Listing not found: $listing_id"
+                exit 1
+            fi
+
+            format_listing "$listing"
+            ;;
+
+        install)
+            local listing_id="${2:?Listing ID required}"
+
+            local result=$(install_from_marketplace "$listing_id")
+            local agent_id=$(echo "$result" | jq -r '.agent_id')
+            echo "Installed: $agent_id"
+            echo "From listing: $listing_id"
+            ;;
+
+        review)
+            local listing_id="${2:?Listing ID required}"
+            local rating="${3:?Rating (1-5) required}"
+            local title="${4:?Title required}"
+            local content="${5:?Content required}"
+
+            if [[ $rating -lt 1 || $rating -gt 5 ]]; then
+                echo "Error: Rating must be between 1 and 5"
+                exit 1
+            fi
+
+            local review_id=$(add_review "$listing_id" "$rating" "$title" "$content")
+            echo "Review added: $review_id"
+            ;;
+
+        reviews)
+            local listing_id="${2:?Listing ID required}"
+            local limit="${3:-10}"
+
+            local reviews=$(get_reviews "$listing_id" "$limit")
+            format_reviews "$reviews"
+            ;;
+
+        export)
+            local agent_id="${2:?Agent ID required}"
+            local output_dir="${3:-}"
+
+            local result
+            if [[ -n "$output_dir" ]]; then
+                result=$(export_agent "$agent_id" "$output_dir")
+            else
+                result=$(export_agent "$agent_id")
+            fi
+
+            local path=$(echo "$result" | jq -r '.path')
+            local checksum=$(echo "$result" | jq -r '.checksum')
+            local size=$(echo "$result" | jq -r '.size')
+
+            echo "Exported agent: $agent_id"
+            echo "  Path: $path"
+            echo "  Size: $size bytes"
+            echo "  Checksum: $checksum"
+            ;;
+
+        import)
+            local package_path="${2:?Package path required}"
+
+            local result=$(import_agent "$package_path")
+            local agent_id=$(echo "$result" | jq -r '.agent_id')
+            local imported_to=$(echo "$result" | jq -r '.imported_to')
+
+            echo "Imported agent: $agent_id"
+            echo "  Location: $imported_to"
+            ;;
+
+        stats)
+            local stats=$(get_marketplace_stats)
+
+            echo "=== Marketplace Statistics ==="
+            echo ""
+            echo "Total Listings:  $(echo "$stats" | jq -r '.total_listings')"
+            echo "Total Downloads: $(echo "$stats" | jq -r '.total_downloads')"
+            echo "Total Installs:  $(echo "$stats" | jq -r '.total_installs')"
+            echo ""
+            echo "Categories:"
+            echo "$stats" | jq -r '.categories[]' | while read -r cat; do
+                echo "  - $cat"
+            done
+            ;;
+
+        categories)
+            echo "Available categories:"
+            echo "  - orchestration"
+            echo "  - development"
+            echo "  - security"
+            echo "  - testing"
+            echo "  - monitoring"
+            echo "  - learning"
+            echo "  - utility"
+            echo "  - integration"
+            ;;
+
+        json)
+            local listing_id="${2:?Listing ID required}"
+
+            local listing=$(get_listing "$listing_id")
+            echo "$listing" | jq .
+            ;;
+
+        help|--help|-h)
+            cat <<EOF
+Agent Marketplace CLI - Discover, share, and distribute agents
+
+Usage: $0 <command> [options]
+
+Commands:
+  publish <agent-id> <name> <version> <description> [category]
+                          Publish agent to marketplace
+  search [query] [category] [limit]
+                          Search marketplace
+  list [category] [limit] List agents (optionally by category)
+  featured [limit]        Show featured agents
+  trending [limit]        Show trending agents
+  show <listing-id>       Show listing details
+  install <listing-id>    Install from marketplace
+  review <listing-id> <rating> <title> <content>
+                          Add review (rating 1-5)
+  reviews <listing-id> [limit]
+                          Show reviews for listing
+  export <agent-id> [output-dir]
+                          Export agent package
+  import <package-path>   Import agent package
+  stats                   Show marketplace statistics
+  categories              List available categories
+  json <listing-id>       Output listing as JSON
+
+Examples:
+  # Publish an agent
+  $0 publish my-agent "My Agent" 1.0.0 "A helpful agent" development
+
+  # Search marketplace
+  $0 search "security"
+  $0 search "" security 10
+
+  # List by category
+  $0 list development
+
+  # Show trending
+  $0 trending 5
+
+  # Install an agent
+  $0 install mkt-my-agent-abc12345
+
+  # Add review
+  $0 review mkt-my-agent-abc12345 5 "Great agent" "Works perfectly!"
+
+  # Export/Import
+  $0 export my-agent ./exports
+  $0 import ./exports/my-agent-20251119.tar.gz
+
+EOF
+            ;;
+
+        *)
+            echo "Unknown command: $command"
+            echo "Use '$0 help' for usage information"
+            exit 1
+            ;;
+    esac
+}
+
+# Run CLI
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

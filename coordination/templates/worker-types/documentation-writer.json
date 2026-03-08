@@ -1,0 +1,27 @@
+{
+  "worker_type": "documentation-writer",
+  "master": "inventory",
+  "description": "Creates and updates documentation",
+  "default_config": {
+    "token_budget": 25000,
+    "timeout_minutes": 30,
+    "priority": "low",
+    "retry_limit": 2
+  },
+  "required_fields": [
+    "task_id",
+    "documentation_type",
+    "subject"
+  ],
+  "optional_fields": [
+    "existing_docs",
+    "target_audience",
+    "format_requirements"
+  ],
+  "success_criteria": {
+    "documentation_complete": true,
+    "accurate": true,
+    "well_formatted": true
+  },
+  "prompt_template": "Create/update documentation:\n\n## Documentation Type\n{{documentation_type}}\n\n## Subject\n{{subject}}\n\n## Guidelines\n- Be clear and concise\n- Include examples where helpful\n- Follow existing documentation style"
+}

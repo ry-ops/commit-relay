@@ -1,0 +1,37 @@
+{
+  "handoff_id": "coord-to-security-D51A1AA2-8F50-4262-A934-7EE7BD872B15",
+  "from_master": "coordinator",
+  "to_master": "security",
+  "task_id": "moe-test-ddqd-v5-1762626428-0922fb5a",
+  "task_data": {
+    "id": "moe-test-ddqd-v5-1762626428-0922fb5a",
+    "title": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+    "type": "security",
+    "description": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+    "priority": "medium",
+    "status": "assigned",
+    "assigned_to": "security",
+    "created_at": "2025-11-08T12:27:48-0600",
+    "created_by": "ddqd-v5-test",
+    "moe_test": true,
+    "test_id": "ddqd-v5-1762626428",
+    "context": {},
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-08T12:29:08-0600",
+    "routing_confidence": "0.95",
+    "routing_strategy": "single_expert",
+    "updated_at": "2025-11-08T12:29:08-06:00"
+  },
+  "context": {
+    "routing_reason": "MoE confidence-based routing (confidence: 0.95, strategy: single_expert)",
+    "priority": "medium",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "0.95",
+      "strategy": "single_expert",
+      "routed_at": "2025-11-08T12:29:08-0600"
+    }
+  },
+  "created_at": "2025-11-08T12:29:08-0600",
+  "status": "pending_pickup"
+}

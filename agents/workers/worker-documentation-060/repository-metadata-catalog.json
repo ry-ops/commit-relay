@@ -1,0 +1,283 @@
+{
+  "catalog_metadata": {
+    "generated_at": "2025-11-20T20:11:00Z",
+    "generated_by": "worker-documentation-060",
+    "task_id": "moe-test-ddqd-v5-1763690952-209d7107",
+    "catalog_version": "1.0.0"
+  },
+  "repository": {
+    "name": "commit-relay",
+    "description": "AI-powered commit automation system with master-worker architecture",
+    "remote_url": "https://github.com/ry-ops/commit-relay.git",
+    "author": "ry-ops",
+    "license": "MIT",
+    "license_year": 2025,
+    "latest_commit": "c7781b6",
+    "platform": "darwin (macOS)"
+  },
+  "project_packages": {
+    "root": {
+      "name": "commit-relay",
+      "version": "1.0.0",
+      "main": "index.js",
+      "dependencies": {
+        "ajv": "^8.17.1",
+        "ajv-formats": "^3.0.1"
+      },
+      "devDependencies": {
+        "@types/jest": "^29.5.11",
+        "jest": "^29.7.0",
+        "supertest": "^7.1.4"
+      },
+      "scripts": {
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage",
+        "test:ci": "jest --ci --coverage --maxWorkers=2"
+      },
+      "keywords": ["commit-relay", "automation", "ai", "governance"]
+    },
+    "dashboard": {
+      "name": "commit-relay-dashboard",
+      "version": "1.0.0",
+      "description": "Real-time metrics dashboard for commit-relay master-worker system",
+      "main": "server/index.js",
+      "dependencies": {
+        "chokidar": "^3.5.3",
+        "cors": "^2.8.5",
+        "dotenv": "^17.2.3",
+        "express": "^4.18.2",
+        "express-rate-limit": "^8.2.1",
+        "express-validator": "^7.3.0",
+        "helmet": "^8.1.0",
+        "ws": "^8.14.2"
+      },
+      "devDependencies": {
+        "nodemon": "^3.0.1"
+      },
+      "scripts": {
+        "start": "node server/index.js",
+        "dev": "nodemon server/index.js",
+        "test": "node test/server.test.js"
+      },
+      "keywords": ["commit-relay", "dashboard", "metrics", "monitoring"]
+    },
+    "python_sdk": {
+      "name": "python-sdk",
+      "package_manager": "pip",
+      "requirements_file": "python-sdk/requirements.txt",
+      "core_dependencies": {
+        "requests": ">=2.28.0",
+        "pandas": ">=1.5.0",
+        "numpy": ">=1.23.0",
+        "scipy": ">=1.9.0",
+        "matplotlib": ">=3.6.0",
+        "seaborn": ">=0.12.0"
+      },
+      "optional_dependencies": {
+        "openpyxl": ">=3.0.0",
+        "jupyter": ">=1.0.0",
+        "ipykernel": ">=6.0.0"
+      },
+      "integration_dependencies": {
+        "PyGithub": ">=1.59.0"
+      },
+      "dev_dependencies": {
+        "pytest": ">=7.0",
+        "pytest-cov": ">=4.0",
+        "black": ">=22.0",
+        "mypy": ">=0.991",
+        "flake8": ">=5.0"
+      }
+    }
+  },
+  "configuration_files": {
+    "build_and_test": {
+      "jest.config.js": {
+        "purpose": "Jest testing configuration",
+        "test_environment": "node",
+        "coverage_thresholds": {
+          "branches": 60,
+          "functions": 70,
+          "lines": 70,
+          "statements": 70
+        },
+        "coverage_directory": "coverage"
+      }
+    },
+    "version_control": {
+      ".gitignore": {
+        "purpose": "Git ignore patterns",
+        "categories": [
+          "OS files (.DS_Store, Thumbs.db)",
+          "Editor files (.vscode, .idea)",
+          "Temporary files",
+          "Node modules",
+          "Python artifacts",
+          "Logs",
+          "Sensitive data (secrets, keys, credentials)"
+        ]
+      },
+      ".githooks": {
+        "purpose": "Custom git hooks directory"
+      }
+    },
+    "claude_code": {
+      ".claude": {
+        "purpose": "Claude Code configuration directory"
+      }
+    }
+  },
+  "directory_structure": {
+    "root_directories": [
+      {
+        "name": "agents",
+        "purpose": "AI agent prompts, logs, and worker management"
+      },
+      {
+        "name": "coordination",
+        "purpose": "System coordination, task queues, worker specs, and master agent data"
+      },
+      {
+        "name": "dashboard",
+        "purpose": "Real-time metrics dashboard (Express.js server)"
+      },
+      {
+        "name": "docs",
+        "purpose": "Project documentation"
+      },
+      {
+        "name": "lib",
+        "purpose": "Core library code (database, governance, RAG)"
+      },
+      {
+        "name": "library",
+        "purpose": "Additional library resources"
+      },
+      {
+        "name": "llm-mesh",
+        "purpose": "LLM mesh orchestration"
+      },
+      {
+        "name": "python-sdk",
+        "purpose": "Python SDK for commit-relay integration"
+      },
+      {
+        "name": "scripts",
+        "purpose": "Automation and utility scripts"
+      },
+      {
+        "name": "testing",
+        "purpose": "Test files and test utilities"
+      },
+      {
+        "name": "examples",
+        "purpose": "Example implementations and demos"
+      },
+      {
+        "name": "reports",
+        "purpose": "Generated health and status reports"
+      },
+      {
+        "name": "coverage",
+        "purpose": "Test coverage reports"
+      },
+      {
+        "name": "issues",
+        "purpose": "Issue tracking"
+      },
+      {
+        "name": "logs",
+        "purpose": "Application logs"
+      },
+      {
+        "name": "posts",
+        "purpose": "Blog posts or announcements"
+      }
+    ]
+  },
+  "documentation_files": {
+    "root_level": {
+      "README.md": "Main project documentation",
+      "LICENSE": "MIT License",
+      "CORE-PRINCIPLES.md": "Core principles and architecture guidelines",
+      "GOVERNANCE-ARCHITECTURE.md": "Governance architecture documentation",
+      "IMPLEMENTATION-STATUS.md": "Current implementation status",
+      "DAEMON-MANAGEMENT.md": "Daemon management guide",
+      "OBSERVABILITY-STRATEGY.md": "Observability and monitoring strategy",
+      "REMAINING-WORK.md": "Outstanding work items"
+    },
+    "weekly_reports": [
+      "WEEK1-COMPLETION-REPORT.md",
+      "WEEK2-FIVE-AGENT-TYPES-DESIGN.md",
+      "WEEK3-COMPLETION-REPORT.md",
+      "WEEK4-COMPLETION-REPORT.md",
+      "WEEK5-COMPLETION-REPORT.md",
+      "WEEK6-COMPLETION-REPORT.md",
+      "WEEKS7-12-COMBINED-REPORT.md",
+      "Q1-ROADMAP-STATUS.md",
+      "Q1-FINAL-SUMMARY.md"
+    ],
+    "system_documentation": [
+      "LEARNING-SYSTEM-TEST-REPORT.md"
+    ]
+  },
+  "master_agents": {
+    "coordinator": {
+      "prompt_file": "agents/prompts/coordinator-master.md",
+      "knowledge_base": "coordination/masters/coordinator/knowledge-base/",
+      "cag_cache": "coordination/masters/coordinator/cag-cache/"
+    },
+    "development": {
+      "prompt_file": "agents/prompts/development-master.md",
+      "knowledge_base": "coordination/masters/development/knowledge-base/",
+      "cag_cache": "coordination/masters/development/cag-cache/"
+    },
+    "security": {
+      "prompt_file": "agents/prompts/security-master.md",
+      "knowledge_base": "coordination/masters/security/knowledge-base/",
+      "cag_cache": "coordination/masters/security/cag-cache/"
+    },
+    "inventory": {
+      "prompt_file": "agents/prompts/inventory-master.md",
+      "knowledge_base": "coordination/masters/inventory/knowledge-base/",
+      "cag_cache": "coordination/masters/inventory/cag-cache/"
+    },
+    "cicd": {
+      "knowledge_base": "coordination/masters/cicd/",
+      "cag_cache": "coordination/masters/cicd/cag-cache/"
+    },
+    "dashboard_agent": {
+      "prompt_file": "agents/prompts/dashboard-agent.md"
+    }
+  },
+  "dependencies_summary": {
+    "total_node_dependencies": 5,
+    "total_node_dev_dependencies": 4,
+    "total_python_dependencies": 15,
+    "key_frameworks": {
+      "testing": ["jest", "pytest"],
+      "web_server": ["express"],
+      "validation": ["ajv", "ajv-formats", "express-validator"],
+      "security": ["helmet", "express-rate-limit"],
+      "real_time": ["ws", "chokidar"],
+      "data_science": ["pandas", "numpy", "scipy", "matplotlib", "seaborn"],
+      "integration": ["PyGithub", "requests"]
+    }
+  },
+  "services": {
+    "dashboard_api": {
+      "url": "http://localhost:3000/api/",
+      "endpoints": ["health", "metrics", "events", "tasks", "workers"]
+    },
+    "coordination_system": {
+      "path": "coordination/",
+      "components": [
+        "task-queue.json",
+        "worker-pool.json",
+        "system-health.json",
+        "token-budget.json"
+      ]
+    }
+  }
+}

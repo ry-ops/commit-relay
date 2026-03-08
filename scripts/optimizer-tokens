@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+#
+# Token Optimizer CLI
+# Part of Phase 8.2: ML-based Token Optimization
+#
+
+set -euo pipefail
+
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/lib/optimization/token-optimizer.sh"
+
+main() {
+    local command="${1:-help}"
+
+    case "$command" in
+        predict)
+            local hours="${2:-24}"
+            local type="${3:-mixed}"
+            predict_usage "$hours" "$type" | jq .
+            ;;
+
+        allocate)
+            optimize_allocation | jq .
+            ;;
+
+        efficiency)
+            local days="${2:-7}"
+            analyze_efficiency "$days" | jq .
+            ;;
+
+        forecast)
+            forecast_exhaustion | jq .
+            ;;
+
+        recommend)
+            get_recommendations | jq .
+            ;;
+
+        reallocate)
+            local from="${2:?From master required}"
+            local to="${3:?To master required}"
+            local amount="${4:?Amount required}"
+            reallocate_budget "$from" "$to" "$amount" | jq .
+            ;;
+
+        stats)
+            get_optimizer_stats | jq .
+            ;;
+
+        help|--help|-h)
+            cat <<EOF
+Token Optimizer CLI - ML-based budget optimization
+
+Usage: $0 <command> [options]
+
+Commands:
+  predict [hours] [type]        Predict token usage
+  allocate                      Get optimal allocation
+  efficiency [days]             Analyze usage efficiency
+  forecast                      Forecast budget exhaustion
+  recommend                     Get optimization recommendations
+  reallocate <from> <to> <amt>  Reallocate budget
+  stats                         Get optimizer statistics
+
+Task types: security, development, implementation, documentation, mixed
+
+Examples:
+  $0 predict 48 development
+  $0 allocate
+  $0 efficiency 14
+  $0 forecast
+  $0 recommend
+  $0 reallocate security development 5000
+  $0 stats
+
+EOF
+            ;;
+
+        *)
+            echo "Unknown command: $command"
+            exit 1
+            ;;
+    esac
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

@@ -1,0 +1,225 @@
+{
+  "version": "1.0.0",
+  "updated": "2025-11-23",
+  "description": "Model tier definitions for task-based routing",
+
+  "tiers": {
+    "fast": {
+      "name": "Fast Tier",
+      "description": "Optimized for speed and cost efficiency on simpler tasks",
+      "complexity_range": [1, 4],
+      "use_cases": [
+        "Simple classification",
+        "Quick formatting",
+        "Basic summarization",
+        "Typo fixes",
+        "Simple lookups",
+        "Code comments",
+        "README updates"
+      ],
+      "models": [
+        {
+          "id": "claude-haiku",
+          "provider": "anthropic",
+          "priority": 1,
+          "context_window": 200000,
+          "avg_response_time_ms": 500,
+          "cost_tier": "economical"
+        },
+        {
+          "id": "gpt-3.5-turbo",
+          "provider": "openai",
+          "priority": 2,
+          "context_window": 16000,
+          "avg_response_time_ms": 600,
+          "cost_tier": "economical"
+        }
+      ],
+      "constraints": {
+        "max_cost_per_1k_tokens": 0.002,
+        "target_response_time_ms": 1000
+      }
+    },
+
+    "balanced": {
+      "name": "Balanced Tier",
+      "description": "Good balance of capability and cost for standard tasks",
+      "complexity_range": [5, 7],
+      "use_cases": [
+        "Feature implementation",
+        "Bug fixes",
+        "Code review",
+        "API integration",
+        "Testing",
+        "Documentation generation",
+        "Pattern extraction"
+      ],
+      "models": [
+        {
+          "id": "claude-sonnet-4",
+          "provider": "anthropic",
+          "priority": 1,
+          "context_window": 200000,
+          "avg_response_time_ms": 1500,
+          "cost_tier": "balanced"
+        },
+        {
+          "id": "gpt-4-turbo",
+          "provider": "openai",
+          "priority": 2,
+          "context_window": 128000,
+          "avg_response_time_ms": 2000,
+          "cost_tier": "balanced"
+        }
+      ],
+      "constraints": {
+        "max_cost_per_1k_tokens": 0.02,
+        "target_response_time_ms": 5000
+      }
+    },
+
+    "powerful": {
+      "name": "Powerful Tier",
+      "description": "Maximum capability for complex reasoning tasks",
+      "complexity_range": [8, 10],
+      "use_cases": [
+        "Security audits",
+        "Architecture reviews",
+        "Vulnerability assessments",
+        "Complex refactoring",
+        "Performance optimization",
+        "System design",
+        "Critical decision making",
+        "Compliance analysis"
+      ],
+      "models": [
+        {
+          "id": "claude-opus-4",
+          "provider": "anthropic",
+          "priority": 1,
+          "context_window": 200000,
+          "avg_response_time_ms": 3000,
+          "cost_tier": "premium"
+        },
+        {
+          "id": "claude-sonnet-4",
+          "provider": "anthropic",
+          "priority": 2,
+          "context_window": 200000,
+          "avg_response_time_ms": 1500,
+          "cost_tier": "balanced"
+        },
+        {
+          "id": "gpt-4-turbo",
+          "provider": "openai",
+          "priority": 3,
+          "context_window": 128000,
+          "avg_response_time_ms": 2000,
+          "cost_tier": "balanced"
+        }
+      ],
+      "constraints": {
+        "max_cost_per_1k_tokens": 0.1,
+        "target_response_time_ms": 10000
+      }
+    },
+
+    "local": {
+      "name": "Local Tier",
+      "description": "Local models for privacy-sensitive or offline tasks",
+      "complexity_range": [1, 10],
+      "use_cases": [
+        "Sensitive data processing",
+        "PII handling",
+        "Credentials analysis",
+        "Offline operation",
+        "Air-gapped environments",
+        "Cost-free processing",
+        "High-volume batch processing"
+      ],
+      "models": [
+        {
+          "id": "llama2-70b",
+          "provider": "ollama",
+          "priority": 1,
+          "context_window": 4096,
+          "avg_response_time_ms": 5000,
+          "cost_tier": "free"
+        },
+        {
+          "id": "codellama-34b",
+          "provider": "ollama",
+          "priority": 2,
+          "context_window": 16384,
+          "avg_response_time_ms": 4000,
+          "cost_tier": "free"
+        },
+        {
+          "id": "mistral-7b",
+          "provider": "ollama",
+          "priority": 3,
+          "context_window": 8192,
+          "avg_response_time_ms": 2000,
+          "cost_tier": "free"
+        }
+      ],
+      "constraints": {
+        "max_cost_per_1k_tokens": 0,
+        "target_response_time_ms": 15000,
+        "requires_local_compute": true
+      }
+    }
+  },
+
+  "sensitivity_routing": {
+    "none": {
+      "allowed_tiers": ["fast", "balanced", "powerful", "local"],
+      "preferred_tier": null
+    },
+    "low": {
+      "allowed_tiers": ["fast", "balanced", "powerful", "local"],
+      "preferred_tier": null
+    },
+    "medium": {
+      "allowed_tiers": ["balanced", "powerful", "local"],
+      "preferred_tier": "local"
+    },
+    "high": {
+      "allowed_tiers": ["local"],
+      "preferred_tier": "local",
+      "enforce_local": true
+    }
+  },
+
+  "cost_tiers": {
+    "free": {
+      "max_cost_per_million": 0,
+      "budget_priority": 1
+    },
+    "economical": {
+      "max_cost_per_million": 2.0,
+      "budget_priority": 2
+    },
+    "balanced": {
+      "max_cost_per_million": 20.0,
+      "budget_priority": 3
+    },
+    "premium": {
+      "max_cost_per_million": 100.0,
+      "budget_priority": 4
+    }
+  },
+
+  "fallback_chains": {
+    "fast": ["balanced", "local"],
+    "balanced": ["fast", "powerful", "local"],
+    "powerful": ["balanced", "local"],
+    "local": []
+  },
+
+  "default_selections": {
+    "when_all_unavailable": "local",
+    "when_budget_exceeded": "fast",
+    "when_sensitivity_high": "local"
+  }
+}

@@ -1,0 +1,265 @@
+{
+  "task_id": "health-alert-remediation-system",
+  "type": "feature_request",
+  "priority": "high",
+  "assigned_to": "development-master",
+  "assigned_by": "user-request",
+  "created_at": "2025-11-06T00:00:00Z",
+  "title": "Automated Health Alert Remediation System",
+  "description": "Build an intelligent system that automatically detects, diagnoses, and remediates health alerts displayed in the dashboard. This system should spawn workers to investigate and fix issues, then update alerts with resolution status.",
+
+  "requirements": {
+    "core_functionality": [
+      "Create a health alert monitoring daemon/service that watches for active alerts in the dashboard",
+      "Implement alert classification and diagnosis logic to understand root causes",
+      "Build an automated remediation worker spawning system",
+      "Create alert resolution tracking and status updates",
+      "Implement feedback loop to update dashboard with remediation progress"
+    ],
+
+    "alert_types_to_handle": [
+      {
+        "type": "low_success_rate",
+        "threshold": "< 70%",
+        "remediation_actions": [
+          "Analyze failed worker specs in coordination/worker-specs/failed/",
+          "Identify common failure patterns (timeout, errors, resource issues)",
+          "Clean up zombie workers and test workers",
+          "Optimize worker timeout enforcement",
+          "Implement worker heartbeat system"
+        ]
+      },
+      {
+        "type": "high_worker_failure_rate",
+        "threshold": "> 30%",
+        "remediation_actions": [
+          "Review recent failed worker logs",
+          "Identify systemic issues (API failures, resource constraints)",
+          "Implement retry logic for transient failures",
+          "Add better error handling and recovery mechanisms",
+          "Tune worker resource limits and timeouts"
+        ]
+      },
+      {
+        "type": "high_error_rate",
+        "threshold": "> 15%",
+        "remediation_actions": [
+          "Parse error events from dashboard-events.jsonl",
+          "Categorize errors by type and severity",
+          "Fix code bugs causing errors",
+          "Add defensive programming patterns",
+          "Improve input validation and error messages"
+        ]
+      },
+      {
+        "type": "high_active_workers",
+        "threshold": "> 50 workers",
+        "remediation_actions": [
+          "Implement worker pool management with max concurrency",
+          "Add task queuing when pool is at capacity",
+          "Optimize worker reuse and lifecycle management",
+          "Implement worker priority and preemption",
+          "Add load shedding for overload scenarios"
+        ]
+      }
+    ],
+
+    "implementation_components": [
+      {
+        "name": "Health Alert Monitor Daemon",
+        "path": "agents/daemons/health-alert-monitor.sh",
+        "description": "Continuously monitors dashboard alerts and triggers remediation workers",
+        "responsibilities": [
+          "Poll dashboard for active alerts every 30 seconds",
+          "Classify alerts by type and severity",
+          "Check if remediation is already in progress",
+          "Spawn remediation workers when new alerts detected",
+          "Track remediation status and update alerts"
+        ]
+      },
+      {
+        "name": "Alert Remediation Worker",
+        "path": "agents/workers/alert-remediation-worker.sh",
+        "description": "Autonomous worker that investigates and fixes specific alert types",
+        "responsibilities": [
+          "Receive alert context (type, severity, metrics, threshold violations)",
+          "Perform root cause analysis",
+          "Execute remediation steps appropriate for alert type",
+          "Document findings and actions taken",
+          "Report success/failure back to monitoring system",
+          "Update alert status in dashboard"
+        ]
+      },
+      {
+        "name": "Alert Resolution API",
+        "path": "dashboard/server/alert-resolution.js",
+        "description": "API endpoints for updating alert status and resolution details",
+        "endpoints": [
+          "POST /api/alerts/:alertId/start-remediation - Mark alert as being investigated",
+          "POST /api/alerts/:alertId/update-progress - Update remediation progress",
+          "POST /api/alerts/:alertId/resolve - Mark alert as resolved with details",
+          "POST /api/alerts/:alertId/escalate - Escalate if auto-remediation fails",
+          "GET /api/alerts/remediation-history - View past remediation attempts"
+        ]
+      },
+      {
+        "name": "Dashboard Alert UI Updates",
+        "path": "dashboard/public/index.html",
+        "description": "Enhanced alert display with remediation status",
+        "features": [
+          "Show remediation status badges (investigating, fixing, resolved, escalated)",
+          "Display progress indicators during active remediation",
+          "Show resolution details and actions taken when completed",
+          "Add 'Auto-Fix' button to manually trigger remediation",
+          "Display remediation worker ID for traceability",
+          "Add timeline view showing alert lifecycle"
+        ]
+      }
+    ],
+
+    "alert_status_workflow": {
+      "states": [
+        {
+          "status": "active",
+          "color": "red",
+          "description": "Alert triggered, awaiting remediation"
+        },
+        {
+          "status": "investigating",
+          "color": "yellow",
+          "description": "Remediation worker analyzing root cause"
+        },
+        {
+          "status": "fixing",
+          "color": "blue",
+          "description": "Remediation actions in progress"
+        },
+        {
+          "status": "resolved",
+          "color": "green",
+          "description": "Issue fixed, metrics returned to normal"
+        },
+        {
+          "status": "cleared",
+          "color": "gray",
+          "description": "Alert cleared automatically (metrics improved)"
+        },
+        {
+          "status": "escalated",
+          "color": "orange",
+          "description": "Auto-remediation failed, requires human intervention"
+        }
+      ]
+    },
+
+    "data_structures": {
+      "alert_remediation_record": {
+        "path": "coordination/alert-remediation/",
+        "format": "JSON",
+        "fields": {
+          "alert_id": "string - Original alert ID from dashboard",
+          "alert_type": "string - Type of alert (low_success_rate, etc.)",
+          "triggered_at": "ISO timestamp",
+          "remediation_started_at": "ISO timestamp",
+          "remediation_completed_at": "ISO timestamp",
+          "status": "active | investigating | fixing | resolved | cleared | escalated",
+          "worker_id": "string - ID of remediation worker",
+          "root_cause": "string - Diagnosed root cause",
+          "actions_taken": "array of strings - Steps performed",
+          "outcome": "success | partial_success | failed",
+          "metrics_before": "object - Metrics when alert triggered",
+          "metrics_after": "object - Metrics after remediation",
+          "logs": "array - Timestamped log entries",
+          "escalation_reason": "string - Why escalated if applicable"
+        }
+      }
+    },
+
+    "success_criteria": [
+      "Health alert monitor daemon runs continuously without crashes",
+      "Remediation workers spawn within 10 seconds of alert detection",
+      "At least 70% of alerts are auto-resolved without human intervention",
+      "Dashboard displays real-time remediation status and progress",
+      "Alert resolution records are persisted and queryable",
+      "System prevents duplicate remediation attempts for same alert",
+      "Escalation mechanism works when auto-remediation fails",
+      "All code follows existing patterns and style conventions",
+      "Comprehensive logging for debugging and auditing"
+    ],
+
+    "testing_requirements": [
+      "Create test alerts to verify remediation pipeline",
+      "Test each alert type with simulated failure scenarios",
+      "Verify status transitions and UI updates work correctly",
+      "Test concurrent alert handling (multiple alerts at once)",
+      "Test remediation worker failure and retry logic",
+      "Verify alert history and audit trail accuracy",
+      "Load test with 10+ simultaneous alerts"
+    ],
+
+    "integration_points": [
+      "Dashboard alert system (dashboard/public/dashboard-v2.js:1186-1274)",
+      "Worker spawning mechanism (scripts/spawn-worker.sh)",
+      "Worker spec format (coordination/worker-specs/)",
+      "Dashboard WebSocket for real-time updates",
+      "Dashboard events JSONL for alert history",
+      "Existing worker daemon patterns"
+    ]
+  },
+
+  "technical_constraints": [
+    "Must work within existing commit-relay architecture",
+    "Use bash scripts for daemons (following existing patterns)",
+    "Use Node.js/Express for API endpoints",
+    "Maintain backward compatibility with existing dashboard",
+    "No external dependencies beyond what's already installed",
+    "Follow existing file structure and naming conventions",
+    "All worker specs must follow standard format",
+    "Must handle concurrent execution safely"
+  ],
+
+  "deliverables": [
+    "Health alert monitor daemon (bash script)",
+    "Alert remediation worker template (bash script + prompt)",
+    "Alert resolution API endpoints (Node.js)",
+    "Dashboard UI updates for remediation status",
+    "Alert remediation record schema and storage",
+    "Documentation for the remediation system",
+    "Test suite for alert remediation pipeline",
+    "Example remediation workflows for each alert type"
+  ],
+
+  "estimated_complexity": "high",
+  "estimated_time_minutes": 120,
+  "token_budget": 250000,
+
+  "notes": [
+    "This is a meta-system that helps commit-relay self-heal",
+    "Should be robust and handle edge cases gracefully",
+    "Prioritize safety - don't make changes that could break the system",
+    "Log extensively for transparency and debugging",
+    "Build incrementally - start with one alert type, then expand",
+    "Consider using the development-master to spawn sub-workers for complex fixes"
+  ],
+
+  "acceptance_criteria": {
+    "phase_1_foundation": [
+      "Health alert monitor daemon created and running",
+      "Alert remediation worker template functional",
+      "Basic API endpoints for status updates implemented",
+      "Alert status badges showing in dashboard UI"
+    ],
+    "phase_2_remediation_logic": [
+      "Low success rate alert remediation working",
+      "Worker failure rate alert remediation working",
+      "Proper root cause analysis implemented",
+      "Remediation actions documented and effective"
+    ],
+    "phase_3_polish": [
+      "All alert types have remediation handlers",
+      "Progress indicators and timelines working",
+      "Alert history and audit trail complete",
+      "Documentation and testing finished"
+    ]
+  }
+}

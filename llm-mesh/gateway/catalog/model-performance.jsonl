@@ -1,0 +1,90 @@
+{
+  "timestamp": "2025-11-15T13:21:24-0600",
+  "model": "claude-sonnet-4",
+  "task_type": "routing-analysis",
+  "quality_score": 0.8,
+  "cost": 0.000783,
+  "latency_ms": 4000,
+  "success": true
+}
+{
+  "timestamp": "2025-11-15T13:27:21-0600",
+  "model": "claude-sonnet-4",
+  "task_type": "routing-analysis",
+  "quality_score": 0.8,
+  "cost": 0.001665,
+  "latency_ms": 4000,
+  "success": true
+}
+{
+  "timestamp": "2025-11-15T13:27:35-0600",
+  "model": "claude-haiku",
+  "task_type": "routing-analysis",
+  "quality_score": 0.8,
+  "cost": 0.000258,
+  "latency_ms": 5000,
+  "success": true
+}
+{
+  "timestamp": "2025-11-15T13:27:39-0600",
+  "model": "claude-haiku",
+  "task_type": "routing-analysis",
+  "quality_score": 0.8,
+  "cost": 0.000147,
+  "latency_ms": 3000,
+  "success": true
+}
+{
+  "timestamp": "2025-11-15T13:31:11-0600",
+  "model": "claude-haiku",
+  "task_type": "security-analysis",
+  "quality_score": 0.8,
+  "cost": 0.000017,
+  "latency_ms": 0,
+  "success": true
+}
+{
+  "timestamp": "2025-11-15T13:31:11-0600",
+  "model": "claude-haiku",
+  "task_type": "security-analysis",
+  "quality_score": 0.8,
+  "cost": 0.000016,
+  "latency_ms": 0,
+  "success": true
+}
+{
+  "timestamp": "2025-11-15T13:31:12-0600",
+  "model": "claude-haiku",
+  "task_type": "security-analysis",
+  "quality_score": 0.8,
+  "cost": 0.000016,
+  "latency_ms": 1000,
+  "success": true
+}
+{
+  "timestamp": "2025-11-15T13:31:13-0600",
+  "model": "claude-haiku",
+  "task_type": "routing-analysis",
+  "quality_score": 0.8,
+  "cost": 0.000014,
+  "latency_ms": 1000,
+  "success": true
+}
+{
+  "timestamp": "2025-11-15T13:31:14-0600",
+  "model": "claude-haiku",
+  "task_type": "routing-analysis",
+  "quality_score": 0.8,
+  "cost": 0.000015,
+  "latency_ms": 1000,
+  "success": true
+}
+{
+  "timestamp": "2025-11-15T13:32:08-0600",
+  "model": "claude-haiku",
+  "task_type": "security-analysis",
+  "quality_score": 0.8,
+  "cost": 0.000045,
+  "latency_ms": 2000,
+  "success": true
+}

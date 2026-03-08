@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Model Performance Tracking",
+  "description": "Track LLM model performance for MoE learning",
+  "type": "object",
+  "required": ["model", "task_type", "performance", "last_updated"],
+  "properties": {
+    "model": {
+      "type": "string",
+      "description": "Model identifier (e.g., claude-sonnet-4)"
+    },
+    "provider": {
+      "type": "string"
+    },
+    "task_type": {
+      "type": "string",
+      "description": "Task type this performance data applies to"
+    },
+    "performance": {
+      "type": "object",
+      "required": ["total_calls", "avg_quality", "avg_cost", "success_rate"],
+      "properties": {
+        "total_calls": {"type": "integer"},
+        "successful_calls": {"type": "integer"},
+        "failed_calls": {"type": "integer"},
+        "success_rate": {"type": "number"},
+        "avg_quality": {
+          "type": "number",
+          "description": "Average quality score (0-1)"
+        },
+        "avg_cost": {
+          "type": "number",
+          "description": "Average cost per call (USD)"
+        },
+        "avg_latency_ms": {"type": "integer"},
+        "avg_tokens": {
+          "type": "object",
+          "properties": {
+            "input": {"type": "number"},
+            "output": {"type": "number"}
+          }
+        }
+      }
+    },
+    "cost_efficiency": {
+      "type": "object",
+      "properties": {
+        "cost_per_quality_point": {
+          "type": "number",
+          "description": "Cost / quality_score (lower is better)"
+        },
+        "relative_cost": {
+          "type": "string",
+          "enum": ["low", "medium", "high"],
+          "description": "Relative to other models for this task"
+        }
+      }
+    },
+    "recommendations": {
+      "type": "object",
+      "properties": {
+        "optimal_for": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Task types where this model excels"
+        },
+        "not_recommended_for": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Task types where other models are better"
+        },
+        "use_when": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Conditions when this model should be chosen"
+        }
+      }
+    },
+    "quality_breakdown": {
+      "type": "object",
+      "description": "Quality scores by aspect",
+      "properties": {
+        "accuracy": {"type": "number"},
+        "completeness": {"type": "number"},
+        "relevance": {"type": "number"},
+        "format_compliance": {"type": "number"}
+      }
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "learning_iteration": {
+      "type": "integer",
+      "description": "Which learning cycle produced this data"
+    }
+  }
+}

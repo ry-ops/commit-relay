@@ -1,0 +1,37 @@
+{
+  "handoff_id": "coord-to-inventory-8D0448DD-EF0E-469B-AD5C-422931150B4C",
+  "from_master": "coordinator",
+  "to_master": "inventory",
+  "task_id": "moe-test-ddqd-v5-1763247177-f8d7e80e",
+  "task_data": {
+    "id": "moe-test-ddqd-v5-1763247177-f8d7e80e",
+    "title": "Discover and track portfolio health status across repositories",
+    "type": "inventory",
+    "description": "Discover and track portfolio health status across repositories",
+    "priority": "medium",
+    "status": "assigned",
+    "assigned_to": "inventory",
+    "created_at": "2025-11-15T16:53:48-0600",
+    "created_by": "ddqd-v5-test",
+    "moe_test": true,
+    "test_id": "ddqd-v5-1763247177",
+    "context": {},
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-15T16:53:52-0600",
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-15T16:53:52-06:00"
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "medium",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "N/A",
+      "strategy": "pattern-based",
+      "routed_at": "2025-11-15T16:53:52-0600"
+    }
+  },
+  "created_at": "2025-11-15T16:53:52-0600",
+  "status": "pending_pickup"
+}

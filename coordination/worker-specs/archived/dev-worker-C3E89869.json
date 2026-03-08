@@ -1,0 +1,49 @@
+{
+  "worker_id": "dev-worker-C3E89869",
+  "worker_type": "implementation-worker",
+  "prompt_template": "agents/prompts/workers/implementation-worker.md",
+  "parent_master": "development",
+  "task_id": "task-1762553466",
+  "task_data": {
+    "id": "task-1762553466",
+    "title": "GOVERNANCE UPGRADE - Phase 3: Automated Data Lineage & Audit Trails. Implement comprehensive lineage tracking and audit trail system integrated with Phase 1 catalog and Phase 2 access control. Build LineageTracker class for recording all operations, implement comprehensive audit trail logging, create lineage visualization (source → transformation → target), add audit query interface and compliance reports. Success criteria: 100% operation lineage tracked, audit trail completeness 99.9%, lineage query response <500ms, compliance report generation <2 seconds.",
+    "type": "development",
+    "priority": "high",
+    "status": "assigned",
+    "assigned_to": "development",
+    "created_at": "2025-11-11T11:36:34-0600",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "GOVERNANCE UPGRADE - Phase 3: Automated Data Lineage & Audit Trails. Implement comprehensive lineage tracking and audit trail system integrated with Phase 1 catalog and Phase 2 access control. Build LineageTracker class for recording all operations, implement comprehensive audit trail logging, create lineage visualization (source → transformation → target), add audit query interface and compliance reports. Success criteria: 100% operation lineage tracked, audit trail completeness 99.9%, lineage query response <500ms, compliance report generation <2 seconds.",
+      "requirements": []
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-11T11:43:04-0600",
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-11T11:43:04-06:00"
+  },
+  "context": {
+    "master_session": "3A24DCEC-39A6-495F-AC3E-262F0EEEDB03",
+    "expertise_area": "",
+    "skills_required": [],
+    "knowledge_base_refs": {
+      "implementation_patterns": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/development/knowledge-base/implementation-patterns.jsonl",
+      "architecture_docs": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/development/knowledge-base/codebase-architecture.json"
+    }
+  },
+  "resources": {
+    "token_allocation": 50000,
+    "time_limit_minutes": 60
+  },
+  "status": "failed",
+  "created_at": "2025-11-11T12:01:57-0600",
+  "created_by": "development",
+  "execution": {
+    "started_at": "2025-11-11T12:05:35-0600"
+  },
+  "failure_reason": "Terminal launch failed - worker never executed",
+  "failed_at": "2025-11-11T20:14:12Z"
+}

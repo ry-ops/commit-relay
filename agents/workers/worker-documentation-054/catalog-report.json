@@ -1,0 +1,304 @@
+{
+  "report_type": "repository_catalog",
+  "task_id": "moe-test-ddqd-v5-1763688045-64be8834",
+  "worker_id": "worker-documentation-054",
+  "generated_at": "2025-11-21T01:23:00Z",
+  "repository": {
+    "name": "commit-relay",
+    "description": "AI-powered commit automation system with master-worker architecture",
+    "version": "1.0.0",
+    "license": "MIT",
+    "author": "ry-ops",
+    "remote": "https://github.com/ry-ops/commit-relay.git",
+    "branch": "main",
+    "latest_commit": {
+      "hash": "7c617972b353a76dd11912634906539c5f54ea87",
+      "message": "chore(daemon): launched worker-scan-052 automatically"
+    }
+  },
+  "structure": {
+    "root_directories": [
+      "agents/",
+      "coordination/",
+      "dashboard/",
+      "docs/",
+      "examples/",
+      "lib/",
+      "library/",
+      "llm-mesh/",
+      "logs/",
+      "node_modules/",
+      "python-sdk/",
+      "reports/",
+      "scripts/",
+      "testing/"
+    ],
+    "directory_sizes": {
+      "agents": "363M",
+      "library": "179M",
+      "node_modules": "41M",
+      "coordination": "22M",
+      "dashboard": "15M",
+      "logs": "13M",
+      "coverage": "4.3M",
+      "scripts": "2.0M",
+      "docs": "1.4M",
+      "python-sdk": "624K",
+      "testing": "620K",
+      "lib": "376K",
+      "llm-mesh": "340K"
+    },
+    "key_files": [
+      "README.md",
+      "CORE-PRINCIPLES.md",
+      "GOVERNANCE-ARCHITECTURE.md",
+      "IMPLEMENTATION-STATUS.md",
+      "DAEMON-MANAGEMENT.md",
+      "OBSERVABILITY-STRATEGY.md",
+      "LICENSE",
+      "package.json"
+    ]
+  },
+  "dependencies": {
+    "nodejs": {
+      "root": {
+        "production": {
+          "ajv": "^8.17.1",
+          "ajv-formats": "^3.0.1"
+        },
+        "dev": {
+          "@types/jest": "^29.5.11",
+          "jest": "^29.7.0",
+          "supertest": "^7.1.4"
+        }
+      },
+      "dashboard": {
+        "production": {
+          "chokidar": "^3.5.3",
+          "cors": "^2.8.5",
+          "dotenv": "^17.2.3",
+          "express": "^4.18.2",
+          "express-rate-limit": "^8.2.1",
+          "express-validator": "^7.3.0",
+          "helmet": "^8.1.0",
+          "ws": "^8.14.2"
+        },
+        "dev": {
+          "nodemon": "^3.0.1"
+        }
+      }
+    },
+    "python": {
+      "package": "commit-relay-client",
+      "version": "0.1.0",
+      "python_requires": ">=3.8",
+      "core": {
+        "requests": ">=2.28.0",
+        "pandas": ">=1.5.0",
+        "numpy": ">=1.23.0",
+        "scipy": ">=1.9.0",
+        "matplotlib": ">=3.6.0",
+        "seaborn": ">=0.12.0"
+      },
+      "extras": {
+        "dev": ["pytest>=7.0", "pytest-cov>=4.0", "black>=22.0", "mypy>=0.991", "flake8>=5.0"],
+        "excel": ["openpyxl>=3.0.0"],
+        "jupyter": ["jupyter>=1.0.0", "ipykernel>=6.0.0"]
+      }
+    }
+  },
+  "scripts": {
+    "total_shell_scripts": 75,
+    "total_js_scripts": 2,
+    "total_lines": 19076,
+    "categories": {
+      "daemon_management": [
+        "daemon-control.sh",
+        "daemon-supervisor.sh",
+        "coordinator-daemon.sh",
+        "pm-daemon.sh",
+        "health-monitor-daemon.sh",
+        "governance-monitor-daemon.sh",
+        "metrics-snapshot-daemon.sh",
+        "integration-validator-daemon.sh",
+        "learning-task-monitor-daemon.sh",
+        "handoff-processor-daemon.sh"
+      ],
+      "worker_management": [
+        "claude-worker-launcher-v2.sh",
+        "spawn-worker.sh",
+        "cleanup-zombie-workers.sh",
+        "archive-failed-workers.sh",
+        "aggregate-worker-results.sh",
+        "load-test-workers.sh"
+      ],
+      "task_management": [
+        "create-task.sh",
+        "create-task-enhanced.sh",
+        "coordinate-task-git.sh"
+      ],
+      "health_monitoring": [
+        "generate-health-report.sh",
+        "health-check-pm-daemon.sh",
+        "check-dashboard-status.sh",
+        "ensure-services.sh"
+      ],
+      "observability": [
+        "obs-dashboard.sh",
+        "obs-query.sh",
+        "dashboard-agent-monitor.sh",
+        "learning-metrics-report.sh"
+      ],
+      "utilities": [
+        "emit-event.sh",
+        "install-agents.sh",
+        "agent-init.sh",
+        "demo-full-workflow.sh",
+        "demo-validated-worker-spawn.sh",
+        "interactive-tutorial.sh"
+      ]
+    }
+  },
+  "master_agents": {
+    "count": 6,
+    "types": [
+      {
+        "name": "aggregator",
+        "description": "Aggregates results from workers"
+      },
+      {
+        "name": "cicd",
+        "description": "CI/CD pipeline management"
+      },
+      {
+        "name": "coordinator",
+        "description": "Central task routing and coordination"
+      },
+      {
+        "name": "development",
+        "description": "Development task handling"
+      },
+      {
+        "name": "inventory",
+        "description": "Repository cataloging and inventory management"
+      },
+      {
+        "name": "security",
+        "description": "Security scanning and vulnerability management"
+      }
+    ]
+  },
+  "services": {
+    "dashboard_api": {
+      "name": "commit-relay-dashboard",
+      "port": 3000,
+      "main": "server/index.js",
+      "endpoints": [
+        "/api/health",
+        "/api/metrics",
+        "/api/events",
+        "/api/tasks",
+        "/api/workers"
+      ]
+    }
+  },
+  "documentation": {
+    "readme_files": 4,
+    "core_docs": [
+      "README.md",
+      "CORE-PRINCIPLES.md",
+      "GOVERNANCE-ARCHITECTURE.md",
+      "IMPLEMENTATION-STATUS.md",
+      "DAEMON-MANAGEMENT.md",
+      "OBSERVABILITY-STRATEGY.md"
+    ],
+    "weekly_reports": [
+      "WEEK1-COMPLETION-REPORT.md",
+      "WEEK2-FIVE-AGENT-TYPES-DESIGN.md",
+      "WEEK3-COMPLETION-REPORT.md",
+      "WEEK4-COMPLETION-REPORT.md",
+      "WEEK5-COMPLETION-REPORT.md",
+      "WEEK6-COMPLETION-REPORT.md",
+      "WEEKS7-12-COMBINED-REPORT.md"
+    ],
+    "docs_directory_items": "70+ markdown files covering architecture, APIs, governance, and operations"
+  },
+  "python_sdk": {
+    "examples_count": 13,
+    "example_files": [
+      "basic_usage.py",
+      "daily_report.py",
+      "ml_insights_demo.py",
+      "cicd_integration_demo.py",
+      "workflow_demo.py",
+      "task_creation.py",
+      "health_monitoring.py",
+      "batch_tasks.py",
+      "event_streaming_demo.py",
+      "repository_discovery_demo.py",
+      "analytics_demo.py",
+      "health_monitoring_demo.py",
+      "complete_workflow.py"
+    ],
+    "modules": [
+      "commit_relay/client.py",
+      "commit_relay/reporting/reports.py",
+      "commit_relay/reporting/visualizations.py",
+      "commit_relay/reporting/exporters.py"
+    ]
+  },
+  "lib_utilities": {
+    "javascript": [
+      "circuit-breaker.js",
+      "circuit-breaker-integrations.js",
+      "safe-json.js",
+      "schema-validator.js"
+    ],
+    "subdirectories": [
+      "cache/",
+      "database/",
+      "events/",
+      "governance/",
+      "hardening/",
+      "rag/"
+    ]
+  },
+  "coordination_system": {
+    "key_components": [
+      "task-queue.json",
+      "worker-pool.json",
+      "token-budget.json",
+      "pm-state.json",
+      "routing-health.json",
+      "system-health-check.json"
+    ],
+    "event_logs": [
+      "dashboard-events.jsonl",
+      "health-reports.jsonl",
+      "metrics-snapshots.jsonl"
+    ],
+    "subdirectories": [
+      "events/",
+      "governance/",
+      "history/",
+      "knowledge-base/",
+      "masters/",
+      "memory/",
+      "metrics/",
+      "orchestrator/",
+      "patterns/",
+      "tasks/",
+      "worker-specs/"
+    ]
+  },
+  "summary": {
+    "total_shell_scripts": 75,
+    "total_lines_of_scripts": 19076,
+    "master_agent_types": 6,
+    "python_sdk_examples": 13,
+    "core_js_dependencies": 10,
+    "python_dependencies": 6,
+    "documentation_files": "70+",
+    "architecture": "Master-Worker with MoE (Mixture of Experts) routing"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "worker_id": "test-worker-LAUNCHER-001",
+  "worker_type": "implementation-worker",
+  "created_by": "manual-test",
+  "execution_manager": null,
+  "created_at": "2025-11-09T08:16:00-0600",
+  "task_id": "task-launcher-test-001",
+  "status": "completed",
+  "scope": {
+    "repository": "ry-ops/commit-relay",
+    "branch": "main",
+    "description": "Test worker launcher - Create a simple test file to verify worker launching works"
+  },
+  "context": {
+    "parent_task": "task-launcher-test-001",
+    "priority": "high",
+    "deadline": null
+  },
+  "resources": {
+    "token_budget": 10000,
+    "timeout_minutes": 45,
+    "max_retries": 1
+  },
+  "task_data": {
+    "id": "task-launcher-test-001",
+    "title": "Test Worker Launcher Fix",
+    "type": "development",
+    "priority": "high",
+    "status": "pending",
+    "description": "This is a test task to verify the worker launcher fix works correctly. Your job is to:\n\n1. Confirm you can read this worker spec file\n2. Create a simple test file at tests/worker-launcher-test.txt\n3. Add content: 'Worker launcher test completed successfully at [timestamp]'\n4. Commit with message: 'test: verify worker launcher fix'\n5. Report back that you successfully read your spec and completed the task\n\nThis is a simple task to verify the architecture fix is working.",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main"
+    },
+    "created_at": "2025-11-09T08:16:00-0600"
+  },
+  "deliverables": [],
+  "prompt_template": "agents/prompts/workers/implementation-worker.md",
+  "execution": {
+    "started_at": "2025-11-09T08:09:32-0600",
+    "completed_at": null,
+    "tokens_used": 0,
+    "duration_minutes": 0,
+    "session_id": null
+  },
+  "results": {
+    "status": null,
+    "output_location": null,
+    "summary": null,
+    "artifacts": []
+  },
+  "completed_at": "2025-11-09T08:09:37-0600",
+  "git_workflow": {
+    "status": "success",
+    "commit_hash": "5ae65b8",
+    "automated": true
+  }
+}

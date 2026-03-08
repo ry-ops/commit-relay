@@ -1,0 +1,209 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Agent Marketplace Schema",
+  "description": "Schema for agent marketplace listings, ratings, and distribution",
+  "type": "object",
+  "required": [
+    "listing_id",
+    "agent_id",
+    "name",
+    "version",
+    "status",
+    "created_at"
+  ],
+  "properties": {
+    "listing_id": {
+      "type": "string",
+      "description": "Unique marketplace listing identifier",
+      "pattern": "^mkt-[a-z0-9-]+-[a-f0-9]{8}$"
+    },
+    "agent_id": {
+      "type": "string",
+      "description": "Reference to the agent"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name for marketplace"
+    },
+    "version": {
+      "type": "string",
+      "description": "Published version"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "pending_review", "published", "featured", "deprecated", "removed"],
+      "description": "Marketplace listing status"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": ["private", "team", "organization", "public"],
+      "default": "public"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "short_description": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "long_description": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["orchestration", "development", "security", "testing", "monitoring", "learning", "utility", "integration"]
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "icon_url": {
+          "type": "string"
+        },
+        "screenshots": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "documentation_url": {
+          "type": "string"
+        },
+        "repository_url": {
+          "type": "string"
+        },
+        "license": {
+          "type": "string",
+          "enum": ["MIT", "Apache-2.0", "GPL-3.0", "BSD-3-Clause", "proprietary", "other"]
+        }
+      }
+    },
+    "author": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "organization": { "type": "string" },
+        "verified": { "type": "boolean" }
+      }
+    },
+    "pricing": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "type": "string",
+          "enum": ["free", "freemium", "paid", "subscription", "usage_based"]
+        },
+        "price": { "type": "number" },
+        "currency": { "type": "string" },
+        "trial_days": { "type": "integer" }
+      }
+    },
+    "requirements": {
+      "type": "object",
+      "properties": {
+        "min_version": { "type": "string" },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "version": { "type": "string" },
+              "optional": { "type": "boolean" }
+            }
+          }
+        },
+        "capabilities": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "resource_requirements": {
+          "type": "object",
+          "properties": {
+            "min_memory_mb": { "type": "integer" },
+            "min_cpu_percent": { "type": "integer" },
+            "estimated_tokens_per_task": { "type": "integer" }
+          }
+        }
+      }
+    },
+    "ratings": {
+      "type": "object",
+      "properties": {
+        "average": { "type": "number", "minimum": 0, "maximum": 5 },
+        "count": { "type": "integer", "minimum": 0 },
+        "distribution": {
+          "type": "object",
+          "properties": {
+            "5": { "type": "integer" },
+            "4": { "type": "integer" },
+            "3": { "type": "integer" },
+            "2": { "type": "integer" },
+            "1": { "type": "integer" }
+          }
+        }
+      }
+    },
+    "reviews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "review_id": { "type": "string" },
+          "user": { "type": "string" },
+          "rating": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "title": { "type": "string" },
+          "content": { "type": "string" },
+          "helpful_count": { "type": "integer" },
+          "verified_purchase": { "type": "boolean" },
+          "created_at": { "type": "integer" },
+          "response": {
+            "type": "object",
+            "properties": {
+              "content": { "type": "string" },
+              "created_at": { "type": "integer" }
+            }
+          }
+        }
+      }
+    },
+    "statistics": {
+      "type": "object",
+      "properties": {
+        "downloads": { "type": "integer", "minimum": 0 },
+        "installs": { "type": "integer", "minimum": 0 },
+        "active_users": { "type": "integer", "minimum": 0 },
+        "weekly_downloads": { "type": "integer" },
+        "monthly_downloads": { "type": "integer" },
+        "trending_score": { "type": "number" }
+      }
+    },
+    "package": {
+      "type": "object",
+      "description": "Package information for distribution",
+      "properties": {
+        "checksum": { "type": "string" },
+        "size_bytes": { "type": "integer" },
+        "format": { "type": "string", "enum": ["tar.gz", "zip", "bundle"] },
+        "download_url": { "type": "string" },
+        "files": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "changelog": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "version": { "type": "string" },
+          "date": { "type": "integer" },
+          "changes": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "created_at": { "type": "integer" },
+    "updated_at": { "type": "integer" },
+    "published_at": { "type": "integer" }
+  }
+}

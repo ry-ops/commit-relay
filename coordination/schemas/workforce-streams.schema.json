@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "workforce-streams.schema.json",
+  "title": "Workforce Streams",
+  "description": "Schema for multi-workforce stream allocation",
+  "type": "object",
+  "required": [],
+  "additionalProperties": true,
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$",
+      "description": "Streams configuration version"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    },
+    "streams": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["stream_id", "name", "master", "worker_allocation", "status"],
+        "properties": {
+          "stream_id": {
+            "type": "string",
+            "pattern": "^stream-(development|security|inventory|cicd)$",
+            "description": "Stream identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Human-readable stream name"
+          },
+          "master": {
+            "type": "string",
+            "enum": ["development", "security", "inventory", "cicd"],
+            "description": "Master agent owning this stream"
+          },
+          "worker_allocation": {
+            "type": "object",
+            "required": ["min", "max", "current"],
+            "properties": {
+              "min": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "max": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "current": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "paused", "degraded", "offline"],
+            "description": "Stream operational status"
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["critical", "high", "normal", "low"],
+            "description": "Stream priority level"
+          },
+          "active_tasks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^(task-[0-9]+|test-task-[0-9]+)$"
+            }
+          },
+          "metrics": {
+            "type": "object",
+            "properties": {
+              "throughput": {
+                "type": "number",
+                "minimum": 0
+              },
+              "avg_duration": {
+                "type": "number",
+                "minimum": 0
+              },
+              "success_rate": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "global_limits": {
+      "type": "object",
+      "properties": {
+        "total_workers": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_per_stream": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "agent_id": "test-worker-67152d87",
+  "agent_type": "worker",
+  "agent_class": "test-worker",
+  "name": "Test Worker 1",
+  "description": "",
+  "version": "1.0.0",
+  "status": "active",
+  "capabilities": [],
+  "configuration": {
+    "max_concurrent_tasks": 1,
+    "timeout_seconds": 300,
+    "retry_attempts": 3,
+    "priority": "medium",
+    "auto_restart": true
+  },
+  "performance": {
+    "tasks_completed": 0,
+    "tasks_failed": 0,
+    "success_rate": 0.0,
+    "average_execution_time_ms": 0,
+    "total_tokens_used": 0,
+    "uptime_seconds": 0
+  },
+  "metadata": {
+    "owner": "system",
+    "tags": [],
+    "dependencies": []
+  },
+  "registered_at": 1763587305000,
+  "last_seen_at": 1763587305000,
+  "updated_at": 1763587305000,
+  "health": {
+    "status": "healthy",
+    "last_check_at": 1763587305000,
+    "error_count": 0,
+    "consecutive_failures": 0,
+    "message": "Agent registered successfully"
+  }
+}

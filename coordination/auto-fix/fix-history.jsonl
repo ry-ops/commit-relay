@@ -1,0 +1,2 @@
+{"fix_id":"fix_increase_memory_for_oom","pattern_id":"e2e_pattern_oom","applied_at":"2025-11-18T15:55:04-0600","status":"applied","backup_info":["/Users/ryandahlberg/projects/commit-relay/coordination/worker-specs/templates/scan-worker.json.backup.1763502904"],"context":{"fix_id":"fix_increase_memory_for_oom","pattern_id":"e2e_pattern_oom","worker_type":"scan-worker"}}
+{"fix_id":"fix_increase_memory_for_oom","rolled_back_at":"2025-11-18T15:55:04-0600","status":"rolled_back","files_restored":1}

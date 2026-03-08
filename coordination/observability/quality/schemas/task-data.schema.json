@@ -1,0 +1,33 @@
+{
+  "source_id": "task-data",
+  "description": "Task queue entry schema",
+  "registered_at": "2025-11-21T10:56:04-06:00",
+  "schema": {
+    "type": "object",
+    "required": [
+      "task_id",
+      "status",
+      "priority"
+    ],
+    "properties": {
+      "task_id": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "active",
+          "completed",
+          "failed"
+        ]
+      },
+      "priority": {
+        "type": "number"
+      },
+      "description": {
+        "type": "string"
+      }
+    }
+  }
+}

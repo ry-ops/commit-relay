@@ -1,0 +1,28 @@
+{
+  "handoff_id": "moe-test-ddqd-v5-1763688045-198938ce",
+  "task_id": "moe-test-ddqd-v5-1763688045-198938ce",
+  "assigned_to": "inventory",
+  "created_at": "2025-11-20T19:21:40-0600",
+  "status": "processed",
+  "task": {
+    "id": "moe-test-ddqd-v5-1763688045-198938ce",
+    "title": "Discover and track portfolio health status across repositories",
+    "type": "inventory",
+    "description": "Discover and track portfolio health status across repositories",
+    "priority": "medium",
+    "status": "assigned",
+    "assigned_to": "inventory",
+    "created_at": "2025-11-20T19:21:36-0600",
+    "created_by": "ddqd-v5-test",
+    "moe_test": true,
+    "test_id": "ddqd-v5-1763688045",
+    "context": {},
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-20T19:21:39-0600",
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-20T19:21:39-06:00"
+  },
+  "processed_at": "2025-11-20T19:21:50-0600",
+  "worker_id": "worker-worker-1763688109-21228"
+}

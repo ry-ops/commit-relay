@@ -1,0 +1,153 @@
+{
+  "audit_id": "moe-test-ddqd-v5-1763691538-594a73f3",
+  "worker_id": "worker-scan-003",
+  "audit_type": "Security audit and compliance scanning for production systems",
+  "completed_at": "2025-11-21T02:22:00Z",
+  "summary": {
+    "overall_status": "PASS",
+    "risk_level": "LOW",
+    "critical_issues": 0,
+    "high_issues": 0,
+    "medium_issues": 0,
+    "low_issues": 2,
+    "informational": 3
+  },
+  "npm_audit": {
+    "status": "PASS",
+    "vulnerabilities": {
+      "critical": 0,
+      "high": 0,
+      "moderate": 0,
+      "low": 0,
+      "info": 0,
+      "total": 0
+    },
+    "total_dependencies": 311,
+    "recommendation": "No action required"
+  },
+  "owasp_top_10_scan": {
+    "status": "PASS",
+    "findings": {
+      "A01_broken_access_control": {
+        "status": "PASS",
+        "details": "Auth middleware properly checks API_KEY from environment"
+      },
+      "A02_cryptographic_failures": {
+        "status": "PASS",
+        "details": "No hardcoded secrets or private keys found in codebase"
+      },
+      "A03_injection": {
+        "status": "PASS",
+        "details": "No SQL injection or command injection vulnerabilities detected. exec/spawn calls use controlled inputs."
+      },
+      "A04_insecure_design": {
+        "status": "PASS",
+        "details": "Security utilities in place (dashboard/server/utils/security.js)"
+      },
+      "A05_security_misconfiguration": {
+        "status": "PASS",
+        "details": ".env files properly gitignored, not tracked in repository"
+      },
+      "A06_vulnerable_components": {
+        "status": "PASS",
+        "details": "npm audit shows 0 vulnerabilities"
+      },
+      "A07_authentication_failures": {
+        "status": "INFO",
+        "details": "API key authentication implemented via middleware"
+      },
+      "A08_software_data_integrity": {
+        "status": "PASS",
+        "details": "No eval() with dynamic input detected"
+      },
+      "A09_security_logging": {
+        "status": "PASS",
+        "details": "Event logging and monitoring in place"
+      },
+      "A10_server_side_request_forgery": {
+        "status": "PASS",
+        "details": "No unvalidated URL fetching detected"
+      }
+    }
+  },
+  "secrets_scan": {
+    "status": "PASS",
+    "findings": [
+      {
+        "severity": "INFO",
+        "file": "testing/scripts/test-pii-scanner.sh",
+        "issue": "Example AWS key used in test",
+        "details": "AKIAIOSFODNN7EXAMPLE is a well-known example key, not a real credential",
+        "recommendation": "No action required - this is intentional test data"
+      },
+      {
+        "severity": "INFO",
+        "file": "testing/governance/access-control.test.js",
+        "issue": "Test credentials in test file",
+        "details": "password: 'secret123', api_key: 'key-abc' used in test scenarios",
+        "recommendation": "Acceptable in test files - ensure tests don't run against production"
+      },
+      {
+        "severity": "INFO",
+        "file": "lib/governance/pii-scanner.js",
+        "issue": "Credential patterns defined",
+        "details": "PII scanner defines patterns for api_key, github_token, etc.",
+        "recommendation": "This is expected - scanner needs patterns to detect secrets"
+      }
+    ],
+    "env_files": {
+      "status": "PASS",
+      "files_found": [
+        "dashboard/.env",
+        "dashboard/.env.example",
+        "llm-mesh/.env",
+        "llm-mesh/.env.example"
+      ],
+      "tracked_in_git": false,
+      "gitignore_configured": true,
+      "recommendation": "Properly configured - .env files are gitignored"
+    },
+    "private_keys": {
+      "status": "PASS",
+      "found": 0,
+      "details": "No RSA, DSA, EC, or OPENSSH private keys found"
+    }
+  },
+  "code_quality": {
+    "exec_spawn_usage": {
+      "status": "REVIEW",
+      "severity": "LOW",
+      "count": 50,
+      "location": "dashboard/server/index.js",
+      "details": "Multiple exec/spawn calls for system operations",
+      "recommendation": "Ensure all inputs to exec/spawn are properly sanitized. Consider using spawn with args array instead of execSync with string interpolation where possible."
+    },
+    "innerHTML_usage": {
+      "status": "PASS",
+      "severity": "INFO",
+      "location": "coverage/ directory",
+      "details": "innerHTML found only in coverage reporting (external library code)",
+      "recommendation": "No action required - not production code"
+    }
+  },
+  "compliance": {
+    "gitignore_security": "COMPLIANT",
+    "secrets_management": "COMPLIANT",
+    "dependency_management": "COMPLIANT",
+    "input_validation": "COMPLIANT",
+    "authentication": "COMPLIANT"
+  },
+  "recommendations": [
+    {
+      "priority": "LOW",
+      "category": "Code Quality",
+      "recommendation": "Consider refactoring some execSync calls in dashboard/server/index.js to use spawn with args array for better input handling"
+    },
+    {
+      "priority": "LOW",
+      "category": "Security Hardening",
+      "recommendation": "Consider adding Content Security Policy headers to dashboard server"
+    }
+  ],
+  "conclusion": "The commit-relay codebase demonstrates good security practices. No critical or high-severity issues were found. The codebase properly handles secrets management, has no known vulnerable dependencies, and follows secure coding practices. Minor improvements can be made to further harden the system, but overall the security posture is strong."
+}

@@ -1,0 +1,25 @@
+{
+  "sources": [
+    {
+      "source_id": "task-queue",
+      "location": "coordination/task-queue.json",
+      "source_type": "file",
+      "registered_at": "2025-11-21T10:56:04-06:00",
+      "metadata": {}
+    },
+    {
+      "source_id": "worker-pool",
+      "location": "coordination/worker-pool.json",
+      "source_type": "file",
+      "registered_at": "2025-11-21T10:56:04-06:00",
+      "metadata": {}
+    },
+    {
+      "source_id": "external-api",
+      "location": "https://api.example.com/tasks",
+      "source_type": "api",
+      "registered_at": "2025-11-21T10:56:04-06:00",
+      "metadata": {}
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "worker_id": "sec-worker-060ED770",
+  "worker_type": "scan-worker",
+  "prompt_template": "agents/prompts/workers/scan-worker.md",
+  "parent_master": "security",
+  "task_id": "moe-test-ddqd-v5-1762626495-28b1a031",
+  "task_data": {
+    "id": "moe-test-ddqd-v5-1762626495-28b1a031",
+    "title": "Security audit and compliance scanning for production systems",
+    "type": "security",
+    "description": "Security audit and compliance scanning for production systems",
+    "priority": "medium",
+    "status": "assigned",
+    "assigned_to": "security",
+    "created_at": "2025-11-08T12:28:57-0600",
+    "created_by": "ddqd-v5-test",
+    "moe_test": true,
+    "test_id": "ddqd-v5-1762626495",
+    "context": {},
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-08T12:29:12-0600",
+    "routing_confidence": "0.95",
+    "routing_strategy": "single_expert",
+    "updated_at": "2025-11-08T12:29:12-06:00"
+  },
+  "context": {
+    "master_session": "D3E7AA88-CB9B-44A8-A1DC-8BEE4B0FA048",
+    "expertise_area": "vulnerability_detection",
+    "skills_required": [
+      "dependency_scanning",
+      "static_analysis",
+      "secrets_detection"
+    ],
+    "knowledge_base_refs": {
+      "vulnerability_database": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/security/knowledge-base/vulnerability-history.jsonl",
+      "remediation_strategies": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/security/knowledge-base/remediation-patterns.json",
+      "false_positives": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/security/knowledge-base/false-positives.json"
+    },
+    "relevant_past_findings": {}
+  },
+  "resources": {
+    "token_allocation": 12000,
+    "time_limit_minutes": 60
+  },
+  "status": "running",
+  "created_at": "2025-11-11T16:37:00-0600",
+  "created_by": "security",
+  "execution": {
+    "started_at": "2025-11-12T07:44:20-0600"
+  }
+}

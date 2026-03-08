@@ -1,0 +1,14 @@
+{
+  "exploration_id": "explore-1763569509-9A9579DE",
+  "exploration_type": "variation",
+  "timestamp": "2025-11-19T16:25:09Z",
+  "status": "created",
+  "is_exploratory": true
+}
+{
+  "exploration_id": "explore-1763569529-FAC11958",
+  "exploration_type": "random",
+  "timestamp": "2025-11-19T16:25:29Z",
+  "status": "created",
+  "is_exploratory": true
+}

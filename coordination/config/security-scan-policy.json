@@ -1,0 +1,52 @@
+{
+  "version": "1.0.0",
+  "enabled": true,
+  "default_schedule": "daily",
+  "scan_types": {
+    "dependencies": {
+      "enabled": true,
+      "tools": ["npm-audit", "pip-audit", "cargo-audit"],
+      "severity_threshold": "moderate",
+      "auto_fix": false
+    },
+    "secrets": {
+      "enabled": true,
+      "patterns_file": "coordination/config/secret-patterns.json",
+      "scan_history": true,
+      "redact_in_logs": true
+    },
+    "sast": {
+      "enabled": true,
+      "languages": ["javascript", "typescript", "python"],
+      "rules": "default"
+    },
+    "licenses": {
+      "enabled": true,
+      "allowed": ["MIT", "Apache-2.0", "BSD-3-Clause", "ISC"],
+      "blocked": ["GPL-3.0", "AGPL-3.0"]
+    }
+  },
+  "severity_thresholds": {
+    "block_deploy": "critical",
+    "alert": "high",
+    "warn": "medium"
+  },
+  "notifications": {
+    "slack_webhook": null,
+    "email": null,
+    "dashboard_events": true
+  },
+  "repositories": {
+    "include": ["*"],
+    "exclude": ["*-archive", "*-deprecated", "*-backup"]
+  },
+  "scan_limits": {
+    "max_concurrent_scans": 5,
+    "timeout_minutes": 30,
+    "retry_count": 2
+  },
+  "retention": {
+    "scan_history_days": 90,
+    "vulnerability_history_days": 365
+  }
+}

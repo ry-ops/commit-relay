@@ -1,0 +1,108 @@
+{
+  "version": "1.0.0",
+  "description": "Vector store configuration for commit-relay RAG system",
+
+  "active_provider": "file",
+
+  "providers": {
+    "weaviate": {
+      "host": "localhost",
+      "port": 8080,
+      "scheme": "http",
+      "apiKey": null,
+      "headers": {}
+    },
+
+    "qdrant": {
+      "host": "localhost",
+      "port": 6333,
+      "https": false,
+      "apiKey": null
+    },
+
+    "file": {
+      "basePath": "coordination/vector-db"
+    }
+  },
+
+  "global_settings": {
+    "defaultDimension": 1536
+  },
+
+  "collections": {
+    "code": {
+      "dimension": 1536,
+      "distance": "cosine",
+      "description": "Code snippets and implementations",
+      "schema": {
+        "file_path": { "type": "keyword" },
+        "file_type": { "type": "keyword" },
+        "language": { "type": "keyword" }
+      }
+    },
+
+    "documentation": {
+      "dimension": 1536,
+      "distance": "cosine",
+      "description": "Documentation and runbooks",
+      "schema": {
+        "doc_type": { "type": "keyword" },
+        "source": { "type": "keyword" }
+      }
+    },
+
+    "decisions": {
+      "dimension": 1536,
+      "distance": "cosine",
+      "description": "AI decision history and reasoning",
+      "schema": {
+        "decision_id": { "type": "keyword" },
+        "agent": { "type": "keyword" },
+        "confidence": { "type": "float" },
+        "outcome": { "type": "keyword" }
+      }
+    },
+
+    "patterns": {
+      "dimension": 1536,
+      "distance": "cosine",
+      "description": "Failure patterns and solutions",
+      "schema": {
+        "pattern_id": { "type": "keyword" },
+        "category": { "type": "keyword" },
+        "severity": { "type": "keyword" }
+      }
+    },
+
+    "tasks": {
+      "dimension": 1536,
+      "distance": "cosine",
+      "description": "Task descriptions and outcomes",
+      "schema": {
+        "task_id": { "type": "keyword" },
+        "status": { "type": "keyword" },
+        "worker_type": { "type": "keyword" }
+      }
+    }
+  },
+
+  "environment_variables": {
+    "description": "Environment variables that override config values",
+    "provider": "VECTOR_STORE_PROVIDER",
+    "weaviate_host": "WEAVIATE_HOST",
+    "weaviate_port": "WEAVIATE_PORT",
+    "weaviate_scheme": "WEAVIATE_SCHEME",
+    "weaviate_api_key": "WEAVIATE_API_KEY",
+    "qdrant_host": "QDRANT_HOST",
+    "qdrant_port": "QDRANT_PORT",
+    "qdrant_api_key": "QDRANT_API_KEY",
+    "qdrant_https": "QDRANT_HTTPS",
+    "file_base_path": "VECTOR_DB_PATH"
+  },
+
+  "migration": {
+    "auto_migrate": false,
+    "backup_before_migrate": true,
+    "batch_size": 100
+  }
+}

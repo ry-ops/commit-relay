@@ -1,0 +1,1463 @@
+{
+  "tasks": [
+    {
+      "id": "task-moe-learning-1763235765769",
+      "title": "MoE Learning System: Master commit-relay Architecture and Operations",
+      "type": "development",
+      "priority": "high",
+      "status": "cancelled",
+      "created_at": "2025-11-15T19:42:45.769Z",
+      "created_by": "dashboard-learning-system",
+      "context": {
+        "description": "Comprehensive learning task for MoE system to deeply understand commit-relay architecture, workflows, agents, security patterns, development standards, and operational intelligence",
+        "learning_objectives": {
+          "architecture_mastery": {
+            "description": "Deep understanding of commit-relay system architecture",
+            "areas": [
+              "MoE (Mixture of Experts) routing and coordination patterns",
+              "Master agent specializations (development, security, inventory, cicd, coordinator)",
+              "Worker pool management and lifecycle (spawn, activate, heartbeat, cleanup)",
+              "Task queue architecture and multi-lane routing strategies",
+              "Process manager (PM) architecture and daemon orchestration",
+              "Dashboard real-time monitoring and SSE streaming architecture",
+              "Health monitoring, alerts, and governance systems",
+              "Vector database and semantic search capabilities",
+              "Configuration management and state persistence"
+            ],
+            "learning_methods": [
+              "Analyze architecture documentation in coordination/pm-architecture.md",
+              "Study master agent implementations in coordination/masters/",
+              "Examine worker specifications in coordination/worker-specs/",
+              "Review task patterns in coordination/memory/long-term/task-patterns.json",
+              "Analyze dashboard architecture in dashboard/README.md"
+            ]
+          },
+          "workflow_intelligence": {
+            "description": "Understanding of operational workflows and decision-making patterns",
+            "areas": [
+              "Task routing decision trees and confidence scoring",
+              "Worker activation strategies (single, sparse pool, full pool)",
+              "Task lifecycle management (pending → assigned → in_progress → completed)",
+              "Failure detection and recovery workflows",
+              "Health monitoring and alerting workflows",
+              "Governance and compliance workflows",
+              "CI/CD pipeline integration patterns",
+              "Security scanning and remediation workflows"
+            ],
+            "learning_methods": [
+              "Study MoE router logic in coordination/masters/coordinator/lib/moe-router.sh",
+              "Analyze worker daemon in scripts/worker-daemon.sh",
+              "Review task queue patterns in coordination/task-queue.json",
+              "Examine health monitoring in coordination/system-health.json",
+              "Study governance patterns in coordination/governance-*.json"
+            ]
+          },
+          "agent_specialization": {
+            "description": "Deep knowledge of each master agent's capabilities and patterns",
+            "agents": {
+              "development_master": {
+                "expertise": [
+                  "Feature implementation and code generation",
+                  "Bug fixing and debugging workflows",
+                  "Code refactoring and optimization",
+                  "Technical documentation creation",
+                  "Integration testing and validation",
+                  "Dashboard UI/UX improvements"
+                ],
+                "common_patterns": [
+                  "Alpine.js + Tailwind CSS for frontend",
+                  "Express.js + WebSocket + SSE for backend",
+                  "JSONL file formats for state persistence",
+                  "Chokidar for file watching",
+                  "Shell scripting for automation"
+                ]
+              },
+              "security_master": {
+                "expertise": [
+                  "Vulnerability scanning and CVE remediation",
+                  "Security audit execution",
+                  "Dependency security analysis",
+                  "Secrets detection and protection",
+                  "Compliance monitoring and reporting",
+                  "Security policy enforcement"
+                ],
+                "common_patterns": [
+                  "Risk assessment templates",
+                  "Severity classification (critical, high, medium, low)",
+                  "Security scan types (dependencies, SAST, secrets)",
+                  "Remediation strategies and timelines"
+                ]
+              },
+              "inventory_master": {
+                "expertise": [
+                  "Repository cataloging and metadata extraction",
+                  "Dependency tracking across portfolio",
+                  "Health status monitoring",
+                  "Documentation generation",
+                  "Portfolio analytics and insights"
+                ],
+                "common_patterns": [
+                  "Repository discovery workflows",
+                  "Metadata extraction and normalization",
+                  "Cross-repository dependency mapping"
+                ]
+              },
+              "cicd_master": {
+                "expertise": [
+                  "Build automation and orchestration",
+                  "Test execution and reporting",
+                  "Deployment strategy implementation",
+                  "Release workflow management",
+                  "Pipeline optimization"
+                ],
+                "common_patterns": [
+                  "Multi-stage pipeline definitions",
+                  "Test suite execution strategies",
+                  "Deployment verification workflows"
+                ]
+              },
+              "coordinator_master": {
+                "expertise": [
+                  "Task routing and load balancing",
+                  "MoE decision-making and confidence scoring",
+                  "Master coordination and delegation",
+                  "System-wide orchestration",
+                  "Resource allocation optimization"
+                ],
+                "common_patterns": [
+                  "Routing confidence thresholds",
+                  "Multi-expert activation strategies",
+                  "Task complexity assessment",
+                  "Priority-based routing"
+                ]
+              }
+            },
+            "learning_methods": [
+              "Analyze historical task patterns by expert in task-patterns.json",
+              "Study successful task completions and routing decisions",
+              "Review expert-specific keyword associations",
+              "Examine master agent specifications and capabilities"
+            ]
+          },
+          "security_intelligence": {
+            "description": "Understanding of security patterns, risks, and mitigation strategies",
+            "areas": [
+              "Common vulnerability patterns and CVE classifications",
+              "Risk assessment methodologies",
+              "Security scanning tool integration",
+              "Dependency security monitoring",
+              "Secrets detection and prevention",
+              "Compliance frameworks and requirements",
+              "Security incident response workflows"
+            ],
+            "learning_methods": [
+              "Study governance audit logs in coordination/governance-audit.jsonl",
+              "Review risk assessment templates in coordination/risk-assessment-template.json",
+              "Analyze security scan results and remediation patterns",
+              "Examine security-related task completions"
+            ]
+          },
+          "development_standards": {
+            "description": "Understanding of coding standards, patterns, and best practices",
+            "areas": [
+              "Shell scripting conventions and patterns",
+              "Node.js/Express API design patterns",
+              "Frontend architecture (Alpine.js + Tailwind)",
+              "JSONL data format conventions",
+              "Error handling and logging standards",
+              "Testing strategies and coverage",
+              "Documentation standards",
+              "Git workflow and commit conventions"
+            ],
+            "learning_methods": [
+              "Analyze codebase structure and patterns",
+              "Study existing implementations in scripts/, dashboard/, coordination/",
+              "Review recent commits and development patterns",
+              "Examine testing frameworks in tests/"
+            ]
+          },
+          "operational_intelligence": {
+            "description": "Real-time system behavior and performance patterns",
+            "areas": [
+              "Worker pool utilization patterns",
+              "Task completion time distributions",
+              "Failure patterns and root causes",
+              "Resource consumption patterns",
+              "Peak load behaviors",
+              "System health indicators",
+              "Performance bottleneck identification"
+            ],
+            "learning_methods": [
+              "Monitor dashboard events in coordination/dashboard-events.jsonl",
+              "Analyze metrics snapshots in coordination/metrics-snapshots.jsonl",
+              "Study PM activity logs in coordination/pm-activity.jsonl",
+              "Review workforce streams in coordination/workforce-streams.json",
+              "Examine health reports in coordination/health-reports.jsonl"
+            ]
+          },
+          "latest_developments": {
+            "description": "Stay current with recent builds, features, and improvements",
+            "areas": [
+              "Recent architectural changes and improvements",
+              "New features and capabilities added",
+              "Bug fixes and stability improvements",
+              "Performance optimizations implemented",
+              "Dashboard enhancements and UI updates",
+              "Testing and validation improvements",
+              "Documentation updates"
+            ],
+            "learning_methods": [
+              "Analyze recent git commits and commit messages",
+              "Review implementation reports and summaries",
+              "Study changelog and version history",
+              "Examine recent task completions",
+              "Monitor governance learnings in coordination/governance-learnings.json"
+            ]
+          }
+        },
+        "learning_deliverables": [
+          {
+            "name": "enhanced_task_patterns",
+            "file": "coordination/memory/long-term/task-patterns.json",
+            "description": "Enhanced patterns with architectural understanding, workflow knowledge, and agent specialization insights"
+          },
+          {
+            "name": "routing_intelligence_model",
+            "file": "coordination/memory/long-term/routing-intelligence.json",
+            "description": "Advanced routing decision model based on architecture, context, complexity, and historical patterns"
+          },
+          {
+            "name": "agent_capability_matrix",
+            "file": "coordination/memory/long-term/agent-capabilities.json",
+            "description": "Detailed matrix of each agent's strengths, patterns, and optimal use cases"
+          },
+          {
+            "name": "security_pattern_library",
+            "file": "coordination/memory/long-term/security-patterns.json",
+            "description": "Library of security patterns, vulnerabilities, and remediation strategies"
+          },
+          {
+            "name": "development_standards_guide",
+            "file": "coordination/memory/long-term/development-standards.json",
+            "description": "Codified development standards, patterns, and best practices"
+          },
+          {
+            "name": "operational_insights",
+            "file": "coordination/memory/long-term/operational-insights.json",
+            "description": "Real-time behavioral patterns, performance baselines, and optimization opportunities"
+          },
+          {
+            "name": "learning_summary_report",
+            "file": "coordination/moe-learning-mastery-report.md",
+            "description": "Comprehensive report documenting learned knowledge, insights, and recommendations"
+          }
+        ],
+        "implementation_strategy": {
+          "phase_1_architecture_discovery": {
+            "duration": "30-45 minutes",
+            "activities": [
+              "Read and analyze all architecture documentation",
+              "Map system components and relationships",
+              "Document data flow patterns",
+              "Identify key integration points",
+              "Create architectural knowledge graph"
+            ]
+          },
+          "phase_2_agent_analysis": {
+            "duration": "30-45 minutes",
+            "activities": [
+              "Study each master agent's implementation",
+              "Analyze historical task routing decisions",
+              "Map agent capabilities to task types",
+              "Identify success patterns per agent",
+              "Build agent specialization model"
+            ]
+          },
+          "phase_3_workflow_learning": {
+            "duration": "30-45 minutes",
+            "activities": [
+              "Trace task lifecycle workflows",
+              "Analyze worker management patterns",
+              "Study health monitoring and alerting flows",
+              "Map governance and compliance workflows",
+              "Document decision trees and branching logic"
+            ]
+          },
+          "phase_4_security_intelligence": {
+            "duration": "20-30 minutes",
+            "activities": [
+              "Analyze security scan patterns",
+              "Study vulnerability remediation workflows",
+              "Review risk assessment methodologies",
+              "Build security pattern library",
+              "Document compliance requirements"
+            ]
+          },
+          "phase_5_operational_analysis": {
+            "duration": "20-30 minutes",
+            "activities": [
+              "Analyze real-time metrics and events",
+              "Identify performance patterns",
+              "Study failure modes and recovery",
+              "Document resource utilization patterns",
+              "Build operational baseline model"
+            ]
+          },
+          "phase_6_synthesis_and_reporting": {
+            "duration": "20-30 minutes",
+            "activities": [
+              "Synthesize learnings across all phases",
+              "Generate enhanced pattern models",
+              "Create comprehensive learning report",
+              "Update routing intelligence",
+              "Document recommendations for improvement"
+            ]
+          }
+        },
+        "success_criteria": [
+          "All 7 learning deliverables created with comprehensive data",
+          "Routing intelligence model shows improved confidence scoring",
+          "Agent capability matrix covers all 5 master agents",
+          "Security pattern library contains at least 20 patterns",
+          "Development standards guide documents key conventions",
+          "Operational insights identify performance baselines",
+          "Learning report demonstrates deep system understanding",
+          "Enhanced task patterns show architectural awareness",
+          "MoE routing accuracy improvement measurable in next 10 tasks"
+        ],
+        "integration_points": {
+          "moe_router": "Enhanced routing with architectural understanding",
+          "task_patterns": "Enriched patterns beyond keywords",
+          "dashboard": "Learning progress and insights visualization",
+          "governance": "Security and compliance pattern integration"
+        }
+      },
+      "deliverables": [
+        "coordination/memory/long-term/task-patterns.json (enhanced)",
+        "coordination/memory/long-term/routing-intelligence.json (new)",
+        "coordination/memory/long-term/agent-capabilities.json (new)",
+        "coordination/memory/long-term/security-patterns.json (new)",
+        "coordination/memory/long-term/development-standards.json (new)",
+        "coordination/memory/long-term/operational-insights.json (new)",
+        "coordination/moe-learning-mastery-report.md (new)"
+      ],
+      "metadata": {
+        "estimated_effort": "2.5-3.5 hours",
+        "complexity": "very high",
+        "learning_intensive": true,
+        "architectural_impact": "high",
+        "requires_system_analysis": true,
+        "on_demand_activation": true,
+        "dashboard_trigger": "moe_learning_page"
+      },
+      "assigned_to": "development",
+      "assigned_at": "2025-11-15T13:42:50-0600",
+      "cancelled_at": "2025-11-15T20:29:09+0000",
+      "cancellation_reason": "User requested focus on routing intelligence only"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763246282-6b58e5a8",
+      "title": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+      "type": "security",
+      "description": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "security",
+      "created_at": "2025-11-15T16:38:43-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763246282",
+      "context": {},
+      "assigned_at": "2025-11-15T16:38:55-0600"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763246282-ff986227",
+      "title": "Security audit and compliance scanning for production systems",
+      "type": "security",
+      "description": "Security audit and compliance scanning for production systems",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "security",
+      "created_at": "2025-11-15T16:38:45-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763246282",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:38:56-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:38:55-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763246282-e8e7046a",
+      "title": "Implement new API endpoint for user management feature",
+      "type": "feature",
+      "description": "Implement new API endpoint for user management feature",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "development",
+      "created_at": "2025-11-15T16:38:47-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763246282",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:38:56-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:38:56-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763246282-579254c4",
+      "title": "Fix performance bug in database query optimization code",
+      "type": "bug-fix",
+      "description": "Fix performance bug in database query optimization code",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "development",
+      "created_at": "2025-11-15T16:38:49-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763246282",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:38:56-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:38:56-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763246282-bb67152d",
+      "title": "Catalog and document all repository metadata and dependencies",
+      "type": "catalog",
+      "description": "Catalog and document all repository metadata and dependencies",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "inventory",
+      "created_at": "2025-11-15T16:38:51-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763246282",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:38:57-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:38:56-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763246282-6b53d344",
+      "title": "Discover and track portfolio health status across repositories",
+      "type": "inventory",
+      "description": "Discover and track portfolio health status across repositories",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "inventory",
+      "created_at": "2025-11-15T16:38:53-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763246282",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:38:57-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:38:56-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763246822-35699d93",
+      "title": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+      "type": "security",
+      "description": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "security",
+      "created_at": "2025-11-15T16:47:43-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763246822",
+      "context": {},
+      "assigned_at": "2025-11-15T16:47:49-0600"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763246822-04d8f5e0",
+      "title": "Security audit and compliance scanning for production systems",
+      "type": "security",
+      "description": "Security audit and compliance scanning for production systems",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "security",
+      "created_at": "2025-11-15T16:47:45-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763246822",
+      "context": {},
+      "assigned_at": "2025-11-15T16:47:49-0600"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763246822-91004f5a",
+      "title": "Implement new API endpoint for user management feature",
+      "type": "feature",
+      "description": "Implement new API endpoint for user management feature",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "development",
+      "created_at": "2025-11-15T16:47:47-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763246822",
+      "context": {},
+      "assigned_at": "2025-11-15T16:47:50-0600"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763246822-8c0d2292",
+      "title": "Fix performance bug in database query optimization code",
+      "type": "bug-fix",
+      "description": "Fix performance bug in database query optimization code",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "development",
+      "created_at": "2025-11-15T16:47:49-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763246822",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:47:56-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:47:56-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763246822-1d954f50",
+      "title": "Catalog and document all repository metadata and dependencies",
+      "type": "catalog",
+      "description": "Catalog and document all repository metadata and dependencies",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "inventory",
+      "created_at": "2025-11-15T16:47:51-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763246822",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:47:56-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:47:56-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763246822-33348243",
+      "title": "Discover and track portfolio health status across repositories",
+      "type": "inventory",
+      "description": "Discover and track portfolio health status across repositories",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "inventory",
+      "created_at": "2025-11-15T16:47:53-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763246822",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:47:56-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:47:56-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763246973-a849c3fa",
+      "title": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+      "type": "security",
+      "description": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "security",
+      "created_at": "2025-11-15T16:50:14-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763246973",
+      "context": {},
+      "assigned_at": "2025-11-15T16:50:26-0600"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763246973-121f1b91",
+      "title": "Security audit and compliance scanning for production systems",
+      "type": "security",
+      "description": "Security audit and compliance scanning for production systems",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "security",
+      "created_at": "2025-11-15T16:50:16-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763246973",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:50:27-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:50:27-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763246973-15a1b47e",
+      "title": "Implement new API endpoint for user management feature",
+      "type": "feature",
+      "description": "Implement new API endpoint for user management feature",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "development",
+      "created_at": "2025-11-15T16:50:18-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763246973",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:50:27-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:50:27-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763246973-276431e6",
+      "title": "Fix performance bug in database query optimization code",
+      "type": "bug-fix",
+      "description": "Fix performance bug in database query optimization code",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "development",
+      "created_at": "2025-11-15T16:50:20-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763246973",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:50:28-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:50:27-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763246973-f7fc82bc",
+      "title": "Catalog and document all repository metadata and dependencies",
+      "type": "catalog",
+      "description": "Catalog and document all repository metadata and dependencies",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "inventory",
+      "created_at": "2025-11-15T16:50:22-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763246973",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:50:28-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:50:27-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763246973-4324258d",
+      "title": "Discover and track portfolio health status across repositories",
+      "type": "inventory",
+      "description": "Discover and track portfolio health status across repositories",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "inventory",
+      "created_at": "2025-11-15T16:50:24-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763246973",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:50:28-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:50:28-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763247177-d2866cf8",
+      "title": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+      "type": "security",
+      "description": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "security",
+      "created_at": "2025-11-15T16:53:38-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763247177",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:53:51-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:53:51-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763247177-0adcd7ae",
+      "title": "Security audit and compliance scanning for production systems",
+      "type": "security",
+      "description": "Security audit and compliance scanning for production systems",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "security",
+      "created_at": "2025-11-15T16:53:40-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763247177",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:53:51-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:53:51-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763247177-831aecfc",
+      "title": "Implement new API endpoint for user management feature",
+      "type": "feature",
+      "description": "Implement new API endpoint for user management feature",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "development",
+      "created_at": "2025-11-15T16:53:42-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763247177",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:53:51-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:53:51-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763247177-947f1b05",
+      "title": "Fix performance bug in database query optimization code",
+      "type": "bug-fix",
+      "description": "Fix performance bug in database query optimization code",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "development",
+      "created_at": "2025-11-15T16:53:44-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763247177",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:53:51-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:53:51-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763247177-2f51d7f6",
+      "title": "Catalog and document all repository metadata and dependencies",
+      "type": "catalog",
+      "description": "Catalog and document all repository metadata and dependencies",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "inventory",
+      "created_at": "2025-11-15T16:53:46-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763247177",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:53:51-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:53:52-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763247177-f8d7e80e",
+      "title": "Discover and track portfolio health status across repositories",
+      "type": "inventory",
+      "description": "Discover and track portfolio health status across repositories",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "inventory",
+      "created_at": "2025-11-15T16:53:48-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763247177",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T16:53:52-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T16:53:52-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763253547-f4e113af",
+      "title": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+      "type": "security",
+      "description": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "security",
+      "created_at": "2025-11-15T18:39:48-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763253547",
+      "context": {},
+      "assigned_at": "2025-11-15T18:39:53-0600"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763253547-daee06d0",
+      "title": "Security audit and compliance scanning for production systems",
+      "type": "security",
+      "description": "Security audit and compliance scanning for production systems",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "security",
+      "created_at": "2025-11-15T18:39:50-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763253547",
+      "context": {},
+      "assigned_at": "2025-11-15T18:39:54-0600"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763253547-13724645",
+      "title": "Implement new API endpoint for user management feature",
+      "type": "feature",
+      "description": "Implement new API endpoint for user management feature",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "development",
+      "created_at": "2025-11-15T18:39:52-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763253547",
+      "context": {},
+      "assigned_at": "2025-11-15T18:39:54-0600"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763253547-a31c8ce5",
+      "title": "Fix performance bug in database query optimization code",
+      "type": "bug-fix",
+      "description": "Fix performance bug in database query optimization code",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "development",
+      "created_at": "2025-11-15T18:39:54-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763253547",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T18:40:00-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T18:40:00-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763253547-8eb95615",
+      "title": "Catalog and document all repository metadata and dependencies",
+      "type": "catalog",
+      "description": "Catalog and document all repository metadata and dependencies",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "inventory",
+      "created_at": "2025-11-15T18:39:56-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763253547",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T18:40:00-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T18:40:00-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763253547-d540bbda",
+      "title": "Discover and track portfolio health status across repositories",
+      "type": "inventory",
+      "description": "Discover and track portfolio health status across repositories",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "inventory",
+      "created_at": "2025-11-15T18:39:58-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763253547",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-15T18:40:01-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-15T18:40:01-06:00"
+    },
+    {
+      "id": "task-moe-learning-1763253866091",
+      "title": "MoE Learning System: Master commit-relay Architecture and Operations",
+      "type": "development",
+      "priority": "high",
+      "status": "assigned",
+      "created_at": "2025-11-16T00:44:26.091Z",
+      "created_by": "dashboard-learning-system",
+      "context": {
+        "description": "Comprehensive learning task for MoE system to deeply understand commit-relay architecture, workflows, agents, security patterns, development standards, and operational intelligence",
+        "learning_objectives": {
+          "architecture_mastery": {
+            "description": "Deep understanding of commit-relay system architecture",
+            "areas": [
+              "MoE (Mixture of Experts) routing and coordination patterns",
+              "Master agent specializations (development, security, inventory, cicd, coordinator)",
+              "Worker pool management and lifecycle (spawn, activate, heartbeat, cleanup)",
+              "Task queue architecture and multi-lane routing strategies",
+              "Process manager (PM) architecture and daemon orchestration",
+              "Dashboard real-time monitoring and SSE streaming architecture",
+              "Health monitoring, alerts, and governance systems",
+              "Vector database and semantic search capabilities",
+              "Configuration management and state persistence"
+            ],
+            "learning_methods": [
+              "Analyze architecture documentation in coordination/pm-architecture.md",
+              "Study master agent implementations in coordination/masters/",
+              "Examine worker specifications in coordination/worker-specs/",
+              "Review task patterns in coordination/memory/long-term/task-patterns.json",
+              "Analyze dashboard architecture in dashboard/README.md"
+            ]
+          },
+          "workflow_intelligence": {
+            "description": "Understanding of operational workflows and decision-making patterns",
+            "areas": [
+              "Task routing decision trees and confidence scoring",
+              "Worker activation strategies (single, sparse pool, full pool)",
+              "Task lifecycle management (pending → assigned → in_progress → completed)",
+              "Failure detection and recovery workflows",
+              "Health monitoring and alerting workflows",
+              "Governance and compliance workflows",
+              "CI/CD pipeline integration patterns",
+              "Security scanning and remediation workflows"
+            ],
+            "learning_methods": [
+              "Study MoE router logic in coordination/masters/coordinator/lib/moe-router.sh",
+              "Analyze worker daemon in scripts/worker-daemon.sh",
+              "Review task queue patterns in coordination/task-queue.json",
+              "Examine health monitoring in coordination/system-health.json",
+              "Study governance patterns in coordination/governance-*.json"
+            ]
+          },
+          "agent_specialization": {
+            "description": "Deep knowledge of each master agent's capabilities and patterns",
+            "agents": {
+              "development_master": {
+                "expertise": [
+                  "Feature implementation and code generation",
+                  "Bug fixing and debugging workflows",
+                  "Code refactoring and optimization",
+                  "Technical documentation creation",
+                  "Integration testing and validation",
+                  "Dashboard UI/UX improvements"
+                ],
+                "common_patterns": [
+                  "Alpine.js + Tailwind CSS for frontend",
+                  "Express.js + WebSocket + SSE for backend",
+                  "JSONL file formats for state persistence",
+                  "Chokidar for file watching",
+                  "Shell scripting for automation"
+                ]
+              },
+              "security_master": {
+                "expertise": [
+                  "Vulnerability scanning and CVE remediation",
+                  "Security audit execution",
+                  "Dependency security analysis",
+                  "Secrets detection and protection",
+                  "Compliance monitoring and reporting",
+                  "Security policy enforcement"
+                ],
+                "common_patterns": [
+                  "Risk assessment templates",
+                  "Severity classification (critical, high, medium, low)",
+                  "Security scan types (dependencies, SAST, secrets)",
+                  "Remediation strategies and timelines"
+                ]
+              },
+              "inventory_master": {
+                "expertise": [
+                  "Repository cataloging and metadata extraction",
+                  "Dependency tracking across portfolio",
+                  "Health status monitoring",
+                  "Documentation generation",
+                  "Portfolio analytics and insights"
+                ],
+                "common_patterns": [
+                  "Repository discovery workflows",
+                  "Metadata extraction and normalization",
+                  "Cross-repository dependency mapping"
+                ]
+              },
+              "cicd_master": {
+                "expertise": [
+                  "Build automation and orchestration",
+                  "Test execution and reporting",
+                  "Deployment strategy implementation",
+                  "Release workflow management",
+                  "Pipeline optimization"
+                ],
+                "common_patterns": [
+                  "Multi-stage pipeline definitions",
+                  "Test suite execution strategies",
+                  "Deployment verification workflows"
+                ]
+              },
+              "coordinator_master": {
+                "expertise": [
+                  "Task routing and load balancing",
+                  "MoE decision-making and confidence scoring",
+                  "Master coordination and delegation",
+                  "System-wide orchestration",
+                  "Resource allocation optimization"
+                ],
+                "common_patterns": [
+                  "Routing confidence thresholds",
+                  "Multi-expert activation strategies",
+                  "Task complexity assessment",
+                  "Priority-based routing"
+                ]
+              }
+            },
+            "learning_methods": [
+              "Analyze historical task patterns by expert in task-patterns.json",
+              "Study successful task completions and routing decisions",
+              "Review expert-specific keyword associations",
+              "Examine master agent specifications and capabilities"
+            ]
+          },
+          "security_intelligence": {
+            "description": "Understanding of security patterns, risks, and mitigation strategies",
+            "areas": [
+              "Common vulnerability patterns and CVE classifications",
+              "Risk assessment methodologies",
+              "Security scanning tool integration",
+              "Dependency security monitoring",
+              "Secrets detection and prevention",
+              "Compliance frameworks and requirements",
+              "Security incident response workflows"
+            ],
+            "learning_methods": [
+              "Study governance audit logs in coordination/governance-audit.jsonl",
+              "Review risk assessment templates in coordination/risk-assessment-template.json",
+              "Analyze security scan results and remediation patterns",
+              "Examine security-related task completions"
+            ]
+          },
+          "development_standards": {
+            "description": "Understanding of coding standards, patterns, and best practices",
+            "areas": [
+              "Shell scripting conventions and patterns",
+              "Node.js/Express API design patterns",
+              "Frontend architecture (Alpine.js + Tailwind)",
+              "JSONL data format conventions",
+              "Error handling and logging standards",
+              "Testing strategies and coverage",
+              "Documentation standards",
+              "Git workflow and commit conventions"
+            ],
+            "learning_methods": [
+              "Analyze codebase structure and patterns",
+              "Study existing implementations in scripts/, dashboard/, coordination/",
+              "Review recent commits and development patterns",
+              "Examine testing frameworks in tests/"
+            ]
+          },
+          "operational_intelligence": {
+            "description": "Real-time system behavior and performance patterns",
+            "areas": [
+              "Worker pool utilization patterns",
+              "Task completion time distributions",
+              "Failure patterns and root causes",
+              "Resource consumption patterns",
+              "Peak load behaviors",
+              "System health indicators",
+              "Performance bottleneck identification"
+            ],
+            "learning_methods": [
+              "Monitor dashboard events in coordination/dashboard-events.jsonl",
+              "Analyze metrics snapshots in coordination/metrics-snapshots.jsonl",
+              "Study PM activity logs in coordination/pm-activity.jsonl",
+              "Review workforce streams in coordination/workforce-streams.json",
+              "Examine health reports in coordination/health-reports.jsonl"
+            ]
+          },
+          "latest_developments": {
+            "description": "Stay current with recent builds, features, and improvements",
+            "areas": [
+              "Recent architectural changes and improvements",
+              "New features and capabilities added",
+              "Bug fixes and stability improvements",
+              "Performance optimizations implemented",
+              "Dashboard enhancements and UI updates",
+              "Testing and validation improvements",
+              "Documentation updates"
+            ],
+            "learning_methods": [
+              "Analyze recent git commits and commit messages",
+              "Review implementation reports and summaries",
+              "Study changelog and version history",
+              "Examine recent task completions",
+              "Monitor governance learnings in coordination/governance-learnings.json"
+            ]
+          }
+        },
+        "learning_deliverables": [
+          {
+            "name": "enhanced_task_patterns",
+            "file": "coordination/memory/long-term/task-patterns.json",
+            "description": "Enhanced patterns with architectural understanding, workflow knowledge, and agent specialization insights"
+          },
+          {
+            "name": "routing_intelligence_model",
+            "file": "coordination/memory/long-term/routing-intelligence.json",
+            "description": "Advanced routing decision model based on architecture, context, complexity, and historical patterns"
+          },
+          {
+            "name": "agent_capability_matrix",
+            "file": "coordination/memory/long-term/agent-capabilities.json",
+            "description": "Detailed matrix of each agent's strengths, patterns, and optimal use cases"
+          },
+          {
+            "name": "security_pattern_library",
+            "file": "coordination/memory/long-term/security-patterns.json",
+            "description": "Library of security patterns, vulnerabilities, and remediation strategies"
+          },
+          {
+            "name": "development_standards_guide",
+            "file": "coordination/memory/long-term/development-standards.json",
+            "description": "Codified development standards, patterns, and best practices"
+          },
+          {
+            "name": "operational_insights",
+            "file": "coordination/memory/long-term/operational-insights.json",
+            "description": "Real-time behavioral patterns, performance baselines, and optimization opportunities"
+          },
+          {
+            "name": "learning_summary_report",
+            "file": "coordination/moe-learning-mastery-report.md",
+            "description": "Comprehensive report documenting learned knowledge, insights, and recommendations"
+          }
+        ],
+        "implementation_strategy": {
+          "phase_1_architecture_discovery": {
+            "duration": "30-45 minutes",
+            "activities": [
+              "Read and analyze all architecture documentation",
+              "Map system components and relationships",
+              "Document data flow patterns",
+              "Identify key integration points",
+              "Create architectural knowledge graph"
+            ]
+          },
+          "phase_2_agent_analysis": {
+            "duration": "30-45 minutes",
+            "activities": [
+              "Study each master agent's implementation",
+              "Analyze historical task routing decisions",
+              "Map agent capabilities to task types",
+              "Identify success patterns per agent",
+              "Build agent specialization model"
+            ]
+          },
+          "phase_3_workflow_learning": {
+            "duration": "30-45 minutes",
+            "activities": [
+              "Trace task lifecycle workflows",
+              "Analyze worker management patterns",
+              "Study health monitoring and alerting flows",
+              "Map governance and compliance workflows",
+              "Document decision trees and branching logic"
+            ]
+          },
+          "phase_4_security_intelligence": {
+            "duration": "20-30 minutes",
+            "activities": [
+              "Analyze security scan patterns",
+              "Study vulnerability remediation workflows",
+              "Review risk assessment methodologies",
+              "Build security pattern library",
+              "Document compliance requirements"
+            ]
+          },
+          "phase_5_operational_analysis": {
+            "duration": "20-30 minutes",
+            "activities": [
+              "Analyze real-time metrics and events",
+              "Identify performance patterns",
+              "Study failure modes and recovery",
+              "Document resource utilization patterns",
+              "Build operational baseline model"
+            ]
+          },
+          "phase_6_synthesis_and_reporting": {
+            "duration": "20-30 minutes",
+            "activities": [
+              "Synthesize learnings across all phases",
+              "Generate enhanced pattern models",
+              "Create comprehensive learning report",
+              "Update routing intelligence",
+              "Document recommendations for improvement"
+            ]
+          }
+        },
+        "success_criteria": [
+          "All 7 learning deliverables created with comprehensive data",
+          "Routing intelligence model shows improved confidence scoring",
+          "Agent capability matrix covers all 5 master agents",
+          "Security pattern library contains at least 20 patterns",
+          "Development standards guide documents key conventions",
+          "Operational insights identify performance baselines",
+          "Learning report demonstrates deep system understanding",
+          "Enhanced task patterns show architectural awareness",
+          "MoE routing accuracy improvement measurable in next 10 tasks"
+        ],
+        "integration_points": {
+          "moe_router": "Enhanced routing with architectural understanding",
+          "task_patterns": "Enriched patterns beyond keywords",
+          "dashboard": "Learning progress and insights visualization",
+          "governance": "Security and compliance pattern integration"
+        }
+      },
+      "deliverables": [
+        "coordination/memory/long-term/task-patterns.json (enhanced)",
+        "coordination/memory/long-term/routing-intelligence.json (new)",
+        "coordination/memory/long-term/agent-capabilities.json (new)",
+        "coordination/memory/long-term/security-patterns.json (new)",
+        "coordination/memory/long-term/development-standards.json (new)",
+        "coordination/memory/long-term/operational-insights.json (new)",
+        "coordination/moe-learning-mastery-report.md (new)"
+      ],
+      "metadata": {
+        "estimated_effort": "2.5-3.5 hours",
+        "complexity": "very high",
+        "learning_intensive": true,
+        "architectural_impact": "high",
+        "requires_system_analysis": true,
+        "on_demand_activation": true,
+        "dashboard_trigger": "moe_learning_page"
+      },
+      "assigned_to": "development",
+      "assigned_at": "2025-11-15T18:44:36-0600"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763307968-4e5562fe",
+      "title": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+      "type": "security",
+      "description": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "security",
+      "created_at": "2025-11-16T09:46:49-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763307968",
+      "context": {},
+      "assigned_at": "2025-11-16T09:47:01-0600"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763307968-c38fab2c",
+      "title": "Security audit and compliance scanning for production systems",
+      "type": "security",
+      "description": "Security audit and compliance scanning for production systems",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "security",
+      "created_at": "2025-11-16T09:46:51-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763307968",
+      "context": {},
+      "assigned_at": "2025-11-16T09:47:01-0600",
+      "assigned_by": "coordinator",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-16T09:47:01-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763307968-bb0f7015",
+      "title": "Implement new API endpoint for user management feature",
+      "type": "feature",
+      "description": "Implement new API endpoint for user management feature",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "development",
+      "created_at": "2025-11-16T09:46:53-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763307968",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-16T09:47:02-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-16T09:47:02-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763307968-d1622fb0",
+      "title": "Fix performance bug in database query optimization code",
+      "type": "bug-fix",
+      "description": "Fix performance bug in database query optimization code",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "development",
+      "created_at": "2025-11-16T09:46:55-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763307968",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-16T09:47:02-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-16T09:47:02-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763307968-9c6e2cb8",
+      "title": "Catalog and document all repository metadata and dependencies",
+      "type": "catalog",
+      "description": "Catalog and document all repository metadata and dependencies",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "inventory",
+      "created_at": "2025-11-16T09:46:57-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763307968",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-16T09:47:03-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-16T09:47:02-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763307968-68caa71b",
+      "title": "Discover and track portfolio health status across repositories",
+      "type": "inventory",
+      "description": "Discover and track portfolio health status across repositories",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "inventory",
+      "created_at": "2025-11-16T09:46:59-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763307968",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-16T09:47:03-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-16T09:47:03-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763308845-677a1c95",
+      "title": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+      "type": "security",
+      "description": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "security",
+      "created_at": "2025-11-16T10:01:26-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763308845",
+      "context": {},
+      "assigned_at": "2025-11-16T10:01:32-0600"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763308845-ba35d73a",
+      "title": "Security audit and compliance scanning for production systems",
+      "type": "security",
+      "description": "Security audit and compliance scanning for production systems",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "security",
+      "created_at": "2025-11-16T10:01:28-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763308845",
+      "context": {},
+      "assigned_at": "2025-11-16T10:01:32-0600"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763308845-d67fe411",
+      "title": "Implement new API endpoint for user management feature",
+      "type": "feature",
+      "description": "Implement new API endpoint for user management feature",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "development",
+      "created_at": "2025-11-16T10:01:30-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763308845",
+      "context": {},
+      "assigned_at": "2025-11-16T10:01:33-0600"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763308845-9020d390",
+      "title": "Fix performance bug in database query optimization code",
+      "type": "bug-fix",
+      "description": "Fix performance bug in database query optimization code",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "development",
+      "created_at": "2025-11-16T10:01:32-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763308845",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-16T10:01:38-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-16T10:01:38-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763308845-ffaee228",
+      "title": "Catalog and document all repository metadata and dependencies",
+      "type": "catalog",
+      "description": "Catalog and document all repository metadata and dependencies",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "inventory",
+      "created_at": "2025-11-16T10:01:34-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763308845",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-16T10:01:39-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-16T10:01:38-06:00"
+    },
+    {
+      "id": "moe-test-ddqd-v5-1763308845-fc5648e2",
+      "title": "Discover and track portfolio health status across repositories",
+      "type": "inventory",
+      "description": "Discover and track portfolio health status across repositories",
+      "priority": "medium",
+      "status": "assigned",
+      "assigned_to": "inventory",
+      "created_at": "2025-11-16T10:01:36-0600",
+      "created_by": "ddqd-v5-test",
+      "moe_test": true,
+      "test_id": "ddqd-v5-1763308845",
+      "context": {},
+      "assigned_by": "coordinator",
+      "assigned_at": "2025-11-16T10:01:39-0600",
+      "routing_confidence": "N/A",
+      "routing_strategy": "pattern-based",
+      "updated_at": "2025-11-16T10:01:39-06:00"
+    }
+  ],
+  "updated_at": "2025-11-16T10:01:36-0600"
+}

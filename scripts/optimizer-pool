@@ -1,0 +1,118 @@
+#!/usr/bin/env bash
+#
+# Worker Pool CLI
+# Part of Phase 8.3: Worker Pooling & Reuse
+#
+
+set -euo pipefail
+
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/lib/optimization/worker-pool.sh"
+
+main() {
+    local command="${1:-help}"
+
+    case "$command" in
+        create)
+            local type="${2:?Worker type required}"
+            local master="${3:-coordinator}"
+            local id=$(create_warm_worker "$type" "$master")
+            echo "Created warm worker: $id"
+            ;;
+
+        get)
+            local type="${2:?Worker type required}"
+            local id=$(get_warm_worker "$type")
+            if [[ -n "$id" ]]; then
+                echo "$id"
+            else
+                echo "No warm worker available for type: $type"
+            fi
+            ;;
+
+        assign)
+            local type="${2:?Worker type required}"
+            local task="${3:?Task ID required}"
+            local id=$(assign_from_pool "$type" "$task")
+            echo "Assigned worker: $id"
+            ;;
+
+        return)
+            local worker_id="${2:?Worker ID required}"
+            local tokens="${3:-0}"
+            return_to_pool "$worker_id" "$tokens"
+            ;;
+
+        retire)
+            local worker_id="${2:?Worker ID required}"
+            local reason="${3:-manual}"
+            retire_worker "$worker_id" "$reason"
+            ;;
+
+        status)
+            get_pool_status | jq .
+            ;;
+
+        warmup)
+            local target="${2:-5}"
+            warm_up_pool "$target"
+            ;;
+
+        cleanup)
+            local hours="${2:-24}"
+            cleanup_cold_pool "$hours"
+            ;;
+
+        efficiency)
+            get_pool_efficiency | jq .
+            ;;
+
+        stats)
+            get_pool_stats | jq .
+            ;;
+
+        help|--help|-h)
+            cat <<EOF
+Worker Pool CLI - Worker pooling and reuse
+
+Usage: $0 <command> [options]
+
+Commands:
+  create <type> [master]        Create warm worker
+  get <type>                    Get available warm worker
+  assign <type> <task-id>       Assign worker from pool
+  return <worker-id> [tokens]   Return worker to pool
+  retire <worker-id> [reason]   Retire worker
+  status                        Get pool status
+  warmup [target]               Warm up pool
+  cleanup [hours]               Cleanup cold workers
+  efficiency                    Get pool efficiency
+  stats                         Get pool statistics
+
+Worker types: implementation, fix, test, scan, security-fix, documentation, analysis
+
+Examples:
+  $0 create scan security
+  $0 get implementation
+  $0 assign test task-001
+  $0 return warm-test-12345 3000
+  $0 retire warm-scan-12345 max_tasks
+  $0 status
+  $0 warmup 10
+  $0 cleanup 48
+  $0 efficiency
+  $0 stats
+
+EOF
+            ;;
+
+        *)
+            echo "Unknown command: $command"
+            exit 1
+            ;;
+    esac
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

@@ -1,0 +1,148 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-11-18T00:00:00-0600",
+  "enabled": true,
+  "global_settings": {
+    "auto_fix_enabled": true,
+    "require_approval_for_medium_risk": true,
+    "require_approval_for_high_risk": true,
+    "max_concurrent_fixes": 3,
+    "min_time_between_fixes_minutes": 30
+  },
+  "safety_thresholds": {
+    "min_safety_score_for_auto_apply": 0.90,
+    "min_safety_score_for_monitored_apply": 0.70,
+    "min_safety_score_for_approval_required": 0.50,
+    "min_safety_score_for_rejection": 0.30
+  },
+  "pattern_matching": {
+    "min_pattern_confidence": 0.75,
+    "min_pattern_occurrences": 2,
+    "max_pattern_age_hours": 48,
+    "require_active_pattern": true
+  },
+  "rate_limiting": {
+    "global": {
+      "max_fixes_per_hour": 10,
+      "max_fixes_per_day": 50
+    },
+    "per_category": {
+      "configuration": {
+        "max_fixes_per_hour": 5,
+        "max_fixes_per_day": 20
+      },
+      "resource": {
+        "max_fixes_per_hour": 5,
+        "max_fixes_per_day": 20
+      },
+      "workflow": {
+        "max_fixes_per_hour": 3,
+        "max_fixes_per_day": 10
+      },
+      "code": {
+        "max_fixes_per_hour": 2,
+        "max_fixes_per_day": 5
+      },
+      "dependency": {
+        "max_fixes_per_hour": 2,
+        "max_fixes_per_day": 5
+      }
+    },
+    "per_worker_type": {
+      "scan-worker": {
+        "max_fixes_per_hour": 3,
+        "max_fixes_per_day": 10
+      },
+      "implementation-worker": {
+        "max_fixes_per_hour": 2,
+        "max_fixes_per_day": 8
+      },
+      "pr-worker": {
+        "max_fixes_per_hour": 2,
+        "max_fixes_per_day": 8
+      }
+    },
+    "per_fix": {
+      "min_time_between_applications_minutes": 60,
+      "max_applications_per_day": 3
+    }
+  },
+  "validation": {
+    "default_monitoring_period_hours": 24,
+    "validation_check_interval_minutes": 30,
+    "min_success_rate_threshold": 0.75,
+    "auto_rollback_on_failure": true,
+    "rollback_delay_minutes": 5
+  },
+  "approval_workflow": {
+    "enabled": true,
+    "approval_timeout_hours": 24,
+    "auto_reject_on_timeout": true,
+    "notification_channels": [
+      "dashboard",
+      "log"
+    ],
+    "approval_sources": [
+      "manual",
+      "automated_checks"
+    ]
+  },
+  "fix_categories": {
+    "configuration": {
+      "enabled": true,
+      "default_safety_score": 0.90,
+      "require_approval": false
+    },
+    "resource": {
+      "enabled": true,
+      "default_safety_score": 0.85,
+      "require_approval": false
+    },
+    "workflow": {
+      "enabled": true,
+      "default_safety_score": 0.80,
+      "require_approval": false
+    },
+    "dependency": {
+      "enabled": true,
+      "default_safety_score": 0.70,
+      "require_approval": true
+    },
+    "code": {
+      "enabled": false,
+      "default_safety_score": 0.60,
+      "require_approval": true,
+      "reason": "Code fixes require manual review"
+    }
+  },
+  "rollback": {
+    "enabled": true,
+    "automatic_rollback": true,
+    "rollback_on_new_failures": true,
+    "rollback_on_validation_failure": true,
+    "max_rollback_attempts": 2,
+    "rollback_timeout_minutes": 10
+  },
+  "learning": {
+    "enabled": true,
+    "track_fix_success_rate": true,
+    "adjust_safety_scores": true,
+    "min_applications_for_learning": 5,
+    "success_threshold_for_score_increase": 0.90,
+    "failure_threshold_for_score_decrease": 0.30,
+    "score_adjustment_delta": 0.05
+  },
+  "observability": {
+    "emit_events": true,
+    "event_log_file": "coordination/events/auto-fix-events.jsonl",
+    "metrics_enabled": true,
+    "metrics_file": "coordination/metrics/auto-fix-metrics.json",
+    "detailed_logging": true,
+    "log_file": "agents/logs/system/auto-fix.log"
+  },
+  "token_budget": {
+    "check_budget_before_fix": true,
+    "min_budget_threshold_tokens": 10000,
+    "reserve_tokens_for_rollback": 5000
+  }
+}

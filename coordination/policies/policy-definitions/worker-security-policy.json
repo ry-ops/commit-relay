@@ -1,0 +1,82 @@
+{
+  "policy_id": "worker-security-baseline",
+  "name": "Worker Security Baseline Policy",
+  "description": "Ensures all workers comply with security baseline requirements",
+  "version": "1.0.0",
+  "severity": "high",
+  "enabled": true,
+  "frameworks": ["nist-csf", "soc2", "owasp"],
+  "controls": ["CR-PR-AC-1", "CR-PR-AC-4", "CR-PR-IP-1"],
+  "rules": [
+    {
+      "rule_id": "WSB-001",
+      "description": "Worker must have valid worker_id format",
+      "field": "worker_id",
+      "condition": {
+        "type": "regex",
+        "value": "^worker-[a-z]+-[0-9A-Za-z]+$"
+      },
+      "message": "Worker ID does not match required format (worker-{type}-{id})",
+      "remediation": "Update worker_id to follow pattern: worker-{type}-{id}"
+    },
+    {
+      "rule_id": "WSB-002",
+      "description": "Worker must have a valid status",
+      "field": "status",
+      "condition": {
+        "type": "in",
+        "value": ["pending", "running", "completed", "failed"]
+      },
+      "message": "Invalid worker status",
+      "remediation": "Set status to one of: pending, running, completed, failed"
+    },
+    {
+      "rule_id": "WSB-003",
+      "description": "Token budget must not exceed maximum limit",
+      "field": "resources.token_budget",
+      "condition": {
+        "type": "less_or_equal",
+        "value": "200000"
+      },
+      "message": "Token budget exceeds maximum allowed (200000)",
+      "remediation": "Reduce token_budget to 200000 or less"
+    },
+    {
+      "rule_id": "WSB-004",
+      "description": "Time limit must not exceed 2 hours",
+      "field": "resources.time_limit_minutes",
+      "condition": {
+        "type": "less_or_equal",
+        "value": "120"
+      },
+      "message": "Time limit exceeds maximum allowed (120 minutes)",
+      "remediation": "Reduce time_limit_minutes to 120 or less"
+    },
+    {
+      "rule_id": "WSB-005",
+      "description": "Worker must have assigned task",
+      "field": "task_id",
+      "condition": {
+        "type": "exists"
+      },
+      "message": "Worker must be assigned to a task",
+      "remediation": "Assign a valid task_id to the worker"
+    },
+    {
+      "rule_id": "WSB-006",
+      "description": "Worker type must be specified",
+      "field": "worker_type",
+      "condition": {
+        "type": "exists"
+      },
+      "message": "Worker type is required",
+      "remediation": "Specify a valid worker_type (e.g., implementation, scan, documentation)"
+    }
+  ],
+  "metadata": {
+    "author": "commit-relay-security",
+    "created_at": "2025-11-21T00:00:00Z",
+    "updated_at": "2025-11-21T00:00:00Z",
+    "tags": ["security", "baseline", "worker-validation"]
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Worker Goal Specification Schema",
+  "description": "Schema for goal-based worker planning specifications (Week 3: Five Agent Types)",
+  "type": "object",
+  "required": [
+    "task_id",
+    "worker_type",
+    "goal_type",
+    "selected_strategy",
+    "execution_plan",
+    "success_criteria"
+  ],
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "pattern": "^task-",
+      "description": "ID of the task this plan is for"
+    },
+    "worker_type": {
+      "type": "string",
+      "enum": [
+        "implementation-worker",
+        "test-worker",
+        "documentation-worker",
+        "scan-worker",
+        "fix-worker",
+        "analysis-worker",
+        "refactor-worker",
+        "validation-worker"
+      ],
+      "description": "Type of worker this plan is for"
+    },
+    "goal_type": {
+      "type": "string",
+      "enum": [
+        "feature-development",
+        "quality-assurance",
+        "knowledge-capture",
+        "analysis",
+        "deep-analysis",
+        "bug-fixes",
+        "code-improvement",
+        "verification",
+        "general"
+      ],
+      "description": "The primary goal category for this worker"
+    },
+    "complexity": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "very-high"],
+      "description": "Assessed complexity level of the task"
+    },
+    "selected_strategy": {
+      "type": "string",
+      "enum": ["tdd", "research", "direct", "iterative"],
+      "description": "The strategy selected for this worker's execution"
+    },
+    "strategy_description": {
+      "type": "string",
+      "description": "Human-readable description of the selected strategy"
+    },
+    "time_multiplier": {
+      "type": "number",
+      "minimum": 0.5,
+      "maximum": 2.0,
+      "description": "Time adjustment factor based on strategy (1.0 = baseline)"
+    },
+    "expected_quality": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Expected quality score (0-1) based on strategy"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": ["very-low", "low", "medium", "high", "very-high"],
+      "description": "Risk level associated with this strategy"
+    },
+    "execution_plan": {
+      "type": "object",
+      "required": ["approach", "phases"],
+      "properties": {
+        "approach": {
+          "type": "string",
+          "enum": [
+            "test-driven-development",
+            "research-first",
+            "direct-implementation",
+            "iterative-incremental"
+          ],
+          "description": "The execution approach to use"
+        },
+        "phases": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["phase", "name", "activities", "estimated_time_percent"],
+            "properties": {
+              "phase": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Phase number in execution sequence"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of this phase"
+              },
+              "activities": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "List of activities in this phase"
+              },
+              "estimated_time_percent": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100,
+                "description": "Percentage of total time for this phase"
+              }
+            }
+          }
+        }
+      }
+    },
+    "success_criteria": {
+      "type": "object",
+      "required": ["primary", "quality_gates", "deliverables", "validation"],
+      "properties": {
+        "primary": {
+          "type": "string",
+          "description": "Primary success criterion"
+        },
+        "quality_gates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of quality gates that must be passed"
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Expected deliverables from this worker"
+        },
+        "validation": {
+          "type": "string",
+          "description": "Validation method to confirm success"
+        }
+      }
+    },
+    "planned_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this strategy plan was created"
+    },
+    "planning_metadata": {
+      "type": "object",
+      "properties": {
+        "planner_version": {
+          "type": "string",
+          "description": "Version of the goal planner used"
+        },
+        "strategy_profiles_count": {
+          "type": "integer",
+          "description": "Number of strategy profiles evaluated"
+        },
+        "decision_factors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Factors considered in strategy selection"
+        }
+      }
+    }
+  }
+}

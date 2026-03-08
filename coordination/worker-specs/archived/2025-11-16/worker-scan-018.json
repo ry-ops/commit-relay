@@ -1,0 +1,50 @@
+{
+  "worker_id": "worker-scan-018",
+  "worker_type": "scan-worker",
+  "created_by": "security-master",
+  "execution_manager": null,
+  "created_at": "2025-11-16T10:33:20-0600",
+  "task_id": "moe-test-ddqd-v5-1763246282-6b58e5a8",
+  "status": "completed",
+  "scope": {},
+  "context": {
+    "parent_task": "moe-test-ddqd-v5-1763246282-6b58e5a8",
+    "priority": "medium",
+    "deadline": null
+  },
+  "resources": {
+    "token_budget": 8000,
+    "timeout_minutes": 15,
+    "max_retries": 1
+  },
+  "deliverables": [],
+  "prompt_template": "agents/prompts/workers/scan-worker.md",
+  "execution": {
+    "started_at": "2025-11-16T10:34:10-0600",
+    "completed_at": "2025-11-16T10:35:15-0600",
+    "tokens_used": 6500,
+    "duration_minutes": 1,
+    "session_id": "worker-scan-018-session-1763246282"
+  },
+  "results": {
+    "status": "completed",
+    "output_location": "agents/workers/worker-scan-018/logs/security-scans/CVE-2024-12345-scan-report.md",
+    "summary": "Security scan completed successfully. Analyzed 4 files (278 lines). Found 1 medium severity issue (rate limiting disabled). No critical vulnerabilities. Authentication module well-implemented with strong security controls.",
+    "artifacts": [
+      "logs/security-scans/CVE-2024-12345-scan-report.md",
+      "logs/completion-report.json"
+    ],
+    "findings": {
+      "critical": 0,
+      "high": 0,
+      "medium": 1,
+      "low": 0,
+      "informational": 3
+    },
+    "recommendations": [
+      "Re-enable rate limiting for production",
+      "Implement security monitoring",
+      "Add API key rotation capabilities"
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "worker_id": "dev-worker-37A01F3D",
+  "worker_type": "feature-implementer",
+  "prompt_template": "agents/prompts/workers/implementation-worker.md",
+  "parent_master": "development",
+  "task_id": "task-1762342908",
+  "task_data": {
+    "id": "task-1762342908",
+    "title": "Clean up all .processed handoff files from coordination/masters/*/handoffs/ directories (7 files total)",
+    "type": "development",
+    "priority": "low",
+    "status": "assigned",
+    "assigned_to": "development",
+    "created_at": "2025-11-05T12:13:45Z",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "Clean up all .processed handoff files from coordination/masters/*/handoffs/ directories (7 files total)",
+      "requirements": []
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-05T12:14:37Z",
+    "updated_at": "2025-11-05T06:14:37-06:00"
+  },
+  "context": {
+    "master_session": "3A24DCEC-39A6-495F-AC3E-262F0EEEDB03",
+    "expertise_area": "feature_development",
+    "skills_required": [
+      "design",
+      "implementation",
+      "testing"
+    ],
+    "knowledge_base_refs": {
+      "implementation_patterns": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/development/knowledge-base/implementation-patterns.jsonl",
+      "architecture_docs": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/development/knowledge-base/codebase-architecture.json"
+    }
+  },
+  "resources": {
+    "token_allocation": 15000,
+    "time_limit_minutes": 60
+  },
+  "status": "failed",
+  "created_at": "2025-11-05T12:14:44Z",
+  "created_by": "development",
+  "execution": {
+    "started_at": "2025-11-05T12:15:12Z",
+    "completed_at": "2025-11-06T21:32:03Z",
+    "error": "Zombie worker detected - running for 98210s with no completion",
+    "killed_by": "zombie-killer-daemon"
+  }
+}

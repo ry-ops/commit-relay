@@ -1,0 +1,127 @@
+{"test_suite":"governance","started_at":"2025-11-11T15:09:25Z","framework_version":"1.0.0"}
+{
+  "timestamp": "2025-11-11T15:09:25Z",
+  "test_name": "test_risk_assessment_low",
+  "test_type": "risk_assessment",
+  "risk_level": "low",
+  "result": "pass",
+  "details": {"task":"feature: Add user profile page with avatar upload","score":0},
+  "audit_id": "C76328BB-628F-4457-A021-6AF6CBFF5903"
+}
+{
+  "timestamp": "2025-11-11T15:09:25Z",
+  "test_name": "test_risk_assessment_medium",
+  "test_type": "risk_assessment",
+  "risk_level": "high",
+  "result": "fail",
+  "details": {"task":"refactor: Update database connection pooling configuration","score":45},
+  "audit_id": "4F95C220-2BE1-4709-819B-8F6538B6BDE9"
+}
+{
+  "timestamp": "2025-11-11T15:09:26Z",
+  "test_name": "test_risk_assessment_high",
+  "test_type": "risk_assessment",
+  "risk_level": "critical",
+  "result": "pass",
+  "details": {"task":"security-fix: Patch critical vulnerability in authentication system","score":90},
+  "audit_id": "18E265F0-1A98-4AA1-A7E7-9DE63889ECEB"
+}
+{
+  "timestamp": "2025-11-11T15:09:26Z",
+  "test_name": "test_risk_assessment_critical",
+  "test_type": "risk_assessment",
+  "risk_level": "critical",
+  "result": "pass",
+  "details": {"task":"cve-2024-1234: Deploy emergency security patch to production, delete vulnerable code","score":150},
+  "audit_id": "7065EA90-D6A8-4FF1-8715-A0E709B82493"
+}
+{
+  "timestamp": "2025-11-11T15:09:26Z",
+  "test_name": "test_approval_workflow_low_risk",
+  "test_type": "approval_workflow",
+  "risk_level": "low",
+  "result": "fail",
+  "details": [0;34m[INFO][0m Task test-task-low-001 auto-approved (low risk)
+{
+  "task_id": "test-task-low-001",
+  "risk_level": "low",
+  "approval_required": false,
+  "auto_approved": true
+},
+  "audit_id": "9B86D7CC-D737-46E5-B09B-ABF24DBE77B9"
+}
+{
+  "timestamp": "2025-11-11T15:09:26Z",
+  "test_name": "test_approval_workflow_high_risk",
+  "test_type": "approval_workflow",
+  "risk_level": "high",
+  "result": "fail",
+  "details": [1;33m[WARN][0m Task test-task-high-001 requires approval due to high risk level
+[0;34m[INFO][0m Simulating approval workflow for test-task-high-001...
+{
+  "task_id": "test-task-high-001",
+  "risk_level": "high",
+  "approval_required": true,
+  "approval_result": "approved",
+  "approver": "governance-system",
+  "approved_at": "2025-11-11T15:09:26Z"
+},
+  "audit_id": "B21EEF7F-CE57-4FB4-8FCD-C2F9E013D677"
+}
+{
+  "timestamp": "2025-11-11T15:09:26Z",
+  "test_name": "test_audit_trail_generation",
+  "test_type": "audit_trail",
+  "risk_level": "low",
+  "result": "pass",
+  "details": {"entries":      70},
+  "audit_id": "CDF5DD49-A15E-457A-BEBF-B01DF79644B1"
+}
+{
+  "timestamp": "2025-11-11T15:09:26Z",
+  "test_name": "test_audit_trail_integrity",
+  "test_type": "audit_trail",
+  "risk_level": "low",
+  "result": "fail",
+  "details": {"invalid_entries":78},
+  "audit_id": "07EA8D63-7E4B-4B7C-B202-A66DE8C96F4E"
+}
+{
+  "timestamp": "2025-11-11T15:09:26Z",
+  "test_name": "test_circuit_breaker_triggers",
+  "test_type": "circuit_breaker",
+  "risk_level": "medium",
+  "result": "fail",
+  "details": [0;34m[INFO][0m Testing circuit breaker for test-service...
+{
+  "service": "test-service",
+  "failures_simulated": 5,
+  "breaker_state": "open",
+  "expected_state": "open"
+},
+  "audit_id": "4E230B10-E3A0-422B-B2EA-B2FDA2B0A1B1"
+}
+{
+  "timestamp": "2025-11-11T15:09:27Z",
+  "test_name": "test_service_auto_recovery",
+  "test_type": "auto_recovery",
+  "risk_level": "medium",
+  "result": "fail",
+  "details": [0;34m[INFO][0m Testing auto-recovery for test-service...
+{
+  "service": "test-service",
+  "recovery_attempted": true,
+  "recovery_successful": true,
+  "new_state": "half_open"
+},
+  "audit_id": "F88312E6-56AA-4FF0-A1C0-F52760A70CFD"
+}
+{
+  "timestamp": "2025-11-11T15:09:27Z",
+  "test_name": "test_compliance_monitoring",
+  "test_type": "compliance",
+  "risk_level": "low",
+  "result": "pass",
+  "details": {},
+  "audit_id": "61C1C9FE-DBEA-4896-B0AF-A993BFEECF77"
+}

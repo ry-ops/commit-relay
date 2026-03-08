@@ -1,0 +1,97 @@
+{
+  "handoff_id": "coord-to-development-task-018",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-018",
+  "task_data": {
+    "id": "task-018",
+    "title": "Merge tasks into events feed and reorganize dashboard overview",
+    "type": "development",
+    "priority": "high",
+    "status": "assigned",
+    "assigned_to": "development-master",
+    "assigned_by": "coordinator-master",
+    "assigned_at": "2025-11-04T18:30:00Z",
+    "created_at": "2025-11-04T18:15:00Z",
+    "created_by": "user",
+    "repository": "ry-ops/commit-relay",
+    "context": {
+      "description": "Consolidate the dashboard overview by merging tasks into the real-time events feed, making events show ALL system activity (workers, tasks, system events). Remove the Recent Tasks card and move detailed task information to the dedicated Tasks page.",
+      "current_issues": [
+        "Real-time Events card only shows worker/system events, missing task events",
+        "Recent Tasks card is redundant with Tasks page",
+        "Overview page has duplicate information",
+        "Events feed should be comprehensive showing all system activity",
+        "Task details belong on the dedicated Tasks page, not overview"
+      ],
+      "requirements": [
+        "Merge task events into the Real-time Events feed on overview page",
+        "Show task_created, task_assigned, task_completed, task_failed events",
+        "Remove the Recent Tasks card from overview page entirely",
+        "Keep Token Budget chart and Real-time Events as only cards on overview",
+        "Ensure Tasks page has comprehensive task information",
+        "Update event types to include all task lifecycle events",
+        "Maintain event coloring and icons for different event types",
+        "Real-time updates via WebSocket for all event types"
+      ],
+      "event_types_to_show": [
+        "worker_started (blue dot)",
+        "worker_completed (green dot)",
+        "worker_failed (red dot)",
+        "task_created (blue dot)",
+        "task_assigned (purple dot)",
+        "task_completed (green dot)",
+        "task_failed (red dot)",
+        "system_event (gray dot)",
+        "dashboard_event (teal dot)"
+      ],
+      "deliverables": [
+        "Updated dashboard/public/index.html - Remove Recent Tasks card",
+        "Updated dashboard/public/index.html - Expand Events feed to full width",
+        "Updated dashboard/public/dashboard-v2.js - Merge task events into events array",
+        "Updated dashboard/server/index.js - Generate task events from task-queue",
+        "Event type handling for task_created, task_assigned, task_completed",
+        "Color coding and icons for all event types",
+        "WebSocket broadcast for task events",
+        "Tests verifying event feed shows all activity"
+      ],
+      "files_to_modify": [
+        "dashboard/public/index.html",
+        "dashboard/public/dashboard-v2.js",
+        "dashboard/server/index.js"
+      ],
+      "success_criteria": [
+        "Overview page shows only metric cards, Token Budget, and Events feed",
+        "Recent Tasks card completely removed",
+        "Real-time Events feed shows ALL system activity (workers + tasks + system)",
+        "Task events have proper color coding and icons",
+        "Events update in real-time via WebSocket",
+        "Tasks page remains fully functional with complete task details",
+        "No duplicate information between overview and tasks page",
+        "Event feed is comprehensive and easy to read"
+      ],
+      "estimated_effort": "MEDIUM - UI restructuring and event generation logic"
+    },
+    "handoff_plan": {
+      "after_completion": "coordinator-master",
+      "reason": "Verify dashboard reorganization and event feed consolidation"
+    }
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE (code-development rule)",
+    "routing_rule": "code-development",
+    "pattern_matched": "implement|develop|code|feature|refactor",
+    "confidence": 0.90,
+    "priority": "high",
+    "expected_outcome": "Task completion with dashboard UI reorganization and unified event feed",
+    "coordinator_notes": "Dashboard UX improvement task focusing on consolidating events and removing redundancy. Involves frontend (HTML/JS) and backend (Node.js server) modifications. Task aligns with recent dashboard improvement series (task-014, task-015, task-016).",
+    "related_tasks": [
+      "task-014: Dashboard real-time data freshness improvements",
+      "task-015: Dashboard metric accuracy fixes",
+      "task-016: Token Budget card redesign",
+      "task-017: CI/CD Agent and Multi-Workforce Streams"
+    ]
+  },
+  "created_at": "2025-11-04T18:30:00Z",
+  "status": "pending_pickup"
+}

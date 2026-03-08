@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+#
+# Autonomous Optimizer CLI
+# Part of Q3 Weeks 29-32: Autonomous Optimization
+#
+
+set -euo pipefail
+
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/lib/autonomy/optimizer.sh"
+
+main() {
+    local command="${1:-help}"
+
+    case "$command" in
+        analyze)
+            local agent_id="${2:?Agent ID required}"
+            local hours="${3:-24}"
+            analyze_agent "$agent_id" "$hours" | jq .
+            ;;
+
+        create)
+            local agent_id="${2:?Agent ID required}"
+            local type="${3:-self_tuning}"
+            local strategy="${4:-incremental}"
+            local opt_id=$(create_optimization "$agent_id" "$type" "manual" "$strategy")
+            echo "Created optimization: $opt_id"
+            ;;
+
+        run)
+            local optimization_id="${2:?Optimization ID required}"
+            echo "Running optimization: $optimization_id"
+            run_optimization "$optimization_id" | jq .
+            ;;
+
+        auto)
+            local agent_id="${2:?Agent ID required}"
+            local metric="${3:?Metric required}"
+            local value="${4:?Value required}"
+            local threshold="${5:?Threshold required}"
+            local opt_id=$(auto_optimize "$agent_id" "$metric" "$value" "$threshold")
+            echo "Auto-optimization completed: $opt_id"
+            ;;
+
+        status)
+            local optimization_id="${2:?Optimization ID required}"
+            get_optimization "$optimization_id" | jq .
+            ;;
+
+        list)
+            local agent_id="${2:-}"
+            local limit="${3:-20}"
+            list_optimizations "$agent_id" "$limit" | jq .
+            ;;
+
+        stats)
+            local agent_id="${2:-}"
+            get_optimization_stats "$agent_id" | jq .
+            ;;
+
+        help|--help|-h)
+            cat <<EOF
+Autonomous Optimizer CLI - Self-tuning and performance optimization
+
+Usage: $0 <command> [options]
+
+Commands:
+  analyze <agent-id> [hours]
+                          Analyze agent for optimization opportunities
+  create <agent-id> [type] [strategy]
+                          Create optimization plan
+  run <optimization-id>   Execute optimization
+  auto <agent-id> <metric> <value> <threshold>
+                          Auto-optimize based on threshold
+  status <optimization-id>
+                          Get optimization status
+  list [agent-id] [limit] List optimizations
+  stats [agent-id]        Get optimization statistics
+
+Types: self_tuning, resource_scaling, performance, configuration, workflow
+Strategies: incremental, aggressive, conservative, experimental
+
+Examples:
+  $0 analyze my-agent 24
+  $0 create my-agent self_tuning incremental
+  $0 run opt-my-agent-abc12345
+  $0 auto my-agent latency_ms 500 300
+  $0 stats my-agent
+
+EOF
+            ;;
+
+        *)
+            echo "Unknown command: $command"
+            echo "Use '$0 help' for usage"
+            exit 1
+            ;;
+    esac
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

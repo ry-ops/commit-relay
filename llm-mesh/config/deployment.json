@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "deployment_date": "2025-11-25T11:53:26-06:00",
+  "configuration": {
+    "ab_test_percentage": 0.1,
+    "enable_neural": false,
+    "enable_rag": true,
+    "model_path": "/Users/ryandahlberg/Projects/commit-relay/llm-mesh/models/routing/current",
+    "vectorstore_path": "/Users/ryandahlberg/Projects/commit-relay/llm-mesh/vectors/codebase-test"
+  },
+  "status": "deployed"
+}

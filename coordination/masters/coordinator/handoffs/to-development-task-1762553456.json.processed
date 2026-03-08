@@ -1,0 +1,56 @@
+{
+  "handoff_id": "coord-to-development-9CEA5FE1-DC58-40EB-B048-2841FA00853F",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762553456",
+  "task_data": {
+    "id": "task-1762553456",
+    "title": "PRIORITY 3: Test MoE with Governance Controls - Real-world validation of governance framework",
+    "description": "Create a comprehensive test task for MoE system to execute while observing governance controls in action. Test objectives: 1) Validate risk assessment system correctly evaluates task risk levels (low/medium/high/critical), 2) Verify audit trail generation for all governance decisions, 3) Test service auto-recovery mechanisms under failure scenarios, 4) Validate approval workflows for high-risk operations, 5) Test compliance monitoring and reporting. Create test scenarios: low-risk routine task, medium-risk configuration change, high-risk system modification. Observe MoE routing decisions, governance checkpoints, audit logging, and recovery behaviors. Document findings and validate governance controls are working as designed.",
+    "type": "development",
+    "priority": "high",
+    "status": "assigned",
+    "assigned_to": "development",
+    "created_at": "2025-11-11T08:09:37-0600",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "requirements": []
+    }
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE - Development task for testing governance framework",
+    "priority": "high",
+    "expected_outcome": "Comprehensive governance testing with documented results and validation",
+    "routing_rule": "code-development",
+    "routing_confidence": 0.95,
+    "routing_strategy": "single_expert",
+    "test_objectives": [
+      "Validate risk assessment system for task risk levels",
+      "Verify audit trail generation for governance decisions",
+      "Test service auto-recovery mechanisms",
+      "Validate approval workflows for high-risk operations",
+      "Test compliance monitoring and reporting"
+    ],
+    "test_scenarios": [
+      "Low-risk routine task",
+      "Medium-risk configuration change",
+      "High-risk system modification"
+    ],
+    "observations_required": [
+      "MoE routing decisions",
+      "Governance checkpoints",
+      "Audit logging",
+      "Recovery behaviors"
+    ]
+  },
+  "created_at": "2025-11-11T15:01:07Z",
+  "status": "pending_pickup",
+  "metadata": {
+    "coordinator_session_id": "CE51B6D2-1BF9-4EF9-B147-EC76CC3BA2D8",
+    "routing_timestamp": "2025-11-11T15:01:07Z",
+    "estimated_complexity": "high",
+    "requires_governance_validation": true
+  }
+}

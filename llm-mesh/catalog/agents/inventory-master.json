@@ -1,0 +1,60 @@
+{
+  "agent_id": "inventory-master",
+  "display_name": "Inventory Master",
+  "version": "2.0.0",
+  "type": "specialist",
+  "specialization": "cataloging",
+  "description": "Inventory specialist for cataloging and documentation",
+  "capabilities": [
+    "repository_discovery",
+    "metadata_cataloging",
+    "documentation_generation",
+    "dependency_tracking",
+    "health_monitoring",
+    "portfolio_management",
+    "cross_repository_analysis"
+  ],
+  "activation_patterns": {
+    "keywords": [
+      "document", "catalog", "inventory", "list",
+      "discover", "track", "monitor", "survey",
+      "audit repositories", "metadata", "portfolio",
+      "overview", "status", "health check"
+    ],
+    "confidence_boosters": [
+      "repository", "repo", "repositories", "portfolio",
+      "projects", "codebase", "overview", "summary",
+      "README", "documentation", "dependencies", "versions"
+    ]
+  },
+  "tools": [
+    "repository-scanner",
+    "metadata-extractor",
+    "dependency-analyzer",
+    "documentation-generator",
+    "health-checker"
+  ],
+  "prompts": [
+    "catalog-generation-v1",
+    "metadata-extraction-v1",
+    "health-report-v1"
+  ],
+  "performance": {
+    "total_tasks": 45,
+    "success_rate": 0.94,
+    "avg_task_duration_seconds": 900,
+    "avg_quality_score": 0.88
+  },
+  "optimal_for": [
+    "repository_cataloging",
+    "documentation_generation",
+    "dependency_tracking",
+    "portfolio_overview",
+    "health_monitoring"
+  ],
+  "resource_requirements": {
+    "avg_llm_calls_per_task": 2,
+    "avg_llm_cost_per_task": 0.016,
+    "preferred_model": "claude-haiku"
+  }
+}

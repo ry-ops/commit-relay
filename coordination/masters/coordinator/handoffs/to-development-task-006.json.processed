@@ -1,0 +1,50 @@
+{
+  "handoff_id": "coord-to-development-A4127405-243C-4C5F-A931-98AB35E77AAA",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-006",
+  "task_data": {
+  "id": "task-006",
+  "title": "Research Claude Code API for conversation access",
+  "type": "development",
+  "priority": "high",
+  "status": "assigned",
+  "assigned_to": "development",
+  "created_at": "2025-10-31T19:20:00Z",
+  "created_by": "coordinator-agent",
+  "repository": "ry-ops/aiana",
+  "context": {
+    "description": "Research and document Claude Code's API capabilities for accessing conversation data in real-time",
+    "project": "aiana - AI conversation attendant for Claude Code",
+    "requirements": [
+      "Investigate Claude Code API documentation",
+      "Determine if real-time conversation streaming is available",
+      "Identify authentication/authorization requirements",
+      "Document API endpoints and data formats",
+      "Test basic API connectivity",
+      "Assess feasibility of real-time monitoring"
+    ],
+    "deliverables": [
+      "API research document (markdown)",
+      "Sample API calls/examples",
+      "Architecture recommendation"
+    ],
+    "related_issues": [],
+    "previous_handoffs": []
+  },
+  "handoff_plan": {
+    "after_completion": "coordinator-agent",
+    "reason": "Review findings and decide on implementation approach"
+  },
+  "assigned_by": "coordinator",
+  "assigned_at": "2025-11-03T19:04:59Z",
+  "updated_at": "2025-11-03T13:04:59-06:00"
+},
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": high,
+    "expected_outcome": "Task completion with results handoff"
+  },
+  "created_at": "2025-11-03T19:04:59Z",
+  "status": "pending_pickup"
+}

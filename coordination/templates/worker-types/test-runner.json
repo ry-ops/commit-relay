@@ -1,0 +1,26 @@
+{
+  "worker_type": "test-runner",
+  "master": "cicd",
+  "description": "Runs and validates test suites",
+  "default_config": {
+    "token_budget": 20000,
+    "timeout_minutes": 30,
+    "priority": "medium",
+    "retry_limit": 3
+  },
+  "required_fields": [
+    "task_id",
+    "test_scope"
+  ],
+  "optional_fields": [
+    "test_pattern",
+    "coverage_threshold",
+    "environment"
+  ],
+  "success_criteria": {
+    "tests_executed": true,
+    "results_documented": true,
+    "failures_analyzed": true
+  },
+  "prompt_template": "Run test suite:\n\n## Test Scope\n{{test_scope}}\n\n## Guidelines\n- Run all relevant tests\n- Document any failures\n- Analyze failing tests for root cause\n- Report coverage if applicable"
+}

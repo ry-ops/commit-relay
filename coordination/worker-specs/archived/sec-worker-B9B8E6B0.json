@@ -1,0 +1,53 @@
+{
+  "worker_id": "sec-worker-B9B8E6B0",
+  "worker_type": "scan-worker",
+  "prompt_template": "agents/prompts/workers/scan-worker.md",
+  "parent_master": "security",
+  "task_id": "task-1762553461",
+  "task_data": {
+    "id": "task-1762553461",
+    "title": "PROMPT ENGINEERING UPGRADE - Phase 3: Observability & Tracing. Implement comprehensive tracing so every prompt→output chain is visible and measurable. OBJECTIVES: 1) Build tracing infrastructure with PromptTracer class - startTrace, recordStep, endTrace methods storing in coordination/traces/. 2) Instrument all agent calls with tracing: coordinator routing, development implementation, security scanning, inventory cataloging. 3) Create trace explorer dashboard at dashboard/public/traces.html - view all traces, filter by operation/agent/status, inspect full prompt→output chains. 4) Add metrics collection: first-pass validation rate by agent, retry rate by operation, tokens per operation, latency p50/p95/p99, schema violation types. 5) Build trace analysis tools in scripts/analyze-traces.sh. TECHNICAL: Store traces as JSONL in coordination/traces/, integrate with dashboard WebSocket for real-time updates, use dashboard event system. DELIVERABLES: lib/tracing/tracer.js, trace storage, trace explorer UI, metrics dashboard, analysis scripts. SUCCESS: 100% agent calls traced, traces retained 30 days, metrics updated every 5min.",
+    "type": "development",
+    "priority": "high",
+    "status": "assigned",
+    "assigned_to": "security",
+    "created_at": "2025-11-11T10:33:08-0600",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "PROMPT ENGINEERING UPGRADE - Phase 3: Observability & Tracing. Implement comprehensive tracing so every prompt→output chain is visible and measurable. OBJECTIVES: 1) Build tracing infrastructure with PromptTracer class - startTrace, recordStep, endTrace methods storing in coordination/traces/. 2) Instrument all agent calls with tracing: coordinator routing, development implementation, security scanning, inventory cataloging. 3) Create trace explorer dashboard at dashboard/public/traces.html - view all traces, filter by operation/agent/status, inspect full prompt→output chains. 4) Add metrics collection: first-pass validation rate by agent, retry rate by operation, tokens per operation, latency p50/p95/p99, schema violation types. 5) Build trace analysis tools in scripts/analyze-traces.sh. TECHNICAL: Store traces as JSONL in coordination/traces/, integrate with dashboard WebSocket for real-time updates, use dashboard event system. DELIVERABLES: lib/tracing/tracer.js, trace storage, trace explorer UI, metrics dashboard, analysis scripts. SUCCESS: 100% agent calls traced, traces retained 30 days, metrics updated every 5min.",
+      "requirements": []
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-11T11:42:14-0600",
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-11T11:42:14-06:00"
+  },
+  "context": {
+    "master_session": "D3E7AA88-CB9B-44A8-A1DC-8BEE4B0FA048",
+    "expertise_area": "vulnerability_detection",
+    "skills_required": [
+      "dependency_scanning",
+      "static_analysis",
+      "secrets_detection"
+    ],
+    "knowledge_base_refs": {
+      "vulnerability_database": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/security/knowledge-base/vulnerability-history.jsonl",
+      "remediation_strategies": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/security/knowledge-base/remediation-patterns.json",
+      "false_positives": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/security/knowledge-base/false-positives.json"
+    },
+    "relevant_past_findings": {}
+  },
+  "resources": {
+    "token_allocation": 12000,
+    "time_limit_minutes": 60
+  },
+  "status": "running",
+  "created_at": "2025-11-11T16:36:58-0600",
+  "created_by": "security",
+  "execution": {
+    "started_at": "2025-11-12T07:44:42-0600"
+  }
+}

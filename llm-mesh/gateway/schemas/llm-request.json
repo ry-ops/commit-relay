@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LLM Gateway Request",
+  "description": "Standardized request format for LLM Gateway",
+  "type": "object",
+  "required": ["request_id", "prompt", "task_type"],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "description": "Unique request identifier"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "task_type": {
+      "type": "string",
+      "enum": [
+        "routing-analysis",
+        "pattern-extraction",
+        "improvement-generation",
+        "task-feature-extraction",
+        "quality-evaluation",
+        "general-analysis"
+      ],
+      "description": "Type of task for model selection"
+    },
+    "prompt": {
+      "type": "string",
+      "description": "The prompt to send to the LLM"
+    },
+    "model": {
+      "type": "string",
+      "description": "Specific model to use (optional, gateway will select if not provided)"
+    },
+    "provider": {
+      "type": "string",
+      "enum": ["anthropic", "openai", "local", "auto"],
+      "default": "auto",
+      "description": "LLM provider"
+    },
+    "expert": {
+      "type": "string",
+      "description": "Which expert is making this request (for tracking)"
+    },
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "max_tokens": {
+          "type": "integer",
+          "default": 4096,
+          "description": "Maximum tokens to generate"
+        },
+        "temperature": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.7
+        },
+        "max_cost": {
+          "type": "number",
+          "description": "Maximum cost allowed for this request (USD)"
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "description": "Additional context for tracking and learning",
+      "properties": {
+        "routing_decision_id": {"type": "string"},
+        "task_id": {"type": "string"},
+        "priority": {"type": "string"}
+      }
+    }
+  }
+}

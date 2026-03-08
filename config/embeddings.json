@@ -1,0 +1,90 @@
+{
+  "version": "1.0.0",
+  "description": "Embeddings provider configuration for commit-relay RAG system",
+  "active_provider": "mock",
+  "providers": {
+    "openai": {
+      "model": "text-embedding-3-small",
+      "maxBatchSize": 100,
+      "rateLimitDelay": 200,
+      "maxRetries": 3,
+      "retryDelay": 1000
+    },
+    "ollama": {
+      "model": "nomic-embed-text",
+      "baseURL": "http://localhost:11434",
+      "maxBatchSize": 10,
+      "rateLimitDelay": 50,
+      "timeout": 60000
+    },
+    "mock": {
+      "dimensions": 1536,
+      "maxBatchSize": 100,
+      "rateLimitDelay": 10,
+      "latency": 0,
+      "seed": "commit-relay-rag"
+    }
+  },
+  "global_settings": {
+    "normalize_embeddings": true,
+    "cache_embeddings": true,
+    "log_performance": false
+  },
+  "model_alternatives": {
+    "openai": {
+      "high_quality": {
+        "model": "text-embedding-3-large",
+        "dimensions": 3072,
+        "description": "Higher quality, more expensive"
+      },
+      "balanced": {
+        "model": "text-embedding-3-small",
+        "dimensions": 1536,
+        "description": "Good balance of quality and cost"
+      },
+      "legacy": {
+        "model": "text-embedding-ada-002",
+        "dimensions": 1536,
+        "description": "Legacy model, still supported"
+      }
+    },
+    "ollama": {
+      "default": {
+        "model": "nomic-embed-text",
+        "dimensions": 768,
+        "description": "Good general purpose local model"
+      },
+      "large": {
+        "model": "mxbai-embed-large",
+        "dimensions": 1024,
+        "description": "Higher quality, slower"
+      },
+      "fast": {
+        "model": "all-minilm",
+        "dimensions": 384,
+        "description": "Fast, lower quality"
+      }
+    }
+  },
+  "environment_overrides": {
+    "development": {
+      "active_provider": "mock",
+      "providers": {
+        "mock": {
+          "latency": 50
+        }
+      }
+    },
+    "testing": {
+      "active_provider": "mock",
+      "providers": {
+        "mock": {
+          "latency": 0
+        }
+      }
+    },
+    "production": {
+      "active_provider": "openai"
+    }
+  }
+}

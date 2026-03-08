@@ -1,0 +1,39 @@
+{
+  "handoff_id": "coord-to-security-F860EFF2-D48E-47A0-A552-2993ED887319",
+  "from_master": "coordinator",
+  "to_master": "security",
+  "task_id": "task-64915432",
+  "task_data": {
+    "id": "task-64915432",
+    "title": "Build ResuMate: AI-powered resume optimization web app with resume/job description upload, Claude AI analysis, and ATS/LPS compatibility scanning",
+    "type": "development",
+    "priority": "high",
+    "status": "assigned",
+    "assigned_to": "security",
+    "created_at": "2025-11-17T13:13:51-0600",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/ResuMate",
+      "branch": "main",
+      "description": "Build ResuMate: AI-powered resume optimization web app with resume/job description upload, Claude AI analysis, and ATS/LPS compatibility scanning",
+      "requirements": []
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-17T13:15:57-0600",
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-17T13:15:57-06:00"
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "high",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "N/A",
+      "strategy": "pattern-based",
+      "routed_at": "2025-11-17T13:15:57-0600"
+    }
+  },
+  "created_at": "2025-11-17T13:15:57-0600",
+  "status": "pending_pickup"
+}

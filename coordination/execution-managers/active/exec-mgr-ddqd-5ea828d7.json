@@ -1,0 +1,15 @@
+{
+  "exec_mgr_id": "exec-mgr-ddqd-5ea828d7",
+  "master_type": "development",
+  "subtask_id": "ddqd-subtask-c14647ed",
+  "status": "ready",
+  "started_at": "2025-11-21T07:41:47-0600",
+  "last_heartbeat": "2025-11-21T07:41:47-0600",
+  "workers_spawned": 0,
+  "workers_completed": 0,
+  "workers_failed": 0,
+  "tokens_used": 0,
+  "current_phase": "awaiting_start",
+  "stress_test": true,
+  "test_id": "ddqd-1763732356"
+}

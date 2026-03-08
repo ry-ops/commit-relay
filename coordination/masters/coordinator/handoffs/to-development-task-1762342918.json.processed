@@ -1,0 +1,32 @@
+{
+  "handoff_id": "coord-to-development-4A366511-B2F5-492C-97A1-05B31C8A71C6",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762342918",
+  "task_data": {
+  "id": "task-1762342918",
+  "title": "Replace token budget pie chart with AUTONOMOUS PRODUCTIVITY ANALYTICS chart. YOU MUST edit dashboard/public/dashboard-v2.js and dashboard/server/index.js files. Create beautiful time-series chart showing tasks completed, commits, success rate, completion time trends. Add stat cards. Make it visually stunning with animations. This will make the user BLUSH with excitement seeing their autonomous system's exponential growth\\!",
+  "type": "development",
+  "priority": "high",
+  "status": "assigned",
+  "assigned_to": "development",
+  "created_at": "2025-11-05T17:03:35Z",
+  "created_by": "create-task-cli",
+  "context": {
+    "repository": "ry-ops/commit-relay",
+    "branch": "main",
+    "description": "Replace token budget pie chart with AUTONOMOUS PRODUCTIVITY ANALYTICS chart. YOU MUST edit dashboard/public/dashboard-v2.js and dashboard/server/index.js files. Create beautiful time-series chart showing tasks completed, commits, success rate, completion time trends. Add stat cards. Make it visually stunning with animations. This will make the user BLUSH with excitement seeing their autonomous system's exponential growth\\!",
+    "requirements": []
+  },
+  "assigned_by": "coordinator",
+  "assigned_at": "2025-11-05T17:03:36Z",
+  "updated_at": "2025-11-05T11:03:36-06:00"
+},
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "high",
+    "expected_outcome": "Task completion with results handoff"
+  },
+  "created_at": "2025-11-05T17:03:36Z",
+  "status": "pending_pickup"
+}

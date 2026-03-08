@@ -1,0 +1,167 @@
+{
+  "handoff_id": "coord-to-development-93DBFB3C-3C3C-4BA2-B381-83B5A87A236F",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762896271",
+  "task_data": {
+    "id": "task-1762896271",
+    "title": "Implement Zombie Worker Cleanup and Session Recovery System",
+    "type": "bug",
+    "priority": "critical",
+    "created_at": "2025-11-11T21:24:31Z",
+    "created_by": "user",
+    "context": {
+      "description": "Implement session management and zombie worker cleanup to prevent orphaned tasks from polluting the queue when builds/updates are stopped and restarted",
+      "problem_statement": {
+        "zombie_workers": "52 tasks stuck in 'worker_spawned' status from previous sessions (Nov 7-8)",
+        "root_cause": "Workers spawned in previous sessions crashed/interrupted but tasks never updated to 'failed' or 'cancelled'",
+        "impact": {
+          "success_rate": "60.9% (below 70% threshold)",
+          "worker_failure_rate": "39.1% (above 30% threshold)",
+          "queue_pollution": "48 zombie tasks out of 95 total (50.5%)",
+          "metrics_corruption": "Health metrics include zombie tasks, making system appear worse than reality"
+        }
+      },
+      "proposed_solution": {
+        "session_tracking": {
+          "description": "Track which session/boot created each task and worker",
+          "mechanism": "coordination/session/current-session.json with unique session_id and boot timestamp",
+          "task_metadata": "Add 'session_id' field to all tasks when created",
+          "worker_metadata": "Add 'session_id' field to worker specs"
+        },
+        "startup_cleanup": {
+          "description": "On system startup, detect and cleanup previous session artifacts",
+          "script": "scripts/startup-recovery.sh - runs on commit-relay initialization",
+          "detection": "Compare task session_id with current session_id",
+          "resolution": {
+            "worker_spawned_tasks": "Mark as 'cancelled_on_restart' if session_id != current",
+            "assigned_tasks": "Reset to 'pending' for retry in new session",
+            "active_workers": "Remove worker specs from previous sessions",
+            "orphaned_worker_dirs": "Archive agents/workers/* directories from old sessions"
+          }
+        },
+        "zombie_detection_daemon": {
+          "description": "Continuously monitor for zombie workers during runtime",
+          "script": "scripts/zombie-detector-daemon.sh",
+          "detection_logic": [
+            "Task in 'worker_spawned' status for > 2 hours",
+            "No matching worker spec in coordination/worker-specs/active/",
+            "Worker spec exists but process not running (check via PID or ps)"
+          ],
+          "resolution": "Mark as 'failed_zombie' and emit health event",
+          "frequency": "Run every 10 minutes"
+        },
+        "session_manifest": {
+          "description": "Track all tasks/workers created in current session",
+          "file": "coordination/session/session-manifest.json",
+          "contents": {
+            "session_id": "unique-session-id",
+            "started_at": "timestamp",
+            "tasks_created": [
+              "task-id-1",
+              "task-id-2"
+            ],
+            "workers_spawned": [
+              "worker-id-1",
+              "worker-id-2"
+            ],
+            "cleanup_on_exit": true
+          }
+        }
+      },
+      "implementation_requirements": [
+        "Create coordination/session/ directory structure",
+        "Implement session ID generation (scripts/lib/session-manager.sh)",
+        "Add session tracking to scripts/create-task.sh",
+        "Add session tracking to scripts/spawn-worker.sh",
+        "Implement startup-recovery.sh for boot-time cleanup",
+        "Implement zombie-detector-daemon.sh for runtime detection",
+        "Update health monitoring to exclude cancelled_on_restart tasks",
+        "Add session info to dashboard (/api/session endpoint)",
+        "Archive zombie tasks to coordination/tasks/archived/zombies/",
+        "Emit events for cleanup actions (zombie_detected, session_cleanup)"
+      ],
+      "cleanup_workflow": {
+        "on_startup": [
+          "Generate new session_id",
+          "Load previous session manifest (if exists)",
+          "Scan task queue for tasks with old session_id",
+          "Mark worker_spawned + old session_id as 'cancelled_on_restart'",
+          "Reset assigned + old session_id to 'pending'",
+          "Remove worker specs from coordination/worker-specs/active/",
+          "Archive zombie worker directories",
+          "Log cleanup report to coordination/session/cleanup-report.json"
+        ],
+        "during_runtime": [
+          "Zombie detector runs every 10 minutes",
+          "Check for worker_spawned tasks older than 2 hours",
+          "Verify worker process is actually running",
+          "Mark zombies as 'failed_zombie'",
+          "Emit zombie_detected event",
+          "Update health metrics"
+        ]
+      },
+      "new_task_statuses": {
+        "cancelled_on_restart": "Task was interrupted by system restart",
+        "failed_zombie": "Worker died but task status not updated",
+        "archived": "Task moved to historical archive"
+      },
+      "immediate_cleanup_needed": {
+        "zombie_count": 48,
+        "oldest_zombie": "2025-11-07 (4 days old)",
+        "action": "Run one-time cleanup of current 48 zombies before implementing system"
+      }
+    },
+    "deliverables": [
+      "coordination/session/ directory with session tracking",
+      "scripts/lib/session-manager.sh - session ID management",
+      "scripts/startup-recovery.sh - boot-time zombie cleanup",
+      "scripts/zombie-detector-daemon.sh - runtime zombie detection",
+      "Updated scripts/create-task.sh with session tracking",
+      "Updated scripts/spawn-worker.sh with session tracking",
+      "One-time cleanup script for current 48 zombies",
+      "Dashboard session endpoint (/api/session)",
+      "Health monitoring updates to exclude cancelled tasks",
+      "Documentation: docs/operations/session-recovery.md"
+    ],
+    "success_criteria": [
+      "All 48 current zombie tasks cleaned up and archived",
+      "New session_id generated on each startup",
+      "All new tasks include session_id metadata",
+      "Startup recovery detects and cleans old session tasks",
+      "Zombie detector running as daemon",
+      "Worker failure rate drops below 30%",
+      "Success rate improves above 70%",
+      "No task remains in worker_spawned for > 2 hours",
+      "Session info visible in dashboard"
+    ],
+    "metadata": {
+      "estimated_effort": "4-6 hours",
+      "complexity": "high",
+      "automation_potential": "very high",
+      "architectural_impact": "major",
+      "breaking_changes": false,
+      "requires_testing": true,
+      "fixes_health_alerts": true
+    },
+    "status": "assigned",
+    "assigned_to": "development",
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-11T15:25:24-0600",
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-11T15:25:24-06:00"
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "critical",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "N/A",
+      "strategy": "pattern-based",
+      "routed_at": "2025-11-11T15:25:24-0600"
+    }
+  },
+  "created_at": "2025-11-11T15:25:24-0600",
+  "status": "pending_pickup"
+}

@@ -1,0 +1,93 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-11-23T00:00:00Z",
+  "description": "Knowledge freshness management policy for RAG document lifecycle",
+
+  "ttl_per_collection": {
+    "code": "7d",
+    "documentation": "30d",
+    "patterns": "14d",
+    "decisions": "30d",
+    "tasks": "7d",
+    "default": "14d"
+  },
+
+  "freshness_threshold": 0.3,
+
+  "decay_function": "linear",
+
+  "grace_period_days": 0,
+
+  "schedule": {
+    "enabled": true,
+    "interval": "24h",
+    "max_documents_per_run": 100,
+    "start_time": "02:00",
+    "timezone": "UTC"
+  },
+
+  "reindexing": {
+    "batch_size": 50,
+    "max_concurrent_refreshes": 5,
+    "cooldown_minutes": 60,
+    "retry_attempts": 3,
+    "retry_delay_seconds": 5,
+    "priority_collections": ["code", "patterns"],
+    "exclude_collections": []
+  },
+
+  "source_connectors": {
+    "file": {
+      "enabled": true,
+      "watch_for_changes": true
+    },
+    "github": {
+      "enabled": false,
+      "rate_limit_requests_per_hour": 1000
+    },
+    "confluence": {
+      "enabled": false,
+      "api_timeout_seconds": 30
+    },
+    "slack": {
+      "enabled": false,
+      "lookback_days": 7
+    }
+  },
+
+  "alerting": {
+    "enabled": true,
+    "stale_document_threshold_percent": 50,
+    "alert_on_reindex_failure": true,
+    "alert_channels": ["log", "dashboard"],
+    "min_alert_interval_minutes": 60
+  },
+
+  "metrics": {
+    "enabled": true,
+    "metrics_file": "coordination/metrics/freshness-metrics.jsonl",
+    "history_file": "coordination/metrics/freshness-history.jsonl",
+    "retention_days": 30
+  },
+
+  "observability": {
+    "emit_events": true,
+    "event_log_file": "coordination/events/freshness-events.jsonl",
+    "detailed_logging": true,
+    "log_file": "agents/logs/system/freshness-daemon.log"
+  },
+
+  "safety": {
+    "max_reindexes_per_hour": 200,
+    "max_reindexes_per_day": 1000,
+    "pause_on_error_count": 10,
+    "pause_duration_minutes": 30,
+    "require_source_verification": true
+  },
+
+  "document_metadata_requirements": {
+    "required_fields": ["created_at", "source_type"],
+    "recommended_fields": ["updated_at", "ttl_days", "source_path"],
+    "auto_populate_missing": true
+  }
+}

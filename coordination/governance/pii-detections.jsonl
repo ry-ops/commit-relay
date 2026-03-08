@@ -1,0 +1,3 @@
+{"id":"pii-1762892533116-da6350c4","timestamp":"2025-11-11T20:22:13.116Z","pii_type":"social_security_number","severity":"critical","count":1,"context":{"source":"cli"}}
+{"id":"pii-1762892533117-15551c1c","timestamp":"2025-11-11T20:22:13.117Z","pii_type":"email_address","severity":"high","count":1,"context":{"source":"cli"}}
+{"id":"pii-1762892533118-702d51e1","timestamp":"2025-11-11T20:22:13.118Z","pii_type":"phone_number","severity":"medium","count":1,"context":{"source":"cli"}}

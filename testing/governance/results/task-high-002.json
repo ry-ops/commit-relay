@@ -1,0 +1,21 @@
+{
+  "id": "governance-test-high-1762873763-B0B70DFB",
+  "title": "Deploy updated worker management system to production",
+  "description": "deploy: Deploy significant changes to production environment including worker lifecycle updates",
+  "type": "deploy",
+  "priority": "high",
+  "status": "pending",
+  "created_at": "2025-11-11T15:09:23Z",
+  "created_by": "governance-test-suite",
+  "metadata": {
+    "test_task": true,
+    "governance_test": true,
+    "risk_level": "high",
+    "test_suite": "governance-validation"
+  },
+  "context": {
+    "repository": "ry-ops/commit-relay",
+    "branch": "main",
+    "test_scenario": true
+  }
+}

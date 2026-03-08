@@ -1,0 +1,83 @@
+{
+  "worker_id": "worker-scan-021",
+  "task_id": "moe-test-ddqd-v5-1763246822-35699d93",
+  "task_type": "scan-worker",
+  "status": "completed",
+  "started_at": "2025-11-16T16:35:00Z",
+  "completed_at": "2025-11-16T16:36:00Z",
+  "duration_seconds": 60,
+  "task_details": {
+    "title": "CVE-2024-12345: Fix critical vulnerability in authentication module",
+    "type": "security",
+    "priority": "medium",
+    "test_id": "ddqd-v5-1763246822",
+    "moe_test": true,
+    "previously_processed": true,
+    "previous_worker": "worker-worker-1763310802-22555"
+  },
+  "execution_summary": {
+    "services_checked": true,
+    "dashboard_api_status": "healthy",
+    "files_analyzed": 31,
+    "authentication_modules_scanned": 1,
+    "vulnerabilities_identified": 0,
+    "security_improvements_recommended": 9,
+    "report_generated": true
+  },
+  "findings": {
+    "cve_status": "synthetic_test_identifier",
+    "actual_vulnerabilities": [
+      {
+        "type": "timing_attack",
+        "severity": "low-medium",
+        "location": "dashboard/server/middleware/auth.js:31",
+        "description": "Direct string comparison susceptible to timing attacks"
+      },
+      {
+        "type": "missing_rate_limiting",
+        "severity": "medium",
+        "location": "dashboard/server/middleware/auth.js",
+        "description": "No rate limiting on authentication attempts"
+      },
+      {
+        "type": "dev_mode_bypass",
+        "severity": "medium",
+        "location": "dashboard/server/middleware/auth.js:16-19",
+        "description": "Development mode allows unauthenticated access"
+      }
+    ],
+    "recommendations_priority": {
+      "high": 3,
+      "medium": 3,
+      "low": 3
+    }
+  },
+  "deliverables": {
+    "security_scan_report": "/Users/ryandahlberg/Projects/commit-relay/agents/workers/worker-scan-021/reports/security-scan-report.md",
+    "completion_report": "/Users/ryandahlberg/Projects/commit-relay/agents/workers/worker-scan-021/completion-report.json"
+  },
+  "service_health": {
+    "dashboard_api": "healthy",
+    "uptime_seconds": 1674.26,
+    "checked_at": "2025-11-16T16:35:13.996Z"
+  },
+  "test_validation": {
+    "ddqd_v5_test": true,
+    "moe_routing_validated": true,
+    "security_master_assignment": "correct",
+    "task_classification": "security",
+    "routing_confidence": 0.09,
+    "routing_strategy": "single_expert_low_confidence"
+  },
+  "errors": [],
+  "warnings": [
+    "Task was already processed by another worker",
+    "CVE-2024-12345 is a synthetic test identifier"
+  ],
+  "metadata": {
+    "test_suite": "ddqd-v5",
+    "moe_version": "v5",
+    "launcher_version": "v2.1-fixed",
+    "worker_type": "scan-worker"
+  }
+}

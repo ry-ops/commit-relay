@@ -1,0 +1,165 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MoE Routing Decision with Outcome",
+  "description": "Complete routing decision record including initial decision, execution, and outcome for learning",
+  "type": "object",
+  "required": ["decision_id", "task", "routing", "execution", "outcome", "learning"],
+  "properties": {
+    "decision_id": {
+      "type": "string",
+      "description": "Unique identifier for this routing decision"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When routing decision was made"
+    },
+    "task": {
+      "type": "object",
+      "description": "Original task information",
+      "required": ["task_id", "description", "type"],
+      "properties": {
+        "task_id": {"type": "string"},
+        "description": {"type": "string"},
+        "type": {"type": "string"},
+        "priority": {"type": "string", "enum": ["low", "medium", "high", "critical"]},
+        "complexity": {"type": "string", "enum": ["simple", "moderate", "complex", "very_complex"]},
+        "extracted_features": {
+          "type": "object",
+          "description": "LLM-extracted features from task description",
+          "properties": {
+            "domain": {"type": "array", "items": {"type": "string"}},
+            "action_verbs": {"type": "array", "items": {"type": "string"}},
+            "technical_terms": {"type": "array", "items": {"type": "string"}},
+            "implied_expertise": {"type": "array", "items": {"type": "string"}}
+          }
+        }
+      }
+    },
+    "routing": {
+      "type": "object",
+      "description": "MoE routing decision",
+      "required": ["strategy", "primary_expert", "primary_confidence"],
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "enum": ["single_expert", "multi_expert_parallel", "single_expert_low_confidence"]
+        },
+        "primary_expert": {"type": "string"},
+        "primary_confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "parallel_experts": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "all_scores": {
+          "type": "object",
+          "description": "Confidence scores for all experts",
+          "properties": {
+            "development": {"type": "number"},
+            "security": {"type": "number"},
+            "inventory": {"type": "number"},
+            "cicd": {"type": "number"},
+            "coordinator": {"type": "number"}
+          }
+        },
+        "reasoning": {
+          "type": "string",
+          "description": "Why this routing decision was made (for learning)"
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "description": "How the task was executed",
+      "properties": {
+        "assigned_to": {"type": "string"},
+        "started_at": {"type": "string", "format": "date-time"},
+        "completed_at": {"type": "string", "format": "date-time"},
+        "duration_seconds": {"type": "number"},
+        "status": {
+          "type": "string",
+          "enum": ["pending", "in_progress", "completed", "failed", "reassigned"]
+        },
+        "reassigned_to": {
+          "type": "string",
+          "description": "If task was reassigned, which expert took over?"
+        },
+        "reassignment_reason": {"type": "string"}
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "description": "Outcome and quality assessment",
+      "required": ["success", "quality_score"],
+      "properties": {
+        "success": {"type": "boolean"},
+        "quality_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Overall quality of task completion (0-1)"
+        },
+        "routing_accuracy": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Was the right expert chosen? (0=wrong, 1=perfect)"
+        },
+        "confidence_calibration": {
+          "type": "number",
+          "description": "How well did confidence match actual performance? (0=poorly calibrated, 1=perfectly calibrated)"
+        },
+        "ideal_expert": {
+          "type": "string",
+          "description": "In retrospect, which expert should have handled this?"
+        },
+        "failure_reason": {"type": "string"},
+        "learnings": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Specific learnings from this routing decision"
+        }
+      }
+    },
+    "learning": {
+      "type": "object",
+      "description": "What did we learn from this decision?",
+      "properties": {
+        "patterns_discovered": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pattern": {"type": "string"},
+              "expert": {"type": "string"},
+              "confidence_boost": {"type": "number"}
+            }
+          }
+        },
+        "improvements_suggested": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "routing_rule_updates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "rule_type": {"type": "string"},
+              "expert": {"type": "string"},
+              "change": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "model_version": {"type": "string", "description": "LLM model used for analysis"},
+        "router_version": {"type": "string", "description": "MoE router version"},
+        "learning_iteration": {"type": "integer", "description": "Which learning cycle is this from?"}
+      }
+    }
+  }
+}

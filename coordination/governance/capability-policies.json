@@ -1,0 +1,121 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2025-11-26T13:04:03.249Z",
+  "description": "Capability-based access control policies for agent identities",
+  "role_capabilities": {
+    "master": {
+      "description": "Master agents have broad capabilities within their domain",
+      "capabilities": [
+        "tasks:*",
+        "workers:*",
+        "coordination:read",
+        "coordination:write",
+        "governance:read"
+      ]
+    },
+    "worker": {
+      "description": "Workers have limited task-specific capabilities",
+      "capabilities": [
+        "tasks:read",
+        "coordination:read",
+        "governance:read"
+      ]
+    },
+    "daemon": {
+      "description": "Daemons have monitoring and maintenance capabilities",
+      "capabilities": [
+        "coordination:read",
+        "coordination:write",
+        "workers:read",
+        "tasks:read",
+        "governance:audit"
+      ]
+    }
+  },
+  "expert_capabilities": {
+    "development-master": [
+      "development:*",
+      "workers:spawn",
+      "tasks:route",
+      "cicd:build",
+      "cicd:deploy"
+    ],
+    "security-master": [
+      "security:*",
+      "workers:spawn",
+      "tasks:route",
+      "governance:audit",
+      "system:read"
+    ],
+    "inventory-master": [
+      "inventory:*",
+      "workers:spawn",
+      "tasks:route",
+      "governance:read"
+    ],
+    "cicd-master": [
+      "cicd:*",
+      "workers:spawn",
+      "tasks:route",
+      "development:deploy"
+    ],
+    "coordinator-master": [
+      "*"
+    ]
+  },
+  "resource_policies": {
+    "coordination/tasks": {
+      "read": [
+        "master",
+        "worker",
+        "daemon"
+      ],
+      "write": [
+        "master"
+      ],
+      "delete": [
+        "master",
+        "coordinator-master"
+      ]
+    },
+    "coordination/worker-specs": {
+      "read": [
+        "master",
+        "daemon"
+      ],
+      "write": [
+        "master"
+      ],
+      "delete": [
+        "master"
+      ]
+    },
+    "coordination/governance": {
+      "read": [
+        "master",
+        "daemon"
+      ],
+      "write": [
+        "master"
+      ],
+      "delete": [
+        "coordinator-master"
+      ]
+    },
+    "secrets": {
+      "read": [
+        "coordinator-master"
+      ],
+      "write": [
+        "coordinator-master"
+      ],
+      "delete": []
+    }
+  },
+  "trust_requirements": {
+    "workers:spawn": 75,
+    "governance:write": 90,
+    "system:admin": 100,
+    "secrets:read": 100
+  }
+}

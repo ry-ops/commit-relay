@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Schema definitions for all asset types in the unified catalog",
+  "asset_types": {
+    "data": {
+      "description": "Data assets - files, databases, configurations",
+      "required_fields": ["asset_id", "asset_name", "asset_type", "namespace", "path", "format"],
+      "optional_fields": ["schema", "size_bytes", "record_count", "last_modified"],
+      "example": {
+        "asset_id": "coordination.tasks.task_queue",
+        "asset_name": "Task Queue",
+        "asset_type": "data",
+        "namespace": "coordination.tasks",
+        "path": "/coordination/task-queue.json",
+        "format": "json",
+        "schema": {"type": "object", "properties": {}},
+        "created_at": "2025-11-11T16:52:00Z"
+      }
+    },
+    "ai": {
+      "description": "AI assets - agents, models, prompts",
+      "required_fields": ["asset_id", "asset_name", "asset_type", "namespace", "agent_type", "capabilities"],
+      "optional_fields": ["prompt_path", "knowledge_base", "specializations", "token_budget"],
+      "example": {
+        "asset_id": "masters.coordinator.agent",
+        "asset_name": "Coordinator Master Agent",
+        "asset_type": "ai",
+        "namespace": "masters.coordinator",
+        "agent_type": "master",
+        "capabilities": ["routing", "task_decomposition", "handoff_orchestration"],
+        "prompt_path": "/.claude/agents/coordinator-master.md",
+        "created_at": "2025-11-11T16:52:00Z"
+      }
+    },
+    "model": {
+      "description": "Model assets - routing models, decision models",
+      "required_fields": ["asset_id", "asset_name", "asset_type", "namespace", "model_type", "version"],
+      "optional_fields": ["accuracy", "confidence_threshold", "training_data"],
+      "example": {
+        "asset_id": "moe.routing.decision_model",
+        "asset_name": "MoE Routing Decision Model",
+        "asset_type": "model",
+        "namespace": "moe.routing",
+        "model_type": "routing_classifier",
+        "version": "1.0.0",
+        "confidence_threshold": 0.7,
+        "created_at": "2025-11-11T16:52:00Z"
+      }
+    }
+  },
+  "metadata_fields": {
+    "common": {
+      "owner": {
+        "type": "string",
+        "description": "Team or individual responsible for the asset"
+      },
+      "tags": {
+        "type": "array",
+        "description": "Descriptive tags for categorization and search"
+      },
+      "sensitivity": {
+        "type": "enum",
+        "values": ["public", "internal", "confidential", "pii"],
+        "description": "Data sensitivity classification"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "iso8601",
+        "description": "Asset creation timestamp"
+      },
+      "updated_at": {
+        "type": "string",
+        "format": "iso8601",
+        "description": "Last update timestamp"
+      },
+      "description": {
+        "type": "string",
+        "description": "Human-readable asset description"
+      }
+    },
+    "governance": {
+      "compliance_tags": {
+        "type": "array",
+        "description": "Compliance framework tags (e.g., GDPR, HIPAA)"
+      },
+      "retention_policy": {
+        "type": "string",
+        "description": "Data retention policy"
+      },
+      "access_policy": {
+        "type": "string",
+        "description": "Access control policy"
+      }
+    }
+  },
+  "lineage_types": {
+    "data_lineage": {
+      "description": "Tracks data flow and transformations",
+      "fields": ["source_asset", "target_asset", "transformation", "timestamp"]
+    },
+    "ai_lineage": {
+      "description": "Tracks which AI agents used which data assets",
+      "fields": ["agent_id", "data_asset", "operation", "timestamp"]
+    },
+    "decision_lineage": {
+      "description": "Tracks routing and decision history",
+      "fields": ["decision_id", "input_data", "decision_output", "confidence", "timestamp"]
+    }
+  }
+}

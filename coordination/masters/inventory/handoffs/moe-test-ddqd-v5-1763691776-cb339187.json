@@ -1,0 +1,23 @@
+{
+  "handoff_id": "moe-test-ddqd-v5-1763691776-cb339187",
+  "task_id": "moe-test-ddqd-v5-1763691776-cb339187",
+  "assigned_to": "inventory",
+  "created_at": "2025-11-20T20:23:55-0600",
+  "status": "processed",
+  "task": {
+    "id": "moe-test-ddqd-v5-1763691776-cb339187",
+    "title": "Catalog and document all repository metadata and dependencies",
+    "type": "catalog",
+    "description": "Catalog and document all repository metadata and dependencies",
+    "priority": "medium",
+    "status": "pending",
+    "assigned_to": null,
+    "created_at": "2025-11-20T20:23:45-0600",
+    "created_by": "ddqd-v5-test",
+    "moe_test": true,
+    "test_id": "ddqd-v5-1763691776",
+    "context": {}
+  },
+  "processed_at": "2025-11-20T20:24:03-0600",
+  "worker_id": "worker-worker-1763691842-13452"
+}

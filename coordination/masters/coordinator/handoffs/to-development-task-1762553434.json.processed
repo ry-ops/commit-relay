@@ -1,0 +1,39 @@
+{
+  "handoff_id": "coord-to-development-AEC3B94D-F73C-49D9-91EA-AD8D15BE6168",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762553434",
+  "task_data": {
+    "id": "task-1762553434",
+    "title": "Create DDQD v5.0 stress test with MoE Intelligence validation: routing accuracy, confidence scores, learning system, sparse activation testing. Keywords: development testing stress-test MoE validation shell-script bash. Implement test_moe_routing test_moe_confidence test_moe_learning test_moe_pool_efficiency functions, run 5min test, generate MoE metrics report.",
+    "type": "development",
+    "priority": "high",
+    "status": "assigned",
+    "assigned_to": "development",
+    "created_at": "2025-11-08T10:41:38-0600",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "Create DDQD v5.0 stress test with MoE Intelligence validation: routing accuracy, confidence scores, learning system, sparse activation testing. Keywords: development testing stress-test MoE validation shell-script bash. Implement test_moe_routing test_moe_confidence test_moe_learning test_moe_pool_efficiency functions, run 5min test, generate MoE metrics report.",
+      "requirements": []
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-08T10:41:47-0600",
+    "routing_confidence": "0.95",
+    "routing_strategy": "single_expert",
+    "updated_at": "2025-11-08T10:41:47-06:00"
+  },
+  "context": {
+    "routing_reason": "MoE confidence-based routing (confidence: 0.95, strategy: single_expert)",
+    "priority": "high",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "0.95",
+      "strategy": "single_expert",
+      "routed_at": "2025-11-08T10:41:47-0600"
+    }
+  },
+  "created_at": "2025-11-08T10:41:47-0600",
+  "status": "pending_pickup"
+}

@@ -1,0 +1,39 @@
+{
+  "handoff_id": "coord-to-security-093B42B6-7960-437C-8F1A-C32FB065A721",
+  "from_master": "coordinator",
+  "to_master": "security",
+  "task_id": "task-1762553461",
+  "task_data": {
+    "id": "task-1762553461",
+    "title": "PROMPT ENGINEERING UPGRADE - Phase 3: Observability & Tracing. Implement comprehensive tracing so every prompt→output chain is visible and measurable. OBJECTIVES: 1) Build tracing infrastructure with PromptTracer class - startTrace, recordStep, endTrace methods storing in coordination/traces/. 2) Instrument all agent calls with tracing: coordinator routing, development implementation, security scanning, inventory cataloging. 3) Create trace explorer dashboard at dashboard/public/traces.html - view all traces, filter by operation/agent/status, inspect full prompt→output chains. 4) Add metrics collection: first-pass validation rate by agent, retry rate by operation, tokens per operation, latency p50/p95/p99, schema violation types. 5) Build trace analysis tools in scripts/analyze-traces.sh. TECHNICAL: Store traces as JSONL in coordination/traces/, integrate with dashboard WebSocket for real-time updates, use dashboard event system. DELIVERABLES: lib/tracing/tracer.js, trace storage, trace explorer UI, metrics dashboard, analysis scripts. SUCCESS: 100% agent calls traced, traces retained 30 days, metrics updated every 5min.",
+    "type": "development",
+    "priority": "high",
+    "status": "assigned",
+    "assigned_to": "security",
+    "created_at": "2025-11-11T10:33:08-0600",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "PROMPT ENGINEERING UPGRADE - Phase 3: Observability & Tracing. Implement comprehensive tracing so every prompt→output chain is visible and measurable. OBJECTIVES: 1) Build tracing infrastructure with PromptTracer class - startTrace, recordStep, endTrace methods storing in coordination/traces/. 2) Instrument all agent calls with tracing: coordinator routing, development implementation, security scanning, inventory cataloging. 3) Create trace explorer dashboard at dashboard/public/traces.html - view all traces, filter by operation/agent/status, inspect full prompt→output chains. 4) Add metrics collection: first-pass validation rate by agent, retry rate by operation, tokens per operation, latency p50/p95/p99, schema violation types. 5) Build trace analysis tools in scripts/analyze-traces.sh. TECHNICAL: Store traces as JSONL in coordination/traces/, integrate with dashboard WebSocket for real-time updates, use dashboard event system. DELIVERABLES: lib/tracing/tracer.js, trace storage, trace explorer UI, metrics dashboard, analysis scripts. SUCCESS: 100% agent calls traced, traces retained 30 days, metrics updated every 5min.",
+      "requirements": []
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-11T11:42:14-0600",
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-11T11:42:14-06:00"
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "high",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "N/A",
+      "strategy": "pattern-based",
+      "routed_at": "2025-11-11T11:42:14-0600"
+    }
+  },
+  "created_at": "2025-11-11T11:42:14-0600",
+  "status": "pending_pickup"
+}

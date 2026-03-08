@@ -1,0 +1,169 @@
+{
+  "worker_id": "worker-scan-037",
+  "repository": "/Users/ryandahlberg/Projects/commit-relay",
+  "scan_date": "2025-11-23T18:49:00Z",
+  "scan_types": ["dependencies", "secrets", "configuration"],
+  "summary": {
+    "total_findings": 11,
+    "critical": 1,
+    "high": 2,
+    "medium": 7,
+    "low": 1,
+    "info": 0,
+    "risk_level": "HIGH"
+  },
+  "findings": [
+    {
+      "id": "SEC-001",
+      "severity": "critical",
+      "type": "secret",
+      "title": "Exposed Anthropic API Key in .env file",
+      "description": "An Anthropic API key is stored in plain text in llm-mesh/.env. While .env is gitignored, this key should be rotated immediately as it may have been exposed in local development or backups.",
+      "affected_files": ["llm-mesh/.env"],
+      "remediation": "1. Immediately rotate the Anthropic API key at console.anthropic.com\n2. Use environment variable injection from a secrets manager\n3. Remove the actual key from .env and use placeholder",
+      "effort": "low"
+    },
+    {
+      "id": "DEP-001",
+      "severity": "high",
+      "type": "dependency",
+      "title": "d3-color ReDoS vulnerability",
+      "description": "Package d3-color in eui-dashboard is vulnerable to Regular Expression Denial of Service (ReDoS). This can cause performance degradation or denial of service.",
+      "affected_files": ["eui-dashboard/package.json"],
+      "cve_ids": ["GHSA-36jr-mh4h-2g58"],
+      "remediation": "Update d3-color to version 3.1.0 or higher",
+      "effort": "low"
+    },
+    {
+      "id": "DEP-002",
+      "severity": "high",
+      "type": "dependency",
+      "title": "d3-interpolate vulnerability (via d3-color)",
+      "description": "Package d3-interpolate is affected by the d3-color ReDoS vulnerability through its dependency chain.",
+      "affected_files": ["eui-dashboard/package.json"],
+      "remediation": "Update @elastic/charts to latest version which includes fixed dependencies",
+      "effort": "medium"
+    },
+    {
+      "id": "DEP-003",
+      "severity": "moderate",
+      "type": "dependency",
+      "title": "esbuild development server vulnerability",
+      "description": "esbuild versions <=0.24.2 have a vulnerability that allows any website to send requests to the development server and read responses. This affects vitest and vite-node dependencies.",
+      "affected_files": ["eui-dashboard/package.json"],
+      "cve_ids": ["GHSA-67mh-4wv8-2f99"],
+      "remediation": "Update vitest to version 4.0.13 or higher",
+      "effort": "medium"
+    },
+    {
+      "id": "DEP-004",
+      "severity": "moderate",
+      "type": "dependency",
+      "title": "PrismJS DOM Clobbering vulnerability",
+      "description": "prismjs version <1.30.0 is vulnerable to DOM Clobbering which can lead to XSS attacks.",
+      "affected_files": ["eui-dashboard/package.json"],
+      "cve_ids": ["GHSA-x7hr-w5r2-h6wg"],
+      "remediation": "Update @elastic/eui to version 32.3.0 or downgrade to avoid affected versions",
+      "effort": "high"
+    },
+    {
+      "id": "DEP-005",
+      "severity": "moderate",
+      "type": "dependency",
+      "title": "@elastic/eui indirect vulnerability via refractor",
+      "description": "@elastic/eui is indirectly affected by the PrismJS vulnerability through the refractor dependency.",
+      "affected_files": ["eui-dashboard/package.json"],
+      "remediation": "Update @elastic/eui to latest version or downgrade to 32.3.0",
+      "effort": "high"
+    },
+    {
+      "id": "DEP-006",
+      "severity": "moderate",
+      "type": "dependency",
+      "title": "vite development server vulnerability",
+      "description": "vite versions 0.11.0 - 6.1.6 are affected by the esbuild vulnerability through their dependency chain.",
+      "affected_files": ["eui-dashboard/package.json"],
+      "remediation": "Update vitest to version 4.0.13 which includes updated vite",
+      "effort": "medium"
+    },
+    {
+      "id": "DEP-007",
+      "severity": "moderate",
+      "type": "dependency",
+      "title": "vitest development vulnerability",
+      "description": "vitest version is in the vulnerable range for esbuild/vite issues.",
+      "affected_files": ["eui-dashboard/package.json"],
+      "remediation": "Update vitest to version 4.0.13 or higher",
+      "effort": "medium"
+    },
+    {
+      "id": "DEP-008",
+      "severity": "moderate",
+      "type": "dependency",
+      "title": "vite-node indirect vulnerability",
+      "description": "vite-node is affected through its vite dependency.",
+      "affected_files": ["eui-dashboard/package.json"],
+      "remediation": "Update vitest to latest which includes updated vite-node",
+      "effort": "medium"
+    },
+    {
+      "id": "CFG-001",
+      "severity": "low",
+      "type": "configuration",
+      "title": "llm-mesh middleware missing package-lock.json",
+      "description": "The llm-mesh/gateway/middleware project has a package.json but no package-lock.json, preventing proper dependency auditing and potentially causing inconsistent installations.",
+      "affected_files": ["llm-mesh/gateway/middleware/package.json"],
+      "remediation": "Run 'npm install' in the directory to generate package-lock.json, or remove if not in active use",
+      "effort": "low"
+    },
+    {
+      "id": "CFG-002",
+      "severity": "medium",
+      "type": "configuration",
+      "title": "API key placeholder in example documentation",
+      "description": "DEPLOYMENT.md contains example API keys in documentation that could be confused with real credentials.",
+      "affected_files": ["llm-mesh/DEPLOYMENT.md"],
+      "remediation": "Use clearly fake example keys like 'sk-ant-example-xxx' instead of realistic-looking keys",
+      "effort": "low"
+    }
+  ],
+  "dependencies": {
+    "total_projects": 4,
+    "audited": 3,
+    "not_audited": 1,
+    "projects": {
+      "root": {
+        "total": 316,
+        "vulnerable": 0,
+        "status": "clean"
+      },
+      "api-server": {
+        "total": 109,
+        "vulnerable": 0,
+        "status": "clean"
+      },
+      "eui-dashboard": {
+        "total": 599,
+        "vulnerable": 9,
+        "status": "needs_attention"
+      },
+      "llm-mesh/gateway/middleware": {
+        "total": "unknown",
+        "vulnerable": "unknown",
+        "status": "no_lockfile"
+      }
+    }
+  },
+  "security_controls": {
+    "helmet": true,
+    "cors": true,
+    "rate_limiting": true,
+    "gitignore_secrets": true,
+    "env_example_provided": true
+  },
+  "metrics": {
+    "scan_duration_seconds": 45,
+    "tokens_used": 6000,
+    "files_scanned": 1200
+  }
+}

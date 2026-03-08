@@ -1,0 +1,86 @@
+{
+  "version": "1.0.0",
+  "description": "Token and cost budget configuration for commit-relay LLM operations",
+  "defaults": {
+    "task": {
+      "tokens": 10000,
+      "cost": null,
+      "description": "Default per-task token budget"
+    },
+    "session": {
+      "tokens": 100000,
+      "cost": 1.0,
+      "description": "Per-session token budget"
+    },
+    "daily": {
+      "tokens": 1000000,
+      "cost": 10.0,
+      "description": "Daily aggregate token budget"
+    }
+  },
+  "thresholds": {
+    "warn": 0.8,
+    "critical": 0.95,
+    "description": "Alert thresholds as percentage of budget"
+  },
+  "task_overrides": {
+    "routing-analysis": {
+      "tokens": 5000,
+      "description": "Routing analysis tasks are typically smaller"
+    },
+    "pattern-extraction": {
+      "tokens": 15000,
+      "description": "Pattern extraction needs more tokens for context"
+    },
+    "improvement-generation": {
+      "tokens": 20000,
+      "description": "Improvement generation requires larger context"
+    },
+    "security-analysis": {
+      "tokens": 25000,
+      "description": "Security scans need comprehensive analysis"
+    },
+    "code-review": {
+      "tokens": 30000,
+      "description": "Code review requires full file context"
+    },
+    "documentation": {
+      "tokens": 15000,
+      "description": "Documentation tasks"
+    },
+    "implementation": {
+      "tokens": 50000,
+      "description": "Full implementation tasks need large budgets"
+    }
+  },
+  "model_specific": {
+    "claude-3-haiku": {
+      "multiplier": 1.0,
+      "note": "Economical model, standard budget"
+    },
+    "claude-sonnet-4": {
+      "multiplier": 0.8,
+      "note": "More capable, can use fewer tokens"
+    },
+    "gpt-4-turbo": {
+      "multiplier": 0.7,
+      "note": "Premium model, reduce budget to control costs"
+    },
+    "gpt-3.5-turbo": {
+      "multiplier": 1.2,
+      "note": "May need more tokens for quality"
+    }
+  },
+  "alerts": {
+    "enabled": true,
+    "channels": ["log", "metrics"],
+    "warn_actions": ["log"],
+    "critical_actions": ["log", "notify"]
+  },
+  "cleanup": {
+    "task_retention_days": 7,
+    "session_retention_days": 1,
+    "auto_cleanup": true
+  },
+  "updated_at": "2025-11-23T00:00:00Z"
+}

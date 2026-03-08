@@ -1,0 +1,20 @@
+{
+  "name": "commit-relay-middleware",
+  "version": "1.0.0",
+  "description": "Token counting, cost tracking, and budget management middleware for commit-relay",
+  "main": "index.js",
+  "scripts": {
+    "test": "node -e \"const m = require('./'); console.log('Middleware loaded:', Object.keys(m).join(', '))\""
+  },
+  "dependencies": {
+    "tiktoken": "^1.0.13"
+  },
+  "keywords": [
+    "llm",
+    "tokens",
+    "cost-tracking",
+    "budget-management"
+  ],
+  "author": "commit-relay",
+  "license": "MIT"
+}

@@ -1,0 +1,43 @@
+{
+  "handoff_id": "coord-to-development-ED10943F-6C45-4EE6-8779-9FCB3C65BB32",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762553441",
+  "task_data": {
+    "id": "task-1762553441",
+    "title": "BUG: Task Queue Metadata Out of Sync - Fix task-queue.json metadata calculation. Actual issue: task-queue.json contains 61 tasks in tasks[] array but metadata shows total_tasks:5, pending_tasks:3, in_progress_tasks:0, completed_tasks:2. This causes dashboard to display incorrect task counts and queue appears empty. Root causes to investigate: 1) Metadata not updated when tasks are added via create-task.sh, 2) Task status changes not triggering metadata recalculation, 3) DDQD stress test tasks (moe-test-ddqd-v5-*) not being counted, 4) Possible race condition in concurrent task updates. Fix requirements: Create task-queue metadata sync utility that recalculates accurate counts from tasks array, add metadata validation on every task queue update, fix create-task.sh to update metadata correctly, add periodic metadata sync job to coordinator daemon, handle edge cases (test tasks, zombie workers, stale assignments). Also investigate why many tasks show status=assigned but no worker progress - may indicate worker spawn failures. Test with current 61-task queue state before cleanup. Keywords: bug-fix critical task-queue metadata synchronization data-integrity dashboard worker-tracking coordination.",
+    "type": "development",
+    "priority": "critical",
+    "status": "assigned",
+    "assigned_to": "development",
+    "created_at": "2025-11-08T16:03:45-0600",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "BUG: Task Queue Metadata Out of Sync - Fix task-queue.json metadata calculation. Actual issue: task-queue.json contains 61 tasks in tasks[] array but metadata shows total_tasks:5, pending_tasks:3, in_progress_tasks:0, completed_tasks:2. This causes dashboard to display incorrect task counts and queue appears empty. Root causes to investigate: 1) Metadata not updated when tasks are added via create-task.sh, 2) Task status changes not triggering metadata recalculation, 3) DDQD stress test tasks (moe-test-ddqd-v5-*) not being counted, 4) Possible race condition in concurrent task updates. Fix requirements: Create task-queue metadata sync utility that recalculates accurate counts from tasks array, add metadata validation on every task queue update, fix create-task.sh to update metadata correctly, add periodic metadata sync job to coordinator daemon, handle edge cases (test tasks, zombie workers, stale assignments). Also investigate why many tasks show status=assigned but no worker progress - may indicate worker spawn failures. Test with current 61-task queue state before cleanup. Keywords: bug-fix critical task-queue metadata synchronization data-integrity dashboard worker-tracking coordination.",
+      "requirements": []
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-09T06:08:50-0600",
+    "routing_confidence": "0.95",
+    "routing_strategy": "single_expert",
+    "worker_id": null,
+    "worker_type": "feature-implementer",
+    "completed_at": "2025-11-09T06:04:29-0600",
+    "error": "Worker became zombie and was killed",
+    "updated_at": "2025-11-09T06:08:50-06:00"
+  },
+  "context": {
+    "routing_reason": "MoE confidence-based routing (confidence: 0.95, strategy: single_expert)",
+    "priority": "critical",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "0.95",
+      "strategy": "single_expert",
+      "routed_at": "2025-11-09T06:08:50-0600"
+    }
+  },
+  "created_at": "2025-11-09T06:08:50-0600",
+  "status": "pending_pickup"
+}

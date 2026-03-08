@@ -1,0 +1,37 @@
+{
+  "handoff_id": "coord-to-development-4C28544D-5FFE-449F-B8C3-45195FC09568",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "moe-test-ddqd-v5-1763690952-1fb4ff75",
+  "task_data": {
+    "id": "moe-test-ddqd-v5-1763690952-1fb4ff75",
+    "title": "Fix performance bug in database query optimization code",
+    "type": "bug-fix",
+    "description": "Fix performance bug in database query optimization code",
+    "priority": "medium",
+    "status": "assigned",
+    "assigned_to": "development",
+    "created_at": "2025-11-20T20:09:59-0600",
+    "created_by": "ddqd-v5-test",
+    "moe_test": true,
+    "test_id": "ddqd-v5-1763690952",
+    "context": {},
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-20T20:10:09-0600",
+    "routing_confidence": "1.00",
+    "routing_strategy": "single_expert",
+    "updated_at": "2025-11-20T20:10:09-06:00"
+  },
+  "context": {
+    "routing_reason": "MoE confidence-based routing (confidence: 1.00, strategy: single_expert)",
+    "priority": "medium",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "1.00",
+      "strategy": "single_expert",
+      "routed_at": "2025-11-20T20:10:10-0600"
+    }
+  },
+  "created_at": "2025-11-20T20:10:10-0600",
+  "status": "pending_pickup"
+}

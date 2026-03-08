@@ -1,0 +1,159 @@
+{
+  "alerts": [
+    {
+      "id": "achievement-progress-stalled",
+      "name": "Achievement Progress Stalled",
+      "description": "No achievement progress in 7 days",
+      "type": "threshold",
+      "conditions": {
+        "metric": "labels.achievement.unlocked",
+        "operator": "unchanged",
+        "duration": "7d"
+      },
+      "actions": [
+        {
+          "type": "slack",
+          "webhook": "${SLACK_WEBHOOK_URL}",
+          "message": "⚠️ Achievement progress stalled for 7 days. Consider executing workflows."
+        },
+        {
+          "type": "email",
+          "recipients": ["${ADMIN_EMAIL}"],
+          "subject": "Achievement Master: Progress Stalled",
+          "body": "No new achievements unlocked in the past week."
+        }
+      ],
+      "severity": "warning",
+      "enabled": true
+    },
+    {
+      "id": "low-opportunity-scores",
+      "name": "Low Opportunity Scores",
+      "description": "All opportunities below 50/100",
+      "type": "threshold",
+      "conditions": {
+        "metric": "max(labels.achievement.top_score)",
+        "operator": "<",
+        "threshold": 50,
+        "duration": "1h"
+      },
+      "actions": [
+        {
+          "type": "slack",
+          "message": "📉 Low opportunity scores detected. May need to adjust strategy."
+        }
+      ],
+      "severity": "info",
+      "enabled": true
+    },
+    {
+      "id": "workflow-execution-failure",
+      "name": "Workflow Execution Failure",
+      "description": "Achievement workflow failed",
+      "type": "error",
+      "conditions": {
+        "query": "transaction.name:/api/achievements/execute/* AND transaction.result:error"
+      },
+      "actions": [
+        {
+          "type": "slack",
+          "message": "🚨 Achievement workflow execution failed: ${transaction.name}",
+          "severity": "critical"
+        },
+        {
+          "type": "pagerduty",
+          "integration_key": "${PAGERDUTY_INTEGRATION_KEY}",
+          "event_action": "trigger",
+          "payload": {
+            "summary": "Achievement workflow failure",
+            "severity": "error",
+            "source": "achievement-master"
+          }
+        }
+      ],
+      "severity": "critical",
+      "enabled": true
+    },
+    {
+      "id": "github-api-rate-limit",
+      "name": "GitHub API Rate Limit Warning",
+      "description": "Approaching GitHub API rate limit",
+      "type": "threshold",
+      "conditions": {
+        "metric": "labels.github.rate_limit_remaining",
+        "operator": "<",
+        "threshold": 500,
+        "duration": "5m"
+      },
+      "actions": [
+        {
+          "type": "slack",
+          "message": "⚠️ GitHub API rate limit warning: ${labels.github.rate_limit_remaining} requests remaining"
+        },
+        {
+          "type": "auto_remediation",
+          "script": "./scripts/lib/rate-limit-backoff.sh"
+        }
+      ],
+      "severity": "warning",
+      "enabled": true
+    },
+    {
+      "id": "achievement-unlocked-celebration",
+      "name": "Achievement Unlocked Celebration",
+      "description": "New achievement unlocked",
+      "type": "event",
+      "conditions": {
+        "query": "labels.achievement.unlocked:true AND labels.achievement.new:true"
+      },
+      "actions": [
+        {
+          "type": "slack",
+          "webhook": "${SLACK_WEBHOOK_URL}",
+          "message": "🎉 Achievement Unlocked! ${labels.achievement.icon} ${labels.achievement.name}"
+        },
+        {
+          "type": "webhook",
+          "url": "https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/dispatches",
+          "method": "POST",
+          "headers": {
+            "Authorization": "Bearer ${GITHUB_TOKEN}",
+            "Accept": "application/vnd.github.v3+json"
+          },
+          "body": {
+            "event_type": "achievement_unlocked",
+            "client_payload": {
+              "achievement": "${labels.achievement.name}",
+              "icon": "${labels.achievement.icon}"
+            }
+          }
+        }
+      ],
+      "severity": "info",
+      "enabled": true
+    }
+  ],
+  "notification_channels": {
+    "slack": {
+      "webhook_url": "${SLACK_WEBHOOK_URL}",
+      "default_channel": "#achievements"
+    },
+    "email": {
+      "smtp_server": "${SMTP_SERVER}",
+      "from": "achievement-master@commit-relay.io"
+    },
+    "pagerduty": {
+      "integration_key": "${PAGERDUTY_INTEGRATION_KEY}"
+    }
+  },
+  "alert_rules": {
+    "throttle": "1h",
+    "group_by": ["labels.achievement.name"],
+    "quiet_hours": {
+      "enabled": false,
+      "start": "22:00",
+      "end": "08:00",
+      "timezone": "America/Chicago"
+    }
+  }
+}

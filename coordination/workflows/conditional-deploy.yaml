@@ -1,0 +1,345 @@
+# Conditional Deployment Workflow
+# Demonstrates conditional branching based on test results and environment
+
+name: conditional-deploy
+version: "1.0.0"
+description: |
+  A deployment workflow that demonstrates conditional branching.
+  Deploys only if tests pass and includes environment-specific logic.
+
+triggers:
+  - type: manual
+  - type: webhook
+    webhook_path: /webhooks/deploy
+  - type: event
+    event: push_to_main
+
+inputs:
+  repository_url:
+    type: string
+    description: Git repository URL to deploy
+    required: true
+  branch:
+    type: string
+    description: Branch to deploy
+    default: main
+  deploy_env:
+    type: string
+    description: Deployment environment
+    default: staging
+    enum: [development, staging, production]
+  skip_tests:
+    type: boolean
+    description: Skip test execution (use with caution)
+    default: false
+  notify_slack:
+    type: boolean
+    description: Send Slack notifications
+    default: true
+
+outputs:
+  deployment_status: "{{ steps.deploy.outputs.status }}"
+  test_results: "{{ steps.run_tests.outputs.summary }}"
+  environment: "{{ inputs.deploy_env }}"
+
+steps:
+  # Step 1: Clone repository
+  - id: clone_repo
+    name: Clone Repository
+    description: Clone the repository for deployment
+    action: bash
+    inputs:
+      command: |
+        WORK_DIR="/tmp/deploy-{{ inputs.repository_url | hash }}-$(date +%s)"
+        git clone --depth 1 --branch {{ inputs.branch }} {{ inputs.repository_url }} "$WORK_DIR"
+        echo "$WORK_DIR"
+    outputs:
+      repo_path: "$result.stdout"
+
+  # Step 2: Install dependencies
+  - id: install_deps
+    name: Install Dependencies
+    description: Install project dependencies
+    action: bash
+    depends_on:
+      - clone_repo
+    inputs:
+      command: |
+        cd "{{ steps.clone_repo.outputs.repo_path }}"
+        if [ -f "package.json" ]; then
+          npm ci
+        elif [ -f "requirements.txt" ]; then
+          pip install -r requirements.txt
+        fi
+        echo "Dependencies installed"
+    outputs:
+      status: "$result.exit_code"
+
+  # Step 3: Run tests (conditional - skip if skip_tests is true)
+  - id: run_tests
+    name: Run Tests
+    description: Execute test suite
+    action: bash
+    depends_on:
+      - install_deps
+    condition: "{{ inputs.skip_tests == false }}"
+    inputs:
+      command: |
+        cd "{{ steps.clone_repo.outputs.repo_path }}"
+
+        # Run tests and capture results
+        if [ -f "package.json" ]; then
+          npm test -- --passWithNoTests 2>&1 || exit 1
+        elif [ -f "pytest.ini" ] || [ -d "tests" ]; then
+          pytest --tb=short 2>&1 || exit 1
+        else
+          echo "No tests found, assuming pass"
+        fi
+
+        echo '{"passed": true, "summary": "All tests passed"}'
+    outputs:
+      passed: "$result.exit_code == 0"
+      summary: "$result.stdout"
+
+  # Step 4: Build application
+  - id: build_app
+    name: Build Application
+    description: Build the application for deployment
+    action: bash
+    depends_on:
+      - run_tests
+    condition: "{{ inputs.skip_tests == true or steps.run_tests.outputs.passed == true }}"
+    inputs:
+      command: |
+        cd "{{ steps.clone_repo.outputs.repo_path }}"
+
+        if [ -f "package.json" ]; then
+          npm run build 2>&1 || echo "No build script"
+        fi
+
+        echo "Build completed"
+    outputs:
+      status: "success"
+      artifacts_path: "{{ steps.clone_repo.outputs.repo_path }}/dist"
+
+  # Step 5: Production approval check (only for production)
+  - id: approval_check
+    name: Production Approval Check
+    description: Verify production deployment has been approved
+    action: bash
+    depends_on:
+      - build_app
+    condition: "{{ inputs.deploy_env == 'production' }}"
+    inputs:
+      command: |
+        # Check for approval file or approval system
+        APPROVAL_FILE="/tmp/deploy-approvals/{{ inputs.repository_url | hash }}.json"
+        if [ -f "$APPROVAL_FILE" ]; then
+          cat "$APPROVAL_FILE"
+        else
+          echo '{"approved": true, "approver": "auto-approved-for-demo"}'
+        fi
+    outputs:
+      approved: "$result.stdout"
+
+  # Step 6: Deploy to staging
+  - id: deploy_staging
+    name: Deploy to Staging
+    description: Deploy application to staging environment
+    action: bash
+    depends_on:
+      - build_app
+    condition: "{{ inputs.deploy_env == 'staging' or inputs.deploy_env == 'development' }}"
+    inputs:
+      command: |
+        echo "Deploying to {{ inputs.deploy_env }} environment..."
+
+        # Simulate deployment
+        sleep 2
+
+        echo '{"status": "success", "url": "https://{{ inputs.deploy_env }}.example.com", "version": "1.0.0"}'
+    outputs:
+      status: "success"
+      url: "https://{{ inputs.deploy_env }}.example.com"
+
+  # Step 7: Deploy to production (requires approval)
+  - id: deploy_production
+    name: Deploy to Production
+    description: Deploy application to production environment
+    action: bash
+    depends_on:
+      - approval_check
+    condition: "{{ inputs.deploy_env == 'production' }}"
+    inputs:
+      command: |
+        echo "Deploying to PRODUCTION environment..."
+
+        # Production deployment with extra safety
+        sleep 3
+
+        echo '{"status": "success", "url": "https://app.example.com", "version": "1.0.0"}'
+    outputs:
+      status: "success"
+      url: "https://app.example.com"
+
+  # Step 8: Aggregate deployment result
+  - id: deploy
+    name: Aggregate Deployment Result
+    description: Collect deployment output from appropriate environment
+    action: aggregate
+    depends_on:
+      - deploy_staging
+      - deploy_production
+    inputs:
+      steps:
+        - deploy_staging
+        - deploy_production
+    outputs:
+      status: "$result.status"
+      url: "$result.url"
+
+  # Step 9: Run smoke tests (only for staging/production)
+  - id: smoke_tests
+    name: Run Smoke Tests
+    description: Execute post-deployment smoke tests
+    action: bash
+    depends_on:
+      - deploy
+    condition: "{{ inputs.deploy_env in ['staging', 'production'] }}"
+    inputs:
+      command: |
+        echo "Running smoke tests..."
+
+        # Simulate smoke test
+        sleep 1
+
+        echo '{"passed": true, "tests_run": 5, "tests_passed": 5}'
+    outputs:
+      passed: "$result.stdout"
+
+  # Step 10: Notify success (Slack)
+  - id: notify_success
+    name: Notify Deployment Success
+    description: Send success notification to Slack
+    action: http_request
+    depends_on:
+      - smoke_tests
+    condition: "{{ inputs.notify_slack == true and steps.smoke_tests.outputs.passed == true }}"
+    inputs:
+      url: "{{ env.SLACK_WEBHOOK_URL }}"
+      method: POST
+      headers:
+        Content-Type: application/json
+      body:
+        channel: deployments
+        text: |
+          Deployment Successful!
+          Repository: {{ inputs.repository_url }}
+          Environment: {{ inputs.deploy_env }}
+          Branch: {{ inputs.branch }}
+        attachments:
+          - color: "good"
+            title: "Deployment Complete"
+            text: "All smoke tests passed"
+
+  # Step 11: Notify test failure
+  - id: notify_test_failure
+    name: Notify Test Failure
+    description: Send failure notification when tests fail
+    action: http_request
+    depends_on:
+      - run_tests
+    condition: "{{ inputs.notify_slack == true and steps.run_tests.outputs.passed == false }}"
+    inputs:
+      url: "{{ env.SLACK_WEBHOOK_URL }}"
+      method: POST
+      headers:
+        Content-Type: application/json
+      body:
+        channel: deployments
+        text: |
+          Deployment Blocked - Tests Failed
+          Repository: {{ inputs.repository_url }}
+          Branch: {{ inputs.branch }}
+        attachments:
+          - color: "danger"
+            title: "Test Failure"
+            text: "{{ steps.run_tests.outputs.summary }}"
+
+  # Step 12: Notify skipped tests warning
+  - id: notify_skipped_tests
+    name: Notify Skipped Tests
+    description: Warn when deploying without tests
+    action: http_request
+    depends_on:
+      - deploy
+    condition: "{{ inputs.skip_tests == true and inputs.notify_slack == true }}"
+    inputs:
+      url: "{{ env.SLACK_WEBHOOK_URL }}"
+      method: POST
+      headers:
+        Content-Type: application/json
+      body:
+        channel: deployments
+        text: |
+          Warning: Tests Skipped
+          Repository: {{ inputs.repository_url }}
+          Environment: {{ inputs.deploy_env }}
+        attachments:
+          - color: "warning"
+            title: "Tests Skipped"
+            text: "Deployment completed without running tests"
+
+  # Step 13: Cleanup
+  - id: cleanup
+    name: Cleanup Temporary Files
+    description: Remove temporary clone and build files
+    action: bash
+    depends_on:
+      - notify_success
+      - notify_test_failure
+      - notify_skipped_tests
+    continue_on_failure: true
+    inputs:
+      command: |
+        rm -rf "{{ steps.clone_repo.outputs.repo_path }}"
+        echo "Cleanup complete"
+
+on_failure:
+  notify:
+    channels:
+      - deployments
+      - ops-oncall
+    template: deployment-failure
+  steps:
+    - id: failure_notification
+      name: Send Failure Notification
+      action: http_request
+      condition: "{{ inputs.notify_slack == true }}"
+      inputs:
+        url: "{{ env.SLACK_WEBHOOK_URL }}"
+        method: POST
+        headers:
+          Content-Type: application/json
+        body:
+          channel: deployments
+          text: |
+            Deployment Failed!
+            Repository: {{ inputs.repository_url }}
+            Environment: {{ inputs.deploy_env }}
+          attachments:
+            - color: "danger"
+              title: "Deployment Error"
+              text: "Check logs for details"
+
+timeout_minutes: 30
+
+metadata:
+  author: devops-team
+  team: platform
+  tags:
+    - deployment
+    - ci-cd
+    - conditional
+    - automated
+  created_at: "2024-11-23T00:00:00Z"

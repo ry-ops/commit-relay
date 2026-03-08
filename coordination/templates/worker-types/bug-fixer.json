@@ -1,0 +1,27 @@
+{
+  "worker_type": "bug-fixer",
+  "master": "development",
+  "description": "Diagnoses and fixes bugs in the codebase",
+  "default_config": {
+    "token_budget": 30000,
+    "timeout_minutes": 45,
+    "priority": "high",
+    "retry_limit": 3
+  },
+  "required_fields": [
+    "task_id",
+    "bug_description",
+    "reproduction_steps"
+  ],
+  "optional_fields": [
+    "error_logs",
+    "affected_files",
+    "expected_behavior"
+  ],
+  "success_criteria": {
+    "bug_fixed": true,
+    "tests_pass": true,
+    "no_regressions": true
+  },
+  "prompt_template": "Fix the following bug:\n\n## Bug Description\n{{bug_description}}\n\n## Reproduction Steps\n{{reproduction_steps}}\n\n## Guidelines\n- Identify root cause before fixing\n- Add regression test\n- Document the fix"
+}

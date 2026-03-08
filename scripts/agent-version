@@ -1,0 +1,227 @@
+#!/usr/bin/env bash
+#
+# Agent Version CLI
+# Part of Q2 Week 25: Agent Versioning & Deployment
+#
+# Command-line interface for version management
+#
+
+set -euo pipefail
+
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+# Source version manager
+source "$SCRIPT_DIR/lib/agentstudio/version-manager.sh"
+
+#
+# Format version for display
+#
+format_version() {
+    local version_data="$1"
+
+    local version_id=$(echo "$version_data" | jq -r '.version_id')
+    local version=$(echo "$version_data" | jq -r '.version')
+    local status=$(echo "$version_data" | jq -r '.status')
+    local env=$(echo "$version_data" | jq -r '.deployment.environment // "N/A"')
+    local success_rate=$(echo "$version_data" | jq -r '.metrics.success_rate')
+    local tags=$(echo "$version_data" | jq -r '.tags | join(", ")')
+
+    echo "Version: $version ($version_id)"
+    echo "  Status: $status"
+    echo "  Environment: $env"
+    echo "  Success Rate: $(echo "scale=1; $success_rate * 100" | bc)%"
+    if [[ -n "$tags" ]]; then
+        echo "  Tags: $tags"
+    fi
+}
+
+#
+# Main CLI
+#
+main() {
+    local command="${1:-help}"
+
+    case "$command" in
+        create)
+            local agent_id="${2:?Agent ID required}"
+            local version="${3:?Version required}"
+            local summary="${4:-}"
+            local template_id="${5:-}"
+
+            local version_id=$(create_version "$agent_id" "$version" "$summary" "$template_id")
+            echo "Created version: $version_id"
+            ;;
+
+        list)
+            local agent_id="${2:?Agent ID required}"
+            local limit="${3:-10}"
+
+            local versions=$(list_versions "$agent_id" "$limit")
+            local count=$(echo "$versions" | jq 'length')
+
+            echo "=== Versions for $agent_id ($count) ==="
+            echo ""
+
+            echo "$versions" | jq -c '.[]' | while read -r v; do
+                format_version "$v"
+                echo ""
+            done
+            ;;
+
+        show)
+            local version_id="${2:?Version ID required}"
+
+            local version_data=$(get_version "$version_id")
+            if [[ "$version_data" =~ "error" ]]; then
+                echo "Error: Version not found"
+                exit 1
+            fi
+
+            echo "=== Version Details ==="
+            echo ""
+            echo "$version_data" | jq .
+            ;;
+
+        stage)
+            local version_id="${2:?Version ID required}"
+            local environment="${3:-staging}"
+
+            stage_version "$version_id" "$environment"
+            ;;
+
+        deploy)
+            local version_id="${2:?Version ID required}"
+            local environment="${3:-production}"
+            local instances="${4:-1}"
+            local strategy="${5:-immediate}"
+
+            deploy_version "$version_id" "$environment" "$instances" "$strategy"
+            ;;
+
+        rollback)
+            local agent_id="${2:?Agent ID required}"
+            local environment="${3:-production}"
+            local reason="${4:-Manual rollback}"
+
+            rollback_version "$agent_id" "$environment" "$reason"
+            ;;
+
+        tag)
+            local version_id="${2:?Version ID required}"
+            local tag="${3:?Tag required}"
+
+            tag_version "$version_id" "$tag"
+            ;;
+
+        changelog)
+            local version_id="${2:?Version ID required}"
+            local change_type="${3:?Change type required}"
+            local description="${4:?Description required}"
+            local issue_ref="${5:-}"
+
+            add_changelog_entry "$version_id" "$change_type" "$description" "$issue_ref"
+            echo "Added changelog entry to $version_id"
+            ;;
+
+        latest)
+            local agent_id="${2:?Agent ID required}"
+            local tag="${3:-}"
+
+            local latest=$(get_latest_version "$agent_id" "$tag")
+            if [[ "$latest" == "null" ]]; then
+                echo "No versions found"
+                exit 1
+            fi
+
+            format_version "$latest"
+            ;;
+
+        compare)
+            local version_id_1="${2:?First version ID required}"
+            local version_id_2="${3:?Second version ID required}"
+
+            local comparison=$(compare_versions "$version_id_1" "$version_id_2")
+            echo "$comparison" | jq .
+            ;;
+
+        status)
+            local version_id="${2:?Version ID required}"
+            local new_status="${3:?Status required}"
+
+            update_version_status "$version_id" "$new_status"
+            echo "Updated $version_id status to $new_status"
+            ;;
+
+        help|--help|-h)
+            cat <<EOF
+Agent Version CLI - Manage agent versions and deployments
+
+Usage: $0 <command> [options]
+
+Commands:
+  create <agent-id> <version> [summary] [template-id]
+                          Create new version
+  list <agent-id> [limit]
+                          List versions for agent
+  show <version-id>       Show version details
+  stage <version-id> [environment]
+                          Stage version for deployment
+  deploy <version-id> [environment] [instances] [strategy]
+                          Deploy version to environment
+  rollback <agent-id> [environment] [reason]
+                          Rollback to previous version
+  tag <version-id> <tag>  Tag a version
+  changelog <version-id> <type> <description> [issue-ref]
+                          Add changelog entry
+  latest <agent-id> [tag] Get latest version
+  compare <v1> <v2>       Compare two versions
+  status <version-id> <status>
+                          Update version status
+
+Status Values:
+  draft, testing, staged, deployed, deprecated, rolled_back
+
+Change Types:
+  feature, fix, improvement, breaking, security, performance
+
+Environments:
+  development, staging, production
+
+Rollout Strategies:
+  immediate, canary, blue_green, rolling
+
+Examples:
+  # Create new version
+  $0 create my-agent 1.0.0 "Initial release"
+
+  # List versions
+  $0 list my-agent
+
+  # Deploy version
+  $0 deploy my-agent-v1.0.0-abc12345 production 2 rolling
+
+  # Rollback
+  $0 rollback my-agent production "Performance regression"
+
+  # Tag version
+  $0 tag my-agent-v1.0.0-abc12345 stable
+
+  # Add changelog
+  $0 changelog my-agent-v1.0.0-abc12345 feature "Added new routing algorithm"
+
+EOF
+            ;;
+
+        *)
+            echo "Unknown command: $command"
+            echo "Use '$0 help' for usage information"
+            exit 1
+            ;;
+    esac
+}
+
+# Run CLI
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

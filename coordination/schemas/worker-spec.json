@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Worker Specification Schema",
+  "description": "Schema for commit-relay worker specifications",
+  "type": "object",
+  "required": [
+    "worker_id",
+    "worker_type",
+    "task_id",
+    "status"
+  ],
+  "properties": {
+    "worker_id": {
+      "type": "string",
+      "pattern": "^worker-[a-z]+-[0-9A-Za-z]+$",
+      "description": "Unique worker identifier in format: worker-{type}-{id}"
+    },
+    "worker_type": {
+      "type": "string",
+      "enum": [
+        "implementation-worker",
+        "test-worker",
+        "documentation-worker",
+        "scan-worker",
+        "fix-worker",
+        "analysis-worker",
+        "refactor-worker",
+        "validation-worker"
+      ],
+      "description": "Type of worker defining its capabilities"
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^task-",
+      "description": "ID of the task this worker is assigned to"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "running", "completed", "failed"],
+      "description": "Current status of the worker"
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "repository": {
+          "type": "string",
+          "description": "Repository this worker operates on"
+        },
+        "branch": {
+          "type": "string",
+          "description": "Branch to work on"
+        },
+        "files": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Specific files to work on"
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "parent_task": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["critical", "high", "medium", "low"]
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "properties": {
+        "token_budget": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 200000,
+          "description": "Maximum tokens this worker can consume"
+        },
+        "timeout_minutes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 180,
+          "description": "Maximum execution time in minutes"
+        }
+      }
+    },
+    "task_data": {
+      "type": "object",
+      "description": "Task-specific data and requirements"
+    },
+    "prompt_template": {
+      "type": "string",
+      "description": "Path to the prompt template for this worker"
+    },
+    "execution": {
+      "type": "object",
+      "properties": {
+        "started_at": {"type": "string", "format": "date-time"},
+        "completed_at": {"type": "string", "format": "date-time"},
+        "tokens_used": {"type": "integer", "minimum": 0}
+      }
+    },
+    "results": {
+      "type": "object",
+      "properties": {
+        "status": {"type": ["string", "null"]},
+        "output_location": {"type": ["string", "null"]},
+        "error_code": {"type": ["string", "null"]},
+        "error_message": {"type": ["string", "null"]}
+      }
+    }
+  }
+}

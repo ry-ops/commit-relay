@@ -1,0 +1,15 @@
+{
+  "daemon_started_at": "2025-11-15T08:23:20-0600",
+  "last_check": "2025-11-25T12:10:19-0600",
+  "checks_performed": 9525,
+  "routing_metrics": {
+    "tasks_pending": 0,
+    "tasks_assigned": 6,
+    "tasks_completed": 12,
+    "tasks_failed": 7,
+    "routing_success_rate": 100.00
+  },
+  "current_issues": [],
+  "last_successful_routing": null,
+  "status": "healthy"
+}

@@ -1,0 +1,78 @@
+{
+  "handoff_id": "coord-to-development-5c74c959",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-014",
+  "task_data": {
+    "id": "task-014",
+    "title": "Improve dashboard real-time data freshness and update mechanisms",
+    "type": "development",
+    "priority": "high",
+    "status": "assigned",
+    "repository": "ry-ops/commit-relay",
+    "context": {
+      "description": "Optimize dashboard to ensure data is always up-to-date with minimal latency. Address redundancies between dashboard-agent-monitor.sh and server file watching, reduce update latency, and improve system reliability.",
+      "current_issues": [
+        "Dashboard-agent-monitor.sh duplicates server chokidar file watching functionality",
+        "500ms file watcher stability threshold causes noticeable lag",
+        "Dashboard server requires manual startup (not integrated into start-commit-relay.sh)",
+        "Daemon status not pushed via WebSocket (only HTTP polling)",
+        "No data freshness indicators or stale data warnings",
+        "Missing event buffer for reconnecting WebSocket clients"
+      ],
+      "requirements": [
+        "Reduce file watcher latency from 500ms to 100-200ms",
+        "Eliminate redundancy: either integrate dashboard-agent-monitor.sh into server or remove it",
+        "Push daemon status updates via WebSocket instead of polling",
+        "Add data freshness monitoring with visual indicators for stale data",
+        "Implement event buffer (last 50 events) for reconnecting clients",
+        "Add debouncing for multiple simultaneous file changes (1-second window)",
+        "Improve error handling with retry logic for transient failures",
+        "Serve API requests from in-memory cache instead of re-reading files"
+      ],
+      "deliverables": [
+        "Updated dashboard/server/index.js with optimized file watching",
+        "Refactored or removed dashboard-agent-monitor.sh",
+        "WebSocket push for all real-time data including daemon status",
+        "Data freshness indicators in frontend UI",
+        "Event buffer implementation for client reconnection",
+        "Updated documentation",
+        "Verification tests showing <200ms update latency"
+      ],
+      "files_to_modify": [
+        "dashboard/server/index.js",
+        "dashboard/public/dashboard-v2.js",
+        "scripts/dashboard-agent-monitor.sh",
+        "scripts/start-commit-relay.sh"
+      ],
+      "technical_approach": [
+        "Reduce chokidar awaitWriteFinish.stabilityThreshold from 500ms to 150ms",
+        "Implement debounce wrapper to batch updates within 1-second window",
+        "Add timestamp tracking to coordination data for freshness detection",
+        "Convert daemon status polling to WebSocket push architecture",
+        "Add circular buffer for last 50 events in server memory",
+        "Refactor dashboard-agent-monitor.sh logic into server or deprecate",
+        "Update cache strategy to serve reads from memory, update on write",
+        "Add visual staleness indicators (yellow >30s, red >2min since update)"
+      ],
+      "success_criteria": [
+        "Dashboard updates visible within 200ms of coordination file changes",
+        "Zero redundant file monitoring processes",
+        "All data sources push via WebSocket (no polling for core data)",
+        "Reconnecting clients receive missed events (up to 50)",
+        "Clear visual indicators when data is stale",
+        "Dashboard auto-starts with commit-relay system"
+      ],
+      "estimated_effort": "MEDIUM - Multiple file modifications and architectural improvements"
+    }
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE - Task matches 'code-development' rule with patterns: implement, develop, code, feature, refactor. Involves implementing dashboard optimizations, feature development (WebSocket push, event buffering, caching), and refactoring file watching architecture.",
+    "priority": "high",
+    "expected_outcome": "Task completion with improved dashboard real-time performance (<200ms latency), eliminated redundancy, WebSocket push architecture, and enhanced user experience with data freshness indicators",
+    "confidence": 0.90,
+    "rule_applied": "code-development"
+  },
+  "created_at": "2025-11-04T15:54:53Z",
+  "status": "pending_pickup"
+}

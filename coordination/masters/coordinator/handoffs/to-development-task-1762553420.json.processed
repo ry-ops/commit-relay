@@ -1,0 +1,51 @@
+{
+  "handoff_id": "coord-to-development-4025EE7F-7AE1-4AB1-B7AC-CA5F549BEDE7",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762553420",
+  "task_data": {
+    "id": "task-1762553420",
+    "title": "Complete MoE Architecture Integration - Phase 4 Testing & Advanced Features",
+    "type": "feature",
+    "priority": "medium",
+    "status": "assigned",
+    "created_at": "2025-11-07T22:10:20Z",
+    "context": {
+      "description": "Complete the MoE architecture integration by: 1) Testing the full pipeline end-to-end (routing → spawning → execution → learning), 2) Verify dashboard displays MoE metrics correctly, 3) Document the event flow and MoE components, 4) Create example tasks to demonstrate MoE routing with different confidence levels, 5) Test sparse pool activation at different load levels (14%, 50%, 100%), 6) Optional: Implement adaptive threshold optimization for routing confidence scores based on historical accuracy",
+      "requirements": [
+        "Test MoE routing with sample tasks",
+        "Verify event emissions throughout pipeline",
+        "Check dashboard MoE views display data",
+        "Test sparse pool scaling behavior",
+        "Validate learning system updates patterns",
+        "Create documentation for MoE architecture"
+      ],
+      "acceptance_criteria": [
+        "All MoE events appear in dashboard-events.jsonl",
+        "Dashboard MoE Intelligence views show real data",
+        "Routing decisions logged with confidence scores",
+        "Pool activation adjusts based on load",
+        "Memory manager learns new keywords from tasks",
+        "Documentation includes architecture diagram and flow"
+      ]
+    },
+    "assigned_to": "development",
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-07T20:18:33-0600",
+    "routing_confidence": "0.03",
+    "routing_strategy": "single_expert_low_confidence",
+    "updated_at": "2025-11-07T20:18:33-06:00"
+  },
+  "context": {
+    "routing_reason": "MoE confidence-based routing (confidence: 0.03, strategy: single_expert_low_confidence)",
+    "priority": "medium",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "0.03",
+      "strategy": "single_expert_low_confidence",
+      "routed_at": "2025-11-07T20:18:33-0600"
+    }
+  },
+  "created_at": "2025-11-07T20:18:33-0600",
+  "status": "pending_pickup"
+}

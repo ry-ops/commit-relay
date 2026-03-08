@@ -1,0 +1,362 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-11-21T00:00:00Z",
+  "description": "Registry of automated remediation playbooks linked to failure patterns",
+  "playbooks": [
+    {
+      "playbook_id": "pb-001",
+      "name": "Worker Timeout Recovery",
+      "description": "Automatically recover from worker timeout failures",
+      "trigger_patterns": ["worker_timeout", "execution_timeout", "task_stalled"],
+      "severity_threshold": "medium",
+      "enabled": true,
+      "auto_execute": true,
+      "steps": [
+        {
+          "step_id": 1,
+          "action": "kill_worker",
+          "description": "Terminate the stalled worker process",
+          "params": {
+            "signal": "SIGTERM",
+            "timeout_seconds": 10
+          },
+          "on_failure": "continue"
+        },
+        {
+          "step_id": 2,
+          "action": "cleanup_state",
+          "description": "Clean up worker state files",
+          "params": {
+            "files": ["worker-spec", "heartbeat"]
+          },
+          "on_failure": "continue"
+        },
+        {
+          "step_id": 3,
+          "action": "requeue_task",
+          "description": "Re-queue the task for retry",
+          "params": {
+            "priority_boost": 1,
+            "max_retries": 2
+          },
+          "on_failure": "alert"
+        },
+        {
+          "step_id": 4,
+          "action": "emit_event",
+          "description": "Record remediation event",
+          "params": {
+            "event_type": "remediation_complete",
+            "severity": "info"
+          },
+          "on_failure": "continue"
+        }
+      ],
+      "rollback_steps": [
+        {
+          "step_id": 1,
+          "action": "restore_state",
+          "description": "Restore previous worker state"
+        }
+      ],
+      "validation": {
+        "check_type": "task_restarted",
+        "timeout_seconds": 60
+      },
+      "metadata": {
+        "author": "system",
+        "created_at": "2025-11-21T00:00:00Z",
+        "tags": ["worker", "timeout", "recovery"]
+      }
+    },
+    {
+      "playbook_id": "pb-002",
+      "name": "Token Budget Exhaustion Recovery",
+      "description": "Handle token budget exhaustion gracefully",
+      "trigger_patterns": ["token_exhausted", "budget_exceeded", "token_limit_reached"],
+      "severity_threshold": "high",
+      "enabled": true,
+      "auto_execute": true,
+      "steps": [
+        {
+          "step_id": 1,
+          "action": "pause_queue",
+          "description": "Pause task queue processing",
+          "params": {
+            "duration_minutes": 5
+          },
+          "on_failure": "alert"
+        },
+        {
+          "step_id": 2,
+          "action": "recalculate_budget",
+          "description": "Recalculate and reallocate token budget",
+          "params": {
+            "strategy": "proportional",
+            "min_reserve_percent": 10
+          },
+          "on_failure": "alert"
+        },
+        {
+          "step_id": 3,
+          "action": "prioritize_tasks",
+          "description": "Re-prioritize pending tasks by impact",
+          "params": {
+            "sort_by": "priority",
+            "drop_low_priority": true
+          },
+          "on_failure": "continue"
+        },
+        {
+          "step_id": 4,
+          "action": "resume_queue",
+          "description": "Resume task queue with new budget",
+          "params": {},
+          "on_failure": "alert"
+        }
+      ],
+      "rollback_steps": [],
+      "validation": {
+        "check_type": "budget_positive",
+        "timeout_seconds": 30
+      },
+      "metadata": {
+        "author": "system",
+        "created_at": "2025-11-21T00:00:00Z",
+        "tags": ["token", "budget", "resource"]
+      }
+    },
+    {
+      "playbook_id": "pb-003",
+      "name": "Queue Overflow Mitigation",
+      "description": "Handle task queue overflow situations",
+      "trigger_patterns": ["queue_overflow", "queue_depth_critical", "backpressure_critical"],
+      "severity_threshold": "high",
+      "enabled": true,
+      "auto_execute": true,
+      "steps": [
+        {
+          "step_id": 1,
+          "action": "scale_workers",
+          "description": "Scale up worker pool",
+          "params": {
+            "scale_factor": 1.5,
+            "max_workers": 20
+          },
+          "on_failure": "continue"
+        },
+        {
+          "step_id": 2,
+          "action": "batch_similar_tasks",
+          "description": "Batch similar tasks together",
+          "params": {
+            "similarity_threshold": 0.8
+          },
+          "on_failure": "continue"
+        },
+        {
+          "step_id": 3,
+          "action": "defer_low_priority",
+          "description": "Defer low-priority tasks",
+          "params": {
+            "priority_cutoff": 3,
+            "defer_minutes": 30
+          },
+          "on_failure": "continue"
+        },
+        {
+          "step_id": 4,
+          "action": "emit_event",
+          "description": "Record mitigation event",
+          "params": {
+            "event_type": "queue_mitigation_applied"
+          },
+          "on_failure": "continue"
+        }
+      ],
+      "rollback_steps": [
+        {
+          "step_id": 1,
+          "action": "scale_down_workers",
+          "description": "Scale workers back to normal"
+        },
+        {
+          "step_id": 2,
+          "action": "restore_deferred_tasks",
+          "description": "Restore deferred tasks to queue"
+        }
+      ],
+      "validation": {
+        "check_type": "queue_depth_normal",
+        "timeout_seconds": 300
+      },
+      "metadata": {
+        "author": "system",
+        "created_at": "2025-11-21T00:00:00Z",
+        "tags": ["queue", "scaling", "backpressure"]
+      }
+    },
+    {
+      "playbook_id": "pb-004",
+      "name": "Routing Confidence Recovery",
+      "description": "Recover from MoE routing confidence degradation",
+      "trigger_patterns": ["routing_confidence_low", "expert_selection_failed", "moe_degradation"],
+      "severity_threshold": "medium",
+      "enabled": true,
+      "auto_execute": false,
+      "steps": [
+        {
+          "step_id": 1,
+          "action": "fallback_to_default",
+          "description": "Enable default routing fallback",
+          "params": {
+            "fallback_strategy": "round_robin"
+          },
+          "on_failure": "alert"
+        },
+        {
+          "step_id": 2,
+          "action": "recalibrate_weights",
+          "description": "Trigger weight recalibration",
+          "params": {
+            "learning_rate": 0.01,
+            "sample_size": 100
+          },
+          "on_failure": "continue"
+        },
+        {
+          "step_id": 3,
+          "action": "clear_routing_cache",
+          "description": "Clear stale routing decisions",
+          "params": {},
+          "on_failure": "continue"
+        }
+      ],
+      "rollback_steps": [
+        {
+          "step_id": 1,
+          "action": "restore_routing_config",
+          "description": "Restore previous routing configuration"
+        }
+      ],
+      "validation": {
+        "check_type": "routing_confidence_recovered",
+        "timeout_seconds": 120
+      },
+      "metadata": {
+        "author": "system",
+        "created_at": "2025-11-21T00:00:00Z",
+        "tags": ["routing", "moe", "confidence"]
+      }
+    },
+    {
+      "playbook_id": "pb-005",
+      "name": "Dependency Vulnerability Fix",
+      "description": "Automatically fix known dependency vulnerabilities",
+      "trigger_patterns": ["cve_detected", "vulnerability_found", "security_scan_failed"],
+      "severity_threshold": "high",
+      "enabled": true,
+      "auto_execute": false,
+      "steps": [
+        {
+          "step_id": 1,
+          "action": "create_backup",
+          "description": "Backup current package state",
+          "params": {
+            "files": ["package.json", "package-lock.json"]
+          },
+          "on_failure": "abort"
+        },
+        {
+          "step_id": 2,
+          "action": "npm_audit_fix",
+          "description": "Run npm audit fix",
+          "params": {
+            "force": false
+          },
+          "on_failure": "rollback"
+        },
+        {
+          "step_id": 3,
+          "action": "run_tests",
+          "description": "Verify fixes don't break functionality",
+          "params": {
+            "test_command": "npm test"
+          },
+          "on_failure": "rollback"
+        },
+        {
+          "step_id": 4,
+          "action": "commit_changes",
+          "description": "Commit the security fixes",
+          "params": {
+            "message_prefix": "fix(security):"
+          },
+          "on_failure": "rollback"
+        }
+      ],
+      "rollback_steps": [
+        {
+          "step_id": 1,
+          "action": "restore_backup",
+          "description": "Restore original package files"
+        },
+        {
+          "step_id": 2,
+          "action": "npm_install",
+          "description": "Reinstall original dependencies"
+        }
+      ],
+      "validation": {
+        "check_type": "npm_audit_clean",
+        "timeout_seconds": 300
+      },
+      "metadata": {
+        "author": "security-team",
+        "created_at": "2025-11-21T00:00:00Z",
+        "tags": ["security", "dependencies", "vulnerability"]
+      }
+    }
+  ],
+  "actions": {
+    "kill_worker": {
+      "script": "scripts/lib/remediation/kill-worker.sh",
+      "description": "Terminate a worker process"
+    },
+    "cleanup_state": {
+      "script": "scripts/lib/remediation/cleanup-state.sh",
+      "description": "Clean up state files"
+    },
+    "requeue_task": {
+      "script": "scripts/lib/remediation/requeue-task.sh",
+      "description": "Re-queue a task for retry"
+    },
+    "emit_event": {
+      "script": "scripts/lib/remediation/emit-event.sh",
+      "description": "Emit a system event"
+    },
+    "pause_queue": {
+      "script": "scripts/lib/remediation/pause-queue.sh",
+      "description": "Pause task queue processing"
+    },
+    "resume_queue": {
+      "script": "scripts/lib/remediation/resume-queue.sh",
+      "description": "Resume task queue processing"
+    },
+    "scale_workers": {
+      "script": "scripts/lib/remediation/scale-workers.sh",
+      "description": "Scale worker pool"
+    },
+    "recalculate_budget": {
+      "script": "scripts/lib/remediation/recalculate-budget.sh",
+      "description": "Recalculate token budget"
+    }
+  },
+  "global_settings": {
+    "max_concurrent_playbooks": 3,
+    "default_timeout_seconds": 600,
+    "require_approval_for_auto": false,
+    "log_all_executions": true,
+    "retention_days": 30
+  }
+}

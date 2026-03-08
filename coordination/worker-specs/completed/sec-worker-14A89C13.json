@@ -1,0 +1,33 @@
+{
+  "worker_id": "sec-worker-14A89C13",
+  "worker_type": "scan-worker",
+  "prompt_template": "agents/prompts/workers/scan-worker.md",
+  "parent_master": "security",
+  "task_id": "",
+  "task_data": null,
+  "context": {
+    "master_session": "D3E7AA88-CB9B-44A8-A1DC-8BEE4B0FA048",
+    "expertise_area": "vulnerability_detection",
+    "skills_required": [
+      "dependency_scanning",
+      "static_analysis",
+      "secrets_detection"
+    ],
+    "knowledge_base_refs": {
+      "vulnerability_database": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/security/knowledge-base/vulnerability-history.jsonl",
+      "remediation_strategies": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/security/knowledge-base/remediation-patterns.json",
+      "false_positives": "/Users/ryandahlberg/commit-relay/scripts/../coordination/masters/security/knowledge-base/false-positives.json"
+    },
+    "relevant_past_findings": {}
+  },
+  "resources": {
+    "token_allocation": 12000,
+    "time_limit_minutes": 60
+  },
+  "status": "completed",
+  "created_at": "2025-11-05T11:51:55Z",
+  "created_by": "security",
+  "execution": {
+    "started_at": "2025-11-05T16:28:42Z"
+  }
+}

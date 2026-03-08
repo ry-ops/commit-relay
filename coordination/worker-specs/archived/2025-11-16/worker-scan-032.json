@@ -1,0 +1,67 @@
+{
+  "worker_id": "worker-scan-032",
+  "worker_type": "scan-worker",
+  "created_by": "security-master",
+  "execution_manager": null,
+  "created_at": "2025-11-16T11:26:26-0600",
+  "task_id": "moe-test-ddqd-v5-1763313927-b070dcb0",
+  "status": "completed",
+  "scope": {
+    "scan_type": "comprehensive-security-audit",
+    "areas": [
+      "secrets-exposure",
+      "dependency-vulnerabilities",
+      "file-permissions",
+      "code-vulnerabilities",
+      "authentication",
+      "compliance"
+    ]
+  },
+  "context": {
+    "parent_task": "moe-test-ddqd-v5-1763313927-b070dcb0",
+    "priority": "medium",
+    "deadline": null
+  },
+  "resources": {
+    "token_budget": 200000,
+    "timeout_minutes": 15,
+    "max_retries": 1
+  },
+  "deliverables": [
+    "agents/logs/workers/2025-11-16/worker-scan-032/security-audit-report.md",
+    "agents/logs/workers/2025-11-16/worker-scan-032/completion_summary.md"
+  ],
+  "prompt_template": "agents/prompts/workers/scan-worker.md",
+  "execution": {
+    "started_at": "2025-11-16T11:26:52-0600",
+    "completed_at": "2025-11-16T17:28:00-0600",
+    "tokens_used": 44500,
+    "duration_minutes": 2,
+    "session_id": "worker-scan-032"
+  },
+  "results": {
+    "status": "success",
+    "output_location": "agents/logs/workers/2025-11-16/worker-scan-032/",
+    "summary": "Comprehensive security audit completed. Found 1 CRITICAL, 2 HIGH, and 18 MODERATE vulnerabilities. Critical: Exposed Anthropic API key requires immediate revocation.",
+    "artifacts": [
+      "security-audit-report.md",
+      "completion_summary.md"
+    ],
+    "findings": {
+      "critical": 1,
+      "high": 2,
+      "moderate": 18,
+      "total": 21
+    },
+    "compliance": {
+      "owasp_top_10": "7/10 PASS, 3/10 WARNINGS",
+      "overall_rating": "GOOD"
+    },
+    "immediate_actions": [
+      "Revoke exposed Anthropic API key",
+      "Generate new API key",
+      "Fix dashboard/.env permissions to 600",
+      "Set API_KEY in dashboard/.env"
+    ]
+  }
+}

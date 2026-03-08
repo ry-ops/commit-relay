@@ -1,0 +1,71 @@
+{
+  "policy_id": "resource-governance",
+  "name": "Resource Governance Policy",
+  "description": "Enforces resource allocation and usage limits for workers",
+  "version": "1.0.0",
+  "severity": "medium",
+  "enabled": true,
+  "frameworks": ["nist-csf", "soc2"],
+  "controls": ["CR-PR-DS-1", "CR-DE-CM-1"],
+  "rules": [
+    {
+      "rule_id": "RGP-001",
+      "description": "Implementation workers must have sufficient token budget",
+      "field": "resources.token_budget",
+      "condition": {
+        "type": "greater_or_equal",
+        "value": "10000"
+      },
+      "message": "Token budget too low for implementation tasks",
+      "remediation": "Increase token_budget to at least 10000 for implementation workers"
+    },
+    {
+      "rule_id": "RGP-002",
+      "description": "Scan workers should have limited token budget",
+      "condition": {
+        "type": "any",
+        "conditions": [
+          {
+            "field": "worker_type",
+            "type": "not_equals",
+            "value": "scan"
+          },
+          {
+            "field": "resources.token_budget",
+            "type": "less_or_equal",
+            "value": "50000"
+          }
+        ]
+      },
+      "message": "Scan workers should not exceed 50000 token budget",
+      "remediation": "Reduce token_budget for scan workers to 50000 or less"
+    },
+    {
+      "rule_id": "RGP-003",
+      "description": "Workers must specify resource allocation",
+      "field": "resources",
+      "condition": {
+        "type": "exists"
+      },
+      "message": "Resource allocation must be specified",
+      "remediation": "Add resources object with token_budget and time_limit_minutes"
+    },
+    {
+      "rule_id": "RGP-004",
+      "description": "Time limit must be positive",
+      "field": "resources.time_limit_minutes",
+      "condition": {
+        "type": "greater_than",
+        "value": "0"
+      },
+      "message": "Time limit must be greater than 0",
+      "remediation": "Set time_limit_minutes to a positive value"
+    }
+  ],
+  "metadata": {
+    "author": "commit-relay-governance",
+    "created_at": "2025-11-21T00:00:00Z",
+    "updated_at": "2025-11-21T00:00:00Z",
+    "tags": ["governance", "resources", "budgets"]
+  }
+}

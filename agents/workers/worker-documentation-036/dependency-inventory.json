@@ -1,0 +1,277 @@
+{
+  "repository": "commit-relay",
+  "version": "1.0.0",
+  "catalog_date": "2025-11-16",
+  "cataloged_by": "worker-documentation-036",
+  "task_id": "moe-test-ddqd-v5-1763307968-9c6e2cb8",
+  "dependencies": {
+    "nodejs": {
+      "package_manager": "npm",
+      "manifest_file": "package.json",
+      "lock_file": "package-lock.json",
+      "production": {
+        "ajv": {
+          "version": "^8.17.1",
+          "description": "JSON schema validation library",
+          "category": "validation",
+          "purpose": "Schema validation for coordination files and API requests"
+        },
+        "ajv-formats": {
+          "version": "^3.0.1",
+          "description": "Format validators for ajv",
+          "category": "validation",
+          "purpose": "Extended format validation (email, uri, date-time, etc.)"
+        }
+      },
+      "development": {
+        "@types/jest": {
+          "version": "^29.5.11",
+          "description": "TypeScript definitions for Jest",
+          "category": "testing",
+          "purpose": "Type definitions for Jest testing framework"
+        },
+        "jest": {
+          "version": "^29.7.0",
+          "description": "JavaScript testing framework",
+          "category": "testing",
+          "purpose": "Unit and integration testing"
+        },
+        "supertest": {
+          "version": "^7.1.4",
+          "description": "HTTP assertion library",
+          "category": "testing",
+          "purpose": "API endpoint testing for dashboard server"
+        }
+      },
+      "total_count": 5,
+      "scripts": {
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage",
+        "test:ci": "jest --ci --coverage --maxWorkers=2"
+      }
+    },
+    "python": {
+      "package_manager": "pip",
+      "manifest_file": "python-sdk/requirements.txt",
+      "core": {
+        "requests": {
+          "version": ">=2.28.0",
+          "description": "HTTP library for Python",
+          "category": "networking",
+          "purpose": "HTTP requests for API integrations"
+        },
+        "pandas": {
+          "version": ">=1.5.0",
+          "description": "Data manipulation library",
+          "category": "data-processing",
+          "purpose": "Data analysis and manipulation"
+        },
+        "numpy": {
+          "version": ">=1.23.0",
+          "description": "Numerical computing library",
+          "category": "data-processing",
+          "purpose": "Numerical operations and array processing"
+        },
+        "scipy": {
+          "version": ">=1.9.0",
+          "description": "Scientific computing library",
+          "category": "data-processing",
+          "purpose": "Scientific and technical computing"
+        },
+        "matplotlib": {
+          "version": ">=3.6.0",
+          "description": "Data visualization library",
+          "category": "visualization",
+          "purpose": "Creating charts and graphs"
+        },
+        "seaborn": {
+          "version": ">=0.12.0",
+          "description": "Statistical visualization library",
+          "category": "visualization",
+          "purpose": "Statistical data visualization built on matplotlib"
+        }
+      },
+      "optional": {
+        "openpyxl": {
+          "version": ">=3.0.0",
+          "description": "Excel file handling library",
+          "category": "data-export",
+          "purpose": "Read and write Excel files for data export"
+        },
+        "jupyter": {
+          "version": ">=1.0.0",
+          "description": "Jupyter notebook environment",
+          "category": "development",
+          "purpose": "Interactive development and data analysis"
+        },
+        "ipykernel": {
+          "version": ">=6.0.0",
+          "description": "Jupyter kernel",
+          "category": "development",
+          "purpose": "IPython kernel for Jupyter notebooks"
+        }
+      },
+      "integration": {
+        "PyGithub": {
+          "version": ">=1.59.0",
+          "description": "GitHub API integration library",
+          "category": "integration",
+          "purpose": "GitHub API access for repository discovery and management"
+        }
+      },
+      "development": {
+        "pytest": {
+          "version": ">=7.0",
+          "description": "Testing framework",
+          "category": "testing",
+          "purpose": "Python unit and integration testing"
+        },
+        "pytest-cov": {
+          "version": ">=4.0",
+          "description": "Coverage plugin for pytest",
+          "category": "testing",
+          "purpose": "Code coverage reporting"
+        },
+        "black": {
+          "version": ">=22.0",
+          "description": "Code formatter",
+          "category": "code-quality",
+          "purpose": "Automatic code formatting"
+        },
+        "mypy": {
+          "version": ">=0.991",
+          "description": "Static type checker",
+          "category": "code-quality",
+          "purpose": "Type checking for Python code"
+        },
+        "flake8": {
+          "version": ">=5.0",
+          "description": "Linting tool",
+          "category": "code-quality",
+          "purpose": "Code style and quality checking"
+        }
+      },
+      "total_count": 15
+    },
+    "external_tools": {
+      "claude-code": {
+        "type": "ai-runtime",
+        "provider": "Anthropic",
+        "description": "AI agent runtime environment",
+        "required": true,
+        "purpose": "Execute master and worker agents",
+        "alternatives": ["Claude Pro"]
+      },
+      "github-cli": {
+        "type": "cli-tool",
+        "command": "gh",
+        "description": "GitHub command-line interface",
+        "required": true,
+        "purpose": "Repository operations, PR creation, issue management",
+        "installation": "brew install gh (macOS) or see https://cli.github.com"
+      },
+      "git": {
+        "type": "version-control",
+        "command": "git",
+        "description": "Distributed version control system",
+        "required": true,
+        "purpose": "Version control, coordination layer, commits",
+        "configuration_required": "User credentials must be configured"
+      },
+      "jq": {
+        "type": "cli-tool",
+        "command": "jq",
+        "description": "Command-line JSON processor",
+        "required": true,
+        "purpose": "Processing coordination JSON files",
+        "installation": "brew install jq (macOS)"
+      },
+      "curl": {
+        "type": "cli-tool",
+        "command": "curl",
+        "description": "HTTP client",
+        "required": false,
+        "purpose": "API health checks and HTTP requests",
+        "note": "Usually pre-installed on Unix-like systems"
+      }
+    },
+    "dashboard_dependencies": {
+      "note": "Dashboard has separate package.json in /dashboard directory",
+      "expected_dependencies": [
+        "express (web server)",
+        "ws (WebSocket server)",
+        "cors (CORS middleware)",
+        "file-watching library for coordination files"
+      ]
+    }
+  },
+  "dependency_summary": {
+    "total_nodejs_dependencies": 5,
+    "total_python_dependencies": 15,
+    "total_external_tools": 5,
+    "nodejs_production_count": 2,
+    "nodejs_development_count": 3,
+    "python_core_count": 6,
+    "python_optional_count": 3,
+    "python_integration_count": 1,
+    "python_development_count": 5
+  },
+  "security_considerations": {
+    "nodejs": {
+      "version_pinning": "Uses caret (^) ranges for semantic versioning",
+      "lock_file": "package-lock.json present for reproducible builds",
+      "vulnerability_scanning": "Should run npm audit regularly"
+    },
+    "python": {
+      "version_pinning": "Uses >= ranges for minimum versions",
+      "lock_file": "No requirements.lock - consider using pip-tools or poetry",
+      "vulnerability_scanning": "Should run safety check or pip-audit"
+    },
+    "recommendations": [
+      "Run npm audit to check for Node.js vulnerabilities",
+      "Run pip-audit or safety check for Python dependencies",
+      "Consider using Dependabot for automated dependency updates",
+      "Regularly update dependencies to latest stable versions",
+      "Review and approve dependency updates via governance framework"
+    ]
+  },
+  "integration_map": {
+    "github_api": {
+      "library": "PyGithub (Python)",
+      "purpose": "Repository discovery, metadata collection, health tracking",
+      "used_by": ["Inventory Master", "catalog-worker"]
+    },
+    "github_cli": {
+      "tool": "gh",
+      "purpose": "Pull requests, issues, repository operations",
+      "used_by": ["pr-worker", "All master agents"]
+    },
+    "dashboard_api": {
+      "framework": "Express.js (implied)",
+      "endpoints": [
+        "/api/health",
+        "/api/metrics",
+        "/api/events",
+        "/api/tasks",
+        "/api/workers",
+        "/api/execution-managers"
+      ],
+      "purpose": "Real-time monitoring and metrics visualization"
+    },
+    "testing_framework": {
+      "javascript": "Jest + Supertest",
+      "python": "pytest + pytest-cov",
+      "purpose": "Unit testing, integration testing, coverage reporting"
+    }
+  },
+  "notes": [
+    "Dashboard has separate package.json - not included in this inventory",
+    "Node.js dependencies are minimal - system relies heavily on shell scripts",
+    "Python SDK appears to be for data analysis and GitHub integration",
+    "External tools (gh, git, jq) are critical for system operation",
+    "CAG caching (v5.0) reduces dependency on heavy frameworks for knowledge access",
+    "Vector database uses sentence-transformers (not listed - may be Python dependency)",
+    "Consider documenting dashboard dependencies separately"
+  ]
+}

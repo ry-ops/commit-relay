@@ -1,0 +1,162 @@
+name: GitHub Actions Monitoring Dashboard
+
+# Real-time monitoring for all workflow executions
+# Integrates with Elastic APM for centralized metrics
+
+workflows:
+  - name: Achievement Tracker
+    schedule: "0 */6 * * *"
+    metrics:
+      - execution_count
+      - success_rate
+      - avg_duration
+      - api_calls_made
+    alerts:
+      - condition: success_rate < 0.8
+        severity: warning
+        notification: slack
+      - condition: avg_duration > 300
+        severity: info
+        notification: email
+
+  - name: Security Scanner
+    schedule: "0 2 * * *"
+    metrics:
+      - vulnerabilities_found
+      - cve_count
+      - dependency_updates
+      - scan_duration
+    alerts:
+      - condition: vulnerabilities_found > 0
+        severity: critical
+        notification: pagerduty
+
+monitoring:
+  elastic_apm:
+    enabled: true
+    service_name: "github-actions"
+    environment: "production"
+    labels:
+      workflow_name: "${GITHUB_WORKFLOW}"
+      run_id: "${GITHUB_RUN_ID}"
+      run_number: "${GITHUB_RUN_NUMBER}"
+      actor: "${GITHUB_ACTOR}"
+      event: "${GITHUB_EVENT_NAME}"
+      
+  metrics:
+    - name: workflow_execution_count
+      type: counter
+      description: "Total workflow executions"
+      labels:
+        - workflow_name
+        - status
+        
+    - name: workflow_duration_seconds
+      type: histogram
+      description: "Workflow execution duration"
+      buckets: [10, 30, 60, 120, 300, 600]
+      labels:
+        - workflow_name
+        
+    - name: workflow_success_rate
+      type: gauge
+      description: "Workflow success rate (0-1)"
+      labels:
+        - workflow_name
+        
+    - name: github_api_calls
+      type: counter
+      description: "GitHub API calls made"
+      labels:
+        - endpoint
+        - method
+        
+    - name: github_rate_limit_remaining
+      type: gauge
+      description: "GitHub API rate limit remaining"
+      
+  dashboards:
+    - name: "Workflow Performance"
+      visualizations:
+        - type: timeseries
+          title: "Workflow Executions Over Time"
+          query: "workflow_execution_count"
+          
+        - type: bar
+          title: "Success Rate by Workflow"
+          query: "workflow_success_rate"
+          
+        - type: heatmap
+          title: "Execution Duration Heatmap"
+          query: "workflow_duration_seconds"
+          
+    - name: "GitHub API Usage"
+      visualizations:
+        - type: gauge
+          title: "Rate Limit Remaining"
+          query: "github_rate_limit_remaining"
+          threshold:
+            warning: 1000
+            critical: 500
+            
+        - type: timeseries
+          title: "API Calls Per Hour"
+          query: "rate(github_api_calls[1h])"
+          
+  notification_channels:
+    slack:
+      webhook_url: "${SLACK_WEBHOOK_URL}"
+      channel: "#github-actions"
+      
+    email:
+      recipients:
+        - admin@commit-relay.io
+        - ops@commit-relay.io
+        
+    pagerduty:
+      integration_key: "${PAGERDUTY_INTEGRATION_KEY}"
+      severity_mapping:
+        critical: "critical"
+        warning: "warning"
+        info: "info"
+
+# Auto-remediation
+auto_remediation:
+  enabled: true
+  policies:
+    - name: "Retry Failed Workflows"
+      condition: "workflow_status == 'failure' AND retry_count < 3"
+      action: "gh workflow run ${WORKFLOW_NAME} --ref main"
+      
+    - name: "Rate Limit Backoff"
+      condition: "github_rate_limit_remaining < 500"
+      action: "./scripts/lib/rate-limit-backoff.sh"
+      
+    - name: "Cleanup Stale Runs"
+      condition: "workflow_duration > 3600"
+      action: "gh run cancel ${RUN_ID}"
+
+# Reporting
+reports:
+  daily_summary:
+    enabled: true
+    schedule: "0 9 * * *"
+    recipients:
+      - admin@commit-relay.io
+    metrics:
+      - total_executions
+      - success_rate
+      - avg_duration
+      - failures_count
+      - api_usage
+      
+  weekly_digest:
+    enabled: true
+    schedule: "0 9 * * 1"
+    recipients:
+      - team@commit-relay.io
+    include:
+      - trend_analysis
+      - top_failures
+      - performance_improvements
+      - upcoming_maintenance

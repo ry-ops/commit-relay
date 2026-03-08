@@ -1,0 +1,37 @@
+{
+  "handoff_id": "coord-to-security-13C22010-6D6B-4E15-9067-47A2B59D712B",
+  "from_master": "coordinator",
+  "to_master": "security",
+  "task_id": "moe-test-ddqd-v5-1763691776-403819c8",
+  "task_data": {
+    "id": "moe-test-ddqd-v5-1763691776-403819c8",
+    "title": "Security audit and compliance scanning for production systems",
+    "type": "security",
+    "description": "Security audit and compliance scanning for production systems",
+    "priority": "medium",
+    "status": "assigned",
+    "assigned_to": "security",
+    "created_at": "2025-11-20T20:23:39-0600",
+    "created_by": "ddqd-v5-test",
+    "moe_test": true,
+    "test_id": "ddqd-v5-1763691776",
+    "context": {},
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-20T20:23:50-0600",
+    "routing_confidence": "1.00",
+    "routing_strategy": "single_expert",
+    "updated_at": "2025-11-20T20:23:50-06:00"
+  },
+  "context": {
+    "routing_reason": "MoE confidence-based routing (confidence: 1.00, strategy: single_expert)",
+    "priority": "medium",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "1.00",
+      "strategy": "single_expert",
+      "routed_at": "2025-11-20T20:23:50-0600"
+    }
+  },
+  "created_at": "2025-11-20T20:23:50-0600",
+  "status": "pending_pickup"
+}

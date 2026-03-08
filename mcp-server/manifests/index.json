@@ -1,0 +1,77 @@
+{
+  "manifestVersion": "1.0.0",
+  "generated": "2025-11-21T00:00:00Z",
+  "masters": [
+    {
+      "id": "coordinator-master",
+      "name": "Coordinator Master",
+      "role": "orchestrator",
+      "manifest": "./coordinator-master.json",
+      "capabilities": ["task_routing", "resource_allocation", "cross_master_coordination", "priority_management", "results_aggregation"]
+    },
+    {
+      "id": "security-master",
+      "name": "Security Master",
+      "role": "specialist",
+      "manifest": "./security-master.json",
+      "capabilities": ["vulnerability_scanning", "dependency_auditing", "secrets_detection", "security_remediation", "compliance_monitoring"]
+    },
+    {
+      "id": "development-master",
+      "name": "Development Master",
+      "role": "specialist",
+      "manifest": "./development-master.json",
+      "capabilities": ["feature_implementation", "bug_fixing", "code_refactoring", "technical_improvements", "code_review", "test_creation"]
+    },
+    {
+      "id": "inventory-master",
+      "name": "Inventory Master",
+      "role": "specialist",
+      "manifest": "./inventory-master.json",
+      "capabilities": ["repository_discovery", "metadata_cataloging", "documentation_generation", "dependency_tracking", "health_monitoring"]
+    },
+    {
+      "id": "cicd-master",
+      "name": "CI/CD Master",
+      "role": "specialist",
+      "manifest": "./cicd-master.json",
+      "capabilities": ["build_automation", "test_orchestration", "deployment_strategy", "release_workflow", "pipeline_optimization"]
+    }
+  ],
+  "workerTypes": {
+    "implementation-worker": {
+      "masters": ["development-master", "cicd-master"],
+      "description": "Implements new features and code changes"
+    },
+    "fix-worker": {
+      "masters": ["development-master"],
+      "description": "Fixes bugs and issues in existing code"
+    },
+    "test-worker": {
+      "masters": ["development-master", "cicd-master"],
+      "description": "Creates and runs tests"
+    },
+    "scan-worker": {
+      "masters": ["security-master"],
+      "description": "Scans for security vulnerabilities"
+    },
+    "security-fix-worker": {
+      "masters": ["security-master"],
+      "description": "Fixes security vulnerabilities"
+    },
+    "documentation-worker": {
+      "masters": ["inventory-master"],
+      "description": "Generates and updates documentation"
+    },
+    "analysis-worker": {
+      "masters": ["development-master", "inventory-master"],
+      "description": "Analyzes code and repositories"
+    }
+  },
+  "mcp": {
+    "server": "commit-relay-mcp",
+    "version": "1.0.0",
+    "protocol": "JSON-RPC 2.0",
+    "transport": "stdio"
+  }
+}

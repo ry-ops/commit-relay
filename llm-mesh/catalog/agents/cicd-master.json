@@ -1,0 +1,69 @@
+{
+  "agent_id": "cicd-master",
+  "display_name": "CI/CD Master",
+  "version": "2.2.0",
+  "type": "specialist",
+  "specialization": "automation",
+  "description": "CI/CD specialist for build, test, deployment",
+  "capabilities": [
+    "build_automation",
+    "test_orchestration",
+    "deployment_strategies",
+    "release_workflows",
+    "pipeline_optimization",
+    "integration_testing",
+    "deployment_verification"
+  ],
+  "activation_patterns": {
+    "keywords": [
+      "build", "deploy", "test", "ci-cd", "release",
+      "pipeline", "integration", "continuous", "automation",
+      "deployment", "rollout", "staging", "production"
+    ],
+    "confidence_boosters": [
+      "jenkins", "github actions", "gitlab ci",
+      "dockerfile", "kubernetes", "container",
+      "workflow", "pipeline", "automated"
+    ]
+  },
+  "tools": [
+    "build-system",
+    "test-runner",
+    "deployment-manager",
+    "container-manager",
+    "pipeline-orchestrator"
+  ],
+  "prompts": [
+    "pipeline-design-v1",
+    "deployment-strategy-v1",
+    "test-plan-v1"
+  ],
+  "performance": {
+    "total_tasks": 67,
+    "success_rate": 0.91,
+    "avg_task_duration_seconds": 1500,
+    "avg_quality_score": 0.89
+  },
+  "collaboration": {
+    "works_well_with": ["development-master", "security-master"],
+    "common_workflows": [
+      {
+        "workflow": "build_test_deploy",
+        "partners": ["development-master"],
+        "description": "Build → test → deploy pipeline",
+        "success_rate": 0.93
+      }
+    ]
+  },
+  "optimal_for": [
+    "build_automation",
+    "deployment_workflows",
+    "testing_pipelines",
+    "release_management"
+  ],
+  "resource_requirements": {
+    "avg_llm_calls_per_task": 2,
+    "avg_llm_cost_per_task": 0.024,
+    "preferred_model": "claude-sonnet-4"
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "task_id": "governance-test-low-1762873763-87C41EC5",
+  "timestamp": "2025-11-11T09:09:29-0600",
+  "routing_strategy": "mixture_of_experts",
+  "decision": {
+    "primary_expert": "inventory",
+    "primary_confidence": 0.95,
+    "strategy": "single_expert",
+    "parallel_experts": [],
+    "scores": {
+      "development": 0.02,
+      "security": 0,
+      "inventory": 0.95
+    }
+  },
+  "expected_risk": "low",
+  "routed_at": "2025-11-11T15:09:29Z"
+}
+{
+  "task_id": "governance-test-low-1762873763-B2ACFCD8",
+  "timestamp": "2025-11-11T09:09:29-0600",
+  "routing_strategy": "mixture_of_experts",
+  "decision": {
+    "primary_expert": "development",
+    "primary_confidence": 0.95,
+    "strategy": "single_expert",
+    "parallel_experts": [],
+    "scores": {
+      "development": 0.95,
+      "security": 0,
+      "inventory": 0
+    }
+  },
+  "expected_risk": "low",
+  "routed_at": "2025-11-11T15:09:30Z"
+}
+{
+  "task_id": "governance-test-low-1762873763-DFE0AF7F",
+  "timestamp": "2025-11-11T09:09:30-0600",
+  "routing_strategy": "mixture_of_experts",
+  "decision": {
+    "primary_expert": "development",
+    "primary_confidence": 0.95,
+    "strategy": "single_expert",
+    "parallel_experts": [],
+    "scores": {
+      "development": 0.95,
+      "security": 0,
+      "inventory": 0
+    }
+  },
+  "expected_risk": "low",
+  "routed_at": "2025-11-11T15:09:30Z"
+}
+{
+  "task_id": "governance-test-medium-1762873763-57CECF12",
+  "timestamp": "2025-11-11T09:09:30-0600",
+  "routing_strategy": "mixture_of_experts",
+  "decision": {
+    "primary_expert": "development",
+    "primary_confidence": 0.11,
+    "strategy": "single_expert_low_confidence",
+    "parallel_experts": [],
+    "scores": {
+      "development": 0.11,
+      "security": 0,
+      "inventory": 0
+    }
+  },
+  "expected_risk": "medium",
+  "routed_at": "2025-11-11T15:09:30Z"
+}
+{
+  "task_id": "governance-test-medium-1762873763-355857B4",
+  "timestamp": "2025-11-11T09:09:30-0600",
+  "routing_strategy": "mixture_of_experts",
+  "decision": {
+    "primary_expert": "development",
+    "primary_confidence": 0.95,
+    "strategy": "single_expert",
+    "parallel_experts": [],
+    "scores": {
+      "development": 0.95,
+      "security": 0.03,
+      "inventory": 0
+    }
+  },
+  "expected_risk": "medium",
+  "routed_at": "2025-11-11T15:09:31Z"
+}
+{
+  "task_id": "governance-test-medium-1762873763-D009EC63",
+  "timestamp": "2025-11-11T09:09:31-0600",
+  "routing_strategy": "mixture_of_experts",
+  "decision": {
+    "primary_expert": "development",
+    "primary_confidence": 0.95,
+    "strategy": "single_expert",
+    "parallel_experts": [],
+    "scores": {
+      "development": 0.95,
+      "security": 0,
+      "inventory": 0
+    }
+  },
+  "expected_risk": "medium",
+  "routed_at": "2025-11-11T15:09:31Z"
+}
+{
+  "task_id": "governance-test-high-1762873763-C48BD264",
+  "timestamp": "2025-11-11T09:09:31-0600",
+  "routing_strategy": "mixture_of_experts",
+  "decision": {
+    "primary_expert": "security",
+    "primary_confidence": 0.95,
+    "strategy": "single_expert",
+    "parallel_experts": [],
+    "scores": {
+      "development": 0,
+      "security": 0.95,
+      "inventory": 0
+    }
+  },
+  "expected_risk": "high",
+  "routed_at": "2025-11-11T15:09:31Z"
+}
+{
+  "task_id": "governance-test-high-1762873763-B0B70DFB",
+  "timestamp": "2025-11-11T09:09:32-0600",
+  "routing_strategy": "mixture_of_experts",
+  "decision": {
+    "primary_expert": "development",
+    "primary_confidence": 0,
+    "strategy": "single_expert_low_confidence",
+    "parallel_experts": [],
+    "scores": {
+      "development": 0,
+      "security": 0,
+      "inventory": 0
+    }
+  },
+  "expected_risk": "high",
+  "routed_at": "2025-11-11T15:09:32Z"
+}
+{
+  "task_id": "governance-test-high-1762873763-F0F2E19F",
+  "timestamp": "2025-11-11T09:09:32-0600",
+  "routing_strategy": "mixture_of_experts",
+  "decision": {
+    "primary_expert": "development",
+    "primary_confidence": 0.08,
+    "strategy": "single_expert_low_confidence",
+    "parallel_experts": [],
+    "scores": {
+      "development": 0.08,
+      "security": 0,
+      "inventory": 0
+    }
+  },
+  "expected_risk": "high",
+  "routed_at": "2025-11-11T15:09:32Z"
+}
+{
+  "task_id": "governance-test-critical-1762873763-ECBB761E",
+  "timestamp": "2025-11-11T09:09:32-0600",
+  "routing_strategy": "mixture_of_experts",
+  "decision": {
+    "primary_expert": "security",
+    "primary_confidence": 0.95,
+    "strategy": "single_expert",
+    "parallel_experts": [],
+    "scores": {
+      "development": 0,
+      "security": 0.95,
+      "inventory": 0
+    }
+  },
+  "expected_risk": "critical",
+  "routed_at": "2025-11-11T15:09:33Z"
+}
+{
+  "task_id": "governance-test-critical-1762873763-5736969E",
+  "timestamp": "2025-11-11T09:09:33-0600",
+  "routing_strategy": "mixture_of_experts",
+  "decision": {
+    "primary_expert": "development",
+    "primary_confidence": 0.03,
+    "strategy": "single_expert_low_confidence",
+    "parallel_experts": [],
+    "scores": {
+      "development": 0.03,
+      "security": 0.03,
+      "inventory": 0
+    }
+  },
+  "expected_risk": "critical",
+  "routed_at": "2025-11-11T15:09:33Z"
+}
+{
+  "task_id": "governance-test-critical-1762873763-B4E25EAA",
+  "timestamp": "2025-11-11T09:09:33-0600",
+  "routing_strategy": "mixture_of_experts",
+  "decision": {
+    "primary_expert": "security",
+    "primary_confidence": 0.95,
+    "strategy": "single_expert",
+    "parallel_experts": [],
+    "scores": {
+      "development": 0,
+      "security": 0.95,
+      "inventory": 0
+    }
+  },
+  "expected_risk": "critical",
+  "routed_at": "2025-11-11T15:09:33Z"
+}

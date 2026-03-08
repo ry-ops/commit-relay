@@ -1,0 +1,57 @@
+{
+  "alpha": 0.7,
+  "fusionMethod": "alpha",
+  "rrfK": 60,
+  "defaultLimit": 10,
+  "minSimilarity": 0.5,
+  "minKeywordScore": 0.1,
+  "autoIndex": true,
+  "keywordFields": ["content", "title", "tags"],
+  "storeFields": ["content", "title", "tags", "metadata"],
+  "keywordBoost": {
+    "title": 2,
+    "tags": 1.5,
+    "content": 1
+  },
+  "fuzzy": 0.2,
+  "prefix": true,
+  "collections": {
+    "code": {
+      "alpha": 0.6,
+      "minSimilarity": 0.55,
+      "description": "Code snippets favor keyword matching for exact identifiers"
+    },
+    "documentation": {
+      "alpha": 0.75,
+      "minSimilarity": 0.6,
+      "description": "Documentation favors semantic understanding"
+    },
+    "decisions": {
+      "alpha": 0.7,
+      "minSimilarity": 0.65,
+      "description": "AI decisions use balanced hybrid approach"
+    },
+    "patterns": {
+      "alpha": 0.65,
+      "minSimilarity": 0.6,
+      "description": "Failure patterns need precise keyword matching"
+    },
+    "tasks": {
+      "alpha": 0.7,
+      "minSimilarity": 0.6,
+      "description": "Task matching uses balanced hybrid approach"
+    }
+  },
+  "reranking": {
+    "enabled": false,
+    "model": null,
+    "topK": 100,
+    "description": "Optional reranking for improved precision"
+  },
+  "caching": {
+    "enabled": true,
+    "ttl": 3600000,
+    "maxEntries": 1000,
+    "description": "Query result caching settings"
+  }
+}

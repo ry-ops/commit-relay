@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "moe-routing-event.schema.json",
+  "title": "MoE Routing Event",
+  "description": "Schema for Mixture of Experts routing events",
+  "type": "object",
+  "required": ["event_id", "task_id", "timestamp", "routing_decision", "confidence", "strategy"],
+  "additionalProperties": false,
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "pattern": "^moe-route-[A-F0-9-]{36}$",
+      "description": "Unique routing event ID"
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^(task-[0-9]+|test-task-[0-9]+)$",
+      "description": "Task being routed"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Routing timestamp"
+    },
+    "routing_decision": {
+      "type": "object",
+      "required": ["selected_master", "selected_workers"],
+      "properties": {
+        "selected_master": {
+          "type": "string",
+          "enum": ["development", "security", "inventory", "cicd"]
+        },
+        "selected_workers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "worker_type": {
+                "type": "string"
+              },
+              "confidence": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "allocation": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
+          }
+        },
+        "runner_up": {
+          "type": "string",
+          "description": "Second choice master"
+        }
+      }
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Overall routing confidence"
+    },
+    "strategy": {
+      "type": "string",
+      "enum": ["single_expert", "single_expert_low_confidence", "ensemble", "sparse_pool", "full_pool"],
+      "description": "Selected routing strategy"
+    },
+    "expert_scores": {
+      "type": "object",
+      "patternProperties": {
+        "^(development|security|inventory|cicd)$": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "description": "Confidence scores for each expert"
+    },
+    "keywords_matched": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Keywords that influenced routing"
+    },
+    "context_features": {
+      "type": "object",
+      "description": "Extracted task features"
+    },
+    "pool_state": {
+      "type": "object",
+      "properties": {
+        "activation_level": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "available_workers": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "queue_depth": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "learning_update": {
+      "type": "boolean",
+      "description": "Whether this event triggered learning update"
+    }
+  }
+}

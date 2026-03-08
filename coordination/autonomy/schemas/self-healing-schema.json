@@ -1,0 +1,138 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Self-Healing Schema",
+  "description": "Schema for automatic failure recovery, self-repair, and resilience patterns",
+  "type": "object",
+  "required": ["healing_id", "target", "issue_type", "status", "created_at"],
+  "properties": {
+    "healing_id": {
+      "type": "string",
+      "pattern": "^heal-[a-z0-9-]+-[a-f0-9]{8}$"
+    },
+    "target": {
+      "type": "string",
+      "description": "Agent or component being healed"
+    },
+    "issue_type": {
+      "type": "string",
+      "enum": ["failure", "degradation", "resource_exhaustion", "connectivity", "configuration", "dependency"]
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["detected", "diagnosing", "healing", "validating", "healed", "escalated", "failed"]
+    },
+    "detection": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": ["health_check", "anomaly_detection", "error_threshold", "prediction", "manual"]
+        },
+        "symptoms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "symptom": { "type": "string" },
+              "value": { "type": "number" },
+              "threshold": { "type": "number" }
+            }
+          }
+        },
+        "detected_at": { "type": "integer" }
+      }
+    },
+    "diagnosis": {
+      "type": "object",
+      "properties": {
+        "root_cause": { "type": "string" },
+        "confidence": { "type": "number" },
+        "affected_components": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "impact_assessment": {
+          "type": "object",
+          "properties": {
+            "users_affected": { "type": "integer" },
+            "tasks_blocked": { "type": "integer" },
+            "revenue_impact": { "type": "number" }
+          }
+        }
+      }
+    },
+    "healing_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "action_id": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["restart", "failover", "rollback", "scale", "reconfigure", "isolate", "repair"]
+          },
+          "target": { "type": "string" },
+          "parameters": { "type": "object" },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "executing", "completed", "failed"]
+          },
+          "result": { "type": "string" },
+          "duration_ms": { "type": "integer" }
+        }
+      }
+    },
+    "resilience_pattern": {
+      "type": "object",
+      "properties": {
+        "pattern": {
+          "type": "string",
+          "enum": ["circuit_breaker", "bulkhead", "retry", "timeout", "fallback", "graceful_degradation"]
+        },
+        "applied": { "type": "boolean" },
+        "configuration": { "type": "object" }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "properties": {
+        "method": { "type": "string" },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "check": { "type": "string" },
+              "passed": { "type": "boolean" }
+            }
+          }
+        },
+        "health_restored": { "type": "boolean" }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "detection_time_ms": { "type": "integer" },
+        "diagnosis_time_ms": { "type": "integer" },
+        "healing_time_ms": { "type": "integer" },
+        "total_time_ms": { "type": "integer" },
+        "mttr_contribution": { "type": "number" }
+      }
+    },
+    "learning": {
+      "type": "object",
+      "properties": {
+        "pattern_added": { "type": "boolean" },
+        "playbook_updated": { "type": "boolean" },
+        "similar_issues": { "type": "integer" }
+      }
+    },
+    "created_at": { "type": "integer" },
+    "resolved_at": { "type": "integer" }
+  }
+}

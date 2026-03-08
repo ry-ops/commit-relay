@@ -1,0 +1,12 @@
+{
+  "worker_id": "zombie-ddqd-1763732356-d79131ee",
+  "type": "security",
+  "status": "running",
+  "task_id": "zombie-task-stale",
+  "started_at": "2025-11-21T07:34:32-0600",
+  "last_heartbeat": "2025-11-21T07:36:32-0600",
+  "tokens_used": 500,
+  "stress_test": true,
+  "zombie_type": "stale_heartbeat",
+  "test_id": "ddqd-1763732356"
+}

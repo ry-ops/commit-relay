@@ -1,0 +1,230 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-11-23T00:00:00-0600",
+  "enabled": true,
+  "description": "Quality review loop configuration for task outputs",
+
+  "global_settings": {
+    "default_cycles": 1,
+    "max_cycles": 3,
+    "confidence_threshold": 0.85,
+    "auto_approve_threshold": 0.95,
+    "timeout_per_review_seconds": 120
+  },
+
+  "review_prompts": {
+    "code": {
+      "system": "You are an expert code reviewer with deep knowledge of software engineering best practices, design patterns, and security. Focus on code quality, correctness, maintainability, and adherence to project conventions.",
+      "focus_areas": [
+        "correctness",
+        "security",
+        "performance",
+        "maintainability",
+        "test_coverage",
+        "error_handling",
+        "code_style"
+      ],
+      "required_checks": [
+        "no_obvious_bugs",
+        "no_security_vulnerabilities",
+        "proper_error_handling"
+      ]
+    },
+    "security": {
+      "system": "You are a security expert specializing in application security, secure coding practices, and vulnerability assessment. Your reviews must identify potential security risks and ensure compliance with security best practices.",
+      "focus_areas": [
+        "vulnerabilities",
+        "authentication",
+        "authorization",
+        "input_validation",
+        "output_encoding",
+        "secrets_exposure",
+        "dependency_security",
+        "data_protection"
+      ],
+      "required_checks": [
+        "no_hardcoded_secrets",
+        "proper_input_validation",
+        "secure_authentication",
+        "no_injection_vulnerabilities"
+      ]
+    },
+    "documentation": {
+      "system": "You are a technical writer and documentation specialist. Review documentation for clarity, completeness, accuracy, and accessibility. Ensure examples are correct and instructions are actionable.",
+      "focus_areas": [
+        "clarity",
+        "completeness",
+        "accuracy",
+        "examples",
+        "formatting",
+        "consistency",
+        "accessibility"
+      ],
+      "required_checks": [
+        "accurate_information",
+        "clear_instructions",
+        "working_examples"
+      ]
+    },
+    "architecture": {
+      "system": "You are a software architect reviewing design decisions for scalability, maintainability, and alignment with system requirements. Focus on patterns, dependencies, and long-term implications.",
+      "focus_areas": [
+        "scalability",
+        "maintainability",
+        "modularity",
+        "coupling",
+        "cohesion",
+        "patterns",
+        "trade_offs"
+      ],
+      "required_checks": [
+        "appropriate_patterns",
+        "manageable_complexity",
+        "clear_boundaries"
+      ]
+    },
+    "test": {
+      "system": "You are a QA expert reviewing test implementations for coverage, correctness, and maintainability. Ensure tests are meaningful, not brittle, and cover important scenarios.",
+      "focus_areas": [
+        "coverage",
+        "correctness",
+        "edge_cases",
+        "mocking",
+        "assertions",
+        "maintainability",
+        "performance"
+      ],
+      "required_checks": [
+        "meaningful_assertions",
+        "edge_case_coverage",
+        "no_false_positives"
+      ]
+    }
+  },
+
+  "task_overrides": {
+    "security_audit": {
+      "enabled": true,
+      "min_cycles": 2,
+      "max_cycles": 4,
+      "confidence_threshold": 0.90,
+      "auto_approve_threshold": 0.98,
+      "review_type": "security",
+      "additional_focus": [
+        "compliance",
+        "audit_trail"
+      ],
+      "reason": "Security audits require higher confidence and multiple review passes"
+    },
+    "scan-worker": {
+      "enabled": true,
+      "min_cycles": 2,
+      "max_cycles": 3,
+      "confidence_threshold": 0.88,
+      "auto_approve_threshold": 0.96,
+      "review_type": "security",
+      "reason": "Security scans need thorough review to avoid false negatives"
+    },
+    "implementation-worker": {
+      "enabled": true,
+      "min_cycles": 1,
+      "max_cycles": 3,
+      "confidence_threshold": 0.85,
+      "auto_approve_threshold": 0.95,
+      "review_type": "code",
+      "reason": "Standard code implementation review"
+    },
+    "documentation-worker": {
+      "enabled": true,
+      "min_cycles": 1,
+      "max_cycles": 2,
+      "confidence_threshold": 0.80,
+      "auto_approve_threshold": 0.92,
+      "review_type": "documentation",
+      "reason": "Documentation has lower risk but should still be reviewed"
+    },
+    "test-worker": {
+      "enabled": true,
+      "min_cycles": 1,
+      "max_cycles": 2,
+      "confidence_threshold": 0.85,
+      "auto_approve_threshold": 0.95,
+      "review_type": "test",
+      "reason": "Test quality directly impacts code reliability"
+    },
+    "pr-worker": {
+      "enabled": true,
+      "min_cycles": 1,
+      "max_cycles": 2,
+      "confidence_threshold": 0.85,
+      "auto_approve_threshold": 0.95,
+      "review_type": "code",
+      "reason": "PR outputs should be reviewed before submission"
+    },
+    "fix-worker": {
+      "enabled": true,
+      "min_cycles": 1,
+      "max_cycles": 3,
+      "confidence_threshold": 0.88,
+      "auto_approve_threshold": 0.96,
+      "review_type": "code",
+      "additional_focus": [
+        "regression_prevention",
+        "root_cause_addressed"
+      ],
+      "reason": "Bug fixes need careful review to ensure proper resolution"
+    },
+    "critical_fix": {
+      "enabled": true,
+      "min_cycles": 2,
+      "max_cycles": 4,
+      "confidence_threshold": 0.92,
+      "auto_approve_threshold": 0.99,
+      "review_type": "code",
+      "additional_focus": [
+        "no_regressions",
+        "thorough_testing"
+      ],
+      "reason": "Critical fixes require extensive review and high confidence"
+    }
+  },
+
+  "review_workflow": {
+    "on_low_confidence": {
+      "action": "iterate",
+      "description": "When confidence is below threshold, provide feedback and iterate"
+    },
+    "on_issues_found": {
+      "action": "block",
+      "description": "When critical issues are found, block approval until resolved"
+    },
+    "on_max_cycles_reached": {
+      "action": "escalate",
+      "description": "When max cycles reached without approval, escalate for manual review"
+    },
+    "escalation_channel": "dashboard",
+    "escalation_notification": true
+  },
+
+  "metrics": {
+    "track_review_outcomes": true,
+    "track_cycle_counts": true,
+    "track_confidence_trends": true,
+    "history_file": "coordination/metrics/review-history.jsonl",
+    "retention_days": 90
+  },
+
+  "rate_limiting": {
+    "max_concurrent_reviews": 5,
+    "max_reviews_per_minute": 10,
+    "cooldown_on_llm_error_seconds": 30
+  },
+
+  "llm_settings": {
+    "model_preference": "claude-sonnet-4-5-20250929",
+    "temperature": 0.3,
+    "max_tokens": 2000,
+    "retry_on_error": true,
+    "max_retries": 2
+  }
+}

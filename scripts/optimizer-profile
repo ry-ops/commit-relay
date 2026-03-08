@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+#
+# Performance Profiler CLI
+# Part of Phase 8.4: Performance Profiling
+#
+
+set -euo pipefail
+
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/lib/optimization/profiler.sh"
+
+main() {
+    local command="${1:-help}"
+
+    case "$command" in
+        benchmark)
+            local type="${2:-full}"
+            run_benchmark "$type" | jq .
+            ;;
+
+        bottlenecks)
+            detect_bottlenecks | jq .
+            ;;
+
+        tune)
+            get_tuning_recommendations | jq .
+            ;;
+
+        profile)
+            local operation="${2:?Operation required}"
+            local iterations="${3:-10}"
+            profile_operation "$operation" "$iterations" | jq .
+            ;;
+
+        baseline)
+            local id="${2:-latest}"
+            compare_baseline "$id" | jq .
+            ;;
+
+        report)
+            generate_profile_report | jq .
+            ;;
+
+        stats)
+            get_profiler_stats | jq .
+            ;;
+
+        help|--help|-h)
+            cat <<EOF
+Performance Profiler CLI - Benchmarking and tuning
+
+Usage: $0 <command> [options]
+
+Commands:
+  benchmark [type]              Run benchmark
+  bottlenecks                   Detect bottlenecks
+  tune                          Get tuning recommendations
+  profile <operation> [iters]   Profile specific operation
+  baseline [id]                 Compare with baseline
+  report                        Generate profiling report
+  stats                         Get profiler statistics
+
+Benchmark types: full, quick
+Operations: file_read, json_parse, worker_count
+
+Examples:
+  $0 benchmark full
+  $0 bottlenecks
+  $0 tune
+  $0 profile file_read 20
+  $0 baseline latest
+  $0 report
+  $0 stats
+
+EOF
+            ;;
+
+        *)
+            echo "Unknown command: $command"
+            exit 1
+            ;;
+    esac
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

@@ -1,0 +1,56 @@
+{
+  "tool_id": "git-operations",
+  "display_name": "Git Operations",
+  "version": "1.0.0",
+  "category": "version_control",
+  "description": "Git version control operations",
+  "operations": [
+    {
+      "operation": "commit",
+      "description": "Create git commit with message",
+      "parameters": ["message", "files"],
+      "success_rate": 0.98,
+      "avg_duration_ms": 500
+    },
+    {
+      "operation": "push",
+      "description": "Push commits to remote",
+      "parameters": ["remote", "branch"],
+      "success_rate": 0.95,
+      "avg_duration_ms": 1200
+    },
+    {
+      "operation": "branch",
+      "description": "Create or switch branches",
+      "parameters": ["branch_name", "action"],
+      "success_rate": 0.99,
+      "avg_duration_ms": 200
+    },
+    {
+      "operation": "status",
+      "description": "Check repository status",
+      "parameters": [],
+      "success_rate": 1.0,
+      "avg_duration_ms": 150
+    }
+  ],
+  "used_by_agents": ["development-master", "cicd-master"],
+  "performance": {
+    "total_calls": 1247,
+    "success_rate": 0.97,
+    "avg_duration_ms": 500
+  },
+  "optimal_contexts": [
+    "code_completion",
+    "feature_implementation",
+    "bug_fixes",
+    "deployments"
+  ],
+  "common_patterns": [
+    {
+      "pattern": "commit_and_push",
+      "steps": ["add", "commit", "push"],
+      "success_rate": 0.96
+    }
+  ]
+}

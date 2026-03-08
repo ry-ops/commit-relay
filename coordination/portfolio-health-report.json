@@ -1,0 +1,164 @@
+{
+  "report_id": "portfolio-health-2025-11-20",
+  "generated_at": "2025-11-21T02:20:00Z",
+  "generated_by": "worker-documentation-006",
+  "task_id": "moe-test-ddqd-v5-1763691538-996f772f",
+
+  "portfolio_summary": {
+    "total_repositories": 1,
+    "overall_health_score": 85,
+    "overall_status": "healthy"
+  },
+
+  "repositories": [
+    {
+      "name": "commit-relay",
+      "url": "https://github.com/ry-ops/commit-relay.git",
+      "branch": "main",
+      "description": "AI-powered commit automation system with master-worker architecture",
+      "license": "MIT",
+      "version": "1.0.0",
+
+      "health_metrics": {
+        "overall_score": 85,
+        "status": "healthy",
+
+        "code_metrics": {
+          "total_js_files": 1737,
+          "test_files": 10,
+          "test_coverage_files": [
+            "testing/dashboard/dashboard-server.test.js",
+            "testing/unit/circuit-breaker-simple.test.js",
+            "testing/unit/circuit-breaker.test.js",
+            "testing/governance/access-control.test.js",
+            "testing/governance/lineage-optimized.test.js",
+            "testing/dashboard/server.test.js",
+            "testing/lib/circuit-breaker.test.js",
+            "testing/integration/worker-lifecycle.test.js",
+            "testing/governance/quality-validator.test.js",
+            "testing/governance/compliance.test.js"
+          ],
+          "pending_changes": {
+            "files_modified": 160,
+            "insertions": 8555,
+            "deletions": 11048
+          }
+        },
+
+        "security_metrics": {
+          "vulnerabilities": {
+            "critical": 0,
+            "high": 0,
+            "moderate": 0,
+            "low": 0,
+            "info": 0,
+            "total": 0
+          },
+          "status": "secure",
+          "last_audit": "2025-11-21T02:20:00Z"
+        },
+
+        "dependency_metrics": {
+          "total_dependencies": 311,
+          "production_dependencies": 7,
+          "dev_dependencies": 305,
+          "optional_dependencies": 1,
+          "peer_dependencies": 2,
+          "status": "healthy"
+        },
+
+        "git_metrics": {
+          "total_branches": 3,
+          "active_branch": "main",
+          "recent_commits": 10,
+          "last_commit": "e7f8401",
+          "remote_branches": [
+            "origin/main",
+            "origin/feature/real-time-dashboard"
+          ]
+        }
+      },
+
+      "system_health": {
+        "dashboard_api": {
+          "status": "healthy",
+          "url": "http://localhost:3000/api",
+          "uptime_seconds": 1515
+        },
+
+        "routing": {
+          "status": "healthy",
+          "success_rate": 100.0,
+          "tasks_completed": 11,
+          "tasks_failed": 7,
+          "tasks_pending": 0
+        },
+
+        "worker_pool": {
+          "active_workers": 6,
+          "completed_workers": 42,
+          "failed_workers": 4,
+          "total_spawned_today": 82,
+          "success_rate_percent": 7
+        },
+
+        "token_budget": {
+          "total": 500000,
+          "allocated": 172000,
+          "available": 328000,
+          "utilization_percent": 34.4
+        }
+      },
+
+      "issues": [
+        {
+          "severity": "medium",
+          "category": "git",
+          "description": "Large number of uncommitted changes (160 files, 8555+ insertions, 11048- deletions)",
+          "recommendation": "Review and commit pending changes to reduce risk of data loss"
+        },
+        {
+          "severity": "low",
+          "category": "worker_pool",
+          "description": "Low success rate (7%) for workers today",
+          "recommendation": "Investigate failed workers and improve worker reliability"
+        }
+      ],
+
+      "recommendations": [
+        "Commit pending changes to main branch",
+        "Review and address 4 failed workers",
+        "Consider adding more test coverage for lib/ modules",
+        "Merge or clean up feature/real-time-dashboard branch if stale"
+      ]
+    }
+  ],
+
+  "next_actions": [
+    {
+      "priority": "high",
+      "action": "Review and commit 160 modified files",
+      "owner": "development-master"
+    },
+    {
+      "priority": "medium",
+      "action": "Investigate worker failures",
+      "owner": "coordinator-master"
+    },
+    {
+      "priority": "low",
+      "action": "Improve test coverage",
+      "owner": "development-master"
+    }
+  ],
+
+  "metadata": {
+    "report_version": "1.0",
+    "data_collection_time_ms": 5000,
+    "tools_used": [
+      "git status",
+      "npm audit",
+      "dashboard API health check"
+    ]
+  }
+}

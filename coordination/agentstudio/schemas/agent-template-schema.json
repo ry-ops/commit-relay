@@ -1,0 +1,289 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Agent Template Schema",
+  "description": "Schema for agent templates in Agentstudio",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [
+    "template_id",
+    "name",
+    "version",
+    "agent_type",
+    "agent_class",
+    "description",
+    "capabilities",
+    "configuration"
+  ],
+  "properties": {
+    "template_id": {
+      "type": "string",
+      "description": "Unique identifier for the template",
+      "pattern": "^[a-z-]+$",
+      "examples": ["basic-master", "analysis-worker", "monitoring-daemon"]
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable template name",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "version": {
+      "type": "string",
+      "description": "Template version",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "agent_type": {
+      "type": "string",
+      "description": "Type of agent this template creates",
+      "enum": ["master", "worker", "learning", "daemon", "utility"]
+    },
+    "agent_class": {
+      "type": "string",
+      "description": "Specific agent class",
+      "examples": ["coordinator-master", "analysis-worker", "heartbeat-monitor"]
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the template",
+      "minLength": 10,
+      "maxLength": 500
+    },
+    "author": {
+      "type": "string",
+      "description": "Template author"
+    },
+    "tags": {
+      "type": "array",
+      "description": "Searchable tags",
+      "items": {
+        "type": "string"
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "description": "Capabilities this agent provides",
+      "items": {
+        "type": "object",
+        "required": ["capability_id", "name", "category"],
+        "properties": {
+          "capability_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "orchestration",
+              "development",
+              "security",
+              "testing",
+              "monitoring",
+              "learning",
+              "maintenance",
+              "documentation",
+              "deployment"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "parameters": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "configuration": {
+      "type": "object",
+      "description": "Default configuration for agents created from this template",
+      "properties": {
+        "max_concurrent_tasks": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 300
+        },
+        "retry_attempts": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 3
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "critical"],
+          "default": "medium"
+        },
+        "auto_restart": {
+          "type": "boolean",
+          "default": true
+        },
+        "resource_limits": {
+          "type": "object",
+          "properties": {
+            "max_memory_mb": {
+              "type": "integer",
+              "minimum": 128
+            },
+            "max_cpu_percent": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            },
+            "max_token_budget": {
+              "type": "integer",
+              "minimum": 1000
+            }
+          }
+        }
+      }
+    },
+    "scaffold": {
+      "type": "object",
+      "description": "Scaffolding information for agent initialization",
+      "properties": {
+        "script_path": {
+          "type": "string",
+          "description": "Path template for agent script"
+        },
+        "script_template": {
+          "type": "string",
+          "description": "Bash script template content"
+        },
+        "config_files": {
+          "type": "array",
+          "description": "Additional config files to create",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "description": "Required dependencies",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "customization": {
+      "type": "object",
+      "description": "Customization options for the template",
+      "properties": {
+        "parameters": {
+          "type": "array",
+          "description": "Customizable parameters",
+          "items": {
+            "type": "object",
+            "required": ["name", "type", "description"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Parameter name"
+              },
+              "type": {
+                "type": "string",
+                "enum": ["string", "integer", "boolean", "array", "object"],
+                "description": "Parameter type"
+              },
+              "description": {
+                "type": "string",
+                "description": "Parameter description"
+              },
+              "default": {
+                "description": "Default value"
+              },
+              "required": {
+                "type": "boolean",
+                "default": false
+              },
+              "validation": {
+                "type": "object",
+                "description": "Validation rules",
+                "properties": {
+                  "min": {
+                    "type": "number"
+                  },
+                  "max": {
+                    "type": "number"
+                  },
+                  "pattern": {
+                    "type": "string"
+                  },
+                  "enum": {
+                    "type": "array"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "examples": {
+      "type": "array",
+      "description": "Usage examples",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "configuration": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "best_practices": {
+      "type": "array",
+      "description": "Best practices for using this template",
+      "items": {
+        "type": "string"
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "integer",
+          "description": "Unix timestamp (ms)"
+        },
+        "updated_at": {
+          "type": "integer",
+          "description": "Unix timestamp (ms)"
+        },
+        "usage_count": {
+          "type": "integer",
+          "description": "Number of times this template has been used",
+          "minimum": 0,
+          "default": 0
+        },
+        "success_rate": {
+          "type": "number",
+          "description": "Success rate of agents created from this template",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,185 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-11-21T00:00:00Z",
+  "rules": [
+    {
+      "rule_id": "alert-001",
+      "name": "Critical Success Rate Drop",
+      "description": "Alert when success rate drops critically low",
+      "enabled": true,
+      "conditions": {
+        "anomaly_type": "success_rate_drop",
+        "severity": ["critical", "high"],
+        "min_deviation": 3.0
+      },
+      "channels": ["dashboard", "log", "webhook"],
+      "cooldown_minutes": 15,
+      "escalation": {
+        "enabled": true,
+        "escalate_after_minutes": 30,
+        "escalate_to": "on_call"
+      },
+      "metadata": {
+        "priority": "P1",
+        "team": "reliability"
+      }
+    },
+    {
+      "rule_id": "alert-002",
+      "name": "Token Usage Spike",
+      "description": "Alert on abnormal token consumption",
+      "enabled": true,
+      "conditions": {
+        "anomaly_type": "token_usage_spike",
+        "severity": ["critical", "high", "medium"],
+        "min_deviation": 4.0
+      },
+      "channels": ["dashboard", "log"],
+      "cooldown_minutes": 30,
+      "escalation": {
+        "enabled": false
+      },
+      "metadata": {
+        "priority": "P2",
+        "team": "platform"
+      }
+    },
+    {
+      "rule_id": "alert-003",
+      "name": "Queue Depth Explosion",
+      "description": "Alert when task queue grows abnormally",
+      "enabled": true,
+      "conditions": {
+        "anomaly_type": "queue_depth_explosion",
+        "severity": ["critical", "high"],
+        "min_deviation": 3.5
+      },
+      "channels": ["dashboard", "log", "webhook"],
+      "cooldown_minutes": 10,
+      "escalation": {
+        "enabled": true,
+        "escalate_after_minutes": 20,
+        "escalate_to": "on_call"
+      },
+      "metadata": {
+        "priority": "P1",
+        "team": "platform"
+      }
+    },
+    {
+      "rule_id": "alert-004",
+      "name": "Worker Failure Clustering",
+      "description": "Alert on high worker failure rates",
+      "enabled": true,
+      "conditions": {
+        "anomaly_type": "worker_failure_clustering",
+        "severity": ["critical", "high", "medium"],
+        "min_deviation": 3.0
+      },
+      "channels": ["dashboard", "log"],
+      "cooldown_minutes": 20,
+      "escalation": {
+        "enabled": true,
+        "escalate_after_minutes": 45,
+        "escalate_to": "platform_lead"
+      },
+      "metadata": {
+        "priority": "P2",
+        "team": "reliability"
+      }
+    },
+    {
+      "rule_id": "alert-005",
+      "name": "Routing Confidence Degradation",
+      "description": "Alert when MoE routing confidence drops",
+      "enabled": true,
+      "conditions": {
+        "anomaly_type": "routing_confidence_degradation",
+        "severity": ["critical", "high"],
+        "min_deviation": 3.0
+      },
+      "channels": ["dashboard", "log"],
+      "cooldown_minutes": 60,
+      "escalation": {
+        "enabled": false
+      },
+      "metadata": {
+        "priority": "P3",
+        "team": "ml"
+      }
+    },
+    {
+      "rule_id": "alert-006",
+      "name": "Latency Spike",
+      "description": "Alert on significant latency increases",
+      "enabled": true,
+      "conditions": {
+        "anomaly_type": "latency_spike",
+        "severity": ["critical", "high"],
+        "min_deviation": 4.0
+      },
+      "channels": ["dashboard", "log"],
+      "cooldown_minutes": 15,
+      "escalation": {
+        "enabled": true,
+        "escalate_after_minutes": 30,
+        "escalate_to": "performance_team"
+      },
+      "metadata": {
+        "priority": "P2",
+        "team": "performance"
+      }
+    },
+    {
+      "rule_id": "alert-007",
+      "name": "Throughput Degradation",
+      "description": "Alert when system throughput drops significantly",
+      "enabled": true,
+      "conditions": {
+        "anomaly_type": "throughput_degradation",
+        "severity": ["critical", "high"],
+        "min_deviation": 3.5
+      },
+      "channels": ["dashboard", "log", "webhook"],
+      "cooldown_minutes": 20,
+      "escalation": {
+        "enabled": true,
+        "escalate_after_minutes": 30,
+        "escalate_to": "on_call"
+      },
+      "metadata": {
+        "priority": "P1",
+        "team": "platform"
+      }
+    }
+  ],
+  "channels": {
+    "dashboard": {
+      "enabled": true,
+      "type": "internal",
+      "description": "Emit to dashboard event stream"
+    },
+    "log": {
+      "enabled": true,
+      "type": "internal",
+      "log_file": "coordination/observability/alerts/alert.log"
+    },
+    "webhook": {
+      "enabled": false,
+      "type": "external",
+      "url": "${ALERT_WEBHOOK_URL}",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer ${ALERT_WEBHOOK_TOKEN}"
+      }
+    }
+  },
+  "global_settings": {
+    "default_cooldown_minutes": 30,
+    "max_alerts_per_hour": 100,
+    "aggregation_window_seconds": 60,
+    "deduplication_enabled": true,
+    "deduplication_key": ["anomaly_type", "metric_name"]
+  }
+}

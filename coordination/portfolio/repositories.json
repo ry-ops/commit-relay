@@ -1,0 +1,409 @@
+{
+  "repositories": [
+    {
+      "id": "ry-ops-commit-relay-1763927340317",
+      "url": "https://github.com/ry-ops/commit-relay",
+      "owner": "ry-ops",
+      "name": "commit-relay",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-23T19:49:00.317Z",
+      "last_scan": "2025-11-24T04:50:00.000Z",
+      "status": "scanned",
+      "vulnerability_counts": {
+        "critical": 1,
+        "high": 38,
+        "medium": 198,
+        "low": 30,
+        "total": 267
+      },
+      "scan_source": "snyk.io",
+      "current_task_id": "security-scan-1763927340345-nspcx4qi"
+    },
+    {
+      "id": "ry-ops-minimal-1763959200000",
+      "url": "https://github.com/ry-ops/minimal",
+      "owner": "ry-ops",
+      "name": "minimal",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.000Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-DriveIQ-1763959200001",
+      "url": "https://github.com/ry-ops/DriveIQ",
+      "owner": "ry-ops",
+      "name": "DriveIQ",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.001Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-n8n-mcp-server-1763959200002",
+      "url": "https://github.com/ry-ops/n8n-mcp-server",
+      "owner": "ry-ops",
+      "name": "n8n-mcp-server",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.002Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-starlink-enterprise-mcp-server-1763959200003",
+      "url": "https://github.com/ry-ops/starlink-enterprise-mcp-server",
+      "owner": "ry-ops",
+      "name": "starlink-enterprise-mcp-server",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.003Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-proxmox-mcp-server-1763959200004",
+      "url": "https://github.com/ry-ops/proxmox-mcp-server",
+      "owner": "ry-ops",
+      "name": "proxmox-mcp-server",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.004Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-cloudflare-mcp-server-1763959200005",
+      "url": "https://github.com/ry-ops/cloudflare-mcp-server",
+      "owner": "ry-ops",
+      "name": "cloudflare-mcp-server",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.005Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-unifi-grafana-streamer-1763959200006",
+      "url": "https://github.com/ry-ops/unifi-grafana-streamer",
+      "owner": "ry-ops",
+      "name": "unifi-grafana-streamer",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.006Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-ResuMate-1763959200007",
+      "url": "https://github.com/ry-ops/ResuMate",
+      "owner": "ry-ops",
+      "name": "ResuMate",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.007Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-cara-1763959200008",
+      "url": "https://github.com/ry-ops/cara",
+      "owner": "ry-ops",
+      "name": "cara",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.008Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-microsoft-graph-mcp-server-1763959200009",
+      "url": "https://github.com/ry-ops/microsoft-graph-mcp-server",
+      "owner": "ry-ops",
+      "name": "microsoft-graph-mcp-server",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.009Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-unifi-cloudflare-ddns-1763959200010",
+      "url": "https://github.com/ry-ops/unifi-cloudflare-ddns",
+      "owner": "ry-ops",
+      "name": "unifi-cloudflare-ddns",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.010Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-netdata-mcp-server-1763959200011",
+      "url": "https://github.com/ry-ops/netdata-mcp-server",
+      "owner": "ry-ops",
+      "name": "netdata-mcp-server",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.011Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-grafana-a2a-mcp-server-1763959200012",
+      "url": "https://github.com/ry-ops/grafana-a2a-mcp-server",
+      "owner": "ry-ops",
+      "name": "grafana-a2a-mcp-server",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.012Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-pulseway-mcp-server-1763959200013",
+      "url": "https://github.com/ry-ops/pulseway-mcp-server",
+      "owner": "ry-ops",
+      "name": "pulseway-mcp-server",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.013Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-talos-mcp-server-1763959200014",
+      "url": "https://github.com/ry-ops/talos-mcp-server",
+      "owner": "ry-ops",
+      "name": "talos-mcp-server",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.014Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-aiana-1763959200015",
+      "url": "https://github.com/ry-ops/aiana",
+      "owner": "ry-ops",
+      "name": "aiana",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.015Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-checkmk-mcp-server-1763959200016",
+      "url": "https://github.com/ry-ops/checkmk-mcp-server",
+      "owner": "ry-ops",
+      "name": "checkmk-mcp-server",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.016Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-unifi-mcp-server-1763959200017",
+      "url": "https://github.com/ry-ops/unifi-mcp-server",
+      "owner": "ry-ops",
+      "name": "unifi-mcp-server",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.017Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-talos-a2a-mcp-server-1763959200018",
+      "url": "https://github.com/ry-ops/talos-a2a-mcp-server",
+      "owner": "ry-ops",
+      "name": "talos-a2a-mcp-server",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.018Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-ry-ops-1763959200019",
+      "url": "https://github.com/ry-ops/ry-ops",
+      "owner": "ry-ops",
+      "name": "ry-ops",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.019Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "ry-ops-pulseway-rmm-a2a-mcp-server-1763959200020",
+      "url": "https://github.com/ry-ops/pulseway-rmm-a2a-mcp-server",
+      "owner": "ry-ops",
+      "name": "pulseway-rmm-a2a-mcp-server",
+      "branch": "main",
+      "auto_scan": true,
+      "added_at": "2025-11-24T04:40:00.020Z",
+      "last_scan": null,
+      "status": "queued",
+      "vulnerability_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "total": 0
+      }
+    }
+  ],
+  "settings": {
+    "auto_scan_interval_hours": 24,
+    "clone_depth": 1,
+    "scan_on_add": true,
+    "default_branch": "main"
+  },
+  "updated_at": "2025-11-24T04:45:00.000Z"
+}

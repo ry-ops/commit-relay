@@ -1,0 +1,38 @@
+{
+  "governance_test_suite": {
+    "executed_at": "2025-11-11T15:09:37Z",
+    "test_phases": {
+      "phase_1_create_tasks": "completed",
+      "phase_2_framework_tests": "completed",
+      "phase_3_route_tasks": "completed",
+      "phase_4_validate_controls": "completed"
+    },
+    "statistics": {
+      "tasks_created": 12,
+      "tasks_routed": 216,
+      "audit_entries": 127,
+      "validation_result": "PARTIAL"
+    },
+    "test_categories": {
+      "risk_assessment": {
+        "low_risk_tasks": 3,
+        "medium_risk_tasks": 3,
+        "high_risk_tasks": 3,
+        "critical_risk_tasks": 3
+      },
+      "governance_controls_tested": [
+        "risk_assessment",
+        "approval_workflows",
+        "audit_trail_generation",
+        "circuit_breaker_triggers",
+        "service_auto_recovery",
+        "compliance_monitoring",
+        "routing_confidence",
+        "moe_routing_accuracy"
+      ]
+    },
+    "framework_version": "1.0.0",
+    "test_suite_location": "/Users/ryandahlberg/commit-relay/tests/governance",
+    "results_location": "/Users/ryandahlberg/commit-relay/tests/governance/results"
+  }
+}

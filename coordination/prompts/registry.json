@@ -1,0 +1,348 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-11-23T13:45:00Z",
+  "prompts": [
+    {
+      "id": "task-routing",
+      "name": "Task Routing Prompt",
+      "description": "Routes incoming tasks to appropriate master agents based on task type and content",
+      "category": "routing",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "file_path": "llm-mesh/prompts/routing/task-routing-v1.0.0.md",
+          "created_at": "2025-10-15T10:00:00Z",
+          "active": false,
+          "changelog": "Initial version"
+        },
+        {
+          "version": "1.1.0",
+          "file_path": "llm-mesh/prompts/routing/task-routing-v1.1.0.md",
+          "created_at": "2025-11-01T14:30:00Z",
+          "active": false,
+          "changelog": "Improved keyword matching for security tasks"
+        },
+        {
+          "version": "1.2.0",
+          "file_path": "llm-mesh/prompts/routing/task-routing-v1.2.0.md",
+          "created_at": "2025-11-15T09:00:00Z",
+          "active": true,
+          "changelog": "Added parallel routing support and confidence scoring"
+        }
+      ],
+      "metrics": {
+        "total_uses": 15234,
+        "avg_confidence": 0.87,
+        "accuracy": 0.94,
+        "avg_latency_ms": 245,
+        "last_used": "2025-11-23T07:45:00Z"
+      },
+      "tags": ["routing", "moe", "task-classification"]
+    },
+    {
+      "id": "code-analysis",
+      "name": "Code Analysis Prompt",
+      "description": "Analyzes code for quality, security issues, and improvement suggestions",
+      "category": "analysis",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "file_path": "llm-mesh/prompts/analysis/code-analysis-v1.0.0.md",
+          "created_at": "2025-10-20T11:00:00Z",
+          "active": false,
+          "changelog": "Initial code analysis prompt"
+        },
+        {
+          "version": "2.0.0",
+          "file_path": "llm-mesh/prompts/analysis/code-analysis-v2.0.0.md",
+          "created_at": "2025-11-10T16:00:00Z",
+          "active": true,
+          "changelog": "Complete rewrite with structured output format"
+        }
+      ],
+      "metrics": {
+        "total_uses": 8721,
+        "avg_confidence": 0.82,
+        "accuracy": 0.89,
+        "avg_latency_ms": 1250,
+        "last_used": "2025-11-23T06:30:00Z"
+      },
+      "tags": ["code", "analysis", "quality"]
+    },
+    {
+      "id": "security-scan",
+      "name": "Security Scan Prompt",
+      "description": "Performs security vulnerability scanning on code and configurations",
+      "category": "security",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "file_path": "llm-mesh/prompts/security/security-scan-v1.0.0.md",
+          "created_at": "2025-10-25T08:00:00Z",
+          "active": false,
+          "changelog": "Initial security scanning prompt"
+        },
+        {
+          "version": "1.1.0",
+          "file_path": "llm-mesh/prompts/security/security-scan-v1.1.0.md",
+          "created_at": "2025-11-05T12:00:00Z",
+          "active": false,
+          "changelog": "Added OWASP Top 10 coverage"
+        },
+        {
+          "version": "1.2.0",
+          "file_path": "llm-mesh/prompts/security/security-scan-v1.2.0.md",
+          "created_at": "2025-11-18T10:00:00Z",
+          "active": true,
+          "changelog": "Enhanced CVE detection and dependency scanning"
+        }
+      ],
+      "metrics": {
+        "total_uses": 4532,
+        "avg_confidence": 0.91,
+        "accuracy": 0.96,
+        "avg_latency_ms": 890,
+        "last_used": "2025-11-23T07:15:00Z"
+      },
+      "tags": ["security", "vulnerability", "scanning"]
+    },
+    {
+      "id": "documentation-gen",
+      "name": "Documentation Generation Prompt",
+      "description": "Generates documentation from code including README, API docs, and comments",
+      "category": "documentation",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "file_path": "llm-mesh/prompts/documentation/doc-gen-v1.0.0.md",
+          "created_at": "2025-10-30T14:00:00Z",
+          "active": true,
+          "changelog": "Initial documentation generation prompt"
+        }
+      ],
+      "metrics": {
+        "total_uses": 2156,
+        "avg_confidence": 0.79,
+        "accuracy": 0.85,
+        "avg_latency_ms": 2100,
+        "last_used": "2025-11-22T18:00:00Z"
+      },
+      "tags": ["documentation", "readme", "api-docs"]
+    },
+    {
+      "id": "test-generation",
+      "name": "Test Generation Prompt",
+      "description": "Generates unit tests and integration tests for code",
+      "category": "testing",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "file_path": "llm-mesh/prompts/testing/test-gen-v1.0.0.md",
+          "created_at": "2025-11-01T09:00:00Z",
+          "active": false,
+          "changelog": "Initial test generation prompt"
+        },
+        {
+          "version": "1.1.0",
+          "file_path": "llm-mesh/prompts/testing/test-gen-v1.1.0.md",
+          "created_at": "2025-11-12T11:00:00Z",
+          "active": true,
+          "changelog": "Added edge case detection and coverage optimization"
+        }
+      ],
+      "metrics": {
+        "total_uses": 3890,
+        "avg_confidence": 0.84,
+        "accuracy": 0.88,
+        "avg_latency_ms": 1850,
+        "last_used": "2025-11-23T05:45:00Z"
+      },
+      "tags": ["testing", "unit-tests", "coverage"]
+    },
+    {
+      "id": "commit-message",
+      "name": "Commit Message Generator",
+      "description": "Generates conventional commit messages from code changes",
+      "category": "git",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "file_path": "llm-mesh/prompts/git/commit-message-v1.0.0.md",
+          "created_at": "2025-10-18T15:00:00Z",
+          "active": true,
+          "changelog": "Initial commit message generation prompt"
+        }
+      ],
+      "metrics": {
+        "total_uses": 12450,
+        "avg_confidence": 0.92,
+        "accuracy": 0.97,
+        "avg_latency_ms": 180,
+        "last_used": "2025-11-23T07:50:00Z"
+      },
+      "tags": ["git", "commit", "conventional-commits"]
+    },
+    {
+      "id": "pr-review",
+      "name": "Pull Request Review Prompt",
+      "description": "Reviews pull requests for code quality, bugs, and improvements",
+      "category": "review",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "file_path": "llm-mesh/prompts/review/pr-review-v1.0.0.md",
+          "created_at": "2025-10-22T10:00:00Z",
+          "active": false,
+          "changelog": "Initial PR review prompt"
+        },
+        {
+          "version": "2.0.0",
+          "file_path": "llm-mesh/prompts/review/pr-review-v2.0.0.md",
+          "created_at": "2025-11-08T13:00:00Z",
+          "active": true,
+          "changelog": "Added severity scoring and actionable suggestions"
+        }
+      ],
+      "metrics": {
+        "total_uses": 5678,
+        "avg_confidence": 0.86,
+        "accuracy": 0.91,
+        "avg_latency_ms": 1650,
+        "last_used": "2025-11-23T04:30:00Z"
+      },
+      "tags": ["review", "pull-request", "code-quality"]
+    },
+    {
+      "id": "error-diagnosis",
+      "name": "Error Diagnosis Prompt",
+      "description": "Diagnoses errors and exceptions with root cause analysis",
+      "category": "debugging",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "file_path": "llm-mesh/prompts/debugging/error-diagnosis-v1.0.0.md",
+          "created_at": "2025-11-03T16:00:00Z",
+          "active": true,
+          "changelog": "Initial error diagnosis prompt with stack trace parsing"
+        }
+      ],
+      "metrics": {
+        "total_uses": 6234,
+        "avg_confidence": 0.81,
+        "accuracy": 0.87,
+        "avg_latency_ms": 950,
+        "last_used": "2025-11-23T06:00:00Z"
+      },
+      "tags": ["debugging", "errors", "root-cause"]
+    },
+    {
+      "id": "refactoring-assistant",
+      "name": "Refactoring Assistant Prompt",
+      "description": "Suggests code refactoring opportunities and implements improvements",
+      "category": "analysis",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "file_path": "llm-mesh/prompts/analysis/refactoring-v1.0.0.md",
+          "created_at": "2025-11-05T09:00:00Z",
+          "active": false,
+          "changelog": "Initial refactoring assistant"
+        },
+        {
+          "version": "1.1.0",
+          "file_path": "llm-mesh/prompts/analysis/refactoring-v1.1.0.md",
+          "created_at": "2025-11-20T14:00:00Z",
+          "active": true,
+          "changelog": "Added design pattern detection and SOLID principle analysis"
+        }
+      ],
+      "metrics": {
+        "total_uses": 3421,
+        "avg_confidence": 0.83,
+        "accuracy": 0.90,
+        "avg_latency_ms": 1420,
+        "last_used": "2025-11-23T03:15:00Z"
+      },
+      "tags": ["refactoring", "design-patterns", "code-quality"]
+    },
+    {
+      "id": "api-design",
+      "name": "API Design Prompt",
+      "description": "Helps design RESTful APIs with best practices and OpenAPI specs",
+      "category": "documentation",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "file_path": "llm-mesh/prompts/documentation/api-design-v1.0.0.md",
+          "created_at": "2025-11-08T11:00:00Z",
+          "active": true,
+          "changelog": "Initial API design assistant with OpenAPI 3.0 support"
+        }
+      ],
+      "metrics": {
+        "total_uses": 1567,
+        "avg_confidence": 0.88,
+        "accuracy": 0.92,
+        "avg_latency_ms": 1100,
+        "last_used": "2025-11-22T22:00:00Z"
+      },
+      "tags": ["api", "rest", "openapi", "design"]
+    },
+    {
+      "id": "dependency-audit",
+      "name": "Dependency Audit Prompt",
+      "description": "Audits project dependencies for security vulnerabilities and updates",
+      "category": "security",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "file_path": "llm-mesh/prompts/security/dependency-audit-v1.0.0.md",
+          "created_at": "2025-11-10T10:00:00Z",
+          "active": true,
+          "changelog": "Initial dependency audit with npm, pip, and cargo support"
+        }
+      ],
+      "metrics": {
+        "total_uses": 2890,
+        "avg_confidence": 0.89,
+        "accuracy": 0.94,
+        "avg_latency_ms": 780,
+        "last_used": "2025-11-23T01:30:00Z"
+      },
+      "tags": ["security", "dependencies", "audit", "npm"]
+    },
+    {
+      "id": "performance-optimizer",
+      "name": "Performance Optimization Prompt",
+      "description": "Analyzes code for performance bottlenecks and suggests optimizations",
+      "category": "analysis",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "file_path": "llm-mesh/prompts/analysis/performance-v1.0.0.md",
+          "created_at": "2025-11-12T15:00:00Z",
+          "active": true,
+          "changelog": "Initial performance analysis with Big-O complexity detection"
+        }
+      ],
+      "metrics": {
+        "total_uses": 1823,
+        "avg_confidence": 0.80,
+        "accuracy": 0.86,
+        "avg_latency_ms": 1650,
+        "last_used": "2025-11-22T20:45:00Z"
+      },
+      "tags": ["performance", "optimization", "complexity"]
+    }
+  ],
+  "categories": [
+    { "id": "routing", "name": "Routing", "color": "#0077CC" },
+    { "id": "analysis", "name": "Analysis", "color": "#00BFB3" },
+    { "id": "security", "name": "Security", "color": "#BD271E" },
+    { "id": "documentation", "name": "Documentation", "color": "#6092C0" },
+    { "id": "testing", "name": "Testing", "color": "#54B399" },
+    { "id": "git", "name": "Git", "color": "#D36086" },
+    { "id": "review", "name": "Review", "color": "#9170B8" },
+    { "id": "debugging", "name": "Debugging", "color": "#CA8EAE" }
+  ]
+}

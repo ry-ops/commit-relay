@@ -1,0 +1,23 @@
+{
+  "handoff_id": "moe-test-ddqd-v5-1763308845-ba35d73a",
+  "task_id": "moe-test-ddqd-v5-1763308845-ba35d73a",
+  "assigned_to": "security",
+  "created_at": "2025-11-16T10:01:32-0600",
+  "status": "processed",
+  "task": {
+    "id": "moe-test-ddqd-v5-1763308845-ba35d73a",
+    "title": "Security audit and compliance scanning for production systems",
+    "type": "security",
+    "description": "Security audit and compliance scanning for production systems",
+    "priority": "medium",
+    "status": "pending",
+    "assigned_to": null,
+    "created_at": "2025-11-16T10:01:28-0600",
+    "created_by": "ddqd-v5-test",
+    "moe_test": true,
+    "test_id": "ddqd-v5-1763308845",
+    "context": {}
+  },
+  "processed_at": "2025-11-16T10:33:29-0600",
+  "worker_id": "worker-worker-1763310808-3128"
+}

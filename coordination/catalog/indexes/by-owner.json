@@ -1,0 +1,93 @@
+{
+  "index_name": "assets_by_owner",
+  "description": "Index of all assets grouped by owner/team",
+  "last_updated": "2025-11-11T16:59:46.913Z",
+  "owners": {
+    "system": [
+      "coordination.tasks.task_queue",
+      "coordination.tasks.pm_state",
+      "coordination.tasks.pm_activity_log",
+      "coordination.tasks.workforce_streams",
+      "coordination.history.dashboard_events",
+      "coordination.memory.worker_pool_state",
+      "coordination.memory.task_patterns",
+      "coordination.tasks.orchestrator_state",
+      "masters.coordinator.coordinator_master_agent",
+      "masters.development.development_master_agent",
+      "masters.security.security_master_agent",
+      "masters.cicd.cicd_master_agent",
+      "masters.inventory.inventory_master_agent",
+      "workers.specs.worker_spec_dev_worker_2d6c668d_json",
+      "workers.specs.worker_spec_dev_worker_31b91f5d_json",
+      "workers.specs.worker_spec_dev_worker_37a01f3d_json",
+      "workers.specs.worker_spec_dev_worker_4fd07a66_json",
+      "workers.specs.worker_spec_dev_worker_5f3cfa26_json",
+      "workers.specs.worker_spec_dev_worker_693450ea_json",
+      "workers.specs.worker_spec_dev_worker_6a53f8d4_json",
+      "workers.specs.worker_spec_dev_worker_89de27b5_json",
+      "workers.specs.worker_spec_dev_worker_92d7943c_json",
+      "workers.specs.worker_spec_dev_worker_a290d35e_json",
+      "workers.specs.worker_spec_dev_worker_a2be7a42_json",
+      "workers.specs.worker_spec_dev_worker_de5535b6_json",
+      "workers.specs.worker_spec_dev_worker_df971c09_json",
+      "workers.specs.worker_spec_dev_worker_f9966f3a_json",
+      "workers.specs.worker_spec_dev_worker_fad0b9be_json",
+      "workers.specs.worker_spec_dev_worker_fb9d03bd_json",
+      "workers.specs.worker_spec_inv_worker_a6a5c517_json",
+      "workers.specs.worker_spec_sec_worker_fd673a67_json",
+      "workers.specs.worker_spec_dev_worker_270892a8_json",
+      "workers.specs.worker_spec_dev_worker_2a3ce105_json",
+      "workers.specs.worker_spec_dev_worker_4a6596a8_json",
+      "workers.specs.worker_spec_dev_worker_59528050_json",
+      "workers.specs.worker_spec_dev_worker_5e29c44d_json",
+      "workers.specs.worker_spec_dev_worker_66187ef4_json",
+      "workers.specs.worker_spec_dev_worker_692c28f8_json",
+      "workers.specs.worker_spec_dev_worker_90d3e9cd_json",
+      "workers.specs.worker_spec_dev_worker_95965607_json",
+      "workers.specs.worker_spec_dev_worker_98c59170_json",
+      "workers.specs.worker_spec_dev_worker_9f47dd36_json",
+      "workers.specs.worker_spec_dev_worker_b0ab8d01_json",
+      "workers.specs.worker_spec_dev_worker_dc9bab5c_json",
+      "workers.specs.worker_spec_dev_worker_f8529436_json",
+      "workers.specs.worker_spec_dev_worker_270ea2ba_json",
+      "workers.specs.worker_spec_dev_worker_8581363d_json",
+      "workers.specs.worker_spec_dev_worker_a73e7e3c_json",
+      "workers.specs.worker_spec_dev_worker_b181d3f9_json",
+      "workers.specs.worker_spec_dev_worker_e41ddfd9_json",
+      "workers.specs.worker_spec_dev_worker_e4462549_json",
+      "workers.specs.worker_spec_dev_worker_e5c72484_json",
+      "workers.specs.worker_spec_dev_worker_f8659149_json",
+      "workers.specs.worker_spec_sec_worker_03b228a5_json",
+      "workers.specs.worker_spec_sec_worker_14a89c13_json",
+      "workers.specs.worker_spec_sec_worker_aa0d073a_json",
+      "workers.specs.worker_spec_test_worker_launcher_001_json",
+      "workers.specs.worker_spec_worker_implementation_002_json",
+      "workers.specs.worker_spec_worker_scan_001_json",
+      "workers.specs.worker_spec_dev_worker_45be28af_report_json",
+      "workers.specs.worker_spec_dev_worker_a3ba1e63_json"
+    ],
+    "coordinator-master": [
+      "coordination.routing.routing_decisions_logs_",
+      "coordination.routing.routing_decisions_knowledge_base_",
+      "masters.coordinator.coordinator_knowledge_base_index_json",
+      "masters.coordinator.coordinator_knowledge_base_routing_decisions_jsonl",
+      "masters.coordinator.coordinator_knowledge_base_routing_patterns_json",
+      "masters.coordinator.coordinator_knowledge_base_routing_rules_json"
+    ],
+    "development-master": [
+      "masters.development.development_knowledge_base_index_json",
+      "masters.development.development_knowledge_base_worker_types_json"
+    ],
+    "security-master": [
+      "masters.security.security_knowledge_base_index_json",
+      "masters.security.security_knowledge_base_worker_types_json"
+    ],
+    "cicd-master": [
+      "masters.cicd.cicd_knowledge_base_gitkeep"
+    ],
+    "inventory-master": [
+      "masters.inventory.inventory_knowledge_base_index_json",
+      "masters.inventory.inventory_knowledge_base_worker_types_json"
+    ]
+  }
+}

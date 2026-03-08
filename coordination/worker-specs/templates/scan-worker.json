@@ -1,0 +1,10 @@
+{
+  "worker_type": "scan-worker",
+  "resources": {
+    "memory_limit_mb": 2048,
+    "cpu_limit": 1.0
+  },
+  "timeouts": {
+    "task_timeout_seconds": 1800
+  }
+}

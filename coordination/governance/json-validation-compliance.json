@@ -1,0 +1,36 @@
+{
+  "check_id": "json-validation",
+  "check_name": "JSON Validation Compliance",
+  "timestamp": "2025-11-11T22:30:58Z",
+  "status": "pass",
+  "severity": "info",
+  "summary": {
+    "total_files": 13,
+    "valid_files": 13,
+    "invalid_files": 0,
+    "compliance_score": 100
+  },
+  "details": {
+    "files_checked": [
+      "dev-worker-693A8576.json",
+      "dev-worker-6A8739DC.json",
+      "dev-worker-785586E5.json",
+      "dev-worker-7BFC15C8.json",
+      "dev-worker-991812ED.json",
+      "dev-worker-9ECB5C27.json",
+      "dev-worker-A21524A6.json",
+      "task-queue.json",
+      "coordination/pm-state.json",
+      "coordination/memory/working/pool-state.json",
+      "coordination/orchestrator/state/current.json",
+      "coordination/dashboard-events.jsonl",
+      "coordination/masters/coordinator/knowledge-base/routing-decisions.jsonl"
+    ],
+    "files_with_errors": []
+  },
+  "recommendations": [
+    "Run pre-commit hook to prevent malformed JSON: git config core.hooksPath .githooks",
+    "Use JSON validator for repairs: ./scripts/lib/json-validator.sh repair-file <file>",
+    "Review worker spec generation in development master"
+  ]
+}

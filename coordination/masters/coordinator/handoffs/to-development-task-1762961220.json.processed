@@ -1,0 +1,40 @@
+{
+  "handoff_id": "coord-to-development-task-1762961220",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762961220",
+  "task_data": {
+    "title": "CRITICAL: Investigate Worker Launcher Script Bug - Task Context Injection Failure",
+    "description": "Worker launcher script (/Users/ryandahlberg/commit-relay/scripts/claude-worker-launcher-v2.sh) failing to inject task context into worker prompts. All 6 governance workers launched 70+ minutes ago failed immediately with empty task IDs and unsubstituted placeholder text.",
+    "priority": "critical",
+    "type": "investigation",
+    "affected_workers": [
+      "dev-worker-04B8F99C",
+      "dev-worker-72AB3732", 
+      "dev-worker-899AB82C",
+      "dev-worker-21C2A367",
+      "sec-worker-DC77FC1A",
+      "sec-worker-48C1327F"
+    ],
+    "script_to_investigate": "/Users/ryandahlberg/commit-relay/scripts/claude-worker-launcher-v2.sh",
+    "symptoms": [
+      "Empty task IDs (task_id showing as '.')",
+      "Unsubstituted placeholder text (TASK_CONTEXT_PLACEHOLDER)",
+      "Worker specs incorrectly showing 'running' status",
+      "Immediate worker failure on launch"
+    ],
+    "governance_requirement": "Findings must be added to MoE learning system for pattern prevention",
+    "user_directive": "MoE should investigate the launcher script and all scripts moving forward"
+  },
+  "context": {
+    "routing_reason": "MoE Pattern-based routing: Development master selected for script debugging and bug investigation",
+    "moe_confidence": 0.95,
+    "routing_pattern_matched": "bug.*fix|code|script debugging",
+    "priority": "critical",
+    "expected_outcome": "Root cause analysis, bug fix implementation, and learnings for MoE knowledge base",
+    "governance_context": "This is a governance hot topic requiring autonomous quality checking for system scripts",
+    "workload_note": "Development master currently busy (14 tasks), but CRITICAL priority overrides"
+  },
+  "created_at": "2025-11-12T15:36:36Z",
+  "status": "pending_pickup"
+}

@@ -1,0 +1,282 @@
+{
+  "version": "2.0.0",
+  "created_at": "2025-11-20T19:20:00Z",
+  "updated_at": "2025-11-21T02:15:00Z",
+  "created_by": "worker-implementation-047",
+  "updated_by": "worker-implementation-055",
+  "description": "Real-time behavioral patterns, performance baselines, optimization opportunities, and system health metrics - Enhanced with current analysis",
+  "current_state_analysis": {
+    "timestamp": "2025-11-21T02:15:00Z",
+    "worker_pool": {
+      "total_spawned": 70,
+      "active_workers": 55,
+      "completed_workers": 3,
+      "failed_workers": 0,
+      "success_rate_percentage": 7,
+      "observation": "CRITICAL: All 55 active workers in 'pending' status - never transitioned to 'running'",
+      "by_type": {
+        "implementation_workers": 35,
+        "scan_workers": 12,
+        "documentation_workers": 8
+      }
+    },
+    "routing_performance": {
+      "total_decisions": 68,
+      "routing_accuracy": "95.7%",
+      "strategy_distribution": {
+        "single_expert": 24,
+        "single_expert_low_confidence": 44,
+        "multi_expert_parallel": 0
+      },
+      "observation": "Routing works well, execution pipeline is bottleneck"
+    },
+    "token_budget": {
+      "total_budget": 500000,
+      "allocated": 10000,
+      "available": 490000,
+      "utilization": "2%",
+      "observation": "Severely under-utilized due to worker execution failures"
+    },
+    "critical_issues": [
+      {
+        "issue": "Zero heartbeat check-ins from workers",
+        "severity": "critical",
+        "impact": "No health visibility, zombie detection impossible"
+      },
+      {
+        "issue": "Workers stuck in pending state",
+        "severity": "critical",
+        "impact": "7% success rate, tasks not completing"
+      },
+      {
+        "issue": "PM interventions not executing",
+        "severity": "high",
+        "impact": "No automatic recovery from failures"
+      },
+      {
+        "issue": "Duplicate workers for same task",
+        "severity": "high",
+        "impact": "Resource waste, 17% duplication rate"
+      }
+    ]
+  },
+  "performance_baselines": {
+    "routing": {
+      "latency_ms": "< 1000",
+      "accuracy": "95.7%",
+      "target_accuracy": "98%"
+    },
+    "worker_spawn": {
+      "time_seconds": "5-10",
+      "daemon_poll_interval": 30
+    },
+    "pm_daemon": {
+      "loop_interval_minutes": "2-3",
+      "intervention_latency_minutes": "5-15",
+      "check_in_interval_minutes": 5
+    },
+    "dashboard": {
+      "api_response_ms": "< 100",
+      "event_update_ms": "< 500",
+      "sse_latency_ms": "< 100"
+    },
+    "task_completion_times": {
+      "simple": {"minutes": "5-15", "examples": ["Add comment", "Fix typo"]},
+      "medium": {"minutes": "15-45", "examples": ["Implement feature", "Fix bug"]},
+      "complex": {"minutes": "45-120", "examples": ["Major refactor", "Security audit"]},
+      "very_complex": {"minutes": "120-180", "examples": ["Architecture redesign", "Full learning task"]}
+    }
+  },
+  "failure_patterns": {
+    "zombie_workers": {
+      "frequency": "Very High (93% of active workers)",
+      "root_causes": [
+        "Worker prompts missing heartbeat calls",
+        "spawn-worker.sh not transitioning to running",
+        "Claude Code session not starting properly",
+        "Terminal integration issues"
+      ],
+      "detection": "PM daemon checks check-in count",
+      "mitigation": [
+        "Add mandatory heartbeat calls to all worker prompts",
+        "Fix spawn-worker.sh state transition",
+        "Improve Terminal integration reliability"
+      ]
+    },
+    "timeout_exceeded": {
+      "frequency": "Medium",
+      "root_causes": ["Task more complex than estimated", "Inefficient approach", "External delays"],
+      "detection": "PM daemon timeout monitoring",
+      "mitigation": ["Better complexity estimation", "Time extension protocol", "Task decomposition"]
+    },
+    "daemon_not_running": {
+      "frequency": "Low",
+      "root_causes": ["Process killed", "System restart", "Resource limits"],
+      "detection": "Integration validator, routing alerts",
+      "mitigation": ["Daemon supervisor", "Automatic restart", "PID file monitoring"]
+    },
+    "duplicate_workers": {
+      "frequency": "Medium (17% of workers)",
+      "root_causes": ["No task ownership tracking", "Rapid daemon polling", "Race conditions"],
+      "detection": "Multiple workers with same task_id",
+      "mitigation": ["Task ownership lock", "Deduplication check before spawn"]
+    }
+  },
+  "resource_utilization": {
+    "token_budget": {
+      "daily_budget": 500000,
+      "typical_usage": 65000,
+      "current_utilization": "2%",
+      "target_utilization": "60%",
+      "by_worker_type": {
+        "implementation": 10000,
+        "scan": 8000,
+        "documentation": 6000
+      }
+    },
+    "workforce_streams": {
+      "total_capacity": 25,
+      "emergency_pool": 5,
+      "current_utilization": "0%",
+      "streams": {
+        "stream-a": {"name": "Critical Priority", "priority": 1, "capacity": 5},
+        "stream-b": {"name": "Standard Development", "priority": 2, "capacity": 5},
+        "stream-c": {"name": "Background/Maintenance", "priority": 3, "capacity": 5},
+        "stream-d": {"name": "CI/CD Pipeline", "priority": 1, "capacity": 5},
+        "stream-e": {"name": "Security/Audit", "priority": 2, "capacity": 5}
+      }
+    }
+  },
+  "optimization_opportunities": {
+    "immediate": [
+      {
+        "id": "opt-imm-001",
+        "area": "Worker execution pipeline",
+        "current": "7% success rate",
+        "target": "75% success rate",
+        "actions": [
+          "Fix spawn-worker.sh state transitions",
+          "Add mandatory heartbeat to worker prompts",
+          "Clean up 55 stalled workers"
+        ],
+        "timeline": "1 week",
+        "priority": "critical"
+      },
+      {
+        "id": "opt-imm-002",
+        "area": "PM interventions",
+        "current": "0% execution rate",
+        "target": "90% execution rate",
+        "actions": [
+          "Verify intervention scripts are executable",
+          "Test kill_and_restart functionality",
+          "Enable automatic stalled worker cleanup"
+        ],
+        "timeline": "3 days",
+        "priority": "high"
+      }
+    ],
+    "short_term": [
+      {
+        "id": "opt-st-001",
+        "area": "Parallel expert activation",
+        "current": "0% usage",
+        "target": "20% usage",
+        "actions": ["Lower multi-expert threshold from 0.60 to 0.45"],
+        "timeline": "2 weeks",
+        "priority": "medium"
+      },
+      {
+        "id": "opt-st-002",
+        "area": "Task deduplication",
+        "current": "17% duplicate rate",
+        "target": "0% duplicate rate",
+        "actions": ["Implement task ownership tracking", "Check existing workers before spawn"],
+        "timeline": "1 week",
+        "priority": "high"
+      },
+      {
+        "id": "opt-st-003",
+        "area": "Token utilization",
+        "current": "2%",
+        "target": "60%",
+        "actions": ["Increase successful worker throughput"],
+        "timeline": "2 weeks",
+        "priority": "medium"
+      }
+    ],
+    "long_term": [
+      {
+        "id": "opt-lt-001",
+        "area": "Predictive stall detection",
+        "approach": "ML-based pattern recognition from historical completion times",
+        "timeline": "1 month"
+      },
+      {
+        "id": "opt-lt-002",
+        "area": "Automated capacity planning",
+        "approach": "Analyze task queue to predict worker needs",
+        "timeline": "1 month"
+      },
+      {
+        "id": "opt-lt-003",
+        "area": "Semantic routing",
+        "approach": "Vector embeddings for task similarity matching",
+        "timeline": "2 months"
+      }
+    ]
+  },
+  "health_monitoring": {
+    "key_metrics": [
+      {"metric": "Worker success rate", "target": ">= 75%", "current": "7%", "status": "critical"},
+      {"metric": "Heartbeat compliance", "target": ">= 95%", "current": "0%", "status": "critical"},
+      {"metric": "Token utilization", "target": ">= 60%", "current": "2%", "status": "warning"},
+      {"metric": "Parallel activation rate", "target": ">= 20%", "current": "0%", "status": "warning"},
+      {"metric": "Routing accuracy", "target": ">= 95%", "current": "95.7%", "status": "healthy"}
+    ],
+    "alerting_thresholds": {
+      "worker_success_rate": {"warning": "< 50%", "critical": "< 25%"},
+      "stalled_workers": {"warning": "> 5", "critical": "> 10"},
+      "token_budget_available": {"warning": "< 10%", "critical": "< 5%"},
+      "daemon_down_minutes": {"warning": "> 5", "critical": "> 15"}
+    },
+    "dashboard_integration": {
+      "health_endpoint": "GET /api/health",
+      "metrics_endpoint": "GET /api/metrics",
+      "events_stream": "SSE /api/events",
+      "refresh_interval_seconds": 5
+    }
+  },
+  "system_health_checklist": {
+    "daily": [
+      "Verify all daemons running",
+      "Check worker success rate",
+      "Review routing decisions for anomalies",
+      "Monitor token budget usage"
+    ],
+    "weekly": [
+      "Clean up old worker specs",
+      "Analyze failure patterns",
+      "Review optimization opportunities",
+      "Archive old JSONL logs"
+    ],
+    "monthly": [
+      "Update routing-patterns.json keywords",
+      "Review security scans",
+      "Optimize threshold values",
+      "Capacity planning review"
+    ]
+  },
+  "metadata": {
+    "analysis_depth": "comprehensive",
+    "data_sources": [
+      "worker-pool.json (55 active workers)",
+      "routing-decisions.jsonl (68 decisions)",
+      "dashboard-events.jsonl",
+      "workforce-streams.json",
+      "token-budget.json"
+    ],
+    "confidence": "high",
+    "next_review": "2025-11-27T00:00:00Z"
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "enabled": true,
+  "detection": {
+    "frequency_threshold": 3,
+    "time_window_hours": 24,
+    "similarity_threshold": 0.85,
+    "confidence_threshold": 0.70
+  },
+  "temporal_analysis": {
+    "enabled": true,
+    "clustering_significance": 0.05,
+    "time_zones": ["America/Chicago"]
+  },
+  "correlation_analysis": {
+    "enabled": true,
+    "correlation_window_seconds": 300,
+    "minimum_related_events": 2
+  },
+  "anomaly_detection": {
+    "enabled": true,
+    "sigma_threshold": 3,
+    "baseline_window_days": 7
+  },
+  "prediction": {
+    "enabled": true,
+    "prediction_horizon_minutes": 30,
+    "minimum_similar_samples": 5,
+    "confidence_threshold": 0.60
+  },
+  "storage": {
+    "pattern_retention_days": 90,
+    "event_retention_days": 30,
+    "max_patterns": 1000,
+    "pattern_database": "coordination/patterns/failure-patterns.jsonl",
+    "pattern_index": "coordination/patterns/pattern-index.json"
+  },
+  "observability": {
+    "emit_events": true,
+    "events_log": "coordination/events/failure-pattern-events.jsonl",
+    "daily_reports": true,
+    "report_directory": "coordination/reports/failure-patterns"
+  },
+  "failure_categories": {
+    "transient": {
+      "types": [
+        "network_timeout",
+        "rate_limit",
+        "resource_contention",
+        "external_service_unavailable"
+      ],
+      "default_severity": "low",
+      "retry_recommended": true
+    },
+    "resource": {
+      "types": [
+        "out_of_memory",
+        "cpu_exhaustion",
+        "token_budget_exceeded",
+        "disk_full",
+        "timeout"
+      ],
+      "default_severity": "medium",
+      "retry_recommended": false
+    },
+    "systemic": {
+      "types": [
+        "uncaught_exception",
+        "assertion_failure",
+        "configuration_error",
+        "dependency_missing",
+        "api_error"
+      ],
+      "default_severity": "high",
+      "retry_recommended": false
+    },
+    "data": {
+      "types": [
+        "invalid_input",
+        "data_corruption",
+        "schema_violation",
+        "concurrent_modification"
+      ],
+      "default_severity": "medium",
+      "retry_recommended": false
+    },
+    "environmental": {
+      "types": [
+        "permission_denied",
+        "command_not_found",
+        "path_not_found",
+        "network_unreachable"
+      ],
+      "default_severity": "high",
+      "retry_recommended": false
+    }
+  }
+}

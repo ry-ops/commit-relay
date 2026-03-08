@@ -1,0 +1,39 @@
+{
+  "handoff_id": "coord-to-development-7E236E71-7EEC-45CD-A02C-7401AF2A0639",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762553460",
+  "task_data": {
+    "id": "task-1762553460",
+    "title": "PROMPT ENGINEERING UPGRADE - Phase 2: Validation & Control Loops. Build validation layers and retry mechanisms for every agent output. OBJECTIVES: 1) Integrate Phase 1 schemas into all agent workflows - add validation wrappers to emit-event.sh, spawn-worker.sh, create-task.sh, moe-router.sh. 2) Implement control loops for critical paths: coordinator routing with validation+retry, handoff creation with validation, task assignment validation. 3) Add retry logic to all agent calls with exponential backoff - max 3 retries with tighter instructions each time. 4) Build validation middleware for all JSON file operations. TECHNICAL: Update all bash scripts to use lib/safe-json.js wrappers, add validation hooks to coordination file writers, implement circuit breaker integration from task-1762553455. DELIVERABLES: All coordination writes use safeWriteJSON, control loops for routing/handoffs/assignments, retry logic library, validation middleware integrated. SUCCESS: 99%+ first-pass validation rate, <1 schema violation per day, <5% retry rate.",
+    "type": "development",
+    "priority": "high",
+    "status": "assigned",
+    "assigned_to": "development",
+    "created_at": "2025-11-11T10:32:50-0600",
+    "created_by": "create-task-cli",
+    "context": {
+      "repository": "ry-ops/commit-relay",
+      "branch": "main",
+      "description": "PROMPT ENGINEERING UPGRADE - Phase 2: Validation & Control Loops. Build validation layers and retry mechanisms for every agent output. OBJECTIVES: 1) Integrate Phase 1 schemas into all agent workflows - add validation wrappers to emit-event.sh, spawn-worker.sh, create-task.sh, moe-router.sh. 2) Implement control loops for critical paths: coordinator routing with validation+retry, handoff creation with validation, task assignment validation. 3) Add retry logic to all agent calls with exponential backoff - max 3 retries with tighter instructions each time. 4) Build validation middleware for all JSON file operations. TECHNICAL: Update all bash scripts to use lib/safe-json.js wrappers, add validation hooks to coordination file writers, implement circuit breaker integration from task-1762553455. DELIVERABLES: All coordination writes use safeWriteJSON, control loops for routing/handoffs/assignments, retry logic library, validation middleware integrated. SUCCESS: 99%+ first-pass validation rate, <1 schema violation per day, <5% retry rate.",
+      "requirements": []
+    },
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-11T11:42:14-0600",
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-11T11:42:14-06:00"
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "high",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "N/A",
+      "strategy": "pattern-based",
+      "routed_at": "2025-11-11T11:42:14-0600"
+    }
+  },
+  "created_at": "2025-11-11T11:42:14-0600",
+  "status": "pending_pickup"
+}

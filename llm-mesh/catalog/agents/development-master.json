@@ -1,0 +1,137 @@
+{
+  "agent_id": "development-master",
+  "display_name": "Development Master",
+  "version": "3.0.0",
+  "type": "specialist",
+  "specialization": "code_development",
+  "description": "Development specialist for features, bug fixes, and code improvements",
+  "capabilities": [
+    "feature_implementation",
+    "bug_fixes",
+    "code_refactoring",
+    "performance_optimization",
+    "api_development",
+    "testing",
+    "technical_documentation",
+    "integration_testing",
+    "dashboard_improvements"
+  ],
+  "activation_patterns": {
+    "keywords": [
+      "implement", "add", "create", "build", "develop",
+      "fix", "bug", "refactor", "optimize", "improve",
+      "enhance", "update", "modify", "change",
+      "test", "unit test", "integration test"
+    ],
+    "confidence_boosters": [
+      "code", "function", "class", "method", "API",
+      "endpoint", "service", "component", "module",
+      "feature", "functionality", "algorithm", "logic",
+      "performance", "speed", "efficiency"
+    ],
+    "negative_indicators": [
+      "document only", "catalog only", "list only",
+      "CVE", "vulnerability", "security audit"
+    ]
+  },
+  "tools": [
+    "git-operations",
+    "file-operations",
+    "test-runner",
+    "code-analysis",
+    "linter",
+    "formatter",
+    "debugger"
+  ],
+  "prompts": [
+    "code-generation-v1",
+    "bug-fix-analysis-v1",
+    "refactoring-suggestions-v1",
+    "api-design-v1",
+    "test-generation-v1"
+  ],
+  "tech_stack": {
+    "frontend": ["Alpine.js", "Tailwind CSS"],
+    "backend": ["Express.js", "WebSocket", "SSE"],
+    "data": ["JSONL", "JSON"],
+    "tools": ["Chokidar", "Shell scripting"]
+  },
+  "performance": {
+    "total_tasks": 156,
+    "success_rate": 0.92,
+    "avg_task_duration_seconds": 1800,
+    "avg_quality_score": 0.90,
+    "complexity_range": ["simple", "moderate", "complex"],
+    "tasks_by_complexity": {
+      "simple": 45,
+      "moderate": 78,
+      "complex": 28,
+      "very_complex": 5
+    }
+  },
+  "collaboration": {
+    "works_well_with": ["security-master", "cicd-master", "inventory-master"],
+    "common_workflows": [
+      {
+        "workflow": "feature_with_security_review",
+        "partners": ["security-master"],
+        "description": "Implement feature → security review → deploy",
+        "success_rate": 0.95
+      },
+      {
+        "workflow": "code_and_test",
+        "partners": ["cicd-master"],
+        "description": "Write code → run tests → deploy",
+        "success_rate": 0.93
+      }
+    ]
+  },
+  "common_patterns": {
+    "feature_implementation": {
+      "steps": ["design", "implement", "test", "document"],
+      "avg_duration": 2400,
+      "success_rate": 0.94
+    },
+    "bug_fix": {
+      "steps": ["reproduce", "diagnose", "fix", "test", "verify"],
+      "avg_duration": 1200,
+      "success_rate": 0.91
+    },
+    "refactoring": {
+      "steps": ["analyze", "plan", "refactor", "test"],
+      "avg_duration": 1800,
+      "success_rate": 0.89
+    }
+  },
+  "optimal_for": [
+    "feature_implementation",
+    "bug_fixes",
+    "code_refactoring",
+    "api_development",
+    "performance_optimization"
+  ],
+  "not_recommended_for": [
+    "security_vulnerability_scanning",
+    "repository_cataloging",
+    "pure_documentation_tasks"
+  ],
+  "resource_requirements": {
+    "avg_llm_calls_per_task": 3,
+    "avg_llm_cost_per_task": 0.048,
+    "preferred_model": "claude-sonnet-4",
+    "fallback_model": "claude-haiku"
+  },
+  "recent_improvements": [
+    {
+      "date": "2025-11-10",
+      "improvement": "Added authentication-related keywords",
+      "impact": "15% better confidence on auth tasks"
+    }
+  ],
+  "metadata": {
+    "created_at": "2023-06-01",
+    "last_updated": "2025-11-15",
+    "total_lifetime_tasks": 1247,
+    "deployment_status": "active"
+  }
+}

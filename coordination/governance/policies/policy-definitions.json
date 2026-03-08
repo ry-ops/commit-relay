@@ -1,0 +1,319 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-11-21T00:00:00Z",
+  "description": "Policy-as-code definitions for commit-relay governance",
+  "policies": [
+    {
+      "policy_id": "pol-001",
+      "name": "Token Budget Limits",
+      "description": "Enforce token budget constraints per task and worker",
+      "category": "resource",
+      "enabled": true,
+      "severity": "high",
+      "rules": [
+        {
+          "rule_id": "token-001",
+          "description": "Maximum tokens per task",
+          "condition": "task.token_budget <= policy.max_tokens_per_task",
+          "params": {
+            "max_tokens_per_task": 50000
+          },
+          "action": "reject",
+          "message": "Task token budget exceeds maximum allowed"
+        },
+        {
+          "rule_id": "token-002",
+          "description": "Maximum tokens per worker per hour",
+          "condition": "worker.hourly_usage <= policy.max_tokens_per_worker_hour",
+          "params": {
+            "max_tokens_per_worker_hour": 100000
+          },
+          "action": "throttle",
+          "message": "Worker has exceeded hourly token limit"
+        },
+        {
+          "rule_id": "token-003",
+          "description": "Minimum reserve budget",
+          "condition": "system.available_budget >= system.total_budget * policy.min_reserve_percent",
+          "params": {
+            "min_reserve_percent": 0.10
+          },
+          "action": "alert",
+          "message": "System budget reserve is below minimum threshold"
+        }
+      ],
+      "metadata": {
+        "owner": "platform-team",
+        "compliance_frameworks": ["internal-governance"],
+        "review_date": "2025-12-21"
+      }
+    },
+    {
+      "policy_id": "pol-002",
+      "name": "Worker Security Constraints",
+      "description": "Security policies for worker execution",
+      "category": "security",
+      "enabled": true,
+      "severity": "critical",
+      "rules": [
+        {
+          "rule_id": "sec-001",
+          "description": "Prevent secrets in task context",
+          "condition": "!contains(task.context, ['password', 'secret', 'api_key', 'token', 'credential'])",
+          "params": {
+            "patterns": ["password", "secret", "api_key", "token", "credential", "private_key"]
+          },
+          "action": "reject",
+          "message": "Task context may contain sensitive information"
+        },
+        {
+          "rule_id": "sec-002",
+          "description": "Require worker isolation",
+          "condition": "worker.isolation_level >= policy.min_isolation_level",
+          "params": {
+            "min_isolation_level": 2
+          },
+          "action": "reject",
+          "message": "Worker does not meet minimum isolation requirements"
+        },
+        {
+          "rule_id": "sec-003",
+          "description": "Limit file system access scope",
+          "condition": "all(worker.file_paths, path => startsWith(path, policy.allowed_paths))",
+          "params": {
+            "allowed_paths": ["/Users/ryandahlberg/commit-relay/"]
+          },
+          "action": "reject",
+          "message": "Worker attempting to access files outside allowed paths"
+        }
+      ],
+      "metadata": {
+        "owner": "security-team",
+        "compliance_frameworks": ["SOC2", "NIST-CSF"],
+        "review_date": "2025-12-21"
+      }
+    },
+    {
+      "policy_id": "pol-003",
+      "name": "Task Execution Limits",
+      "description": "Constraints on task execution parameters",
+      "category": "operational",
+      "enabled": true,
+      "severity": "medium",
+      "rules": [
+        {
+          "rule_id": "exec-001",
+          "description": "Maximum task execution time",
+          "condition": "task.timeout_minutes <= policy.max_timeout_minutes",
+          "params": {
+            "max_timeout_minutes": 120
+          },
+          "action": "reject",
+          "message": "Task timeout exceeds maximum allowed"
+        },
+        {
+          "rule_id": "exec-002",
+          "description": "Maximum retry attempts",
+          "condition": "task.max_retries <= policy.max_retries",
+          "params": {
+            "max_retries": 3
+          },
+          "action": "adjust",
+          "message": "Task retry count adjusted to policy maximum"
+        },
+        {
+          "rule_id": "exec-003",
+          "description": "Require task description",
+          "condition": "length(task.description) >= policy.min_description_length",
+          "params": {
+            "min_description_length": 10
+          },
+          "action": "reject",
+          "message": "Task must have a meaningful description"
+        }
+      ],
+      "metadata": {
+        "owner": "platform-team",
+        "compliance_frameworks": ["internal-governance"],
+        "review_date": "2025-12-21"
+      }
+    },
+    {
+      "policy_id": "pol-004",
+      "name": "Data Governance",
+      "description": "Policies for data handling and lineage",
+      "category": "data",
+      "enabled": true,
+      "severity": "high",
+      "rules": [
+        {
+          "rule_id": "data-001",
+          "description": "Require data lineage tracking",
+          "condition": "task.lineage_enabled == true",
+          "params": {},
+          "action": "warn",
+          "message": "Task should enable data lineage tracking"
+        },
+        {
+          "rule_id": "data-002",
+          "description": "PII detection and handling",
+          "condition": "task.pii_scan_passed == true || task.pii_handling_approved == true",
+          "params": {},
+          "action": "reject",
+          "message": "Task contains PII and requires approved handling"
+        },
+        {
+          "rule_id": "data-003",
+          "description": "Data retention compliance",
+          "condition": "task.output_retention_days <= policy.max_retention_days",
+          "params": {
+            "max_retention_days": 90
+          },
+          "action": "adjust",
+          "message": "Output retention adjusted to policy maximum"
+        }
+      ],
+      "metadata": {
+        "owner": "data-governance-team",
+        "compliance_frameworks": ["GDPR", "SOC2"],
+        "review_date": "2025-12-21"
+      }
+    },
+    {
+      "policy_id": "pol-005",
+      "name": "Queue Management",
+      "description": "Policies for task queue management",
+      "category": "operational",
+      "enabled": true,
+      "severity": "medium",
+      "rules": [
+        {
+          "rule_id": "queue-001",
+          "description": "Maximum queue depth",
+          "condition": "queue.depth <= policy.max_queue_depth",
+          "params": {
+            "max_queue_depth": 100
+          },
+          "action": "backpressure",
+          "message": "Queue depth exceeded, applying backpressure"
+        },
+        {
+          "rule_id": "queue-002",
+          "description": "Task priority validation",
+          "condition": "task.priority >= 1 && task.priority <= 5",
+          "params": {
+            "min_priority": 1,
+            "max_priority": 5
+          },
+          "action": "adjust",
+          "message": "Task priority adjusted to valid range"
+        },
+        {
+          "rule_id": "queue-003",
+          "description": "Prevent duplicate tasks",
+          "condition": "!queue.contains(task.fingerprint)",
+          "params": {
+            "fingerprint_fields": ["task_type", "scope", "parameters"]
+          },
+          "action": "deduplicate",
+          "message": "Duplicate task detected and deduplicated"
+        }
+      ],
+      "metadata": {
+        "owner": "platform-team",
+        "compliance_frameworks": ["internal-governance"],
+        "review_date": "2025-12-21"
+      }
+    },
+    {
+      "policy_id": "pol-006",
+      "name": "Compliance Controls",
+      "description": "Framework-specific compliance controls",
+      "category": "compliance",
+      "enabled": true,
+      "severity": "critical",
+      "rules": [
+        {
+          "rule_id": "comp-001",
+          "description": "Audit trail requirement",
+          "condition": "task.audit_logging == true",
+          "params": {},
+          "action": "enable_audit",
+          "message": "Audit logging enabled for compliance"
+        },
+        {
+          "rule_id": "comp-002",
+          "description": "Approval workflow for sensitive operations",
+          "condition": "!task.requires_approval || task.approval_granted == true",
+          "params": {
+            "sensitive_operations": ["delete", "modify_policy", "export_data"]
+          },
+          "action": "require_approval",
+          "message": "Sensitive operation requires approval"
+        },
+        {
+          "rule_id": "comp-003",
+          "description": "Encryption requirement for data at rest",
+          "condition": "task.output_encrypted == true || !task.stores_data",
+          "params": {},
+          "action": "encrypt",
+          "message": "Data must be encrypted at rest"
+        }
+      ],
+      "metadata": {
+        "owner": "compliance-team",
+        "compliance_frameworks": ["SOC2", "NIST-CSF", "GDPR"],
+        "review_date": "2025-12-21"
+      }
+    }
+  ],
+  "actions": {
+    "reject": {
+      "description": "Reject the request entirely",
+      "severity": "blocking"
+    },
+    "adjust": {
+      "description": "Automatically adjust to comply with policy",
+      "severity": "non-blocking"
+    },
+    "warn": {
+      "description": "Log warning but allow to proceed",
+      "severity": "informational"
+    },
+    "alert": {
+      "description": "Create alert and allow to proceed",
+      "severity": "non-blocking"
+    },
+    "throttle": {
+      "description": "Apply rate limiting",
+      "severity": "non-blocking"
+    },
+    "backpressure": {
+      "description": "Apply backpressure to queue",
+      "severity": "non-blocking"
+    },
+    "require_approval": {
+      "description": "Route to approval workflow",
+      "severity": "blocking"
+    },
+    "encrypt": {
+      "description": "Apply encryption automatically",
+      "severity": "non-blocking"
+    },
+    "deduplicate": {
+      "description": "Merge with existing task",
+      "severity": "non-blocking"
+    },
+    "enable_audit": {
+      "description": "Enable audit logging",
+      "severity": "non-blocking"
+    }
+  },
+  "global_settings": {
+    "default_action_on_undefined": "warn",
+    "enable_policy_caching": true,
+    "cache_ttl_seconds": 300,
+    "log_all_evaluations": true,
+    "strict_mode": false
+  }
+}

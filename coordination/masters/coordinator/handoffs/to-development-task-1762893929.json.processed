@@ -1,0 +1,133 @@
+{
+  "handoff_id": "coord-to-development-6C1621F3-4179-436D-BABB-3D415CA9AF76",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762893929",
+  "task_data": {
+    "id": "task-1762893929",
+    "title": "Modernize Dashboard UI with Commit-Relay Specific Metrics",
+    "type": "feature",
+    "priority": "medium",
+    "status": "assigned",
+    "created_at": "2025-11-11T20:45:29Z",
+    "created_by": "user",
+    "context": {
+      "description": "Update dashboard look and feel to focus on commit-relay specific metrics and KPIs",
+      "requirements": [
+        "Keep dark/light mode toggle functionality",
+        "Remove generic metrics, focus only on commit-relay specific KPIs",
+        "Update main dashboard (overview) with relevant metrics:",
+        "  - Worker Pool Status (active/target/capacity)",
+        "  - MoE Routing Statistics (confidence, activation rates)",
+        "  - Task Queue Status (pending/running/completed)",
+        "  - Governance Health Score and Compliance Rate",
+        "  - Master Status (coordinator, development, security, inventory)",
+        "  - Recent Events Feed (last 10-20 events)",
+        "Keep and update API documentation page with current endpoints",
+        "Keep and update About page with current commit-relay version and features",
+        "Maintain existing Alpine.js/Tailwind architecture",
+        "Ensure responsive design works on all screen sizes"
+      ],
+      "pages_to_update": [
+        "Dashboard (overview) - lines 393-1802",
+        "Analytics (metrics) - lines 1803-2984  ",
+        "About page - lines 2985+",
+        "API documentation - check if exists or needs creation"
+      ],
+      "key_metrics_to_display": {
+        "worker_pool": [
+          "active_workers",
+          "target_workers",
+          "max_capacity",
+          "activation_rate"
+        ],
+        "moe_routing": [
+          "total_decisions",
+          "avg_confidence",
+          "routing_strategy_distribution"
+        ],
+        "task_queue": [
+          "pending_count",
+          "running_count",
+          "completed_count",
+          "failed_count"
+        ],
+        "governance": [
+          "health_score",
+          "compliance_rate",
+          "violations",
+          "security_incidents"
+        ],
+        "masters": [
+          "coordinator_status",
+          "development_status",
+          "security_status",
+          "inventory_status"
+        ],
+        "system": [
+          "uptime",
+          "dashboard_version",
+          "last_update"
+        ]
+      },
+      "api_endpoints_to_document": [
+        "/api/health",
+        "/api/tasks",
+        "/api/workers",
+        "/api/events",
+        "/api/metrics",
+        "/api/moe/routing",
+        "/api/moe/pool",
+        "/api/moe/learning",
+        "/api/governance/health",
+        "/api/governance/compliance"
+      ],
+      "about_page_content": {
+        "project_name": "Commit-Relay",
+        "version": "1.0.0",
+        "description": "AI-powered autonomous task execution system with MoE architecture",
+        "features": [
+          "Mixture of Experts (MoE) task routing",
+          "Sparse worker pool management (inspired by MoE parameter activation)",
+          "Automated governance with compliance monitoring",
+          "Master-worker coordination pattern",
+          "Real-time event streaming and metrics",
+          "Data lineage and audit trails"
+        ],
+        "architecture": "Coordinator Master → Specialist Masters (Development, Security, Inventory) → Workers"
+      }
+    },
+    "deliverables": [
+      "Updated dashboard/public/index.html with refined UI",
+      "Focused metrics displaying only commit-relay KPIs",
+      "Updated API documentation section",
+      "Updated About page with current version info",
+      "Maintained dark/light mode functionality",
+      "Responsive design validated"
+    ],
+    "metadata": {
+      "estimated_effort": "2-3 hours",
+      "complexity": "medium",
+      "automation_potential": "high",
+      "user_requested": true
+    },
+    "assigned_to": "development",
+    "assigned_by": "coordinator",
+    "assigned_at": "2025-11-11T14:45:40-0600",
+    "routing_confidence": "N/A",
+    "routing_strategy": "pattern-based",
+    "updated_at": "2025-11-11T14:45:40-06:00"
+  },
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "medium",
+    "expected_outcome": "Task completion with results handoff",
+    "moe_metadata": {
+      "confidence": "N/A",
+      "strategy": "pattern-based",
+      "routed_at": "2025-11-11T14:45:40-0600"
+    }
+  },
+  "created_at": "2025-11-11T14:45:40-0600",
+  "status": "pending_pickup"
+}

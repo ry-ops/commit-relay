@@ -1,0 +1,221 @@
+{
+  "schema_version": "1.0.0",
+  "registry_id": "commit-relay-agent-registry",
+  "created_at": "2025-11-20T00:00:00Z",
+  "updated_at": "2025-11-20T00:00:00Z",
+  "agents": {
+    "coordinator-master": {
+      "id": "coordinator-master",
+      "name": "Coordinator Master",
+      "type": "master",
+      "category": "orchestration",
+      "description": "Central orchestration master that routes tasks to appropriate masters using MoE intelligence",
+      "status": "active",
+      "version": "1.0.0",
+      "config": {
+        "context_dir": "coordination/masters/coordinator/context",
+        "knowledge_base": "coordination/masters/coordinator/knowledge-base",
+        "handoffs_dir": "coordination/masters/coordinator/handoffs",
+        "script": "scripts/run-coordinator-master.sh"
+      },
+      "capabilities": [
+        "task_routing",
+        "moe_intelligence",
+        "load_balancing",
+        "priority_management"
+      ],
+      "integrations": [
+        "development-master",
+        "security-master",
+        "inventory-master",
+        "cicd-master"
+      ],
+      "metrics": {
+        "avg_routing_time_ms": 50,
+        "routing_accuracy": 0.95,
+        "tasks_routed_today": 0
+      },
+      "created_at": "2025-11-20T00:00:00Z",
+      "updated_at": "2025-11-20T00:00:00Z"
+    },
+    "development-master": {
+      "id": "development-master",
+      "name": "Development Master",
+      "type": "master",
+      "category": "development",
+      "description": "Handles feature implementation, bug fixes, refactoring, and performance optimization",
+      "status": "active",
+      "version": "1.0.0",
+      "config": {
+        "context_dir": "coordination/masters/development/context",
+        "knowledge_base": "coordination/masters/development/knowledge-base",
+        "handoffs_dir": "coordination/masters/development/handoffs",
+        "script": "scripts/run-development-master.sh"
+      },
+      "capabilities": [
+        "feature_implementation",
+        "bug_fixing",
+        "code_refactoring",
+        "performance_optimization",
+        "technical_debt_management"
+      ],
+      "worker_types": [
+        "feature-implementer",
+        "bug-fixer",
+        "refactorer",
+        "optimizer"
+      ],
+      "integrations": [
+        "coordinator-master",
+        "security-master",
+        "cicd-master"
+      ],
+      "metrics": {
+        "avg_implementation_time_min": 45,
+        "success_rate": 0.92,
+        "code_quality_score": 0.88
+      },
+      "created_at": "2025-11-20T00:00:00Z",
+      "updated_at": "2025-11-20T00:00:00Z"
+    },
+    "security-master": {
+      "id": "security-master",
+      "name": "Security Master",
+      "type": "master",
+      "category": "security",
+      "description": "Manages security scanning, vulnerability detection, and security-aware development",
+      "status": "active",
+      "version": "1.0.0",
+      "config": {
+        "context_dir": "coordination/masters/security/context",
+        "knowledge_base": "coordination/masters/security/knowledge-base",
+        "handoffs_dir": "coordination/masters/security/handoffs",
+        "script": "scripts/run-security-master.sh"
+      },
+      "capabilities": [
+        "security_scanning",
+        "vulnerability_detection",
+        "compliance_checking",
+        "security_review",
+        "threat_modeling"
+      ],
+      "worker_types": [
+        "security-scanner",
+        "vulnerability-analyzer",
+        "compliance-checker"
+      ],
+      "integrations": [
+        "coordinator-master",
+        "development-master"
+      ],
+      "metrics": {
+        "vulnerabilities_detected": 0,
+        "scan_coverage": 0.95,
+        "false_positive_rate": 0.05
+      },
+      "created_at": "2025-11-20T00:00:00Z",
+      "updated_at": "2025-11-20T00:00:00Z"
+    },
+    "inventory-master": {
+      "id": "inventory-master",
+      "name": "Inventory Master",
+      "type": "master",
+      "category": "documentation",
+      "description": "Manages documentation, knowledge base updates, and codebase inventory",
+      "status": "active",
+      "version": "1.0.0",
+      "config": {
+        "context_dir": "coordination/masters/inventory/context",
+        "knowledge_base": "coordination/masters/inventory/knowledge-base",
+        "handoffs_dir": "coordination/masters/inventory/handoffs",
+        "script": "scripts/run-inventory-master.sh"
+      },
+      "capabilities": [
+        "documentation_management",
+        "knowledge_base_updates",
+        "codebase_inventory",
+        "api_documentation",
+        "architecture_docs"
+      ],
+      "worker_types": [
+        "documentation-writer",
+        "inventory-scanner",
+        "knowledge-curator"
+      ],
+      "integrations": [
+        "coordinator-master",
+        "development-master"
+      ],
+      "metrics": {
+        "docs_updated_today": 0,
+        "coverage_percent": 0.85,
+        "freshness_score": 0.90
+      },
+      "created_at": "2025-11-20T00:00:00Z",
+      "updated_at": "2025-11-20T00:00:00Z"
+    },
+    "cicd-master": {
+      "id": "cicd-master",
+      "name": "CI/CD Master",
+      "type": "master",
+      "category": "deployment",
+      "description": "Manages continuous integration, deployment, and dashboard updates",
+      "status": "active",
+      "version": "1.0.0",
+      "config": {
+        "context_dir": "coordination/masters/cicd/context",
+        "knowledge_base": "coordination/masters/cicd/knowledge-base",
+        "handoffs_dir": "coordination/masters/cicd/handoffs",
+        "script": "scripts/run-cicd-master.sh"
+      },
+      "capabilities": [
+        "ci_pipeline_management",
+        "deployment_automation",
+        "dashboard_updates",
+        "build_optimization",
+        "release_management"
+      ],
+      "worker_types": [
+        "build-worker",
+        "deploy-worker",
+        "dashboard-updater"
+      ],
+      "integrations": [
+        "coordinator-master",
+        "development-master"
+      ],
+      "metrics": {
+        "deployments_today": 0,
+        "build_success_rate": 0.98,
+        "avg_deploy_time_min": 5
+      },
+      "created_at": "2025-11-20T00:00:00Z",
+      "updated_at": "2025-11-20T00:00:00Z"
+    }
+  },
+  "agent_types": {
+    "master": {
+      "description": "High-level orchestration agents that coordinate workers",
+      "max_instances": 1,
+      "capabilities": ["worker_spawning", "task_coordination", "knowledge_management"]
+    },
+    "worker": {
+      "description": "Task execution agents spawned by masters",
+      "max_instances": 10,
+      "capabilities": ["task_execution", "reporting"]
+    },
+    "daemon": {
+      "description": "Background service agents for monitoring and maintenance",
+      "max_instances": 1,
+      "capabilities": ["monitoring", "alerting", "maintenance"]
+    }
+  },
+  "categories": [
+    "orchestration",
+    "development",
+    "security",
+    "documentation",
+    "deployment",
+    "monitoring"
+  ]
+}

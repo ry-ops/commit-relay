@@ -1,0 +1,32 @@
+{
+  "handoff_id": "coord-to-development-F8E269ED-17DC-4674-BD21-1F314C719F9A",
+  "from_master": "coordinator",
+  "to_master": "development",
+  "task_id": "task-1762342911",
+  "task_data": {
+  "id": "task-1762342911",
+  "title": "Fix worker-daemon.sh to skip launching workers with null/empty task_data. Worker dev-worker-72AA4077 is running with null task_data causing git conflicts. Add validation in daemon to check task_data is not null/empty before launching. Clean up this zombie worker spec.",
+  "type": "development",
+  "priority": "critical",
+  "status": "assigned",
+  "assigned_to": "development",
+  "created_at": "2025-11-05T16:33:29Z",
+  "created_by": "create-task-cli",
+  "context": {
+    "repository": "ry-ops/commit-relay",
+    "branch": "main",
+    "description": "Fix worker-daemon.sh to skip launching workers with null/empty task_data. Worker dev-worker-72AA4077 is running with null task_data causing git conflicts. Add validation in daemon to check task_data is not null/empty before launching. Clean up this zombie worker spec.",
+    "requirements": []
+  },
+  "assigned_by": "coordinator",
+  "assigned_at": "2025-11-05T16:34:22Z",
+  "updated_at": "2025-11-05T10:34:22-06:00"
+},
+  "context": {
+    "routing_reason": "Pattern-based routing via MoE",
+    "priority": "critical",
+    "expected_outcome": "Task completion with results handoff"
+  },
+  "created_at": "2025-11-05T16:34:22Z",
+  "status": "pending_pickup"
+}
