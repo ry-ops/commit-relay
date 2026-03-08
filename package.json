@@ -24,7 +24,7 @@
     "@opentelemetry/sdk-trace-node": "^2.2.0",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
-    "cors": "^2.8.5",
+    "cors": "^2.8.6",
     "express": "^5.1.0",
     "express-rate-limit": "^8.2.1",
     "helmet": "^8.1.0",
