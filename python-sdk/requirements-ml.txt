@@ -1,6 +1,6 @@
 # ML/AI Dependencies for Commit-Relay
 # PyTorch and Deep Learning
-torch==2.1.2
+torch>=2.6.0
 torchvision==0.16.2
 torchaudio==2.1.2
 transformers==4.36.2
@@ -11,7 +11,7 @@ accelerate==0.25.0
 langchain==0.1.0
 langchain-openai==0.0.2
 langchain-community==0.0.10
-langchain-core==0.1.10
+langchain-core>=0.3.81
 langsmith==0.0.77
 
 # Vector Stores and Embeddings
@@ -28,7 +28,7 @@ scipy==1.11.4
 
 # Model Training and Evaluation
 tensorboard==2.15.1
-mlflow==2.9.2
+mlflow>=2.10.0
 optuna==3.5.0
 wandb==0.16.2
 
