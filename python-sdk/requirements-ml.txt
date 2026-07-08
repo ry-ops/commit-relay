@@ -30,7 +30,7 @@ scipy==1.11.4
 tensorboard==2.15.1
 mlflow==2.9.2
 optuna==3.5.0
-wandb==0.16.2
+wandb==0.25.0
 
 # Utilities
 tqdm==4.66.1
