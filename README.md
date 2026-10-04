@@ -1,14 +1,17 @@
-<img src="https://github.com/ry-ops/commit-relay/blob/main/commit-relay.png" width="100%">
+<p align="center">
+  <img src="./docs/relay.svg" width="100%" alt="A task enters Commit-Relay; the Coordinator hands it to the MoE router, whose keywords pick the Security master; it spawns scan, fix and test workers, and a pull request comes out. Marked archived.">
+</p>
 
 # Commit-Relay
 
-**Multi-agent AI system for autonomous GitHub repository management.**
+**Multi-agent AI system for autonomous GitHub repository management. Archived, and kept for reference.**
 
 [![Status](https://img.shields.io/badge/Status-Archived-lightgrey)](https://github.com/ry-ops/commit-relay)
 [![Architecture](https://img.shields.io/badge/Architecture-Master--Worker-blue)](./docs/master-worker-architecture.md)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](./LICENSE)
 
-> **Note:** This project is archived and no longer in active development or production use. The codebase is preserved as-is for reference.
+> [!IMPORTANT]
+> **Archived.** Commit-Relay is no longer developed or run anywhere, and the code is kept as-is for reference. Its dependencies are **not maintained and have known vulnerabilities**, so read it, borrow ideas from it, but don't deploy it.
 
 ---
 
@@ -17,6 +20,18 @@
 Commit-Relay was an autonomous multi-agent platform that managed the entire GitHub repository lifecycle — from task routing to code implementation, security scanning, testing, and deployment — with zero manual intervention.
 
 Agents communicated through structured coordination files rather than direct API calls, creating a fully auditable, transparent orchestration system. A central Coordinator routed incoming tasks to specialized master agents using a Mixture of Experts (MoE) router, which then spawned lightweight workers to execute in parallel.
+
+---
+
+## Current state
+
+| | |
+|---|---|
+| **Status** | Archived: no development, no running deployment |
+| **Last functional change** | March 2026 (animated architecture docs); later commits are dependency and security housekeeping |
+| **Dependencies** | Unmaintained, with known vulnerabilities. Not safe to deploy as-is. |
+| **What's useful today** | The architecture: file-based agent coordination, MoE task routing, self-healing workers, and the multi-provider LLM gateway |
+| **Size** | About 2,300 files: coordination state and agent outputs, 200+ scripts, an Express API server, a Python SDK and an MCP server |
 
 ---
 
@@ -30,13 +45,13 @@ Agents communicated through structured coordination files rather than direct API
 
 | Component | Description |
 |-----------|-------------|
-| **5 Master Agents** | Coordinator, Development, Security, Inventory, CI/CD |
+| **Master Agents** | Five core masters (Coordinator, Development, Security, Inventory, CI/CD), plus Achievement and Aggregator |
 | **7 Worker Types** | Implementation, Fix, Test, Scan, Security Fix, Documentation, Analysis |
 | **8+ Autonomous Daemons** | Coordinator, Worker Manager, Process Monitor, Heartbeat, Zombie Cleanup, Worker Restart, Failure Detection, Auto-Fix |
 | **LLM Mesh Gateway** | Multi-provider support (Anthropic, OpenAI, Ollama) with circuit breakers, cost tracking, and automatic failover |
-| **MoE Router v4.0** | 350+ activation keywords, learned weights, semantic routing, 100% routing confidence |
+| **MoE Router v4.0** | Keyword activation with learned weights and semantic routing. The project's docs describe 350+ activation keywords. |
 | **RAG System** | FAISS vector store with 5 collections (code, docs, decisions, patterns, tasks) using sentence-transformers |
-| **API Server** | 128 REST endpoints, WebSocket streaming, rate limiting, authentication |
+| **API Server** | Express.js with 100+ REST endpoints, WebSocket streaming, rate limiting and authentication |
 | **MCP Server** | Model Context Protocol interface exposing system capabilities as tools |
 | **Python SDK** | Full client library with task orchestration, analytics, health monitoring, and reporting |
 | **Observability** | Elastic APM, LangSmith tracing, 27 event types, distributed tracing, anomaly detection |
@@ -96,14 +111,14 @@ Agents communicated through structured coordination files rather than direct API
 ```
 commit-relay/
 ├── agents/              # Agent configs, prompts, logs, worker outputs
-├── api-server/          # Express.js API server (128 endpoints)
+├── api-server/          # Express.js API server (100+ endpoints)
 ├── config/              # System configuration
 ├── coordination/        # File-based coordination (task queue, worker pool, handoffs)
 │   ├── masters/         # Master agent configurations and libraries
 │   ├── governance/      # Governance policies and audit logs
 │   ├── catalog/         # Data and AI catalog
 │   └── observability/   # Event streams and metrics
-├── docs/                # 40+ documentation files
+├── docs/                # 60+ documentation files and the diagrams on this page
 ├── examples/            # Usage examples
 ├── lib/                 # Shared libraries
 │   ├── cache/           # Adaptive LRU cache
@@ -113,7 +128,7 @@ commit-relay/
 ├── llm-mesh/            # Multi-provider LLM gateway
 ├── mcp-server/          # Model Context Protocol server
 ├── python-sdk/          # Python client library
-├── scripts/             # 117+ operational scripts
+├── scripts/             # 200+ operational scripts
 ├── security/            # Security scanning and CVE tracking
 └── testing/             # Test suites and test utilities
 ```
