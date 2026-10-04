@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" width="960" height="400" role="img" aria-labelledby="t d">
+  <title id="t">Commit-Relay: how a task was relayed through the agents (archived)</title>
+  <desc id="d">A task enters Commit-Relay. The Coordinator passes it to the Mixture-of-Experts router, whose keywords pick the Security master. The master spawns scan, fix and test workers, and the result comes out as a pull request. The project is archived and kept for reference.</desc>
+  <defs><linearGradient id="title" x1="0" x2="1"><stop offset="0" stop-color="#b58cff"/><stop offset=".5" stop-color="#ff5c8a"/><stop offset="1" stop-color="#ffb02e"/></linearGradient></defs>
+  <style>
+    text { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; fill: #e6ebf5; }
+    .muted { fill: #8b96ad; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    @keyframes task { 0%,1.67% { opacity: 0; transform: translateX(-20px); } 4.58%,95.00% { opacity: 1; transform: translateX(0); } 97.50%,100% { opacity: 0; } } .task { animation: task 12.0s infinite; }
+    @keyframes kw { 0%,18.33% { opacity: 0; } 21.25%,95.00% { opacity: 1; } 97.50%,100% { opacity: 0; } } .kw { animation: kw 12.0s infinite; }
+    @keyframes pick { 0%,28.33% { opacity: 0; } 31.25%,95.00% { opacity: 1; } 97.50%,100% { opacity: 0; } } .pick { animation: pick 12.0s infinite; }
+    @keyframes w0 { 0%,41.67% { opacity: 0; transform: translateY(-10px); } 44.58%,95.00% { opacity: 1; transform: translateY(0); } 97.50%,100% { opacity: 0; } } .w0 { animation: w0 12.0s infinite; }
+    @keyframes w1 { 0%,45.83% { opacity: 0; transform: translateY(-10px); } 48.75%,95.00% { opacity: 1; transform: translateY(0); } 97.50%,100% { opacity: 0; } } .w1 { animation: w1 12.0s infinite; }
+    @keyframes w2 { 0%,50.00% { opacity: 0; transform: translateY(-10px); } 52.92%,95.00% { opacity: 1; transform: translateY(0); } 97.50%,100% { opacity: 0; } } .w2 { animation: w2 12.0s infinite; }
+    @keyframes pr { 0%,71.67% { opacity: 0; transform: scale(.8); } 74.58%,95.00% { opacity: 1; transform: scale(1); } 97.50%,100% { opacity: 0; } } .pr { animation: pr 12.0s infinite; }
+    @keyframes b0 { 0%,10.00% { offset-distance: 0%; opacity: 0; } 10.42% { opacity: 1; } 18.33% { offset-distance: 100%; opacity: 1; } 19.17%,100% { offset-distance: 100%; opacity: 0; } } .b0 { animation: b0 12.0s infinite; offset-path: path('M230 230 L 300 230'); }
+    @keyframes b1 { 0%,23.33% { offset-distance: 0%; opacity: 0; } 23.75% { opacity: 1; } 31.67% { offset-distance: 100%; opacity: 1; } 32.50%,100% { offset-distance: 100%; opacity: 0; } } .b1 { animation: b1 12.0s infinite; offset-path: path('M410 230 L 480 230'); }
+    @keyframes b2 { 0%,33.33% { offset-distance: 0%; opacity: 0; } 33.75% { opacity: 1; } 41.67% { offset-distance: 100%; opacity: 1; } 42.50%,100% { offset-distance: 100%; opacity: 0; } } .b2 { animation: b2 12.0s infinite; offset-path: path('M590 230 C 620 230, 620 160, 650 160'); }
+    @keyframes b3 { 0%,66.67% { offset-distance: 0%; opacity: 0; } 67.08% { opacity: 1; } 75.00% { offset-distance: 100%; opacity: 1; } 75.83%,100% { offset-distance: 100%; opacity: 0; } } .b3 { animation: b3 12.0s infinite; offset-path: path('M760 230 L 800 230'); }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <rect width="960" height="400" rx="20" fill="#0f1420"/>
+  <text x="40" y="66" font-size="42" font-weight="800" style="fill:url(#title)">Commit-Relay</text>
+  <text x="42" y="96" font-size="16" class="muted">A multi-agent system that relayed GitHub work from task to pull request.</text>
+  <g transform="translate(790 46) rotate(-4)"><rect width="140" height="34" rx="6" fill="none" stroke="#8b96ad" stroke-width="2" stroke-dasharray="5 3"/><text x="70" y="23" text-anchor="middle" font-size="14" font-weight="800" letter-spacing=".15em" class="muted">ARCHIVED</text></g>
+
+  <g class="task"><rect x="40" y="200" width="190" height="60" rx="12" fill="#161d2b" stroke="#b58cff"/><text x="56" y="224" font-size="11" font-weight="700" class="muted" letter-spacing=".08em">TASK</text><text x="56" y="246" font-size="13">“Patch the open CVEs”</text></g>
+  <rect x="300" y="196" width="110" height="68" rx="14" fill="#1d2536" stroke="#b58cff" stroke-width="2"/><text x="355" y="226" text-anchor="middle" font-size="13" font-weight="800">Coordinator</text><text x="355" y="246" text-anchor="middle" font-size="10.5" class="muted">routes every task</text>
+  <rect x="480" y="196" width="110" height="104" rx="14" fill="#1d2536" stroke="#ff5c8a" stroke-width="2"/><text x="535" y="226" text-anchor="middle" font-size="13" font-weight="800">MoE router</text><text x="535" y="244" text-anchor="middle" font-size="10.5" class="muted">keyword routing</text>
+  <g class="kw"><text x="500" y="264" font-size="10" class="mono" style="fill:#ff9ab5">CVE</text><text x="546" y="264" font-size="10" class="mono" style="fill:#ff9ab5">scan</text><text x="500" y="278" font-size="10" class="mono" style="fill:#ff9ab5">patch</text><text x="546" y="278" font-size="10" class="mono" style="fill:#ff9ab5">secret</text><text x="500" y="292" font-size="10" class="mono" style="fill:#ff9ab5">vuln</text><text x="546" y="292" font-size="10" class="mono" style="fill:#ff9ab5">auth</text></g>
+  <text x="705" y="112" text-anchor="middle" font-size="11" font-weight="700" class="muted" letter-spacing=".1em">MASTER AGENTS</text>
+  <rect x="650" y="118" width="110" height="24" rx="8" fill="#161d2b" stroke="#2c3750"/><text x="705" y="134" text-anchor="middle" font-size="11.5" font-weight="400" class="muted">Development</text><rect x="650" y="148" width="110" height="24" rx="8" fill="#161d2b" stroke="#ff5c8a"/><text x="705" y="164" text-anchor="middle" font-size="11.5" font-weight="700" >Security</text><rect x="650" y="178" width="110" height="24" rx="8" fill="#161d2b" stroke="#2c3750"/><text x="705" y="194" text-anchor="middle" font-size="11.5" font-weight="400" class="muted">Inventory</text><rect x="650" y="208" width="110" height="24" rx="8" fill="#161d2b" stroke="#2c3750"/><text x="705" y="224" text-anchor="middle" font-size="11.5" font-weight="400" class="muted">CI/CD</text>
+  <g class="pick"><text x="770" y="164" font-size="12" style="fill:#ff9ab5">← picked</text></g>
+  <g class="w0"><rect x="648" y="262" width="34" height="30" rx="7" fill="#3ec7ff" fill-opacity=".15" stroke="#3ec7ff"/><text x="665" y="281" text-anchor="middle" font-size="10" class="mono" style="fill:#3ec7ff">scan</text></g><g class="w1"><rect x="688" y="262" width="34" height="30" rx="7" fill="#ffb02e" fill-opacity=".15" stroke="#ffb02e"/><text x="705" y="281" text-anchor="middle" font-size="10" class="mono" style="fill:#ffb02e">fix</text></g><g class="w2"><rect x="728" y="262" width="34" height="30" rx="7" fill="#3ddc84" fill-opacity=".15" stroke="#3ddc84"/><text x="745" y="281" text-anchor="middle" font-size="10" class="mono" style="fill:#3ddc84">test</text></g>
+  <text x="705" y="312" text-anchor="middle" font-size="10.5" class="muted">workers, spawned on demand</text>
+  <g class="pr"><rect x="800" y="200" width="130" height="60" rx="12" fill="#123322" stroke="#3ddc84"/><text x="865" y="226" text-anchor="middle" font-size="13" font-weight="800" style="fill:#9ff0c4">Pull request</text><text x="865" y="246" text-anchor="middle" font-size="11" class="muted">opened by the relay</text></g>
+  <path d="M230 230 L 300 230 M410 230 L 480 230 M760 230 L 800 230" stroke="#2c3750" stroke-width="2" stroke-dasharray="3 5"/>
+  <circle class="b0" r="6" fill="#b58cff"/><circle class="b1" r="6" fill="#ff5c8a"/><circle class="b2" r="6" fill="#ff5c8a"/><circle class="b3" r="6" fill="#3ddc84"/>
+  <text x="40" y="360" font-size="13" class="muted">Agents coordinated through files, not direct calls, so every handoff left an audit trail.</text>
+</svg>
