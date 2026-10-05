@@ -18,6 +18,9 @@ const { sanitizeFilename, validateId } = require('../lib/path-validator');
 // Import workflow engine
 const WorkflowEngine = require('../../../lib/orchestration/workflow-engine');
 
+// Import repository validator for security
+const repositoryValidator = require('../lib/repository-validator');
+
 // Initialize workflow engine
 const workflowEngine = new WorkflowEngine({
   workflowsDir: path.join(__dirname, '../../../coordination/workflows'),
@@ -370,6 +373,23 @@ router.post('/:name/execute', async (req, res) => {
       }
     }
 
+    // SECURITY: Validate repository URLs in workflow inputs
+    // This prevents authenticated callers from executing untrusted code
+    // by restricting repository sources to a configured allowlist
+    const repoValidation = repositoryValidator.validateWorkflowInputs(inputs);
+    if (!repoValidation.valid) {
+      console.warn(`⚠️  Workflow execution blocked - untrusted repository: ${req.ip} attempted to execute ${sanitizedName}`);
+      console.warn(`   Invalid fields: ${JSON.stringify(repoValidation.invalidFields)}`);
+      
+      return res.status(403).json({
+        success: false,
+        error: 'Untrusted repository source',
+        message: repoValidation.reason,
+        details: repoValidation.invalidFields,
+        help: 'Only repositories matching TRUSTED_REPOSITORY_PATTERNS environment variable are allowed. Contact your administrator to add trusted repositories.'
+      });
+    }
+
     // Check for async execution
     if (options.async) {
       // Start execution asynchronously
@@ -531,6 +551,35 @@ router.post('/:name/validate', async (req, res) => {
     res.status(400).json({
       success: false,
       error: 'Workflow validation failed',
+      message: error.message
+    });
+  }
+});
+
+/**
+ * GET /api/v1/workflows/security/repository-patterns
+ * Get configured trusted repository patterns (admin endpoint)
+ */
+router.get('/security/repository-patterns', async (req, res) => {
+  try {
+    const patterns = repositoryValidator.getTrustedPatterns();
+    
+    res.json({
+      success: true,
+      data: {
+        patterns: patterns,
+        count: patterns.length,
+        configured: patterns.length > 0,
+        warning: patterns.length === 0 
+          ? 'No trusted repository patterns configured. All repository-based workflows will be blocked.'
+          : null
+      }
+    });
+  } catch (error) {
+    console.error('Error getting repository patterns:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get repository patterns',
       message: error.message
     });
   }
