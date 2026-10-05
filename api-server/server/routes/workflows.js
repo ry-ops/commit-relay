@@ -14,6 +14,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const { sanitizeFilename, validateId } = require('../lib/path-validator');
+const { validateWorkflowInputs } = require('../lib/input-validator');
 
 // Import workflow engine
 const WorkflowEngine = require('../../../lib/orchestration/workflow-engine');
@@ -366,6 +367,17 @@ router.post('/:name/execute', async (req, res) => {
           success: false,
           error: 'Missing required inputs',
           message: `Required inputs not provided: ${missingInputs.join(', ')}`
+        });
+      }
+
+      // Validate input safety to prevent command injection
+      const validation = validateWorkflowInputs(inputs, workflow.inputs);
+      if (!validation.valid) {
+        return res.status(400).json({
+          success: false,
+          error: 'Invalid inputs',
+          message: 'Input validation failed',
+          details: validation.errors
         });
       }
     }
