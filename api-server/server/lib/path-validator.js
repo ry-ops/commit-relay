@@ -126,10 +126,113 @@ function validateDateString(dateStr) {
   return dateStr;
 }
 
+/**
+ * Validate a Git repository URL
+ * Allows HTTPS and SSH URLs with standard Git hosting patterns
+ * Rejects shell metacharacters that could enable command injection
+ * @param {string} url - The repository URL to validate
+ * @returns {string|null} - Validated URL or null if invalid
+ */
+function validateGitRepositoryUrl(url) {
+  if (!url || typeof url !== 'string') {
+    return null;
+  }
+
+  // Trim whitespace
+  const trimmed = url.trim();
+
+  // Reject empty strings
+  if (trimmed.length === 0) {
+    return null;
+  }
+
+  // Reject URLs that are too long (prevent DoS)
+  if (trimmed.length > 2048) {
+    return null;
+  }
+
+  // Reject shell metacharacters that could enable command injection
+  // This includes: ; & | ` $ ( ) < > \n \r \t and other control characters
+  if (/[;&|`$()<>\n\r\t\x00-\x1F\x7F]/.test(trimmed)) {
+    return null;
+  }
+
+  // Validate against common Git URL patterns
+  // HTTPS: https://github.com/user/repo.git or https://github.com/user/repo
+  // SSH: git@github.com:user/repo.git
+  // Also support other common Git hosting services
+  const httpsPattern = /^https:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\/[a-zA-Z0-9._\/-]+\.git$/;
+  const httpsPatternNoGit = /^https:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\/[a-zA-Z0-9._\/-]+$/;
+  const sshPattern = /^git@[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*:[a-zA-Z0-9._\/-]+\.git$/;
+
+  if (!httpsPattern.test(trimmed) && !httpsPatternNoGit.test(trimmed) && !sshPattern.test(trimmed)) {
+    return null;
+  }
+
+  return trimmed;
+}
+
+/**
+ * Validate a Git branch name
+ * Follows Git branch naming rules and rejects shell metacharacters
+ * @param {string} branch - The branch name to validate
+ * @returns {string|null} - Validated branch name or null if invalid
+ */
+function validateGitBranch(branch) {
+  if (!branch || typeof branch !== 'string') {
+    return null;
+  }
+
+  // Trim whitespace
+  const trimmed = branch.trim();
+
+  // Reject empty strings
+  if (trimmed.length === 0) {
+    return null;
+  }
+
+  // Reject branches that are too long
+  if (trimmed.length > 255) {
+    return null;
+  }
+
+  // Reject shell metacharacters that could enable command injection
+  if (/[;&|`$()<>\n\r\t\x00-\x1F\x7F]/.test(trimmed)) {
+    return null;
+  }
+
+  // Git branch naming rules:
+  // - Cannot start with a dot or hyphen
+  // - Cannot contain: .. ~^ : ? * [ \ (space) @{ (consecutive)
+  // - Cannot end with .lock or /
+  // - Cannot be empty
+  // Allow: alphanumeric, forward slash, hyphen, underscore, dot (not at start/end)
+  if (/^[.-]/.test(trimmed)) {
+    return null;
+  }
+
+  if (/\.lock$|[\/]$/.test(trimmed)) {
+    return null;
+  }
+
+  if (/\.\.|\~|\^|:|\?|\*|\[|\\|\s|@\{/.test(trimmed)) {
+    return null;
+  }
+
+  // Only allow safe characters: alphanumeric, /, -, _, .
+  if (!/^[a-zA-Z0-9\/._-]+$/.test(trimmed)) {
+    return null;
+  }
+
+  return trimmed;
+}
+
 module.exports = {
   sanitizeFilename,
   isPathWithinDirectory,
   safeJoin,
   validateId,
-  validateDateString
+  validateDateString,
+  validateGitRepositoryUrl,
+  validateGitBranch
 };
