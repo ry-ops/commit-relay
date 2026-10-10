@@ -18,7 +18,7 @@ langsmith==0.0.77
 chromadb==0.4.22
 faiss-cpu==1.7.4
 tiktoken==0.5.2
-openai==1.7.1
+openai==2.26.0
 
 # Data Processing
 numpy==1.26.3
