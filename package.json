@@ -30,7 +30,7 @@
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "minisearch": "^7.1.0",
-    "openai": "^4.73.0",
+    "openai": "^6.34.0",
     "postman-cli": "^1.24.2",
     "tiktoken": "^1.0.17"
   },
