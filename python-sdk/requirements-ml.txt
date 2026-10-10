@@ -1,7 +1,7 @@
 # ML/AI Dependencies for Commit-Relay
 # PyTorch and Deep Learning
 torch==2.1.2
-torchvision==0.16.2
+torchvision==0.25.0
 torchaudio==2.1.2
 transformers==4.36.2
 sentence-transformers==2.3.1
