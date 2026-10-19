@@ -29,7 +29,7 @@ scipy==1.11.4
 # Model Training and Evaluation
 tensorboard==2.15.1
 mlflow==3.16.0
-optuna==3.5.0
+optuna==5.0.0
 wandb==0.16.2
 
 # Utilities
