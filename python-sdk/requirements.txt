@@ -8,7 +8,7 @@ seaborn>=0.12.0
 
 # Optional dependencies for enhanced features
 openpyxl>=3.0.0  # For Excel export
-jupyter>=1.0.0   # For Jupyter notebooks
+jupyter>=1.1.1   # For Jupyter notebooks
 ipykernel>=6.0.0 # Jupyter kernel
 
 # Integration dependencies
