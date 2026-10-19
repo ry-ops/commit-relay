@@ -13,7 +13,12 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const { sanitizeFilename, validateId } = require('../lib/path-validator');
+const { 
+  sanitizeFilename, 
+  validateId, 
+  validateGitRepositoryUrl, 
+  validateGitBranch 
+} = require('../lib/path-validator');
 
 // Import workflow engine
 const WorkflowEngine = require('../../../lib/orchestration/workflow-engine');
@@ -355,9 +360,49 @@ router.post('/:name/execute', async (req, res) => {
     const workflow = workflowEngine.getWorkflow(sanitizedName);
     if (workflow.inputs) {
       const missingInputs = [];
+      const invalidInputs = [];
+      
       for (const [key, config] of Object.entries(workflow.inputs)) {
         if (config.required && inputs[key] === undefined) {
           missingInputs.push(key);
+        }
+        
+        // Validate input types and constraints to prevent command injection
+        if (inputs[key] !== undefined) {
+          const value = inputs[key];
+          
+          // Type validation based on workflow input configuration
+          if (config.type === 'string' && typeof value !== 'string') {
+            invalidInputs.push(`${key} (expected string, got ${typeof value})`);
+            continue;
+          }
+          
+          // Security validation for Git-related inputs that may be used in shell commands
+          // This prevents command injection through repository URLs and branch names
+          if (key === 'repository_url' || key === 'repository' || key.includes('repo')) {
+            const validated = validateGitRepositoryUrl(value);
+            if (validated === null) {
+              invalidInputs.push(`${key} (invalid or unsafe repository URL format)`);
+            } else {
+              // Replace with validated value to ensure consistency
+              inputs[key] = validated;
+            }
+          } else if (key === 'branch' || key.includes('branch')) {
+            const validated = validateGitBranch(value);
+            if (validated === null) {
+              invalidInputs.push(`${key} (invalid or unsafe branch name format)`);
+            } else {
+              // Replace with validated value to ensure consistency
+              inputs[key] = validated;
+            }
+          }
+          
+          // Validate enum constraints if specified
+          if (config.enum && Array.isArray(config.enum)) {
+            if (!config.enum.includes(value)) {
+              invalidInputs.push(`${key} (must be one of: ${config.enum.join(', ')})`);
+            }
+          }
         }
       }
 
@@ -366,6 +411,15 @@ router.post('/:name/execute', async (req, res) => {
           success: false,
           error: 'Missing required inputs',
           message: `Required inputs not provided: ${missingInputs.join(', ')}`
+        });
+      }
+      
+      if (invalidInputs.length > 0) {
+        return res.status(400).json({
+          success: false,
+          error: 'Invalid input values',
+          message: `Invalid inputs: ${invalidInputs.join(', ')}`,
+          details: 'Input values must conform to expected types and security constraints'
         });
       }
     }
